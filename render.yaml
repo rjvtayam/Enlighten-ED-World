@@ -7,8 +7,8 @@ services:
       # Add any frontend build steps here if needed
     startCommand: |
       cd server
-      flask db upgrade
-      gunicorn "app:create_app('production')" --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --log-level debug
+      python -m flask db upgrade
+      PYTHONPATH=$PYTHONPATH:. gunicorn "app:create_app('production')" --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --log-level debug
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
