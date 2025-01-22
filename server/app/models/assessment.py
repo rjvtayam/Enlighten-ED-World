@@ -4,9 +4,9 @@ from enum import Enum
 
 class CategoryType(str, Enum):
     TECHNICAL = "technical"
-    SOFT_SKILLS = "soft_skills"
-    DOMAIN = "domain"
-    TOOLS = "tools"
+    COMMUNICATION = "communication"
+    SOFT = "soft"
+    CREATIVITY = "creativity"
 
 class SkillLevel(str, Enum):
     BEGINNER = "beginner"
