@@ -78,6 +78,7 @@ coverage/
 *.h5
 *.model
 models/
+!server/app/models/
 
 # Redis
 *.rdb
