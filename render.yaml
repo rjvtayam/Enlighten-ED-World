@@ -2,7 +2,7 @@ services:
   - type: web
     name: enlighten-ed-world
     env: python
-    rootDir: server
+    workingDirectory: server
     buildCommand: |
       pip install -r requirements.txt
       # Add any frontend build steps here if needed
