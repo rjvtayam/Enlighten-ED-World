@@ -1,5 +1,25 @@
 from app.extensions import db
 from datetime import datetime
+from enum import Enum
+
+class CategoryType(str, Enum):
+    TECHNICAL = "technical"
+    SOFT_SKILLS = "soft_skills"
+    DOMAIN = "domain"
+    TOOLS = "tools"
+
+class SkillLevel(str, Enum):
+    BEGINNER = "beginner"
+    INTERMEDIATE = "intermediate"
+    ADVANCED = "advanced"
+    EXPERT = "expert"
+
+class ProgramType(str, Enum):
+    WMAD = "wmad"
+    BIA = "bia"
+    DM = "dm"
+    ISM = "ism"
+    SMP = "smp"
 
 class Assessment(db.Model):
     __tablename__ = 'assessments'
