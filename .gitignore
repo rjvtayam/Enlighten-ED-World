@@ -30,7 +30,8 @@ instance/
 flask_session/
 
 # SQLAlchemy
-migrations/versions/
+migrations/versions/*
+!migrations/versions/.gitkeep
 
 # Virtual Environment
 venv/
