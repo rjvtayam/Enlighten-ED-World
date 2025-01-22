@@ -32,9 +32,13 @@ class Config:
     SQLALCHEMY_DATABASE_URI = get_database_url()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_size': 10,
+        'pool_size': 5,
         'pool_timeout': 30,
         'pool_recycle': 1800,
+        'connect_args': {
+            'sslmode': 'require',
+            'connect_timeout': 10
+        }
     }
     
     # Email Configuration
