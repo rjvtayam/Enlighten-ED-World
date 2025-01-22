@@ -15,13 +15,14 @@ load_dotenv()
 
 def create_app(config_name='default'):
     # Get root path from environment or use current directory
-    root_path = os.getenv('ROOT_PATH', os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = os.getenv('ROOT_PATH', os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     server_path = os.path.join(root_path, 'server')
     client_path = os.path.join(root_path, 'client')
     
-    app = Flask(__name__, 
-        template_folder=os.path.join(client_path, 'src', 'pages'),
-        static_folder=os.path.join(client_path, 'src'),
+    app = Flask(
+        __name__,
+        template_folder=os.path.join(root_path, 'client', 'src', 'pages'),
+        static_folder=os.path.join(root_path, 'client', 'src'),
         static_url_path=''
     )
     
