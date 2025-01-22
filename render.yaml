@@ -2,11 +2,11 @@ services:
   - type: web
     name: enlighten-ed-world
     env: python
+    rootDir: server
     buildCommand: |
-      pip install -r server/requirements.txt
+      pip install -r requirements.txt
       # Add any frontend build steps here if needed
     startCommand: |
-      cd server
       python -m flask db upgrade
       PYTHONPATH=$PYTHONPATH:. gunicorn "app:create_app('production')" --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --log-level debug
     envVars:
