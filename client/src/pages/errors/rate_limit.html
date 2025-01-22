@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Rate Limit Exceeded{% endblock %}
+
+{% block content %}
+<div class="container error-page rate-limit-page">
+    <div class="error-content">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h1>Too Many Requests</h1>
+        <p>You've exceeded the maximum number of requests. Please wait a moment and try again.</p>
+        
+        <div class="error-details">
+            <h3>What happened?</h3>
+            <p>To protect our system from potential abuse, we limit the number of requests from a single IP address.</p>
+            
+            <h3>What can you do?</h3>
+            <ul>
+                <li>Wait a few minutes before trying again</li>
+                <li>Check your internet connection</li>
+                <li>Ensure you're not running multiple simultaneous requests</li>
+            </ul>
+        </div>
+        
+        <div class="error-actions">
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary">Return to Home</a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Go to Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.rate-limit-page {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+}
+
+.error-content {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+.error-details {
+    margin-top: 30px;
+    text-align: left;
+    background-color: #f1f3f5;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.error-details ul {
+    padding-left: 20px;
+}
+
+.error-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+</style>
+{% endblock %}

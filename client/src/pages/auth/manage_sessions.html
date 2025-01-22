@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Active Sessions - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="sessions-card">
+        <div class="sessions-header">
+            <h2>Manage Active Sessions</h2>
+            <p>View and manage your active sessions across different devices</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="sessions-list">
+            {% if sessions %}
+                <div class="session-controls">
+                    <a href="{{ url_for('terminate_all_sessions') }}" class="btn btn-warning" 
+                       onclick="return confirm('Are you sure you want to terminate all other sessions?')">
+                        Terminate All Other Sessions
+                    </a>
+                </div>
+
+                {% for session in sessions %}
+                    <div class="session-item {% if session.session_id == session['session_id'] %}current-session{% endif %}">
+                        <div class="session-info">
+                            <div class="session-device">
+                                <i class="fas {% if 'Mobile' in session.user_agent %}fa-mobile-alt{% else %}fa-laptop{% endif %}"></i>
+                                <span>{{ 'Current Session' if session.session_id == session['session_id'] else 'Other Device' }}</span>
+                            </div>
+                            <div class="session-details">
+                                <p><strong>IP Address:</strong> {{ session.ip_address }}</p>
+                                <p><strong>Last Activity:</strong> {{ session.last_activity.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                                <p><strong>Created:</strong> {{ session.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                            </div>
+                        </div>
+                        {% if session.session_id != session['session_id'] %}
+                            <div class="session-actions">
+                                <a href="{{ url_for('terminate_session', session_id=session.session_id) }}" 
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Are you sure you want to terminate this session?')">
+                                    Terminate Session
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-sessions">
+                    <p>No active sessions found.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.sessions-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.sessions-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sessions-header h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.sessions-header p {
+    color: #666;
+}
+
+.session-controls {
+    margin-bottom: 1.5rem;
+    text-align: right;
+}
+
+.session-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.current-session {
+    background-color: #f8f9fa;
+    border-color: #007bff;
+}
+
+.session-device {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.session-device i {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    color: #007bff;
+}
+
+.session-details p {
+    margin: 0.25rem 0;
+    color: #666;
+}
+
+.session-actions {
+    margin-left: 1rem;
+}
+
+.no-sessions {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+</style>
+{% endblock %}

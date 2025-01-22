@@ -1,0 +1,394 @@
+from flask import Blueprint, jsonify, request, current_app, render_template, redirect, url_for, flash
+from flask_login import login_required, current_user
+from app.extensions import db, csrf
+from app.models.assessment import Assessment, AssessmentCategory, AssessmentSkill, CategoryType, SkillLevel, ProgramType
+from app.utils.skill_assessment import SkillAssessment
+from datetime import datetime
+from sqlalchemy.exc import SQLAlchemyError
+from http import HTTPStatus
+from typing import Dict, Any, List, Optional
+from flask_wtf import FlaskForm
+from dateutil import parser
+from datetime import date
+
+assessment = Blueprint('assessment', __name__, url_prefix='/assessment')
+skill_assessor = SkillAssessment()
+
+class AssessmentForm(FlaskForm):
+    """Form for the initial assessment"""
+    class Meta:
+        csrf = True  # Enable CSRF protection
+
+def has_completed_assessment():
+    """Check if user has completed an assessment"""
+    if not current_user.is_authenticated:
+        return False
+        
+    assessment = Assessment.query.filter_by(
+        user_id=current_user.id,
+        is_completed=True
+    ).first()
+    return assessment is not None
+
+@assessment.route('/initial_assessment', methods=['GET'])
+@login_required
+def initial_assessment():
+    """Show initial assessment form"""
+    if has_completed_assessment():
+        if request.referrer and 'login' not in request.referrer and 'oauth' not in request.referrer:
+            flash('You have already completed your initial assessment.', 'info')
+        return redirect(url_for('main.index'))
+    
+    form = AssessmentForm()
+    return render_template('assessment/initial_assessment.html', form=form)
+
+@assessment.route('/submit_assessment', methods=['POST'])
+@login_required
+def submit_assessment():
+    try:
+        # Log request info for debugging
+        current_app.logger.info("=== Assessment Submission Start ===")
+        current_app.logger.info(f"User ID: {current_user.id}")
+        current_app.logger.info(f"Content Type: {request.content_type}")
+        current_app.logger.info(f"Headers: {dict(request.headers)}")
+        
+        # Get form data
+        program = request.form.get('program')
+        major = request.form.get('major')
+        
+        current_app.logger.info(f"Form data: {request.form.to_dict()}")
+        current_app.logger.info(f"Program: {program}")
+        current_app.logger.info(f"Major: {major}")
+        
+        # Validate required fields
+        if not program or not major:
+            current_app.logger.error(f"Missing required fields - Program: {program}, Major: {major}")
+            return jsonify({'error': 'Program and major are required'}), HTTPStatus.BAD_REQUEST
+        
+        # Validate program type
+        try:
+            program = program.lower() if program else None  # Convert to lowercase
+            if not program:
+                raise ValueError("Program is required")
+            
+            program_type = ProgramType[program.upper()]  # Use uppercase for enum lookup
+            if not program_type:
+                raise ValueError(f"Invalid program type: {program}")
+            current_app.logger.info(f"Program type validated: {program_type.value}")
+
+            # Collect skill scores
+            scores = {}
+            for category in ['technical', 'communication', 'soft', 'creativity']:
+                category_scores = []
+                for i in range(1, 4):
+                    score = request.form.get(f'skill_{category}_{i}')
+                    if not score:
+                        raise ValueError(f"Missing score for {category} skill {i}")
+                    score = int(score)
+                    if score < 1 or score > 3:
+                        raise ValueError(f"Score {score} out of range (1-3)")
+                    category_scores.append(score)
+                scores[category] = category_scores
+
+            # Initialize skill assessment and analyze
+            skill_assessment = SkillAssessment()
+            analysis_results = skill_assessment.analyze_skills(scores)
+
+            # Create assessment
+            assessment = Assessment(
+                user_id=current_user.id,
+                program=program_type.value,  # Use value directly, already lowercase
+                major=major,
+                assessment_date=date.today(),
+                is_completed=True,
+                skill_technical_1=scores['technical'][0],
+                skill_technical_2=scores['technical'][1],
+                skill_technical_3=scores['technical'][2],
+                skill_communication_1=scores['communication'][0],
+                skill_communication_2=scores['communication'][1],
+                skill_communication_3=scores['communication'][2],
+                skill_soft_1=scores['soft'][0],
+                skill_soft_2=scores['soft'][1],
+                skill_soft_3=scores['soft'][2],
+                skill_creativity_1=scores['creativity'][0],
+                skill_creativity_2=scores['creativity'][1],
+                skill_creativity_3=scores['creativity'][2]
+            )
+
+            # Process categories and recommendations
+            for category_name, result in analysis_results.items():
+                category = AssessmentCategory(
+                    category_name=category_name,
+                    score=sum(scores[category_name.lower()]) / len(scores[category_name.lower()]),
+                    level=result['level']
+                )
+                
+                # Add skills to category
+                for i, score in enumerate(scores[category_name.lower()], 1):
+                    skill = AssessmentSkill(
+                        skill_name=f"{category_name}_skill_{i}",
+                        score=score,
+                        description=f"Skill {i} for {category_name}"
+                    )
+                    category.skills.append(skill)
+                
+                assessment.categories.append(category)
+            
+            # Save to database
+            db.session.add(assessment)
+            db.session.commit()
+            current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
+            
+            # Prepare response
+            results = {
+                'overall_score': sum(sum(scores.values(), [])) / (len(scores) * 3),
+                'category_scores': {
+                    category: sum(scores[category]) / len(scores[category])
+                    for category in scores
+                },
+                'assessment_id': assessment.id,
+                'analysis': analysis_results
+            }
+            
+            current_app.logger.info("=== Assessment Submission Complete ===")
+            current_app.logger.info(f"Results: {results}")
+            
+            response = jsonify({
+                'success': True,
+                'results': results,
+                'message': 'Assessment submitted successfully'
+            })
+            
+            # Set CORS headers
+            response.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
+            response.headers['Access-Control-Allow-Credentials'] = 'true'
+            response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-CSRFToken'
+            
+            return response
+            
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database error: {str(e)}")
+            current_app.logger.exception("Full traceback:")
+            return jsonify({
+                'error': 'Failed to save assessment',
+                'details': str(e),
+                'traceback': str(e.__traceback__)
+            }), HTTPStatus.INTERNAL_SERVER_ERROR
+            
+    except Exception as e:
+        current_app.logger.error(f"Error in submit_assessment: {str(e)}")
+        current_app.logger.exception("Full traceback:")
+        return jsonify({
+            'error': str(e),
+            'details': str(e.__dict__) if hasattr(e, '__dict__') else None
+        }), HTTPStatus.BAD_REQUEST
+
+@assessment.route('/results')
+@login_required
+def assessment_results():
+    """Show assessment results"""
+    try:
+        latest_assessment = Assessment.query.filter_by(
+            user_id=current_user.id,
+            is_completed=True
+        ).order_by(Assessment.created_at.desc()).first()
+        
+        if not latest_assessment:
+            flash('No assessment found.', 'error')
+            return redirect(url_for('assessment.initial_assessment'))
+            
+        return render_template('assessment/assessment_results.html', 
+                             assessment=latest_assessment.to_dict())
+                             
+    except Exception as e:
+        current_app.logger.error(f'Error retrieving assessment results: {str(e)}')
+        flash('Error retrieving assessment results.', 'error')
+        return redirect(url_for('main.index'))
+
+# API Endpoints
+@assessment.route('/', methods=['POST'])
+def create_assessment():
+    """Create a new assessment"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        required_fields = ['user_id', 'program', 'major']
+        if not all(field in data for field in required_fields):
+            return jsonify({'error': 'Missing required fields'}), HTTPStatus.BAD_REQUEST
+        
+        # Validate program type
+        try:
+            program = data['program'].lower() if data['program'] else None  # Convert to lowercase
+            if not program:
+                raise ValueError("Program is required")
+            
+            program_type = ProgramType[program.upper()]  # Use uppercase for enum lookup
+            if not program_type:
+                raise ValueError(f"Invalid program type: {program}")
+            current_app.logger.info(f"Program type validated: {program_type.value}")  # Use .value to get lowercase
+            
+            # Create assessment
+            assessment = Assessment(
+                user_id=data['user_id'],
+                program=program_type.value,  # Use value directly, already lowercase
+                major=data['major'],
+                assessment_date=datetime.utcnow().date()
+            )
+            
+            # Process categories and skills
+            if 'categories' in data:
+                for category_data in data['categories']:
+                    category = AssessmentCategory(
+                        category_name=category_data['name'],
+                        weight=category_data.get('weight', 1.0)
+                    )
+                    
+                    # Process skills for this category
+                    if 'skills' in category_data:
+                        skills_data = {}
+                        for skill_data in category_data['skills']:
+                            skill = AssessmentSkill(
+                                skill_name=skill_data['name'],
+                                score=skill_data['score'],
+                                description=skill_data.get('description')
+                            )
+                            category.skills.append(skill)
+                            skills_data[skill.skill_name] = skill.score
+                        
+                        # Calculate category score and level
+                        category.score = category.calculate_score()
+                        category.level = category.determine_level()
+                    
+                    assessment.categories.append(category)
+            
+            # Calculate overall assessment metrics
+            assessment.overall_score = assessment.calculate_overall_score()
+            assessment.overall_level = assessment.calculate_overall_level()
+            
+            # Get learning recommendations
+            skills_by_category = {
+                CategoryType(cat.category_name): {
+                    skill.skill_name: skill.score for skill in cat.skills
+                }
+                for cat in assessment.categories
+            }
+            
+            recommendations = skill_assessor.analyze_skills(skills_by_category)
+            assessment.recommended_courses = recommendations
+            
+            # Save to database
+            db.session.add(assessment)
+            db.session.commit()
+            
+            return jsonify(assessment.to_dict()), HTTPStatus.CREATED
+            
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database error: {str(e)}")
+            return jsonify({'error': 'Database error occurred'}), HTTPStatus.INTERNAL_SERVER_ERROR
+    except Exception as e:
+        current_app.logger.error(f"Error creating assessment: {str(e)}")
+        return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+@assessment.route('/<int:assessment_id>', methods=['GET'])
+def get_assessment(assessment_id: int):
+    """Get assessment by ID"""
+    try:
+        assessment = Assessment.query.get_or_404(assessment_id)
+        return jsonify(assessment.to_dict()), HTTPStatus.OK
+    except Exception as e:
+        current_app.logger.error(f"Error retrieving assessment: {str(e)}")
+        return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+@assessment.route('/<int:assessment_id>', methods=['PUT'])
+def update_assessment(assessment_id: int):
+    """Update assessment"""
+    try:
+        assessment = Assessment.query.get_or_404(assessment_id)
+        data = request.get_json()
+        
+        # Update basic fields
+        for field in ['program', 'major']:
+            if field in data:
+                setattr(assessment, field, data[field])
+        
+        # Update categories and skills
+        if 'categories' in data:
+            # Remove existing categories
+            for category in assessment.categories:
+                db.session.delete(category)
+            
+            # Add new categories
+            for category_data in data['categories']:
+                category = AssessmentCategory(
+                    category_name=category_data['name'],
+                    weight=category_data.get('weight', 1.0)
+                )
+                
+                if 'skills' in category_data:
+                    skills_data = {}
+                    for skill_data in category_data['skills']:
+                        skill = AssessmentSkill(
+                            skill_name=skill_data['name'],
+                            score=skill_data['score'],
+                            description=skill_data.get('description')
+                        )
+                        category.skills.append(skill)
+                        skills_data[skill.skill_name] = skill.score
+                    
+                    category.score = category.calculate_score()
+                    category.level = category.determine_level()
+                
+                assessment.categories.append(category)
+            
+            # Recalculate overall metrics
+            assessment.overall_score = assessment.calculate_overall_score()
+            assessment.overall_level = assessment.calculate_overall_level()
+            
+            # Update recommendations
+            skills_by_category = {
+                CategoryType(cat.category_name): {
+                    skill.skill_name: skill.score for skill in cat.skills
+                }
+                for cat in assessment.categories
+            }
+            assessment.recommended_courses = skill_assessor.analyze_skills(skills_by_category)
+        
+        assessment.updated_at = datetime.utcnow()
+        db.session.commit()
+        
+        return jsonify(assessment.to_dict()), HTTPStatus.OK
+        
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        current_app.logger.error(f"Database error: {str(e)}")
+        return jsonify({'error': 'Database error occurred'}), HTTPStatus.INTERNAL_SERVER_ERROR
+    except Exception as e:
+        current_app.logger.error(f"Error updating assessment: {str(e)}")
+        return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+@assessment.route('/<int:assessment_id>', methods=['DELETE'])
+def delete_assessment(assessment_id: int):
+    """Delete assessment"""
+    try:
+        assessment = Assessment.query.get_or_404(assessment_id)
+        db.session.delete(assessment)
+        db.session.commit()
+        return '', HTTPStatus.NO_CONTENT
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Error deleting assessment: {str(e)}")
+        return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+@assessment.route('/user/<int:user_id>', methods=['GET'])
+def get_user_assessments(user_id: int):
+    """Get all assessments for a user"""
+    try:
+        assessments = Assessment.query.filter_by(user_id=user_id).all()
+        return jsonify([assessment.to_dict() for assessment in assessments]), HTTPStatus.OK
+    except Exception as e:
+        current_app.logger.error(f"Error retrieving user assessments: {str(e)}")
+        return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR

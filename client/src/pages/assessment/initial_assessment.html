@@ -1,0 +1,502 @@
+{% extends "base.html" %}
+
+{% block title %}Initial Skills Assessment{% endblock %}
+
+{% block content %}
+<div class="assessment-container">
+    <!-- Assessment Form Section -->
+    <div id="assessmentFormSection">
+        <div class="assessment-header">
+            <h1>Welcome to Enlighten ED!</h1>
+            <p class="welcome-text">Let's start by understanding your current skills to provide you with a personalized learning experience.</p>
+            
+            <div class="assessment-info">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <span>Takes about 3-5 minutes</span>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-bullseye"></i>
+                    <span>Personalized recommendations</span>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Identify areas for improvement</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+            </div>
+        </div>
+
+        <form id="skillsAssessmentForm" method="POST" action="{{ url_for('assessment.submit_assessment') }}">
+            {{ form.csrf_token }}
+            <input type="hidden" name="selected_program" id="selectedProgram">
+            
+            <!-- Program Selection -->
+            <div class="program-selection">
+                <h2>Select Your Program</h2>
+                <p class="category-description">Choose the program you're interested in:</p>
+                
+                <div class="program-options">
+                    <div class="form-group">
+                        <select id="programSelect" name="program" class="form-control" required>
+                            <option value="">Select your program</option>
+                            <option value="bsit">Bachelor of Science in Information Technology (BSIT)</option>
+                            <option value="bscs">Bachelor of Science in Computer Science (BSCS)</option>
+                            <option value="bsis">Bachelor of Science in Information Systems (BSIS)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="majorGroup" style="display: none;">
+                        <label for="major">Major:</label>
+                        <select id="major" name="major" class="form-control">
+                            <option value="">Select your major</option>
+                            <!-- BSIT Majors -->
+                            <optgroup label="BSIT Majors" class="bsit-majors">
+                                <option value="WMAD">Web and Mobile Application Development</option>
+                                <option value="AMG">Animation and Motion Graphics</option>
+                                <option value="NETWORKING">Networking</option>
+                                <option value="SMP">Service Management Program</option>
+                            </optgroup>
+                            <!-- BSCS Majors -->
+                            <optgroup label="BSCS Majors" class="bscs-majors">
+                                <option value="GRAPHICS">Graphics and Visualizations</option>
+                                <option value="INTELLIGENT_SYSTEMS">Intelligent Systems</option>
+                            </optgroup>
+                            <!-- BSIS Majors -->
+                            <optgroup label="BSIS Majors" class="bsis-majors">
+                                <option value="BUSINESS_ANALYTICS">Business Analytics</option>
+                                <option value="ENTERPRISE_SYSTEMS">Enterprise Systems</option>
+                                <option value="IS_SECURITY">Information Systems Security</option>
+                                <option value="DATA_MANAGEMENT">Data Management</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="skill-category active" data-category="1" data-category-name="technical">
+                <h2>Technical Skills</h2>
+                <p class="category-description">Rate your proficiency in the following technical skills:</p>
+                
+                <div class="skill-item">
+                    <label>Problem Solving</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_1" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic understanding</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_1" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Good working knowledge</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_1" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert level proficiency</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Algorithm Design</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_2" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic understanding</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_2" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Good working knowledge</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_2" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert level proficiency</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>System Architecture</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_3" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic understanding</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_3" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Good working knowledge</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_technical_3" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert level proficiency</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Skills -->
+            <div class="skill-category" data-category="2" data-category-name="communication">
+                <h2>Communication Skills</h2>
+                <p class="category-description">Rate your proficiency in the following communication skills:</p>
+                
+                <div class="skill-item">
+                    <label>Written Communication</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_1" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic writing skills</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_1" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Clear and effective writing</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_1" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert level writing</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Verbal Communication</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_2" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic speaking skills</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_2" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Clear and effective speaking</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_2" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert level speaking</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Presentation Skills</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_3" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic presentation abilities</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_3" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Effective presentations</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_communication_3" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert presenter</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="skill-category" data-category="3" data-category-name="soft">
+                <h2>Soft Skills</h2>
+                <p class="category-description">Rate your proficiency in the following soft skills:</p>
+                
+                <div class="skill-item">
+                    <label>Leadership</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_1" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic leadership qualities</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_1" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Effective team leader</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_1" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Strategic leadership</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Time Management</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_2" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic time management</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_2" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Effective scheduling</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_2" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert time optimizer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Adaptability</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_3" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic adaptability</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_3" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Flexible to change</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_soft_3" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Thrives in change</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creativity Skills -->
+            <div class="skill-category" data-category="4" data-category-name="creativity">
+                <h2>Creativity Skills</h2>
+                <p class="category-description">Rate your proficiency in the following creativity skills:</p>
+                
+                <div class="skill-item">
+                    <label>Innovation</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_1" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic innovative thinking</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_1" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Regular innovator</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_1" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Breakthrough innovator</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Design Thinking</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_2" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic design concepts</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_2" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Effective designer</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_2" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert design thinker</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <label>Problem Reframing</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_3" value="1" required>
+                            <div class="rating-label">
+                                <span>Beginner</span>
+                                <small>Basic reframing skills</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_3" value="2">
+                            <div class="rating-label">
+                                <span>Intermediate</span>
+                                <small>Effective reframing</small>
+                            </div>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="skill_creativity_3" value="3">
+                            <div class="rating-label">
+                                <span>Advanced</span>
+                                <small>Expert perspective shifter</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button type="button" id="prevBtn" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button type="button" id="nextBtn" class="btn btn-primary">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="submit" id="submitBtn" class="btn btn-success" style="display: none;">
+                    <span class="btn-text">
+                        <i class="fas fa-check-circle"></i> Submit Assessment
+                    </span>
+                    <span class="loading-text" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Processing...
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" style="display: none;">
+        <div class="results-header">
+            <h1>Your Assessment Results</h1>
+            <p>Here's a detailed breakdown of your skills assessment</p>
+        </div>
+
+        <div class="results-overview">
+            <div class="overall-score">
+                <h2>Overall Assessment</h2>
+                <div class="score-circle">
+                    <div id="overallScore" class="score-number"></div>
+                    <div id="overallLevel" class="score-level"></div>
+                </div>
+                <div class="score-description">
+                    <p>Based on your assessment, you are at a <strong id="overallLevelText"></strong> level overall.</p>
+                </div>
+            </div>
+            
+            <div class="skills-radar">
+                <canvas id="skillsRadarChart"></canvas>
+            </div>
+        </div>
+
+        <div id="categoryResults" class="category-results">
+            <!-- Category results will be dynamically inserted here -->
+        </div>
+
+        <div class="results-actions">
+            <button id="viewRecommendationsBtn" class="btn btn-primary">
+                <i class="fas fa-book-reader"></i> View Recommendations
+            </button>
+            <a href="#" class="btn btn-secondary">
+                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+            </a>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div id="recommendationsSection" style="display: none;">
+            <h2>Recommended Courses</h2>
+            <p class="recommendation-intro">Based on your assessment results, here are some courses that will help you improve:</p>
+            
+            <div id="recommendedCourses" class="recommended-courses">
+                <!-- Course cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/assessment.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Two-Factor Authentication - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Two-Factor Authentication</h2>
+            <p>Please enter the verification code from your authenticator app</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form class="auth-form" method="POST" action="{{ url_for('verify_2fa') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="fas fa-key"></i>
+                    <input type="text" name="otp_token" placeholder="Enter 6-digit code" required 
+                           pattern="[0-9]{6}" maxlength="6" autocomplete="off">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Verify</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

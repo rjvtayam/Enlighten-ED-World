@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>{% block title %}Enlighten ED{% endblock %}</title>
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="preload" href="{{ url_for('static', filename='fontawesome/webfonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}" as="style">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/assessment.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+   
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('public.static', filename='favicon/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('public.static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('public.static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('public.static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ url_for('public.static', filename='favicon/site.webmanifest') }}">
+    
+    <!-- Add in the head section -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Header/Navbar section -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="navbar-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-brand">
+                    <a href="{{ url_for('main.index') }}" class="brand-link">
+                        <img src="{{ url_for('public.static', filename='images/enlighten.png') }}" alt="EnlightenEd Logo" class="nav-logo">
+                        <span class="brand-text">Enlighten ED</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-menu" id="navbarMenu">
+                <div class="nav-links">
+                    <a href="#home" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="#about" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        About
+                    </a>
+                    <a href="#courses" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>
+                        Courses
+                    </a>
+                    <a href="#features" class="nav-link">
+                        <i class="fas fa-shapes"></i>
+                        Features
+                    </a>
+                    <a href="#testimonials" class="nav-link">
+                        <i class="fas fa-quote-right"></i>
+                        Testimonials
+                    </a>
+                    <a href="#contact" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-end">
+                {% if current_user.is_authenticated %}
+                <div class="user-profile">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle">
+                            <div class="user-avatar">
+                                {% if current_user.profile_image_url %}
+                                <img src="{{ current_user.profile_image_url }}" alt="Profile" class="profile-image">
+                                {% else %}
+                                <div class="default-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <span class="username">{{ current_user.username }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('main.profile') }}" class="dropdown-item">
+                                <i class="fas fa-user"></i>Profile
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>Dashboard
+                            </a>
+                            {% if not has_completed_assessment() %}
+                            <a href="{{ url_for('assessment.initial_assessment') }}" class="dropdown-item">
+                                <i class="fas fa-tasks"></i>Assessment
+                            </a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('auth.logout') }}" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="auth-buttons">
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-login">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-register">Register</a>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }} show" role="alert">
+                        <div class="flash-content">
+                            {% if category == 'success' %}
+                                <i class="fas fa-check-circle flash-icon"></i>
+                            {% elif category == 'error' %}
+                                <i class="fas fa-exclamation-circle flash-icon"></i>
+                            {% elif category == 'warning' %}
+                                <i class="fas fa-exclamation-triangle flash-icon"></i>
+                            {% endif %}
+                            <span class="flash-text">{{ message }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" aria-label="Website Footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="{{ url_for('public.static', filename='images/enlighten.png') }}" alt="Enlighten ED Logo" />
+                <p>
+                    Elevate your IT expertise at no cost with the EnlightenEd app. Our
+                    tailored, expert-led courses are now available for free. Enhance
+                    your skills and drive innovation in the IT sector with our
+                    personalized support.
+                </p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Online Courses</h3>
+                    <ul>
+                        <li><a href="https://www.codecademy.com/learn/paths/web-development">Web Development</a></li>
+                        <li><a href="https://www.coursera.org/specializations/data-science">Data Science and Analytics</a></li>
+                        <li><a href="https://www.coursera.org/specializations/cyber-security">Cybersecurity</a></li>
+                        <li><a href="https://www.coursera.org/specializations/cloud-computing">Cloud Computing</a></li>
+                        <li><a href="https://www.udemy.com/topic/devops/">DevOps</a></li>
+                        <li><a href="https://www.coursera.org/specializations/artificial-intelligence">Artificial Intelligence</a></li>
+                        <li><a href="https://www.coursera.org/specializations/database-management">Database Management</a></li>
+                        <li><a href="https://www.coursera.org/specializations/networking">Networking</a></li>
+                        <li><a href="https://www.coursera.org/specializations/it-project-management">IT Project Management</a></li>
+                        <li><a href="https://www.edx.org/learn/mobile-development">Mobile App Development</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Learning Resources</h3>
+                    <ul>
+                        <li><a href="https://www.codecademy.com/">Codecademy</a></li>
+                        <li><a href="https://www.freecodecamp.org/">FreeCodeCamp</a></li>
+                        <li><a href="https://www.coursera.org/">Coursera</a></li>
+                        <li><a href="https://www.khanacademy.org/">Khan Academy</a></li>
+                        <li><a href="https://www.udemy.com/">Udemy</a></li>
+                        <li><a href="https://www.w3schools.com/">W3Schools</a></li>
+                        <li><a href="https://www.theodinproject.com/">The Odin Project</a></li>
+                        <li><a href="https://www.hackerrank.com/">HackerRank</a></li>
+                        <li><a href="https://leetcode.com/">LeetCode</a></li>
+                        <li><a href="https://www.geeksforgeeks.org/">GeeksforGeeks</a></li>
+                        <li><a href="https://www.codementor.io/">Codementor</a></li>
+                        <li><a href="https://www.hackerearth.com/">HackerEarth</a></li>
+                        <li><a href="https://skillshare.com/">Skillshare</a></li>
+                        <li><a href="https://www.pluralsight.com/">Pluralsight</a></li>
+                        <li><a href="https://www.edx.org/">edX</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Useful Tools</h3>
+                    <ul>
+                        <li><a href="https://github.com/">GitHub</a></li>
+                        <li><a href="https://stackoverflow.com/">Stack Overflow</a></li>
+                        <li><a href="https://codepen.io/">CodePen</a></li>
+                        <li><a href="https://jsfiddle.net/">JSFiddle</a></li>
+                        <li><a href="https://www.figma.com/">Figma</a></li>
+                        <li><a href="https://trello.com/">Trello</a></li>
+                        <li><a href="https://www.atlassian.com/software/jira">Jira</a></li>
+                        <li><a href="https://www.jetbrains.com/">JetBrains IDEs</a></li>
+                        <li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+                        <li><a href="https://www.postman.com/">Postman</a></li>
+                        <li><a href="https://www.docker.com/">Docker</a></li>
+                        <li><a href="https://kubernetes.io/">Kubernetes</a></li>
+                        <li><a href="https://aws.amazon.com/">Amazon Web Services</a></li>
+                        <li><a href="https://cloud.google.com/">Google Cloud Platform</a></li>
+                        <li><a href="https://azure.microsoft.com/">Microsoft Azure</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>AI Tools</h3>
+                    <ul>
+                        <li><a href="https://www.anthropic.com/index/claude">Claude</a></li>
+                        <li><a href="https://www.perplexity.ai/">Perplexity</a></li>
+                        <li><a href="https://prompt-engineer.com/">Prompt Engineer</a></li>
+                        <li><a href="https://www.google.com/search/about/">Google Gemini</a></li>
+                        <li><a href="https://github.com/features/copilot">GitHub Copilot</a></li>
+                        <li><a href="https://gemma.ai/">Gemma.ai</a></li>
+                        <li><a href="https://flowgpt.com/">FlowGPT</a></li>
+                        <li><a href="https://codegpt.co/">CodeGPT</a></li>
+                        <li><a href="https://www.netacad.com/courses/packet-tracer">Cisco Packet Tracer</a></li>
+                        <li><a href="https://clickup.com/">ClickUp</a></li>
+                        <li><a href="https://quillbot.com/">Quillbot</a></li>
+                        <li><a href="https://fetchy.ai/">Fetchy</a></li>
+                        <li><a href="https://consensus.app/">Consensus</a></li>
+                        <li><a href="https://otter.ai/">Otter.ai</a></li>
+                        <li><a href="https://quizgecko.com/">QuizGecko</a></li>
+                        <li><a href="https://stepwisemath.com/">Stepwise Math</a></li>
+                        <li><a href="https://bard.google.com/">Google Bard</a></li>
+                        <li><a href="https://slidesgo.com/">Slidesgo</a></li>
+                        <li><a href="https://www.notion.so/product/ai">Notion AI</a></li>
+                        <li><a href="https://openai.com/chatgpt">ChatGPT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-text">
+                Discover a new way of learning with Enlighten ED - personalized,
+                engaging, and effective.
+            </p>
+            <div class="social-media">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="legal-links">
+                <a href="{{ url_for('main.privacy_policy') }}">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a href="{{ url_for('main.terms_of_service') }}">Terms of Service</a>
+                <span class="separator">|</span>
+                <a href="{{ url_for('main.cookie_policy') }}">Cookie Policy</a>
+            </div>
+            <p class="copyright">&copy; 2024 Enlighten ED. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Page specific scripts -->
+    {% block scripts %}{% endblock %}
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Existing scripts -->
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+
+</body>
+</html>

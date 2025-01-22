@@ -1,0 +1,1240 @@
+{% extends "base.html" %}
+
+{% block title %}EnlightenED World - Transform Your Learning Journey{% endblock %}
+
+{% block content %}
+    <!-- Animated Background Container -->
+    <div class="animated-bg-section">
+        <!-- Shared Background Elements -->
+        <div class="animated-background"></div>
+        <div class="animated-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge animate-fade-delay">Welcome to the Future of Learning</span>
+                    <h1 class="animate-fade">Unlock Your Potential with Enlighten ED</h1>
+                    <p class="animate-fade-delay">
+                        Embark on a transformative educational journey with our innovative learning platform. Experience personalized, industry-aligned IT education designed to shape tomorrow's tech leaders.
+                    </p>
+                    <div class="hero-buttons animate-fade-delay-2">
+                        <a href="#courses" class="btn btn-primary">Browse Courses <i class="fas fa-arrow-right"></i></a>
+                        <a href="#about" class="btn btn-outline">Discover More</a>
+                    </div>
+                    <div class="hero-stats animate-fade-delay-3">
+                        <div class="stat-item">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Active Learners</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Expert Courses</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-images animate-fade-delay-3">
+                    <div class="image-container">
+                        <img src="https://cdn.itm.ac.in/2024/05/tech-jobs-in-India--5--4.webp" 
+                            alt="Learning Environment"
+                            class="main-image">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://uhe.edu.pk/wp-content/uploads/2022/10/1.png" 
+                            alt="Student Collaboration"
+                            class="main-image">
+                    </div>
+                    <div class="floating-cards">
+                        <div class="float-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Certified Learning</span>
+                        </div>
+                        <div class="float-card">
+                            <i class="fas fa-clock"></i>
+                            <span>Learn at Your Pace</span>
+                        </div>
+                        <div class="float-card">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Hands-on Practice</span>
+                        </div>
+                        <div class="float-card">
+                            <i class="fas fa-users"></i>
+                            <span>Community Support</span>
+                        </div>
+                        <div class="float-card">
+                            <i class="fas fa-certificate"></i>
+                            <span>Expert Mentors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-background"></div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section class="ai-assistant">
+            <div class="container">
+                <div class="ai-content">
+                    <h2>Meet Your AI Learning Assistant</h2>
+                    <p>Unlock the power of artificial intelligence with Enlighten ED. Our AI assistant is here to provide you with expert guidance, resolve intricate challenges, and significantly enhance your learning process.</p>
+                    <a href="https://www.coze.com/store/bot/7378417321125412882?bot_id=true" 
+                    target="_blank" 
+                    class="btn btn-primary">
+                        Try Now, It's Free! <i class="fas fa-robot"></i>
+                    </a>
+                </div>
+                <div class="ai-image">
+                    <img src="{{ url_for('public.static', filename='images/ai_image.png') }}" 
+                        alt="AI Assistant" 
+                        loading="lazy">
+                    <div class="ai-features">
+                        <div class="float-card">
+                            <i class="fas fa-brain"></i>
+                            <span>Smart Learning</span>
+                        </div>
+                        <div class="float-card">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="float-card">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Progress Tracking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Banner Section -->
+    <section class="banner-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Learning Resources</span>
+                <h2>Essential Tools & Resources</h2>
+                <p>Explore these valuable resources to enhance your learning journey</p>
+            </div>
+            <div class="banner-slider" id="bannerSlider">
+                <!-- W3Schools Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.w3schools.com" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/W3Schools_logo.svg/2175px-W3Schools_logo.svg.png" alt="W3Schools">
+                            <div class="banner-text">
+                                <h3>Learn to Code with W3Schools</h3>
+                                <p>Free tutorials, references, and exercises in all languages</p>
+                                <span class="banner-cta">Start Learning Free</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- freeCodeCamp Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.freecodecamp.org" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/FreeCodeCamp_logo.png" alt="freeCodeCamp">
+                            <div class="banner-text">
+                                <h3>Learn to Code — For Free</h3>
+                                <p>Build projects and earn certifications</p>
+                                <span class="banner-cta">Start Coding</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Coursera Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.coursera.org" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://1000logos.net/wp-content/uploads/2022/06/Coursera-Logo.png" alt="Coursera">
+                            <div class="banner-text">
+                                <h3>Learn from Top Universities</h3>
+                                <p>Access world-class education from anywhere</p>
+                                <span class="banner-cta">Explore Courses</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Udacity Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.udacity.com" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Udacity_logo.png" alt="Udacity">
+                            <div class="banner-text">
+                                <h3>Master In-Demand Skills</h3>
+                                <p>Learn AI, Data Science, and Cloud Computing</p>
+                                <span class="banner-cta">Get Started</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- DataCamp Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.datacamp.com" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://assets.bitdegree.org/online-learning-platforms/storage/media/datacamp-workspace-review-logo-big.o.png?tr=w-250" alt="DataCamp">
+                            <div class="banner-text">
+                                <h3>Learn Data Science Online</h3>
+                                <p>Master data skills with interactive courses</p>
+                                <span class="banner-cta">Start Learning</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Pluralsight Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.pluralsight.com" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://pluralsight2.imgix.net/paths/images/group-policy-administration-ee0dacafe8.png" alt="Pluralsight">
+                            <div class="banner-text">
+                                <h3>Technology Skills Platform</h3>
+                                <p>Build tech skills with expert-led courses</p>
+                                <span class="banner-cta">Try Free</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- LinkedIn Learning Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.linkedin.com/learning" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/2560px-LinkedIn_Logo.svg.png" alt="LinkedIn Learning">
+                            <div class="banner-text">
+                                <h3>LinkedIn Learning</h3>
+                                <p>Learn business, creative, and technology skills</p>
+                                <span class="banner-cta">Start Learning</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Codecademy Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.codecademy.com" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Codecademy.svg" alt="Codecademy">
+                            <div class="banner-text">
+                                <h3>Interactive Coding Lessons</h3>
+                                <p>Learn to code by doing</p>
+                                <span class="banner-cta">Try It Free</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- edX Banner -->
+                <div class="banner-slide">
+                    <a href="https://www.edx.org" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://cdn.icon-icons.com/icons2/3914/PNG/512/edx_logo_icon_248968.png" alt="edX">
+                            <div class="banner-text">
+                                <h3>University-Level Online Learning</h3>
+                                <p>Access courses from top institutions</p>
+                                <span class="banner-cta">Find Courses</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Google Digital Garage Banner -->
+                <div class="banner-slide">
+                    <a href="https://learndigital.withgoogle.com" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://cdn.worldvectorlogo.com/logos/google-digital-garage.svg" alt="Google Digital Garage">
+                            <div class="banner-text">
+                                <h3>Google Digital Garage</h3>
+                                <p>Free digital skills training from Google</p>
+                                <span class="banner-cta">Learn More</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <button class="banner-nav prev" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="banner-nav next" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <div class="banner-dots" id="bannerDots"></div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header reveal-fade">
+                <span class="section-badge">About Enlighten ED</span>
+                <h2>Empowering IT Students Through Skill-Based Learning</h2>
+                <p>A comprehensive platform designed to bridge the gap between academic learning and industry requirements</p>
+            </div>
+
+            <div class="about-content">
+                <!-- Purpose Section -->
+                <div class="purpose-section reveal-fade">
+                    <div class="purpose-card">
+                        <div class="purpose-content">
+                            <div class="purpose-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>Our Purpose</h3>
+                            <p>Enlighten ED is dedicated to preparing IT students for successful careers through personalized learning and industry connections.</p>
+                        </div>
+
+                        <div class="purpose-image-container">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" 
+                                alt="Team Collaboration"
+                                class="purpose-image"
+                                loading="lazy">
+                            
+                            <!-- Floating Feature Cards inside image container -->
+                            <div class="image-feature-cards">
+                                <div class="image-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <h4>Skill Assessment</h4>
+                                    <p>Comprehensive evaluation and tracking of competencies</p>
+                                </div>
+
+                                <div class="image-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <h4>Smart Recommendations</h4>
+                                    <p>AI-powered personalized learning paths</p>
+                                </div>
+
+                                <div class="image-feature">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <h4>OJT Placement</h4>
+                                    <p>Strategic industry partner matching</p>
+                                </div>
+                            </div>
+
+                            <!-- Floating Info Cards -->
+                            <div class="floating-info">
+                                <div class="info-card">
+                                    <i class="fas fa-rocket"></i>
+                                    <span>Innovation Driven</span>
+                                </div>
+                                <div class="info-card">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Smart Learning</span>
+                                </div>
+                                <div class="info-card">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Growth Focused</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Categories -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Featured Categories</span>
+                <h2>Explore Our Specialized IT Tracks</h2>
+                <p>Choose from our comprehensive range of IT specializations designed to meet industry demands</p>
+            </div>
+            <div class="categories-grid">
+                <!-- BSIT Tracks -->
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSIT</div>
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80" 
+                        alt="Web & Mobile Development" 
+                        loading="lazy">
+                    <h3>Web & Mobile Animation Development</h3>
+                    <p>Master modern web technologies and mobile animation development. Create dynamic, responsive applications with cutting-edge animation techniques.</p>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSIT</div>
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80" 
+                        alt="Animation & Motion Graphics" 
+                        loading="lazy">
+                    <h3>Animation & Motion Graphics</h3>
+                    <p>Learn advanced animation techniques and motion graphics design. Create compelling visual stories and interactive content.</p>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSIT</div>
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" 
+                        alt="Networking" 
+                        loading="lazy">
+                    <h3>Networking & Service Management</h3>
+                    <p>Master network infrastructure and service management. Design, implement, and maintain enterprise-level networks and services.</p>
+                </a>
+
+                <!-- BSCS Tracks -->
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSCS</div>
+                    <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=800&q=80" 
+                        alt="Graphics & Visualizations" 
+                        loading="lazy">
+                    <h3>Graphics & Visualizations</h3>
+                    <p>Explore computer graphics and data visualization. Create immersive visual experiences and interactive 3D applications.</p>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSCS</div>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" 
+                        alt="Intelligent Systems" 
+                        loading="lazy">
+                    <h3>Intelligent Systems</h3>
+                    <p>Study artificial intelligence and machine learning. Develop smart systems and predictive models.</p>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSCS</div>
+                    <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=800&q=80" 
+                        alt="Advanced Computing" 
+                        loading="lazy">
+                    <h3>Advanced Computing</h3>
+                    <p>Master advanced computing concepts including parallel processing, distributed systems, and high-performance computing.</p>
+                </a>
+
+                <!-- BSIS Tracks -->
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSIS</div>
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fa5%2F5f%2F7d%2Fa55f7d782b89a65ff8e0894b74342f6e.jpg&f=1&nofb=1&ipt=b8be0312bc2044c17119ef00a79f6e3d29909ede55a98ba53fb8cbd07bcccdd7&ipo=images" 
+                        alt="Enterprise Systems" 
+                        loading="lazy">
+                    <h3>Enterprise Systems</h3>
+                    <p>Design and implement enterprise-level information systems. Master business process management and system integration.</p>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSIS</div>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" 
+                        alt="Business Analytics" 
+                        loading="lazy">
+                    <h3>Business Analytics</h3>
+                    <p>Learn data-driven decision making and business intelligence. Transform data into actionable business insights.</p>
+                </a>
+
+                <a href="#" class="category-card">
+                    <div class="program-tag">BSIS</div>
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" 
+                        alt="Digital Innovation" 
+                        loading="lazy">
+                    <h3>Digital Innovation</h3>
+                    <p>Drive digital transformation through innovative solutions. Master emerging technologies and business strategies.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Capabilities Section -->
+    <section class="capabilities-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Powerful Features</span>
+                <h2>System Capabilities</h2>
+                <p>Experience cutting-edge technology designed to transform your learning journey</p>
+            </div>
+            <div class="capabilities-grid">
+                <!-- AI-Powered Assessment -->
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>AI-Powered Assessment</h4>
+                    <p>Advanced machine learning algorithms to analyze and evaluate your technical competencies</p>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" alt="AI Assessment" loading="lazy">
+                </div>
+
+                <!-- Skill Analytics Dashboard -->
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Skill Analytics</h4>
+                    <p>Real-time visualization of your skill progression and performance metrics</p>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Analytics Dashboard" loading="lazy">
+                </div>
+
+                <!-- Intelligent Course Mapping -->
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h4>Smart Learning Paths</h4>
+                    <p>Dynamic course recommendations based on your skill gaps and career goals</p>
+                    <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=800&q=80" alt="Course Mapping" loading="lazy">
+                </div>
+
+                <!-- Industry Integration -->
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4>Industry Connect</h4>
+                    <p>Direct integration with industry partners for real-world opportunities</p>
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80" alt="Industry Integration" loading="lazy">
+                </div>
+
+                <!-- Automated Matching System -->
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h4>Smart Matching Engine</h4>
+                    <p>Automated OJT placement system using advanced matching algorithms</p>
+                    <img src="https://wp.quadcode.com/wp-content/uploads/2024/05/Matching_Engine_article_header-1024x512.jpg" alt="Matching System" loading="lazy">
+                </div>
+
+                <!-- Performance Analytics -->
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4>Performance Tracking</h4>
+                    <p>Comprehensive analytics for monitoring learning outcomes and achievements</p>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Performance Analytics" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES SECTION -->
+    <section id="courses">
+        <div class="section-header">
+            <span class="course-badge">Our Programs</span>
+            <h1 class="courses-header">Explore Our Courses</h1>
+            <p class="courses-p">
+                Unlock your potential with Enlighten ED's engaging courses. Gain valuable skills, expand your knowledge, and begin your journey to a brighter future today.
+            </p>
+        </div>
+        
+        <div id="programs">
+            <button class="program-btn active" data-program="BSIT">BSIT</button>
+            <button class="program-btn" data-program="BSCS">BSCS</button>
+            <button class="program-btn" data-program="BSIS">BSIS</button>
+            <button class="program-btn" data-program="OOS">OOS</button>
+        </div>
+        
+        <div id="majors"></div>
+        
+        <div id="course-content">
+            <div class="course-info">
+                <h2 id="skill-courses-title">SKILL COURSES TITLE</h2>
+                <p class="skill-courses-description" id="skill-courses-description">
+                    Description of the skill course title here...
+                </p>
+                <button id="learn-more">Learn more.</button>
+            </div>
+            <div class="course-image" loading="lazy">
+                <img
+                    id="major-image"
+                    src="{{ url_for('public.static', filename='images/wmad.png') }}"
+                    alt="Major Image"/>
+            </div>
+        </div>
+        
+        <div id="course-cards-container">
+            <div id="course-cards"></div>
+            <button id="prev-btn" class="nav-btn">&lt;</button>
+            <button id="next-btn" class="nav-btn">&gt;</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-showcase">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Features</span>
+                <h1 class="showcase-heading">Why Choose Enlighten ED</h1>
+                <p class="showcase-description">
+                    Enhance your professional growth with tailored learning solutions and expert guidance.
+                </p>
+            </div>
+            
+            <div class="showcase-grid">
+                <!-- Main Feature Display -->
+                <div class="feature-main">
+                    <div class="feature-main-image-container">
+                        <img src="{{ url_for('public.static', filename='images/p_image1.png') }}" 
+                            alt="Personalized Learning"
+                            class="feature-main-image"
+                            id="mainFeatureImage">
+                        <div class="feature-main-overlay">
+                            <h2 id="mainFeatureTitle">Personalized Learning</h2>
+                            <p id="mainFeatureDesc">Our AI-powered system creates personalized learning paths that adapt to your progress, ensuring efficient skill development aligned with industry requirements.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature List -->
+                <div class="feature-list">
+                    <!-- Feature 1 -->
+                    <div class="feature-item active" data-feature="1">
+                        <img src="{{ url_for('public.static', filename='images/p_image1.png') }}" 
+                            alt="Personalized Learning"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Personalized Learning</h3>
+                            <p>Customized learning paths based on your skills and goals.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-item" data-feature="2">
+                        <img src="{{ url_for('public.static', filename='images/p_image2.png') }}" 
+                            alt="Self-Paced Learning"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Self-Paced Learning</h3>
+                            <p>Learn at your own pace with flexible scheduling.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-item" data-feature="3">
+                        <img src="{{ url_for('public.static', filename='images/p_image3.jpg') }}" 
+                            alt="Expert Support"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Expert Support</h3>
+                            <p>Get guidance from experienced educators and mentors.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-item" data-feature="4">
+                        <img src="{{ url_for('public.static', filename='images/p_image4.png') }}" 
+                            alt="Skill Assessment"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Skill Assessment</h3>
+                            <p>Regular evaluation of your progress and competencies.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="feature-item" data-feature="5">
+                        <img src="{{ url_for('public.static', filename='images/p_image5.png') }}" 
+                            alt="Industry-Aligned OJT"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Industry-Aligned OJT</h3>
+                            <p>Connect with matching industry opportunities.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6: Progress Tracking -->
+                    <div class="feature-item" data-feature="6">
+                        <img src="{{ url_for('public.static', filename='images/p_image6.png') }}" 
+                            alt="Progress Tracking"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Progress Tracking</h3>
+                            <p>Monitor your learning journey and achievements.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 7: Collaborative Learning -->
+                    <div class="feature-item" data-feature="7">
+                        <img src="{{ url_for('public.static', filename='images/p_image7.png') }}" 
+                            alt="Collaborative Learning"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Collaborative Learning</h3>
+                            <p>Learn and grow with peer support and teamwork.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 8: Certification -->
+                    <div class="feature-item" data-feature="8">
+                        <img src="{{ url_for('public.static', filename='images/p_image8.png') }}" 
+                            alt="Certification"
+                            class="feature-item-image">
+                        <div class="feature-item-content">
+                            <h3>Certification</h3>
+                            <p>Earn recognized credentials for your skills.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials" data-login-url="{{ url_for('auth.login') }}">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Testimonials</span>
+                <h2>What Our Students Say</h2>
+                <p>Hear from our successful graduates about their learning journey</p>
+                
+                <div id="testimonialActionBtn">
+                    <!-- Button will be dynamically updated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Enlighten ED transformed my career path. The practical projects and mentor support made all the difference. I landed my dream job at a tech startup within months of completing my course."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('public.static', filename='images/tayam.png') }}" 
+                            alt="Sarah Johnson" 
+                            class="author-image">
+                        <div class="author-info">
+                            <h4 class="author-name">RJ Verdan Tayam</h4>
+                            <p class="author-title">Full Stack Developer | UX-UI Designer</p>
+                            <div class="author-badge">
+                                <i class="fas fa-certificate"></i>
+                                <span>Laguna State Polytechnic University</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"The AI-powered learning assistant was a game-changer. It helped me understand complex concepts and guided me through challenging projects. The personalized approach really works!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('public.static', filename='images/laco.png') }}" 
+                            alt="Michael Chen" 
+                            class="author-image">
+                        <div class="author-info">
+                            <h4 class="author-name">Kyla Marie G.Laco</h4>
+                            <p class="author-title">Front-End Developer | UX-UI Designer</p>
+                            <div class="author-badge">
+                                <i class="fas fa-certificate"></i>
+                                <span>Laguna State Polytechnic University</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"The OJT placement program exceeded my expectations. The skills I learned perfectly matched industry requirements, making the transition to professional work seamless."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ url_for('public.static', filename='images/santos.png') }}" 
+                            alt="Emily Rodriguez" 
+                            class="author-image">
+                        <div class="author-info">
+                            <h4 class="author-name">Emmanuel Santos Jr.</h4>
+                            <p class="author-title">UX Designer at DesignHub</p>
+                            <div class="author-badge">
+                                <i class="fas fa-certificate"></i>
+                                <span>Laguna State Polytechnic University</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-nav">
+                <span class="nav-dot active"></span>
+                <span class="nav-dot"></span>
+                <span class="nav-dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Form Modal -->
+    <div class="modal" id="testimonialModal">
+        <div class="modal-content">
+            <span class="close-btn"><i class="fas fa-times"></i></span>
+            <h2><i class="fas fa-comment-dots"></i> Share Your Experience</h2>
+            <form id="testimonialForm" class="testimonial-form" method="POST" action="{{ url_for('testimonials.create_testimonial') }}" enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <label for="rating"><i class="fas fa-star"></i> Rating</label>
+                    <div class="star-rating">
+                        <input type="hidden" id="rating" name="rating" value="" required>
+                        <span class="star" data-rating="5"><i class="far fa-star"></i></span>
+                        <span class="star" data-rating="4"><i class="far fa-star"></i></span>
+                        <span class="star" data-rating="3"><i class="far fa-star"></i></span>
+                        <span class="star" data-rating="2"><i class="far fa-star"></i></span>
+                        <span class="star" data-rating="1"><i class="far fa-star"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="testimonial_text"><i class="fas fa-pen"></i> Your Testimonial</label>
+                    <textarea id="testimonial_text" name="testimonial_text" required 
+                            placeholder="Share your learning experience..." maxlength="500"></textarea>
+                    <span class="char-count">500 characters remaining</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="author_image"><i class="fas fa-camera"></i> Profile Picture</label>
+                    <input type="file" id="author_image" name="author_image" accept="image/*">
+                    <div class="image-preview"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="author_title"><i class="fas fa-user-tag"></i> Your Title/Role</label>
+                    <input type="text" id="author_title" name="author_title" required
+                        placeholder="e.g., Software Developer, Student">
+                </div>
+
+                <div class="form-group">
+                    <label for="institution"><i class="fas fa-building"></i> Institution/Company</label>
+                    <input type="text" id="institution" name="institution" required
+                        placeholder="Your institution or company name">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Testimonial
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq" data-login-url="{{ url_for('auth.login') }}">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">FAQ</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our platform</p>
+            </div>
+            
+            <div class="faq-grid">
+                {% if faqs %}
+                    {% for faq in faqs %}
+                    <div class="faq-item" data-faq-id="{{ faq.id }}">
+                        <div class="faq-question">
+                            <h3>{{ faq.question }}</h3>
+                            <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            <!-- Default answer -->
+                            <div class="default-answer">
+                                <p>{{ faq.default_answer }}</p>
+                            </div>
+                            
+                            <!-- Community answers container -->
+                            {% if 'user' in session %}
+                                <div class="community-answers-section">
+                                    <h4><i class="fas fa-users"></i> Community Answers</h4>
+                                    <div class="community-answers"></div>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Add answer form or login prompt -->
+                            {% if 'user' in session %}
+                                <form class="add-answer-form" data-faq-id="{{ faq.id }}">
+                                    <textarea 
+                                        placeholder="Share your answer..." 
+                                        required
+                                        maxlength="500"
+                                    ></textarea>
+                                    <div class="char-count">500 characters remaining</div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane"></i>
+                                        Add Answer
+                                    </button>
+                                </form>
+                            {% else %}
+                                <div class="login-prompt">
+                                    <p>Want to contribute? Join our community!</p>
+                                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        Login to Add Answer
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-faqs">No FAQs available at the moment.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="newsletter-decoration">
+            <div class="decoration-circle"></div>
+            <div class="decoration-circle"></div>
+        </div>
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>Stay Updated</h2>
+                    <p>Subscribe to our newsletter for the latest courses, tech news, and special offers</p>
+                </div>
+                <form class="newsletter-form">
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Enter your email address" required>
+                        <button type="submit">
+                            Subscribe <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Get in Touch</span>
+                <h2>Contact Us</h2>
+                <p>Have questions? We're here to help!</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-top">
+                    <!-- Info Cards -->
+                    <div class="contact-info">
+                        <!-- Location Card -->
+                        <div class="info-card" onclick="openLocation()">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Visit Us</h3>
+                                <p>Laguna State Polytechnic University<br>Siniloan (Host) Campus<br>Siniloan, Laguna</p>
+                                <a href="javascript:void(0)" class="info-link">
+                                    Get Directions <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Email Card -->
+                        <div class="info-card" onclick="openEmailForm()">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Email Us</h3>
+                                <p>info@lspu.edu.ph<br>support@lspu.edu.ph</p>
+                                <a href="javascript:void(0)" class="info-link">
+                                    Send Email <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Phone Card -->
+                        <div class="info-card" onclick="openCallOptions()">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Call Us</h3>
+                                <p>(049) 557-1142<br>(049) 557-1141</p>
+                                <a href="javascript:void(0)" class="info-link">
+                                    Call Now <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-header">
+                            <h3>Send us a Message</h3>
+                            <p>We'll get back to you as soon as possible</p>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="subject">Subject</label>
+                                <i class="fas fa-pen"></i>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Map Container -->
+                <div class="map-container">
+                    <div id="map" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Call Modal -->
+            <div id="callModal" class="call-modal">
+                <div class="call-modal-content">
+                    <span class="call-modal-close">&times;</span>
+                    <h2>Contact Numbers</h2>
+                    <div class="call-options">
+                        <a href="tel:+6349557-1142" class="call-option">
+                            <i class="fas fa-phone"></i>
+                            (049) 557-1142
+                            <span class="call-label">Main Line</span>
+                        </a>
+                        <a href="tel:+6349557-1141" class="call-option">
+                            <i class="fas fa-phone"></i>
+                            (049) 557-1141
+                            <span class="call-label">Alternative</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Banner Section -->
+    <section class="banner-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Learning Resources</span>
+                <h2>Essential Tools & Resources</h2>
+                <p>Explore these valuable resources to enhance your learning journey</p>
+            </div>
+            
+            <div class="banner-slider" id="resourceBannerSlider">
+                <!-- W3Schools -->
+                <div class="banner-slide">
+                    <a href="https://www.w3schools.com/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/W3Schools_logo.svg/2175px-W3Schools_logo.svg.png" alt="W3Schools">
+                            <div class="banner-text">
+                                <h3>W3Schools Tutorials</h3>
+                                <p>Free web development tutorials and references</p>
+                                <span class="banner-cta">Start Learning</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- GitHub Student Pack -->
+                <div class="banner-slide">
+                    <a href="https://education.github.com/pack" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://github.githubassets.com/images/modules/site/social-cards/github-social.png" alt="GitHub Student">
+                            <div class="banner-text">
+                                <h3>GitHub Student Pack</h3>
+                                <p>Free developer tools for students</p>
+                                <span class="banner-cta">Get Access</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- freeCodeCamp -->
+                <div class="banner-slide">
+                    <a href="https://www.freecodecamp.org/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/FreeCodeCamp_logo.png" alt="freeCodeCamp">
+                            <div class="banner-text">
+                                <h3>freeCodeCamp</h3>
+                                <p>Learn to code with free certifications</p>
+                                <span class="banner-cta">Start Coding</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- HackerRank -->
+                <div class="banner-slide">
+                    <a href="https://www.hackerrank.com/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/HackerRank_Icon-1000px.png" alt="HackerRank">
+                            <div class="banner-text">
+                                <h3>HackerRank</h3>
+                                <p>Practice coding & prepare for interviews</p>
+                                <span class="banner-cta">Start Practice</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Coursera -->
+                <div class="banner-slide">
+                    <a href="https://www.coursera.org/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Coursera-Logo_600x600.svg/2048px-Coursera-Logo_600x600.svg.png" alt="Coursera">
+                            <div class="banner-text">
+                                <h3>Coursera</h3>
+                                <p>Professional certificates & courses</p>
+                                <span class="banner-cta">Explore Courses</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Microsoft Learn -->
+                <div class="banner-slide">
+                    <a href="https://learn.microsoft.com/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://evotec.pl/wp-content/uploads/2023/02/MicrosoftLearning.png" alt="Microsoft Learn">
+                            <div class="banner-text">
+                                <h3>Microsoft Learn</h3>
+                                <p>Free Microsoft technology training</p>
+                                <span class="banner-cta">Start Learning</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- AWS Training -->
+                <div class="banner-slide">
+                    <a href="https://aws.amazon.com/training/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/2560px-Amazon_Web_Services_Logo.svg.png" alt="AWS Training">
+                            <div class="banner-text">
+                                <h3>AWS Training</h3>
+                                <p>Learn cloud computing with AWS</p>
+                                <span class="banner-cta">Get Started</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Google Cloud Skills -->
+                <div class="banner-slide">
+                    <a href="https://cloud.google.com/training" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://logodownload.org/wp-content/uploads/2021/06/google-cloud-logo-1.png" alt="Google Cloud">
+                            <div class="banner-text">
+                                <h3>Google Cloud Skills</h3>
+                                <p>Free Google Cloud training</p>
+                                <span class="banner-cta">Learn Cloud</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Oracle Academy -->
+                <div class="banner-slide">
+                    <a href="https://academy.oracle.com/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Oracle_logo.svg/2560px-Oracle_logo.svg.png" alt="Oracle Academy">
+                            <div class="banner-text">
+                                <h3>Oracle Academy</h3>
+                                <p>Database & Java programming resources</p>
+                                <span class="banner-cta">Join Now</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Cisco Networking Academy -->
+                <div class="banner-slide">
+                    <a href="https://www.netacad.com/" target="_blank" class="banner-link">
+                        <div class="banner-content">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/2560px-Cisco_logo_blue_2016.svg.png" alt="Cisco NetAcad">
+                            <div class="banner-text">
+                                <h3>Cisco NetAcad</h3>
+                                <p>Free networking & cybersecurity courses</p>
+                                <span class="banner-cta">Enroll Now</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <button class="banner-nav prev" id="resourcePrevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="banner-nav next" id="resourceNextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<!-- Existing scripts -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<!-- Page Extensions necessary scripts -->
+<script src="{{ url_for('static', filename='js/courses-data.js') }}"></script>
+<script src="{{ url_for('static', filename='js/testimonial-slider.js') }}"></script>
+<script src="{{ url_for('static', filename='js/testimonial-form.js') }}"></script>
+<script src="{{ url_for('static', filename='js/faqs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: enlighten-ed-world
+    env: python
+    buildCommand: |
+      pip install -r server/requirements.txt
+      # Add any frontend build steps here if needed
+    startCommand: |
+      cd server
+      flask db upgrade
+      gunicorn "app:create_app('production')" --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --log-level debug
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app
+      - key: SESSION_TYPE
+        value: redis
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /
