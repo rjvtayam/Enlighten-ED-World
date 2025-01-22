@@ -8,6 +8,7 @@ from app.routes.faq import faq
 from app.routes.assessment import assessment, has_completed_assessment
 import logging
 from datetime import timedelta, datetime
+import redis
 
 # Load environment variables
 load_dotenv()
@@ -51,6 +52,9 @@ def create_app(config_name='default'):
         SESSION_TYPE=os.getenv('SESSION_TYPE', 'filesystem'),
         SESSION_PERMANENT=True,
         PERMANENT_SESSION_LIFETIME=timedelta(days=7),
+        
+        # Redis configuration
+        SESSION_REDIS=redis.from_url(os.getenv('REDIS_URL', 'redis://localhost:6379')),
         
         # Session cookie settings
         SESSION_COOKIE_NAME='enlighten_ed_session',
