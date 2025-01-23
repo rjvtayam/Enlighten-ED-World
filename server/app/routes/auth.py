@@ -502,11 +502,6 @@ def verify_email(token):
 def google_login():
     """Initiate Google OAuth login"""
     try:
-        # Generate and store state
-        state = generate_oauth_state('google')
-        if not state:
-            raise Exception("Failed to generate OAuth state")
-
         # Get Google provider configuration
         google_provider_cfg = get_google_provider_cfg()
         if not google_provider_cfg:
@@ -524,6 +519,14 @@ def google_login():
             access_type="offline",
             prompt="select_account"
         )
+        
+        # Store state in session
+        session['oauth_state'] = state
+        session['oauth_provider'] = 'google'
+        
+        # Log session data for debugging
+        current_app.logger.info(f"Storing state in session: {state}")
+        current_app.logger.info(f"Session data: {session}")
 
         return redirect(authorization_url)
 
@@ -538,36 +541,25 @@ def google_callback():
     try:
         # Get state from request and session
         state = request.args.get('state')
-        stored_state = session.get('google_oauth_state')
+        stored_state = session.get('oauth_state')
         stored_provider = session.get('oauth_provider')
         
         # Log received data for debugging
-        current_app.logger.info(f"Received state: {state}")
-        current_app.logger.info(f"Stored state: {stored_state}")
-        current_app.logger.info(f"Stored provider: {stored_provider}")
-        current_app.logger.info(f"Session data: {session}")
+        logger.info(f"Received state: {state}")
+        logger.info(f"Stored state: {stored_state}")
+        logger.info(f"Stored provider: {stored_provider}")
         
-        if not state or not stored_state or state != stored_state or stored_provider != 'google':
-            error_msg = "No stored state found for google" if not stored_state else "Invalid state parameter"
-            logger.error(error_msg)
-            raise ValueError(error_msg)
-        
-        if not request.args.get('code'):
-            raise ValueError("No authorization code received")
-
-        # Get Google provider configuration
+        # Verify state and provider
+        if not verify_oauth_state(state, stored_state, stored_provider):
+            raise Exception("Invalid OAuth state")
+            
+        # Get token endpoint
         google_provider_cfg = get_google_provider_cfg()
         if not google_provider_cfg:
-            raise ValueError("Failed to get Google provider configuration")
-
+            raise Exception("Failed to get Google provider configuration")
+            
         token_endpoint = google_provider_cfg["token_endpoint"]
-
-        # Log OAuth configuration for debugging
-        current_app.logger.info("OAuth Configuration:")
-        current_app.logger.info(f"Client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
-        current_app.logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
-        current_app.logger.info(f"Token Endpoint: {token_endpoint}")
-
+        
         # Get OAuth client
         client = get_google_client()
         
@@ -578,30 +570,27 @@ def google_callback():
             authorization_response=request.url
         )
         
-        logger.info(f"Token Response Status: Success")
+        # Get user info
+        userinfo = get_google_user_info(token['access_token'])
         
-        # Get user info endpoint from Google's discovery document
-        userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+        # Handle OAuth user
+        user = handle_oauth_user(
+            provider='google',
+            user_data=userinfo,
+            access_token=token['access_token']
+        )
         
-        # Get user info using the access token
-        uri, headers, body = client.add_token(userinfo_endpoint)
-        userinfo_response = requests.get(uri, headers=headers, data=body)
+        # Login user
+        login_user(user)
         
-        if userinfo_response.status_code != 200:
-            logger.error(f"Failed to get user info: {userinfo_response.text}")
-            raise Exception("Failed to get user information from Google")
+        # Check if assessment is needed
+        if not user.has_completed_assessment:
+            flash('Welcome! Please complete the assessment to personalize your learning journey.', 'info')
+            return redirect(url_for('assessment.initial_assessment'))
             
-        userinfo = userinfo_response.json()
-        logger.info(f"User Info: {json.dumps(userinfo, indent=2)}")
-        
-        # Return the tokens and user info
-        return {
-            'access_token': client.token['access_token'],
-            'refresh_token': client.token.get('refresh_token'),
-            'id_token': client.token.get('id_token'),
-            'userinfo': userinfo
-        }
-        
+        flash('Successfully logged in with Google!', 'success')
+        return redirect(url_for('main.index'))
+
     except Exception as e:
         logger.error(f"Google callback error: {str(e)}")
         flash('Failed to complete Google authentication', 'error')
