@@ -520,14 +520,13 @@ def google_login():
             prompt="select_account"
         )
         
-        # Store state in session
-        session['oauth_state'] = state
-        session['oauth_provider'] = 'google'
+        # Store state and provider in session with consistent key
+        session['google_oauth_state'] = state
         session.modified = True  # Ensure session is saved
         
         # Log session data for debugging
-        current_app.logger.info(f"Storing state in session: {state}")
-        current_app.logger.info(f"Session data: {session}")
+        current_app.logger.info(f"Storing Google OAuth state in session: {state}")
+        current_app.logger.info(f"Full session data: {session}")
 
         return redirect(authorization_url)
 
@@ -542,25 +541,22 @@ def google_callback():
     try:
         # Get state from request and session
         state = request.args.get('state')
-        stored_state = session.get('oauth_state')
-        stored_provider = session.get('oauth_provider')
+        stored_state = session.get('google_oauth_state')
         
         # Log received data for debugging
         logger.info(f"Received state: {state}")
         logger.info(f"Stored state: {stored_state}")
-        logger.info(f"Stored provider: {stored_provider}")
         logger.info(f"Full session data: {session}")
-        
-        # Verify state and provider
-        if not verify_oauth_state(state, stored_state):
+
+        # Verify state
+        if not state or not stored_state or state != stored_state:
             logger.error(f"OAuth state verification failed - Received: {state}, Expected: {stored_state}")
             raise Exception("Invalid OAuth state")
-            
-        # Verify correct provider
-        if stored_provider != 'google':
-            logger.error(f"OAuth provider mismatch - Expected: google, Got: {stored_provider}")
-            raise Exception("Invalid OAuth provider")
-            
+
+        # Clear the state from session after verification
+        session.pop('google_oauth_state', None)
+        session.modified = True
+
         # Get token endpoint
         google_provider_cfg = get_google_provider_cfg()
         if not google_provider_cfg:

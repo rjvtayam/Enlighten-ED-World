@@ -140,12 +140,14 @@ def handle_oauth_user(provider: str, user_data: dict, access_token: str) -> User
 
 def verify_oauth_state(state: str, stored_state: str) -> bool:
     """Verify OAuth state token"""
-    if not state or not stored_state:
-        logger.error("Missing state parameter")
+    try:
+        if not state or not stored_state:
+            logger.error("Missing state or stored_state")
+            return False
+            
+        # Simple string comparison for state verification
+        return state == stored_state
+            
+    except Exception as e:
+        logger.error(f"Error verifying OAuth state: {str(e)}")
         return False
-        
-    if state != stored_state:
-        logger.error(f"State mismatch - Received: {state}, Stored: {stored_state}")
-        return False
-        
-    return True
