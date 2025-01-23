@@ -138,14 +138,14 @@ def handle_oauth_user(provider: str, user_data: dict, access_token: str) -> User
         db.session.rollback()
         raise
 
-def verify_oauth_state(state: str, stored_state: str, provider: str) -> bool:
+def verify_oauth_state(state: str, stored_state: str) -> bool:
     """Verify OAuth state token"""
     if not state or not stored_state:
         logger.error("Missing state parameter")
         return False
         
     if state != stored_state:
-        logger.error(f"State mismatch for {provider} - Received: {state}, Stored: {stored_state}")
+        logger.error(f"State mismatch - Received: {state}, Stored: {stored_state}")
         return False
         
     return True

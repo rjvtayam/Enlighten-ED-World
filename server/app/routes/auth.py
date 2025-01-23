@@ -550,8 +550,12 @@ def google_callback():
         logger.info(f"Stored provider: {stored_provider}")
         
         # Verify state and provider
-        if not verify_oauth_state(state, stored_state, 'google'):
+        if not verify_oauth_state(state, stored_state):
             raise Exception("Invalid OAuth state")
+            
+        # Verify correct provider
+        if stored_provider != 'google':
+            raise Exception("Invalid OAuth provider")
             
         # Get token endpoint
         google_provider_cfg = get_google_provider_cfg()
