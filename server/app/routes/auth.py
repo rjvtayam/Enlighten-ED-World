@@ -76,8 +76,6 @@ def get_google_auth_url(state):
 def handle_google_callback(code, state):
     """Handle the token exchange with Google"""
     try:
-        client = get_google_client()
-        
         # Get Google provider configuration
         google_provider_cfg = get_google_provider_cfg()
         if not google_provider_cfg:
@@ -93,37 +91,17 @@ def handle_google_callback(code, state):
         current_app.logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
         current_app.logger.info(f"Token Endpoint: {token_endpoint}")
 
-        # Prepare token request
-        token_url, headers, body = client.prepare_token_request(
+        # Get OAuth client
+        client = get_google_client()
+        
+        # Fetch token
+        token = client.fetch_token(
             token_endpoint,
-            authorization_response=request.url,
-            redirect_url=current_app.config['GOOGLE_CALLBACK_URL'],
-            code=code
+            client_secret=current_app.config['GOOGLE_CLIENT_SECRET'],
+            authorization_response=request.url
         )
         
-        logger.info("Token Request Details:")
-        logger.info(f"URL: {token_url}")
-        logger.info(f"Headers: {headers}")
-        logger.info(f"Body: {body}")
-        
-        # Make the token request
-        token_response = requests.post(
-            token_url,
-            headers=headers,
-            data=body,
-            auth=(
-                current_app.config['GOOGLE_CLIENT_ID'],
-                current_app.config['GOOGLE_CLIENT_SECRET']
-            ),
-            timeout=10
-        )
-        
-        logger.info(f"Token Response Status: {token_response.status_code}")
-        logger.info(f"Token Response Headers: {token_response.headers}")
-        logger.info(f"Token Response Body: {token_response.text}")
-        
-        # Parse the token response
-        client.parse_request_body_response(token_response.text)
+        logger.info(f"Token Response Status: Success")
         
         # Get user info endpoint from Google's discovery document
         userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
@@ -591,48 +569,40 @@ def google_callback():
         current_app.logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
         current_app.logger.info(f"Token Endpoint: {token_endpoint}")
 
-        # Exchange code for tokens
-        token_response = requests.post(
-            token_endpoint,
-            data={
-                'code': request.args.get('code'),
-                'client_id': current_app.config['GOOGLE_CLIENT_ID'],
-                'client_secret': current_app.config['GOOGLE_CLIENT_SECRET'],
-                'redirect_uri': current_app.config['GOOGLE_CALLBACK_URL'],
-                'grant_type': 'authorization_code'
-            },
-            timeout=10
-        )
-        token_response.raise_for_status()
-        token_data = token_response.json()
-
-        # Get user info
-        userinfo = get_google_user_info(token_data['access_token'])
-
-        # Handle OAuth user
-        user = handle_oauth_user(
-            provider='google',
-            user_data=userinfo,
-            access_token=token_data['access_token']
-        )
-
-        # Login user
-        login_user(user)
+        # Get OAuth client
+        client = get_google_client()
         
-        if not user.has_completed_assessment:
-            assessment_url = url_for('assessment.initial_assessment')  # Updated route name
-            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                return jsonify({
-                    'success': True,
-                    'redirect': assessment_url,
-                    'message': 'Welcome! Please complete the assessment to personalize your learning journey.'
-                })
-            else:
-                flash('Welcome! Please complete the assessment to personalize your learning journey.', 'info')
-                return redirect(assessment_url)
+        # Fetch token
+        token = client.fetch_token(
+            token_endpoint,
+            client_secret=current_app.config['GOOGLE_CLIENT_SECRET'],
+            authorization_response=request.url
+        )
+        
+        logger.info(f"Token Response Status: Success")
+        
+        # Get user info endpoint from Google's discovery document
+        userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+        
+        # Get user info using the access token
+        uri, headers, body = client.add_token(userinfo_endpoint)
+        userinfo_response = requests.get(uri, headers=headers, data=body)
+        
+        if userinfo_response.status_code != 200:
+            logger.error(f"Failed to get user info: {userinfo_response.text}")
+            raise Exception("Failed to get user information from Google")
             
-        return redirect(url_for('main.index'))
-
+        userinfo = userinfo_response.json()
+        logger.info(f"User Info: {json.dumps(userinfo, indent=2)}")
+        
+        # Return the tokens and user info
+        return {
+            'access_token': client.token['access_token'],
+            'refresh_token': client.token.get('refresh_token'),
+            'id_token': client.token.get('id_token'),
+            'userinfo': userinfo
+        }
+        
     except Exception as e:
         logger.error(f"Google callback error: {str(e)}")
         flash('Failed to complete Google authentication', 'error')
