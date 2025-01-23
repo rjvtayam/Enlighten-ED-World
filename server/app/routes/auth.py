@@ -566,7 +566,7 @@ def google_callback():
         
         logger.info("Token fetched successfully")
         
-        # Get user info endpoint
+        # Get user info endpoint from Google's discovery document
         userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
         
         # Get user info using the OAuth2Session client
@@ -610,18 +610,21 @@ def github_login():
         return redirect(url_for('main.index'))
 
     try:
-        # Generate state and store in session
-        state = secrets.token_urlsafe(32)
-        session['oauth_state'] = state
-        session['oauth_provider'] = 'github'
+        # Generate state
+        state = generate_oauth_state('github')
+        logger.info(f"Generated state: {state}")
         
-        # Get GitHub OAuth URL using OAuth2Session
-        github_client = get_github_client()
-        authorization_url, state = github_client.authorization_url(
-            'https://github.com/login/oauth/authorize',
-            state=state
+        # Get GitHub OAuth client
+        client = get_github_client()
+        if not client:
+            raise Exception("GitHub OAuth client not initialized")
+        
+        # Generate authorization URL
+        authorization_url, state = client.authorization_url(
+            'https://github.com/login/oauth/authorize'
         )
         
+        logger.info(f"Generated auth URL: {authorization_url}")
         return redirect(authorization_url)
         
     except Exception as e:
@@ -633,123 +636,66 @@ def github_login():
 def github_callback():
     """Handle GitHub OAuth callback"""
     try:
-        # Verify state and provider
-        state = request.args.get('state')
-        stored_state = session.pop('oauth_state', None)
-        stored_provider = session.pop('oauth_provider', None)
+        # Check for errors
+        error = request.args.get('error')
+        if error:
+            raise Exception(f"GitHub OAuth error: {error}")
+
+        # Get OAuth client
+        client = get_github_client()
+        if not client:
+            raise Exception("GitHub OAuth client not initialized")
         
-        if not state or state != stored_state or stored_provider != 'github':
-            flash('Invalid authentication state', 'error')
-            return redirect(url_for('auth.login'))
-
-        code = request.args.get('code')
-        if not code:
-            flash('No authorization code received', 'error')
-            return redirect(url_for('auth.login'))
-
-        # Exchange code for access token
-        token_response = requests.post(
+        # Fetch token using OAuth2Session
+        token = client.fetch_token(
             'https://github.com/login/oauth/access_token',
-            data={
-                'client_id': current_app.config['GITHUB_CLIENT_ID'],
-                'client_secret': current_app.config['GITHUB_CLIENT_SECRET'],
-                'code': code,
-                'redirect_uri': current_app.config['GITHUB_CALLBACK_URL']
-            },
-            headers={'Accept': 'application/json'}
+            authorization_response=request.url,
+            client_secret=current_app.config['GITHUB_CLIENT_SECRET']
         )
-        token_data = token_response.json()
         
-        if 'error' in token_data:
-            flash(f"GitHub OAuth error: {token_data['error']}", 'error')
-            return redirect(url_for('auth.login'))
+        logger.info("Token fetched successfully")
+        
+        # Get user info using the OAuth2Session client
+        resp = client.get('https://api.github.com/user')
+        if resp.status_code != 200:
+            raise Exception(f"Failed to get user info: {resp.text}")
             
-        access_token = token_data['access_token']
-        
-        # Get user info
-        headers = {
-            'Authorization': f'token {access_token}',
-            'Accept': 'application/json'
-        }
-        user_response = requests.get('https://api.github.com/user', headers=headers)
-        user_data = user_response.json()
+        user_data = resp.json()
         
         # Get user email (GitHub needs separate request for email)
-        email_response = requests.get('https://api.github.com/user/emails', headers=headers)
-        emails = email_response.json()
-        primary_email = next((email['email'] for email in emails if email['primary']), None)
+        email_resp = client.get('https://api.github.com/user/emails')
+        if email_resp.status_code != 200:
+            raise Exception(f"Failed to get user emails: {email_resp.text}")
+            
+        emails = email_resp.json()
+        primary_email = next((email['email'] for email in emails if email['primary'] and email['verified']), None)
         
         if not primary_email:
-            flash('No primary email found in GitHub account', 'error')
-            return redirect(url_for('auth.login'))
-
-        with db.session.begin():
-            # Check if OAuth account exists
-            oauth_account = OAuthAccount.query.filter_by(
-                provider='github',
-                provider_user_id=str(user_data['id'])
-            ).first()
-
-            if oauth_account:
-                # Update existing OAuth account
-                oauth_account.access_token = access_token
-                user = oauth_account.user
-                
-                # Update user's profile image if available
-                if user_data.get('avatar_url'):
-                    user.profile_image_url = user_data['avatar_url']
-            else:
-                # Check if user exists with this email
-                user = User.query.filter_by(email=primary_email).first()
-                
-                if not user:
-                    # Create new user with profile image
-                    user = User(
-                        username=user_data.get('login'),
-                        email=primary_email,
-                        is_verified=True,
-                        profile_image_url=user_data.get('avatar_url'),  # Set profile image from GitHub
-                        has_completed_assessment=False  # New users need to complete assessment
-                    )
-                    db.session.add(user)
-                    db.session.flush()
-                elif user_data.get('avatar_url'):  # Update existing user's profile image
-                    user.profile_image_url = user_data['avatar_url']
-
-                # Create new OAuth account
-                oauth_account = OAuthAccount(
-                    user_id=user.id,
-                    provider='github',
-                    provider_user_id=str(user_data['id']),
-                    access_token=access_token
-                )
-                db.session.add(oauth_account)
-
-            # Update user's last login
-            user.last_login = datetime.utcnow()
-
-        # Create user session
+            raise Exception("No verified primary email found in GitHub account")
+        
+        user_data['email'] = primary_email
+        
+        # Handle OAuth user
+        user = handle_oauth_user(
+            provider='github',
+            user_data=user_data,
+            access_token=token['access_token']
+        )
+        
+        # Login user
         login_user(user)
-        session.permanent = True
         
-        # Only show welcome message for new users who haven't completed assessment
+        # Check if assessment is needed
         if not user.has_completed_assessment:
-            assessment_url = url_for('assessment.initial_assessment')  # Updated route name
-            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                return jsonify({
-                    'success': True,
-                    'redirect': assessment_url,
-                    'message': 'Welcome! Please complete the assessment to personalize your learning journey.'
-                })
-            else:
-                flash('Welcome! Please complete the assessment to personalize your learning journey.', 'info')
-                return redirect(assessment_url)
-        
+            flash('Welcome! Please complete the assessment to personalize your learning journey.', 'info')
+            return redirect(url_for('assessment.initial_assessment'))
+            
+        flash('Successfully logged in with GitHub!', 'success')
         return redirect(url_for('main.index'))
 
     except Exception as e:
         logger.error(f"GitHub callback error: {str(e)}")
-        flash('Failed to complete authentication with GitHub', 'error')
+        flash('Failed to complete GitHub authentication', 'error')
         return redirect(url_for('auth.login'))
 
 @auth.route('/logout')
