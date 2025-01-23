@@ -22,7 +22,7 @@ def create_app(config_name='default'):
     app = Flask(
         __name__,
         template_folder=os.path.join(root_path, 'client', 'src', 'pages'),
-        static_folder=os.path.join(root_path, 'client', 'src'),
+        static_folder=os.path.join(root_path, 'client'),  # Changed to client root
         static_url_path=''
     )
     
