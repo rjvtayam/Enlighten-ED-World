@@ -510,25 +510,26 @@ def google_login():
         # Get authorization endpoint
         authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
+        # Generate state
+        state = generate_oauth_state('google')
+        
         # Get OAuth client
         client = get_google_client()
         
         # Generate authorization URL
-        authorization_url, state = client.authorization_url(
+        request_uri = client.prepare_request_uri(
             authorization_endpoint,
-            access_type="offline",
-            prompt="select_account"
+            redirect_uri=current_app.config['GOOGLE_CALLBACK_URL'],
+            scope=["openid", "email", "profile"],
+            state=state,
+            prompt="consent"
         )
-        
-        # Store state and provider in session with consistent key
-        session['google_oauth_state'] = state
-        session.modified = True  # Ensure session is saved
         
         # Log session data for debugging
         current_app.logger.info(f"Storing Google OAuth state in session: {state}")
         current_app.logger.info(f"Full session data: {session}")
 
-        return redirect(authorization_url)
+        return redirect(request_uri)
 
     except Exception as e:
         logger.error(f"Google login initiation error: {str(e)}")
@@ -539,23 +540,13 @@ def google_login():
 def google_callback():
     """Handle Google OAuth callback"""
     try:
-        # Get state from request and session
+        # Get state from request
         state = request.args.get('state')
-        stored_state = session.get('google_oauth_state')
+        code = request.args.get('code')
         
-        # Log received data for debugging
-        logger.info(f"Received state: {state}")
-        logger.info(f"Stored state: {stored_state}")
-        logger.info(f"Full session data: {session}")
-
         # Verify state
-        if not state or not stored_state or state != stored_state:
-            logger.error(f"OAuth state verification failed - Received: {state}, Expected: {stored_state}")
+        if not verify_oauth_state(state, 'google'):
             raise Exception("Invalid OAuth state")
-
-        # Clear the state from session after verification
-        session.pop('google_oauth_state', None)
-        session.modified = True
 
         # Get token endpoint
         google_provider_cfg = get_google_provider_cfg()
@@ -567,21 +558,41 @@ def google_callback():
         # Get OAuth client
         client = get_google_client()
         
-        # Fetch token
-        token = client.fetch_token(
+        # Prepare token request
+        token_url, headers, body = client.prepare_token_request(
             token_endpoint,
-            client_secret=current_app.config['GOOGLE_CLIENT_SECRET'],
-            authorization_response=request.url
+            authorization_response=request.url,
+            redirect_url=current_app.config['GOOGLE_CALLBACK_URL'],
+            code=code
         )
         
-        # Get user info
-        userinfo = get_google_user_info(token['access_token'])
+        # Exchange code for tokens
+        token_response = requests.post(
+            token_url,
+            headers=headers,
+            data=body,
+            auth=(current_app.config['GOOGLE_CLIENT_ID'], current_app.config['GOOGLE_CLIENT_SECRET']),
+        )
         
+        # Parse the tokens
+        client.parse_request_body_response(token_response.text)
+        
+        # Get user info endpoint
+        userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+        
+        # Get user info
+        uri, headers, body = client.add_token(userinfo_endpoint)
+        userinfo_response = requests.get(uri, headers=headers, data=body)
+        userinfo = userinfo_response.json()
+        
+        if not userinfo.get("email_verified"):
+            raise Exception("Google account email not verified")
+            
         # Handle OAuth user
         user = handle_oauth_user(
             provider='google',
             user_data=userinfo,
-            access_token=token['access_token']
+            access_token=client.token['access_token']
         )
         
         # Login user
