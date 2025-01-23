@@ -65,7 +65,7 @@ def get_github_user_info(access_token: str) -> dict:
         logger.error(f"Error getting GitHub user info: {str(e)}")
         raise
 
-def handle_oauth_user(provider: str, user_data: dict, access_token: str) -> User:
+def handle_oauth_user(provider: str, user_data: dict, access_token: str, refresh_token: str = None) -> User:
     """Handle OAuth user creation/update for both providers"""
     try:
         with db.session.begin():
@@ -90,6 +90,8 @@ def handle_oauth_user(provider: str, user_data: dict, access_token: str) -> User
             if oauth_account:
                 # Update existing OAuth account
                 oauth_account.access_token = access_token
+                if refresh_token:
+                    oauth_account.refresh_token = refresh_token
                 user = oauth_account.user
                 
                 # Ensure user is verified and update profile
@@ -106,35 +108,28 @@ def handle_oauth_user(provider: str, user_data: dict, access_token: str) -> User
                     user = User(
                         username=username,
                         email=email,
-                        is_verified=True,  # OAuth users are automatically verified
-                        profile_image_url=profile_image,
-                        has_completed_assessment=False  # New users need to complete assessment
+                        is_verified=True,
+                        profile_image_url=profile_image
                     )
                     db.session.add(user)
-                    db.session.flush()
-                else:
-                    # Update existing user's profile if needed
-                    user.is_verified = True
-                    if profile_image:
-                        user.profile_image_url = profile_image
-                    # Don't modify has_completed_assessment for existing users
-
+                    db.session.flush()  # Get user.id
+                
                 # Create new OAuth account
                 oauth_account = OAuthAccount(
                     user_id=user.id,
                     provider=provider,
                     provider_user_id=provider_user_id,
-                    access_token=access_token
+                    access_token=access_token,
+                    refresh_token=refresh_token
                 )
                 db.session.add(oauth_account)
-
-            # Update user's last login
-            user.last_login = datetime.utcnow()
             
+            db.session.commit()
+            user.last_login = datetime.utcnow()
             return user
-
+            
     except Exception as e:
-        logger.error(f"Error handling {provider} OAuth user: {str(e)}")
+        logger.error(f"Error handling OAuth user: {str(e)}")
         db.session.rollback()
         raise
 
