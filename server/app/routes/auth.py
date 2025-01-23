@@ -547,9 +547,13 @@ def google_callback():
         # Get state and code from request
         state = request.args.get('state')
         code = request.args.get('code')
+        error = request.args.get('error')
         
-        logger.info(f"Google callback received - State: {state}, Code: {code}")
+        logger.info(f"Google callback received - State: {state}, Code: {code}, Error: {error}")
         logger.info(f"Callback URL: {request.url}")
+        
+        if error:
+            raise Exception(f"Google OAuth error: {error}")
         
         # Verify state
         if not verify_oauth_state(state, 'google'):
@@ -566,27 +570,19 @@ def google_callback():
         # Get OAuth client
         client = get_google_client()
         
-        # Prepare token request
-        token_url, headers, body = client.prepare_token_request(
-            token_endpoint,
-            authorization_response=request.url,
-            redirect_url=current_app.config['GOOGLE_CALLBACK_URL'],
-            code=code
-        )
+        # Prepare token request data
+        token_data = {
+            'code': code,
+            'client_id': current_app.config['GOOGLE_CLIENT_ID'],
+            'client_secret': current_app.config['GOOGLE_CLIENT_SECRET'],
+            'redirect_uri': current_app.config['GOOGLE_CALLBACK_URL'],
+            'grant_type': 'authorization_code'
+        }
         
-        # Add client credentials to body instead of using auth header
-        body += f"&client_id={current_app.config['GOOGLE_CLIENT_ID']}&client_secret={current_app.config['GOOGLE_CLIENT_SECRET']}"
-        
-        logger.info(f"Token request - URL: {token_url}")
-        logger.info(f"Token request - Headers: {headers}")
-        logger.info(f"Token request - Body: {body}")
+        logger.info(f"Token request data: {token_data}")
         
         # Exchange code for tokens
-        token_response = requests.post(
-            token_url,
-            headers=headers,
-            data=body
-        )
+        token_response = requests.post(token_endpoint, data=token_data)
         
         logger.info(f"Token response status: {token_response.status_code}")
         logger.info(f"Token response: {token_response.text}")
@@ -595,14 +591,14 @@ def google_callback():
             raise Exception(f"Token exchange failed: {token_response.text}")
             
         # Parse the tokens
-        client.parse_request_body_response(token_response.text)
+        tokens = token_response.json()
         
         # Get user info endpoint
         userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
         
-        # Get user info
-        uri, headers, body = client.add_token(userinfo_endpoint)
-        userinfo_response = requests.get(uri, headers=headers, data=body)
+        # Get user info using access token
+        headers = {'Authorization': f'Bearer {tokens["access_token"]}'}
+        userinfo_response = requests.get(userinfo_endpoint, headers=headers)
         
         if userinfo_response.status_code != 200:
             raise Exception(f"Failed to get user info: {userinfo_response.text}")
@@ -616,7 +612,8 @@ def google_callback():
         user = handle_oauth_user(
             provider='google',
             user_data=userinfo,
-            access_token=client.token['access_token']
+            access_token=tokens['access_token'],
+            refresh_token=tokens.get('refresh_token')
         )
         
         # Login user
