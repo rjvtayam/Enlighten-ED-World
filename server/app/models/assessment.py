@@ -30,6 +30,7 @@ class Assessment(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     overall_score = db.Column(db.Float)
     overall_level = db.Column(db.String(20))
+    is_completed = db.Column(db.Boolean, default=False)
     
     categories = db.relationship('AssessmentCategory', backref='assessment', cascade='all, delete-orphan')
 
