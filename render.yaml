@@ -1,4 +1,12 @@
 services:
+  - type: redis
+    name: enlighten-ed-redis
+    ipAllowList: 
+      - source: 0.0.0.0/0
+        description: everywhere
+    plan: free 
+    maxmemoryPolicy: noeviction 
+
   - type: web
     name: enlighten-ed-world
     env: python
@@ -22,7 +30,10 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: REDIS_URL
-        sync: false
+        fromService:
+          type: redis
+          name: enlighten-ed-redis
+          property: connectionString
       - key: GOOGLE_CALLBACK_URL
         value: https://enlighten-ed-world-hgv2.onrender.com/auth/google/callback
       - key: GITHUB_CALLBACK_URL

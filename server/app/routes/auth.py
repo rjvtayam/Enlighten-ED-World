@@ -523,6 +523,7 @@ def google_login():
         # Store state in session
         session['oauth_state'] = state
         session['oauth_provider'] = 'google'
+        session.modified = True  # Ensure session is saved
         
         # Log session data for debugging
         current_app.logger.info(f"Storing state in session: {state}")
@@ -548,9 +549,11 @@ def google_callback():
         logger.info(f"Received state: {state}")
         logger.info(f"Stored state: {stored_state}")
         logger.info(f"Stored provider: {stored_provider}")
+        logger.info(f"Full session data: {session}")
         
         # Verify state and provider
         if not verify_oauth_state(state, stored_state):
+            logger.error(f"No stored state found for {state}")
             raise Exception("Invalid OAuth state")
             
         # Verify correct provider
