@@ -58,9 +58,22 @@ class Config:
     GITHUB_CALLBACK_URL = os.getenv('GITHUB_CALLBACK_URL', 'https://enlighten-ed-world-hgv2.onrender.com/auth/github/callback')
     
     # Session Configuration
+    SESSION_TYPE = 'redis'
+    SESSION_REDIS = None  # Will be set in init_app
+    SESSION_USE_SIGNER = True
+    SESSION_PERMANENT = True
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
+    SESSION_KEY_PREFIX = 'enlighten_ed_session:'
+    
+    # Session Cookie Configuration
+    SESSION_COOKIE_NAME = 'enlighten_ed_session'
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
+    
+    # Remember Me Cookie Configuration
+    REMEMBER_COOKIE_DURATION = timedelta(days=7)
+    REMEMBER_COOKIE_HTTPONLY = True
+    REMEMBER_COOKIE_SAMESITE = 'Lax'
     
     # Admin configurations
     ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
@@ -69,13 +82,22 @@ class Config:
 
     @staticmethod
     def init_app(app):
-        pass
+        """Initialize application with specific settings"""
+        # Initialize Redis connection for sessions
+        if os.getenv('REDIS_URL'):
+            import redis
+            app.config['SESSION_REDIS'] = redis.from_url(os.getenv('REDIS_URL'))
+            app.logger.info("Redis session storage configured")
+        else:
+            app.logger.warning("No REDIS_URL found, sessions will use filesystem")
+            app.config['SESSION_TYPE'] = 'filesystem'
 
 class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
     TESTING = False
     SESSION_COOKIE_SECURE = False
+    REMEMBER_COOKIE_SECURE = False
     OAUTHLIB_INSECURE_TRANSPORT = True
     ENV = 'development'
 
@@ -85,6 +107,7 @@ class ProductionConfig(Config):
     TESTING = False
     SESSION_COOKIE_SECURE = True
     REMEMBER_COOKIE_SECURE = True
+    SESSION_COOKIE_DOMAIN = '.enlighten-ed-world-hgv2.onrender.com'
     ENV = 'production'
 
 # Dictionary mapping environment names to config classes
