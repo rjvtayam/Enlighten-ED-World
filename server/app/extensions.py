@@ -32,9 +32,15 @@ def init_oauth(app):
     """Initialize OAuth clients"""
     global oauth_clients
     
-    # Initialize Google client with WebApplicationClient
-    oauth_clients['google'] = WebApplicationClient(
-        app.config['GOOGLE_CLIENT_ID']
+    # Initialize Google client with OAuth2Session
+    oauth_clients['google'] = OAuth2Session(
+        app.config['GOOGLE_CLIENT_ID'],
+        redirect_uri=app.config['GOOGLE_CALLBACK_URL'],
+        scope=[
+            'openid',
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile'
+        ]
     )
     
     if not oauth_clients['github']:

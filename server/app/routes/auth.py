@@ -517,23 +517,19 @@ def google_login():
         
         # Get OAuth client
         client = get_google_client()
+        if not client:
+            raise Exception("Google OAuth client not initialized")
         
-        # Generate authorization URL with correct scopes and parameters
-        request_uri = client.prepare_request_uri(
+        # Generate authorization URL
+        authorization_url, state = client.authorization_url(
             authorization_endpoint,
-            redirect_uri=current_app.config['GOOGLE_CALLBACK_URL'],
-            scope=["openid", "email", "profile"],
-            state=state,
             access_type="offline",  # Get refresh token
-            include_granted_scopes="true",
-            prompt="consent"
+            prompt="consent",       # Force consent screen
+            include_granted_scopes="true"  # Enable incremental authorization
         )
         
-        logger.info(f"Generated auth URL: {request_uri}")
-        logger.info(f"Using callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
-        logger.info(f"Using client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
-
-        return redirect(request_uri)
+        logger.info(f"Generated auth URL: {authorization_url}")
+        return redirect(authorization_url)
 
     except Exception as e:
         logger.error(f"Google login initiation error: {str(e)}")
@@ -545,65 +541,40 @@ def google_callback():
     """Handle Google OAuth callback"""
     try:
         # Get state and code from request
-        state = request.args.get('state')
-        code = request.args.get('code')
         error = request.args.get('error')
-        
-        logger.info(f"Google callback received - State: {state}, Code: {code}, Error: {error}")
-        logger.info(f"Callback URL: {request.url}")
-        
         if error:
             raise Exception(f"Google OAuth error: {error}")
-        
-        # Verify state
-        if not verify_oauth_state(state, 'google'):
-            raise Exception("Invalid OAuth state")
 
-        # Get token endpoint
+        # Get Google provider configuration
         google_provider_cfg = get_google_provider_cfg()
         if not google_provider_cfg:
             raise Exception("Failed to get Google provider configuration")
             
         token_endpoint = google_provider_cfg["token_endpoint"]
-        logger.info(f"Token endpoint: {token_endpoint}")
         
         # Get OAuth client
         client = get_google_client()
+        if not client:
+            raise Exception("Google OAuth client not initialized")
         
-        # Prepare token request data
-        token_data = {
-            'code': code,
-            'client_id': current_app.config['GOOGLE_CLIENT_ID'],
-            'client_secret': current_app.config['GOOGLE_CLIENT_SECRET'],
-            'redirect_uri': current_app.config['GOOGLE_CALLBACK_URL'],
-            'grant_type': 'authorization_code'
-        }
+        # Fetch token using OAuth2Session
+        token = client.fetch_token(
+            token_endpoint,
+            authorization_response=request.url,
+            client_secret=current_app.config['GOOGLE_CLIENT_SECRET']
+        )
         
-        logger.info(f"Token request data: {token_data}")
-        
-        # Exchange code for tokens
-        token_response = requests.post(token_endpoint, data=token_data)
-        
-        logger.info(f"Token response status: {token_response.status_code}")
-        logger.info(f"Token response: {token_response.text}")
-        
-        if token_response.status_code != 200:
-            raise Exception(f"Token exchange failed: {token_response.text}")
-            
-        # Parse the tokens
-        tokens = token_response.json()
+        logger.info("Token fetched successfully")
         
         # Get user info endpoint
         userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
         
-        # Get user info using access token
-        headers = {'Authorization': f'Bearer {tokens["access_token"]}'}
-        userinfo_response = requests.get(userinfo_endpoint, headers=headers)
-        
-        if userinfo_response.status_code != 200:
-            raise Exception(f"Failed to get user info: {userinfo_response.text}")
+        # Get user info using the OAuth2Session client
+        resp = client.get(userinfo_endpoint)
+        if resp.status_code != 200:
+            raise Exception(f"Failed to get user info: {resp.text}")
             
-        userinfo = userinfo_response.json()
+        userinfo = resp.json()
         
         if not userinfo.get("email_verified"):
             raise Exception("Google account email not verified")
@@ -612,8 +583,8 @@ def google_callback():
         user = handle_oauth_user(
             provider='google',
             user_data=userinfo,
-            access_token=tokens['access_token'],
-            refresh_token=tokens.get('refresh_token')
+            access_token=token['access_token'],
+            refresh_token=token.get('refresh_token')
         )
         
         # Login user
