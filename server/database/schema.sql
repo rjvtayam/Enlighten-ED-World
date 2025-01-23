@@ -168,8 +168,6 @@ INSERT INTO faqs (question, answer, category) VALUES
     'Platform Features'
 );
 
-// ...existing code...
-
 -- Drop existing assessment-related tables if they exist
 DROP TABLE IF EXISTS skill_details CASCADE;
 DROP TABLE IF EXISTS skill_category_scores CASCADE;
@@ -184,7 +182,8 @@ CREATE TABLE assessments (
     program VARCHAR(10) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     overall_score FLOAT,
-    overall_level VARCHAR(20)
+    overall_level VARCHAR(20),
+    is_completed BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE assessment_categories (
