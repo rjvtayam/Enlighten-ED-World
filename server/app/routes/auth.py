@@ -501,33 +501,32 @@ def verify_email(token):
 @auth.route('/google/login')
 def google_login():
     """Initiate Google OAuth login"""
-    if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
-
     try:
-        # Generate state and store in session
-        state = secrets.token_urlsafe(32)
-        session['oauth_state'] = state
-        session['oauth_provider'] = 'google'
-        
-        # Log session data for debugging
-        current_app.logger.info(f"Storing state in session: {state}")
-        current_app.logger.info(f"Session data: {session}")
-        
-        # Get Google OAuth URL using WebApplicationClient
-        google_client = get_google_client()
-        google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
+        # Generate and store state
+        state = generate_oauth_state('google')
+        if not state:
+            raise Exception("Failed to generate OAuth state")
+
+        # Get Google provider configuration
+        google_provider_cfg = get_google_provider_cfg()
+        if not google_provider_cfg:
+            raise Exception("Failed to get Google provider configuration")
+
+        # Get authorization endpoint
         authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+        # Get OAuth client
+        client = get_google_client()
         
-        request_uri = google_client.prepare_request_uri(
+        # Generate authorization URL
+        authorization_url, state = client.authorization_url(
             authorization_endpoint,
-            redirect_uri=current_app.config['GOOGLE_CALLBACK_URL'],
-            scope=["openid", "email", "profile"],
-            state=state
+            access_type="offline",
+            prompt="select_account"
         )
-        
-        return redirect(request_uri)
-        
+
+        return redirect(authorization_url)
+
     except Exception as e:
         logger.error(f"Google login initiation error: {str(e)}")
         flash('Unable to initiate Google login', 'error')
@@ -539,7 +538,7 @@ def google_callback():
     try:
         # Get state from request and session
         state = request.args.get('state')
-        stored_state = session.get('oauth_state')
+        stored_state = session.get('google_oauth_state')
         stored_provider = session.get('oauth_provider')
         
         # Log received data for debugging
