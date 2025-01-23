@@ -553,11 +553,12 @@ def google_callback():
         
         # Verify state and provider
         if not verify_oauth_state(state, stored_state):
-            logger.error(f"No stored state found for {state}")
+            logger.error(f"OAuth state verification failed - Received: {state}, Expected: {stored_state}")
             raise Exception("Invalid OAuth state")
             
         # Verify correct provider
         if stored_provider != 'google':
+            logger.error(f"OAuth provider mismatch - Expected: google, Got: {stored_provider}")
             raise Exception("Invalid OAuth provider")
             
         # Get token endpoint
