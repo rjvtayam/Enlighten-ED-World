@@ -526,6 +526,10 @@ def google_login():
         session['oauth_state'] = state
         session['oauth_provider'] = 'google'
         
+        # Log session data for debugging
+        current_app.logger.info(f"Storing state in session: {state}")
+        current_app.logger.info(f"Session data: {session}")
+        
         # Get Google OAuth URL using WebApplicationClient
         google_client = get_google_client()
         google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
@@ -549,14 +553,23 @@ def google_login():
 def google_callback():
     """Handle Google OAuth callback"""
     try:
-        # Verify state and code
+        # Get state from request and session
         state = request.args.get('state')
-        code = request.args.get('code')
+        stored_state = session.get('oauth_state')
+        stored_provider = session.get('oauth_provider')
         
-        if not verify_oauth_state(state, 'google'):
-            raise ValueError("Invalid state parameter")
+        # Log received data for debugging
+        current_app.logger.info(f"Received state: {state}")
+        current_app.logger.info(f"Stored state: {stored_state}")
+        current_app.logger.info(f"Stored provider: {stored_provider}")
+        current_app.logger.info(f"Session data: {session}")
         
-        if not code:
+        if not state or not stored_state or state != stored_state or stored_provider != 'google':
+            error_msg = "No stored state found for google" if not stored_state else "Invalid state parameter"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        if not request.args.get('code'):
             raise ValueError("No authorization code received")
 
         # Get Google provider configuration
@@ -570,7 +583,7 @@ def google_callback():
         token_response = requests.post(
             token_endpoint,
             data={
-                'code': code,
+                'code': request.args.get('code'),
                 'client_id': current_app.config['GOOGLE_CLIENT_ID'],
                 'client_secret': current_app.config['GOOGLE_CLIENT_SECRET'],
                 'redirect_uri': current_app.config['GOOGLE_CALLBACK_URL'],

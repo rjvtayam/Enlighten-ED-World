@@ -50,7 +50,7 @@ def create_app(config_name='default'):
     # Session configuration
     app.config.update(
         # Session configuration
-        SESSION_TYPE=os.getenv('SESSION_TYPE', 'filesystem'),
+        SESSION_TYPE=os.getenv('SESSION_TYPE', 'redis'),
         SESSION_PERMANENT=True,
         PERMANENT_SESSION_LIFETIME=timedelta(days=7),
         
@@ -78,12 +78,26 @@ def create_app(config_name='default'):
         WTF_CSRF_SECRET_KEY=os.getenv('WTF_CSRF_SECRET_KEY', app.secret_key)
     )
     
-    # Initialize Flask-Session first
+    # Initialize Redis and test connection
     try:
+        redis_client = app.config['SESSION_REDIS']
+        redis_client.ping()
+        app.logger.info("Redis connection successful")
+        
+        # Initialize Flask-Session
         Session(app)
         app.logger.info("Flask-Session initialized successfully")
+        
+        # Test session
+        with app.test_request_context():
+            session['test'] = 'test_value'
+            app.logger.info(f"Test session data: {session}")
+            if 'test' in session:
+                app.logger.info("Session test successful")
+            else:
+                app.logger.error("Session test failed")
     except Exception as e:
-        app.logger.error(f"Failed to initialize Flask-Session: {e}")
+        app.logger.error(f"Session initialization error: {str(e)}")
         raise
     
     # Initialize other extensions
