@@ -509,25 +509,29 @@ def google_login():
 
         # Get authorization endpoint
         authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+        logger.info(f"Authorization endpoint: {authorization_endpoint}")
 
         # Generate state
         state = generate_oauth_state('google')
+        logger.info(f"Generated state: {state}")
         
         # Get OAuth client
         client = get_google_client()
         
-        # Generate authorization URL
+        # Generate authorization URL with correct scopes and parameters
         request_uri = client.prepare_request_uri(
             authorization_endpoint,
             redirect_uri=current_app.config['GOOGLE_CALLBACK_URL'],
             scope=["openid", "email", "profile"],
             state=state,
+            access_type="offline",  # Get refresh token
+            include_granted_scopes="true",
             prompt="consent"
         )
         
-        # Log session data for debugging
-        current_app.logger.info(f"Storing Google OAuth state in session: {state}")
-        current_app.logger.info(f"Full session data: {session}")
+        logger.info(f"Generated auth URL: {request_uri}")
+        logger.info(f"Using callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
+        logger.info(f"Using client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
 
         return redirect(request_uri)
 
@@ -544,6 +548,9 @@ def google_callback():
         state = request.args.get('state')
         code = request.args.get('code')
         
+        logger.info(f"Google callback received - State: {state}, Code: {code}")
+        logger.info(f"Callback URL: {request.url}")
+        
         # Verify state
         if not verify_oauth_state(state, 'google'):
             raise Exception("Invalid OAuth state")
@@ -554,9 +561,12 @@ def google_callback():
             raise Exception("Failed to get Google provider configuration")
             
         token_endpoint = google_provider_cfg["token_endpoint"]
+        logger.info(f"Token endpoint: {token_endpoint}")
         
         # Get OAuth client
         client = get_google_client()
+        logger.info(f"Client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
+        logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
         
         # Prepare token request
         token_url, headers, body = client.prepare_token_request(
@@ -566,6 +576,10 @@ def google_callback():
             code=code
         )
         
+        logger.info(f"Token request - URL: {token_url}")
+        logger.info(f"Token request - Headers: {headers}")
+        logger.info(f"Token request - Body: {body}")
+        
         # Exchange code for tokens
         token_response = requests.post(
             token_url,
@@ -574,38 +588,37 @@ def google_callback():
             auth=(current_app.config['GOOGLE_CLIENT_ID'], current_app.config['GOOGLE_CLIENT_SECRET']),
         )
         
+        logger.info(f"Token response status: {token_response.status_code}")
+        logger.info(f"Token response: {token_response.text}")
+        
+        if token_response.status_code != 200:
+            raise Exception(f"Token exchange failed: {token_response.text}")
+        
         # Parse the tokens
         client.parse_request_body_response(token_response.text)
         
-        # Get user info endpoint
+        # Get user info endpoint from Google's discovery document
         userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
         
-        # Get user info
+        # Get user info using the access token
         uri, headers, body = client.add_token(userinfo_endpoint)
         userinfo_response = requests.get(uri, headers=headers, data=body)
+        
+        if userinfo_response.status_code != 200:
+            logger.error(f"Failed to get user info: {userinfo_response.text}")
+            raise Exception("Failed to get user information from Google")
+            
         userinfo = userinfo_response.json()
+        logger.info(f"User Info: {json.dumps(userinfo, indent=2)}")
         
-        if not userinfo.get("email_verified"):
-            raise Exception("Google account email not verified")
-            
-        # Handle OAuth user
-        user = handle_oauth_user(
-            provider='google',
-            user_data=userinfo,
-            access_token=client.token['access_token']
-        )
+        # Return the tokens and user info
+        return {
+            'access_token': client.token['access_token'],
+            'refresh_token': client.token.get('refresh_token'),
+            'id_token': client.token.get('id_token'),
+            'userinfo': userinfo
+        }
         
-        # Login user
-        login_user(user)
-        
-        # Check if assessment is needed
-        if not user.has_completed_assessment:
-            flash('Welcome! Please complete the assessment to personalize your learning journey.', 'info')
-            return redirect(url_for('assessment.initial_assessment'))
-            
-        flash('Successfully logged in with Google!', 'success')
-        return redirect(url_for('main.index'))
-
     except Exception as e:
         logger.error(f"Google callback error: {str(e)}")
         flash('Failed to complete Google authentication', 'error')
