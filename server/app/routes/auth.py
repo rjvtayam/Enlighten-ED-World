@@ -87,6 +87,12 @@ def handle_google_callback(code, state):
         token_endpoint = google_provider_cfg["token_endpoint"]
         logger.info(f"Token endpoint: {token_endpoint}")
         
+        # Log OAuth configuration for debugging
+        current_app.logger.info("OAuth Configuration:")
+        current_app.logger.info(f"Client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
+        current_app.logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
+        current_app.logger.info(f"Token Endpoint: {token_endpoint}")
+
         # Prepare token request
         token_url, headers, body = client.prepare_token_request(
             token_endpoint,
@@ -578,6 +584,12 @@ def google_callback():
             raise ValueError("Failed to get Google provider configuration")
 
         token_endpoint = google_provider_cfg["token_endpoint"]
+
+        # Log OAuth configuration for debugging
+        current_app.logger.info("OAuth Configuration:")
+        current_app.logger.info(f"Client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
+        current_app.logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
+        current_app.logger.info(f"Token Endpoint: {token_endpoint}")
 
         # Exchange code for tokens
         token_response = requests.post(
