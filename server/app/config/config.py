@@ -52,10 +52,10 @@ class Config:
     # OAuth Configuration
     GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
     GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
-    GOOGLE_CALLBACK_URL = os.getenv('GOOGLE_CALLBACK_URL', 'http://127.0.0.1:5000/auth/google/callback')
+    GOOGLE_CALLBACK_URL = os.getenv('GOOGLE_CALLBACK_URL', 'https://enlighten-ed-world-hgv2.onrender.com/auth/google/callback')
     GITHUB_CLIENT_ID = os.getenv('GITHUB_CLIENT_ID')
     GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
-    GITHUB_CALLBACK_URL = os.getenv('GITHUB_CALLBACK_URL', 'http://127.0.0.1:5000/auth/github/callback')
+    GITHUB_CALLBACK_URL = os.getenv('GITHUB_CALLBACK_URL', 'https://enlighten-ed-world-hgv2.onrender.com/auth/github/callback')
     
     # Session Configuration
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
