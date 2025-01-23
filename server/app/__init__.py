@@ -22,9 +22,15 @@ def create_app(config_name='default'):
     app = Flask(
         __name__,
         template_folder=os.path.join(root_path, 'client', 'src', 'pages'),
-        static_folder=os.path.join(root_path, 'client'),  # Changed to client root
-        static_url_path=''
+        static_folder=os.path.join(root_path, 'client', 'src'),  # Point to client/src where CSS/JS files are
+        static_url_path=''  # Keep empty URL path for simpler URLs
     )
+    
+    # Register a second static folder for public assets
+    public_bp = Blueprint('public', __name__, 
+                         static_folder=os.path.join(root_path, 'client', 'public'),
+                         static_url_path='/public')
+    app.register_blueprint(public_bp)
     
     # Configure logging
     logging.basicConfig(
@@ -107,12 +113,6 @@ def create_app(config_name='default'):
     csrf.init_app(app)
     login_manager.init_app(app)
     init_oauth(app)
-    
-    # Create a blueprint for public files
-    public = Blueprint('public', __name__,
-        static_url_path='/public',
-        static_folder=os.path.join(client_path, 'public'))
-    app.register_blueprint(public)
     
     # Register blueprints
     from app.routes.auth import auth
