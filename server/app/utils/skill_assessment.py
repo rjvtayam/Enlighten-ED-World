@@ -151,30 +151,120 @@ class SkillAssessment:
         """Analyze skills and provide recommendations"""
         results = {}
         
+        skill_descriptions = {
+            'technical': {
+                1: 'Problem Solving',
+                2: 'Design Thinking',
+                3: 'Problem Reframing'
+            },
+            'communication': {
+                1: 'Written Communication',
+                2: 'Verbal Communication',
+                3: 'Presentation Skills'
+            },
+            'soft': {
+                1: 'Teamwork',
+                2: 'Leadership',
+                3: 'Time Management'
+            },
+            'creativity': {
+                1: 'Innovation',
+                2: 'Design',
+                3: 'Creative Problem Solving'
+            }
+        }
+
+        recommendations = {
+            SkillLevel.BEGINNER: {
+                'technical': 'Focus on building foundational programming concepts and problem-solving skills.',
+                'communication': 'Practice expressing technical concepts clearly and work on documentation skills.',
+                'soft': 'Develop collaboration skills and engage more in team projects.',
+                'creativity': 'Explore different approaches to problem-solving and design thinking.'
+            },
+            SkillLevel.INTERMEDIATE: {
+                'technical': 'Deepen your understanding of advanced concepts and work on complex projects.',
+                'communication': 'Take leadership in presentations and improve technical writing.',
+                'soft': 'Mentor others and lead small team projects.',
+                'creativity': 'Challenge yourself with innovative solutions and unique approaches.'
+            },
+            SkillLevel.ADVANCED: {
+                'technical': 'Focus on system design and architecture. Consider specializing in specific areas.',
+                'communication': 'Share knowledge through workshops and technical blogs.',
+                'soft': 'Take on project leadership roles and mentor junior developers.',
+                'creativity': 'Drive innovation in projects and explore cutting-edge technologies.'
+            }
+        }
+        
         for category_name, scores in skills_data.items():
             try:
                 category = CategoryType[category_name.upper()]
                 level = self.predict_level(category, scores)
                 
-                # Get learning resources for skills that need improvement
-                resources = {}
+                # Calculate average score
+                avg_score = sum(scores) / len(scores)
+                
+                # Identify strengths and areas for improvement
+                strengths = []
+                improvements = []
                 for i, score in enumerate(scores, 1):
-                    skill_name = f"{category_name}_skill_{i}"
-                    if (level == SkillLevel.BEGINNER and score < 2) or \
-                       (level == SkillLevel.INTERMEDIATE and score < 3):
-                        resources[skill_name] = self.fetch_learning_resources(skill_name, level)
+                    skill_name = skill_descriptions[category_name][i]
+                    if score >= 2.5:
+                        strengths.append(skill_name)
+                    elif score <= 1.5:
+                        improvements.append(skill_name)
+                
+                # Get learning resources for skills that need improvement
+                resources = []
+                for skill in improvements:
+                    skill_resources = self.fetch_learning_resources(skill, level)
+                    if skill_resources.get('youtube') or skill_resources.get('web'):
+                        for yt in skill_resources.get('youtube', [])[:2]:
+                            resources.append({
+                                'title': yt['snippet']['title'],
+                                'url': f"https://www.youtube.com/watch?v={yt['id']['videoId']}",
+                                'type': 'video'
+                            })
+                        for web in skill_resources.get('web', [])[:2]:
+                            resources.append({
+                                'title': web['title'],
+                                'url': web['link'],
+                                'type': 'article'
+                            })
+                
+                # Generate personalized recommendation
+                base_recommendation = recommendations[level][category_name]
+                specific_recommendations = []
+                
+                if strengths:
+                    specific_recommendations.append(
+                        f"Your strengths are in {', '.join(strengths)}. "
+                        "Build upon these skills while working on other areas."
+                    )
+                
+                if improvements:
+                    specific_recommendations.append(
+                        f"Focus on improving {', '.join(improvements)} through practice and learning resources."
+                    )
                 
                 results[category.name] = {
                     'level': level.value,
+                    'average_score': round(avg_score, 2),
                     'scores': scores,
-                    'resources': resources
+                    'strengths': strengths,
+                    'areas_for_improvement': improvements,
+                    'recommendation': base_recommendation + ' ' + ' '.join(specific_recommendations),
+                    'resources': resources[:4]  # Limit to top 4 resources
                 }
             except Exception as e:
                 print(f"Error analyzing {category_name}: {str(e)}")
                 results[category_name] = {
                     'level': SkillLevel.BEGINNER.value,
+                    'average_score': sum(scores) / len(scores),
                     'scores': scores,
-                    'resources': {}
+                    'strengths': [],
+                    'areas_for_improvement': [],
+                    'recommendation': 'An error occurred while analyzing this category. Please try again.',
+                    'resources': []
                 }
         
         return results

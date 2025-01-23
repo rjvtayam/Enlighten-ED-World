@@ -52,6 +52,12 @@ def submit_assessment():
         current_app.logger.info(f"Content Type: {request.content_type}")
         current_app.logger.info(f"Headers: {dict(request.headers)}")
         
+        # Validate CSRF token
+        csrf_token = request.headers.get('X-CSRFToken')
+        if not csrf_token:
+            current_app.logger.error("Missing CSRF token")
+            return jsonify({'error': 'Missing CSRF token'}), HTTPStatus.UNAUTHORIZED
+        
         # Get form data
         program = request.form.get('program')
         major = request.form.get('major')
@@ -153,37 +159,35 @@ def submit_assessment():
             current_app.logger.info("=== Assessment Submission Complete ===")
             current_app.logger.info(f"Results: {results}")
             
-            response = jsonify({
+            return jsonify({
                 'success': True,
                 'results': results,
                 'message': 'Assessment submitted successfully'
             })
             
-            # Set CORS headers
-            response.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
-            response.headers['Access-Control-Allow-Credentials'] = 'true'
-            response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-CSRFToken'
+        except ValueError as e:
+            db.session.rollback()
+            current_app.logger.error(f"Validation error: {str(e)}")
+            return jsonify({
+                'success': False,
+                'error': str(e)
+            }), HTTPStatus.BAD_REQUEST
             
-            return response
-            
-        except Exception as e:
+        except SQLAlchemyError as e:
             db.session.rollback()
             current_app.logger.error(f"Database error: {str(e)}")
-            current_app.logger.exception("Full traceback:")
             return jsonify({
-                'error': 'Failed to save assessment',
-                'details': str(e),
-                'traceback': str(e.__traceback__)
+                'success': False,
+                'error': 'Database error occurred'
             }), HTTPStatus.INTERNAL_SERVER_ERROR
             
     except Exception as e:
         current_app.logger.error(f"Error in submit_assessment: {str(e)}")
         current_app.logger.exception("Full traceback:")
         return jsonify({
-            'error': str(e),
-            'details': str(e.__dict__) if hasattr(e, '__dict__') else None
-        }), HTTPStatus.BAD_REQUEST
+            'success': False,
+            'error': 'An unexpected error occurred'
+        }), HTTPStatus.INTERNAL_SERVER_ERROR
 
 @assessment.route('/results')
 @login_required

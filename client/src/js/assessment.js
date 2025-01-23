@@ -104,48 +104,60 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Validate program and major
-        if (!programSelect.value) {
-            alert('Please select your program');
-            programSelect.focus();
-            return;
-        }
-
-        if (majorGroup.style.display !== 'none' && !majorSelect.value) {
-            alert('Please select your major');
-            majorSelect.focus();
-            return;
-        }
-
-        // Validate all inputs
-        const allInputs = form.querySelectorAll('input[type="radio"]');
-        const groups = {};
-        allInputs.forEach(input => {
-            const name = input.getAttribute('name');
-            groups[name] = groups[name] || false;
-            if (input.checked) groups[name] = true;
-        });
-        
-        if (Object.values(groups).includes(false)) {
-            alert('Please rate all skills before submitting.');
-            return;
-        }
-
         try {
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            
+            // Validate program and major
+            if (!programSelect.value) {
+                throw new Error('Please select your program');
+            }
+
+            if (majorGroup.style.display !== 'none' && !majorSelect.value) {
+                throw new Error('Please select your major');
+            }
+
+            // Validate all inputs
+            const allInputs = form.querySelectorAll('input[type="radio"]');
+            const groups = {};
+            allInputs.forEach(input => {
+                const name = input.getAttribute('name');
+                groups[name] = groups[name] || false;
+                if (input.checked) groups[name] = true;
+            });
+            
+            if (Object.values(groups).includes(false)) {
+                throw new Error('Please rate all skills before submitting.');
+            }
+
+            // Get CSRF token
+            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+            if (!csrfToken) {
+                throw new Error('CSRF token not found');
+            }
+
             const formData = new FormData(form);
             const response = await fetch(form.action, {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrfToken
+                },
+                credentials: 'same-origin'
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to submit assessment');
             }
 
             const results = await response.json();
+            
+            if (!results.success) {
+                throw new Error(results.error || 'Failed to process assessment results');
+            }
             
             // Hide form and show results
             assessmentFormSection.style.display = 'none';
@@ -157,14 +169,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (skillsChart) {
                 skillsChart.destroy();
             }
+
+            const categoryLabels = {
+                technical: 'Technical Skills',
+                communication: 'Communication Skills',
+                soft: 'Soft Skills',
+                creativity: 'Creativity Skills'
+            };
             
             skillsChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: Object.keys(results.averages).map(key => key.replace(/_/g, ' ').toUpperCase()),
+                    labels: Object.keys(results.results.category_scores).map(key => categoryLabels[key] || key),
                     datasets: [{
                         label: 'Your Skills',
-                        data: Object.values(results.averages),
+                        data: Object.values(results.results.category_scores),
                         fill: true,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgb(54, 162, 235)',
@@ -186,7 +205,22 @@ document.addEventListener('DOMContentLoaded', function() {
                                 display: true
                             },
                             suggestedMin: 0,
-                            suggestedMax: 5
+                            suggestedMax: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Score: ${context.raw.toFixed(1)}`;
+                                }
+                            }
                         }
                     }
                 }
@@ -196,23 +230,40 @@ document.addEventListener('DOMContentLoaded', function() {
             const recommendationsContainer = document.getElementById('recommendations');
             recommendationsContainer.innerHTML = '';
             
-            results.recommendations.forEach(rec => {
-                const recElement = document.createElement('div');
-                recElement.className = 'recommendation-item';
-                recElement.innerHTML = `
-                    <h3>${rec.category}</h3>
-                    <p>${rec.text}</p>
-                    ${rec.resources ? `<div class="resources">
-                        <h4>Recommended Resources:</h4>
-                        <ul>${rec.resources.map(r => `<li><a href="${r.url}" target="_blank">${r.title}</a></li>`).join('')}</ul>
-                    </div>` : ''}
-                `;
-                recommendationsContainer.appendChild(recElement);
-            });
+            if (results.results.analysis) {
+                Object.entries(results.results.analysis).forEach(([category, data]) => {
+                    const recElement = document.createElement('div');
+                    recElement.className = 'recommendation-item';
+                    recElement.innerHTML = `
+                        <h3>${categoryLabels[category.toLowerCase()] || category}</h3>
+                        <p>Level: ${data.level}</p>
+                        <p>${data.recommendation || 'Keep practicing to improve your skills!'}</p>
+                        ${data.resources ? `
+                            <div class="resources">
+                                <h4>Recommended Resources:</h4>
+                                <ul>
+                                    ${data.resources.map(r => `
+                                        <li>
+                                            <a href="${r.url}" target="_blank" rel="noopener noreferrer">
+                                                ${r.title}
+                                            </a>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    `;
+                    recommendationsContainer.appendChild(recElement);
+                });
+            }
 
         } catch (error) {
             console.error('Error:', error);
-            alert('There was a problem submitting your assessment. Please try again.');
+            alert(error.message || 'There was a problem submitting your assessment. Please try again.');
+        } finally {
+            // Reset submit button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Assessment';
         }
     });
 });
