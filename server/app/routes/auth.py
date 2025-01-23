@@ -544,7 +544,7 @@ def google_login():
 def google_callback():
     """Handle Google OAuth callback"""
     try:
-        # Get state from request
+        # Get state and code from request
         state = request.args.get('state')
         code = request.args.get('code')
         
@@ -565,8 +565,6 @@ def google_callback():
         
         # Get OAuth client
         client = get_google_client()
-        logger.info(f"Client ID: {current_app.config['GOOGLE_CLIENT_ID']}")
-        logger.info(f"Callback URL: {current_app.config['GOOGLE_CALLBACK_URL']}")
         
         # Prepare token request
         token_url, headers, body = client.prepare_token_request(
@@ -576,6 +574,9 @@ def google_callback():
             code=code
         )
         
+        # Add client credentials to body instead of using auth header
+        body += f"&client_id={current_app.config['GOOGLE_CLIENT_ID']}&client_secret={current_app.config['GOOGLE_CLIENT_SECRET']}"
+        
         logger.info(f"Token request - URL: {token_url}")
         logger.info(f"Token request - Headers: {headers}")
         logger.info(f"Token request - Body: {body}")
@@ -584,8 +585,7 @@ def google_callback():
         token_response = requests.post(
             token_url,
             headers=headers,
-            data=body,
-            auth=(current_app.config['GOOGLE_CLIENT_ID'], current_app.config['GOOGLE_CLIENT_SECRET']),
+            data=body
         )
         
         logger.info(f"Token response status: {token_response.status_code}")
@@ -593,32 +593,43 @@ def google_callback():
         
         if token_response.status_code != 200:
             raise Exception(f"Token exchange failed: {token_response.text}")
-        
+            
         # Parse the tokens
         client.parse_request_body_response(token_response.text)
         
-        # Get user info endpoint from Google's discovery document
+        # Get user info endpoint
         userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
         
-        # Get user info using the access token
+        # Get user info
         uri, headers, body = client.add_token(userinfo_endpoint)
         userinfo_response = requests.get(uri, headers=headers, data=body)
         
         if userinfo_response.status_code != 200:
-            logger.error(f"Failed to get user info: {userinfo_response.text}")
-            raise Exception("Failed to get user information from Google")
+            raise Exception(f"Failed to get user info: {userinfo_response.text}")
             
         userinfo = userinfo_response.json()
-        logger.info(f"User Info: {json.dumps(userinfo, indent=2)}")
         
-        # Return the tokens and user info
-        return {
-            'access_token': client.token['access_token'],
-            'refresh_token': client.token.get('refresh_token'),
-            'id_token': client.token.get('id_token'),
-            'userinfo': userinfo
-        }
+        if not userinfo.get("email_verified"):
+            raise Exception("Google account email not verified")
+            
+        # Handle OAuth user
+        user = handle_oauth_user(
+            provider='google',
+            user_data=userinfo,
+            access_token=client.token['access_token']
+        )
         
+        # Login user
+        login_user(user)
+        
+        # Check if assessment is needed
+        if not user.has_completed_assessment:
+            flash('Welcome! Please complete the assessment to personalize your learning journey.', 'info')
+            return redirect(url_for('assessment.initial_assessment'))
+            
+        flash('Successfully logged in with Google!', 'success')
+        return redirect(url_for('main.index'))
+
     except Exception as e:
         logger.error(f"Google callback error: {str(e)}")
         flash('Failed to complete Google authentication', 'error')
