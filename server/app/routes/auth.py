@@ -784,7 +784,19 @@ def admin_login():
 def auth_status():
     """Check authentication status"""
     is_auth = current_user.is_authenticated
+    user_data = None
+    if is_auth:
+        user_data = {
+            'id': current_user.id,
+            'username': current_user.username,
+            'email': current_user.email,
+            'user_type': current_user.user_type,
+            'is_verified': current_user.is_verified,
+            'profile_image_url': current_user.profile_image_url,
+            'bio': current_user.bio,
+            'has_completed_assessment': current_user.has_completed_assessment
+        }
     return jsonify({
         'is_authenticated': is_auth,
-        'user': current_user.to_dict() if is_auth else None
+        'user': user_data
     })
