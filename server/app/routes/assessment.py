@@ -229,10 +229,17 @@ def submit_assessment():
             'error': 'An unexpected error occurred'
         }), HTTPStatus.INTERNAL_SERVER_ERROR
 
-def validate_major(major: str) -> bool:
+def validate_major(major):
     """Validate if major has available course templates"""
-    course_path = Path(current_app.root_path).parent.parent / 'client' / 'src' / 'pages' / 'courses' / major.upper()
-    return course_path.is_dir()
+    try:
+        # Convert to uppercase to match folder names
+        major = major.upper()
+        # Check if the major's course folder exists
+        valid_majors = ['WMAD', 'SMP', 'NETAD', 'AMG']
+        return major in valid_majors
+    except Exception as e:
+        current_app.logger.error(f"Error validating major: {str(e)}")
+        return False
 
 @lru_cache(maxsize=10)
 def get_course_info(major: str) -> dict:
