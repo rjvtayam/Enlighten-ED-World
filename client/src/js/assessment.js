@@ -185,13 +185,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 creativity: 'Creativity Skills'
             };
 
+            skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.keys(results.category_scores).map(key => categoryLabels[key] || key),
+                    datasets: [{
+                        label: 'Your Skills',
+                        data: Object.values(results.category_scores),
+                        fill: true,
+                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                        borderColor: 'rgb(79, 70, 229)',
+                        pointBackgroundColor: 'rgb(79, 70, 229)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(79, 70, 229)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+
             // Display individual category scores
             const categoryResults = document.getElementById('categoryResults');
             categoryResults.innerHTML = ''; // Clear existing content
             
-            Object.entries(results.category_scores).forEach(([category, score]) => {
+            const categoryGrid = document.createElement('div');
+            categoryGrid.className = 'category-grid';
+            categoryResults.appendChild(categoryGrid);
+            
+            Object.entries(results.category_scores).forEach(([category, score], index) => {
                 const categoryCard = document.createElement('div');
                 categoryCard.className = 'category-card';
+                categoryCard.style.animationDelay = `${index * 0.1}s`;
                 
                 const levelText = score < 40 ? 'Beginner' : 
                                 score < 70 ? 'Intermediate' : 
@@ -213,56 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
                 
-                categoryResults.appendChild(categoryCard);
-            });
-            
-            skillsChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: Object.keys(results.category_scores).map(key => categoryLabels[key] || key),
-                    datasets: [{
-                        label: 'Your Skills',
-                        data: Object.values(results.category_scores),
-                        fill: true,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgb(54, 162, 235)',
-                        pointBackgroundColor: 'rgb(54, 162, 235)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(54, 162, 235)'
-                    }]
-                },
-                options: {
-                    elements: {
-                        line: {
-                            borderWidth: 3
-                        }
-                    },
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 5,
-                            ticks: {
-                                stepSize: 1
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Score: ${context.raw.toFixed(1)}`;
-                                }
-                            }
-                        }
-                    }
-                }
+                categoryGrid.appendChild(categoryCard);
             });
 
             // Add click handler for recommendations button
