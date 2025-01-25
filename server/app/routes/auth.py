@@ -527,15 +527,14 @@ def google_login():
         if not client:
             raise Exception("Google OAuth client not initialized")
         
-        # Generate authorization URL using the same state
-        authorization_url = client.prepare_request_uri(
+        # Generate authorization URL using authorization_url method
+        authorization_url, _ = client.authorization_url(
             authorization_endpoint,
-            redirect_uri=current_app.config['GOOGLE_CALLBACK_URL'],
-            scope=["openid", "email", "profile"],
             state=state,
             access_type="offline",  # Get refresh token
             prompt="consent",       # Force consent screen
-            include_granted_scopes="true"  # Enable incremental authorization
+            include_granted_scopes="true",  # Enable incremental authorization
+            scope=["openid", "email", "profile"]
         )
         
         logger.info(f"Generated auth URL: {authorization_url}")
