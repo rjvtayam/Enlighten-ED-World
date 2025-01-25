@@ -10,6 +10,9 @@ from typing import Dict, Any, List, Optional
 from flask_wtf import FlaskForm
 from dateutil import parser
 from datetime import date
+import os
+from functools import lru_cache
+from pathlib import Path
 
 assessment = Blueprint('assessment', __name__, url_prefix='/assessment')
 skill_assessor = SkillAssessment()
@@ -70,6 +73,11 @@ def submit_assessment():
         if not program or not major:
             current_app.logger.error(f"Missing required fields - Program: {program}, Major: {major}")
             return jsonify({'error': 'Program and major are required'}), HTTPStatus.BAD_REQUEST
+            
+        # Validate major has available courses
+        if not validate_major(major):
+            current_app.logger.error(f"Invalid major or no course templates available: {major}")
+            return jsonify({'error': f'No course templates available for major: {major}'}), HTTPStatus.BAD_REQUEST
         
         # Validate program type
         try:
@@ -145,15 +153,20 @@ def submit_assessment():
             db.session.commit()
             current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
             
+            # Get course recommendations based on major
+            overall_score = sum(sum(scores.values(), [])) / (len(scores) * 3)
+            recommendations = get_course_recommendations(overall_score, major)
+            
             # Prepare response
             results = {
-                'overall_score': sum(sum(scores.values(), [])) / (len(scores) * 3),
+                'overall_score': overall_score,
                 'category_scores': {
                     category: sum(scores[category]) / len(scores[category])
                     for category in scores
                 },
                 'assessment_id': assessment.id,
-                'analysis': analysis_results
+                'analysis': analysis_results,
+                'recommendations': recommendations
             }
             
             current_app.logger.info("=== Assessment Submission Complete ===")
@@ -188,6 +201,93 @@ def submit_assessment():
             'success': False,
             'error': 'An unexpected error occurred'
         }), HTTPStatus.INTERNAL_SERVER_ERROR
+
+def validate_major(major: str) -> bool:
+    """Validate if major has available course templates"""
+    course_path = Path(current_app.root_path).parent.parent / 'client' / 'src' / 'pages' / 'courses' / major.upper()
+    return course_path.is_dir()
+
+@lru_cache(maxsize=10)
+def get_course_info(major: str) -> dict:
+    """Get cached course information for a major"""
+    return {
+        'WMAD': {
+            'name': 'Web & Mobile App Development',
+            'description': 'Build modern web and mobile applications using the latest technologies and frameworks.',
+            'image': '/public/images/courses/wmad-course.jpg'
+        },
+        'AMG': {
+            'name': 'Animation & Motion Graphics',
+            'description': 'Master the art of animation and motion graphics design with industry-standard tools and techniques.',
+            'image': '/public/images/courses/amg-course.jpg'
+        },
+        'NETAD': {
+            'name': 'Network Administration',
+            'description': 'Learn advanced network infrastructure, security, and system administration skills.',
+            'image': '/public/images/courses/netad-course.jpg'
+        },
+        'SMP': {
+            'name': 'Service Management Program',
+            'description': 'Become a social media expert with skills in content creation, strategy, and analytics.',
+            'image': '/public/images/courses/smp-course.jpg'
+        }
+    }.get(major.upper(), {})
+
+def get_course_recommendations(overall_score: float, major: str) -> dict:
+    """Get course recommendations based on assessment score and user's major"""
+    current_app.logger.info(f"Getting course recommendations - Score: {overall_score}, Major: {major}")
+    
+    # Convert score to percentage (0-100)
+    score_percentage = overall_score * 20  # Convert 0-5 scale to percentage
+    
+    # Determine level based on score
+    if score_percentage < 40:
+        level = 'beginner'
+        level_text = 'Beginner'
+    elif score_percentage < 70:
+        level = 'intermediate'
+        level_text = 'Intermediate'
+    else:
+        level = 'advanced'
+        level_text = 'Advanced'
+    
+    current_app.logger.info(f"Determined level: {level_text} ({score_percentage}%)")
+    
+    # Get course info from cache
+    course_info = get_course_info(major)
+    if not course_info:
+        current_app.logger.error(f"No course information found for major: {major}")
+        return {
+            'score': score_percentage,
+            'level': level_text,
+            'courses': []
+        }
+    
+    # Get course recommendations only for the selected major
+    recommendations = []
+    template_path = Path(current_app.root_path).parent.parent / 'client' / 'src' / 'pages' / 'courses' / major.upper() / level / 'index.html'
+    
+    if template_path.exists():
+        current_app.logger.info(f"Found course template: {template_path}")
+        recommendations.append({
+            'code': major.upper(),
+            'name': course_info['name'],
+            'description': course_info['description'],
+            'image': course_info['image'],
+            'level': level_text,
+            'url': url_for('main.course_page', course_code=major.lower(), level=level)
+        })
+    else:
+        current_app.logger.warning(f"Course template not found: {template_path}")
+    
+    result = {
+        'score': score_percentage,
+        'level': level_text,
+        'courses': recommendations
+    }
+    
+    current_app.logger.info(f"Returning recommendations: {result}")
+    return result
 
 @assessment.route('/results')
 @login_required

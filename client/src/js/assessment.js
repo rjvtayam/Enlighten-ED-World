@@ -163,8 +163,16 @@ document.addEventListener('DOMContentLoaded', function() {
             assessmentFormSection.style.display = 'none';
             resultsSection.style.display = 'block';
             
+            // Update overall score and level
+            const overallScore = results.recommendations.score;
+            const overallLevel = results.recommendations.level;
+            
+            document.getElementById('overallScore').textContent = `${Math.round(overallScore)}%`;
+            document.getElementById('overallLevel').textContent = overallLevel;
+            document.getElementById('overallLevelText').textContent = overallLevel.toLowerCase();
+            
             // Create the radar chart
-            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const ctx = document.getElementById('skillsRadarChart').getContext('2d');
             
             if (skillsChart) {
                 skillsChart.destroy();
@@ -180,10 +188,10 @@ document.addEventListener('DOMContentLoaded', function() {
             skillsChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: Object.keys(results.results.category_scores).map(key => categoryLabels[key] || key),
+                    labels: Object.keys(results.category_scores).map(key => categoryLabels[key] || key),
                     datasets: [{
                         label: 'Your Skills',
-                        data: Object.values(results.results.category_scores),
+                        data: Object.values(results.category_scores),
                         fill: true,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgb(54, 162, 235)',
@@ -226,36 +234,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Update recommendations
-            const recommendationsContainer = document.getElementById('recommendations');
-            recommendationsContainer.innerHTML = '';
+            // Add click handler for recommendations button
+            const viewRecommendationsBtn = document.getElementById('viewRecommendationsBtn');
+            const recommendationsSection = document.getElementById('recommendationsSection');
+            const recommendedCourses = document.getElementById('recommendedCourses');
             
-            if (results.results.analysis) {
-                Object.entries(results.results.analysis).forEach(([category, data]) => {
-                    const recElement = document.createElement('div');
-                    recElement.className = 'recommendation-item';
-                    recElement.innerHTML = `
-                        <h3>${categoryLabels[category.toLowerCase()] || category}</h3>
-                        <p>Level: ${data.level}</p>
-                        <p>${data.recommendation || 'Keep practicing to improve your skills!'}</p>
-                        ${data.resources ? `
-                            <div class="resources">
-                                <h4>Recommended Resources:</h4>
-                                <ul>
-                                    ${data.resources.map(r => `
-                                        <li>
-                                            <a href="${r.url}" target="_blank" rel="noopener noreferrer">
-                                                ${r.title}
-                                            </a>
-                                        </li>
-                                    `).join('')}
-                                </ul>
+            viewRecommendationsBtn.addEventListener('click', function() {
+                recommendedCourses.innerHTML = ''; // Clear existing recommendations
+                
+                // Create course cards for each recommended course
+                results.recommendations.courses.forEach(course => {
+                    const card = document.createElement('div');
+                    card.className = 'course-card';
+                    
+                    const levelClass = `level-${course.level.toLowerCase()}`;
+                    
+                    card.innerHTML = `
+                        <a href="${course.url}" class="course-card-link">
+                            <div class="course-image">
+                                <img src="${course.image}" alt="${course.name}" class="course-card__image">
                             </div>
-                        ` : ''}
+                            <div class="course-content">
+                                <h3 class="course-card__title">${course.name}</h3>
+                                <p class="course-card__description">${course.description}</p>
+                                <span class="course-card__level ${levelClass}">${course.level}</span>
+                            </div>
+                        </a>
                     `;
-                    recommendationsContainer.appendChild(recElement);
+                    
+                    recommendedCourses.appendChild(card);
                 });
-            }
+                
+                // Show recommendations section
+                recommendationsSection.style.display = 'block';
+                viewRecommendationsBtn.style.display = 'none';
+            });
 
         } catch (error) {
             console.error('Error:', error);
