@@ -147,42 +147,36 @@ def submit_assessment():
             user_id=current_user.id,
             program=program,
             major=major,
-            is_completed=True,
-            skill_technical_1=scores['technical'][0],
-            skill_technical_2=scores['technical'][1],
-            skill_technical_3=scores['technical'][2],
-            skill_communication_1=scores['communication'][0],
-            skill_communication_2=scores['communication'][1],
-            skill_communication_3=scores['communication'][2],
-            skill_soft_1=scores['soft'][0],
-            skill_soft_2=scores['soft'][1],
-            skill_soft_3=scores['soft'][2],
-            skill_creativity_1=scores['creativity'][0],
-            skill_creativity_2=scores['creativity'][1],
-            skill_creativity_3=scores['creativity'][2]
+            is_completed=True
         )
-
-        # Process categories and recommendations
-        for category_name, result in analysis_results.items():
+        db.session.add(assessment)
+        db.session.flush()  # Get the assessment ID
+        
+        # Create categories and skills
+        for category_name, category_scores in scores.items():
             category = AssessmentCategory(
+                assessment_id=assessment.id,
                 category_name=category_name,
-                score=sum(scores[category_name.lower()]) / len(scores[category_name.lower()]),
-                level=result['level']
+                score=sum(category_scores) / len(category_scores)  # Average score
             )
+            db.session.add(category)
+            db.session.flush()
             
-            # Add skills to category
-            for i, score in enumerate(scores[category_name.lower()], 1):
+            # Add individual skills
+            for i, score in enumerate(category_scores, 1):
                 skill = AssessmentSkill(
-                    skill_name=f"{category_name}_skill_{i}",
-                    score=score,
-                    description=f"Skill {i} for {category_name}"
+                    category_id=category.id,
+                    skill_name=f"{category_name}_{i}",
+                    score=score
                 )
-                category.skills.append(skill)
-            
-            assessment.categories.append(category)
+                db.session.add(skill)
+        
+        # Calculate overall score
+        all_scores = [score for scores_list in scores.values() for score in scores_list]
+        assessment.overall_score = sum(all_scores) / len(all_scores)
+        assessment.overall_level = skill_assessment.get_overall_level(assessment.overall_score)
         
         # Save to database
-        db.session.add(assessment)
         db.session.commit()
         current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
         
@@ -379,6 +373,7 @@ def create_assessment():
             if 'categories' in data:
                 for category_data in data['categories']:
                     category = AssessmentCategory(
+                        assessment_id=assessment.id,
                         category_name=category_data['name'],
                         weight=category_data.get('weight', 1.0)
                     )
@@ -388,6 +383,7 @@ def create_assessment():
                         skills_data = {}
                         for skill_data in category_data['skills']:
                             skill = AssessmentSkill(
+                                category_id=category.id,
                                 skill_name=skill_data['name'],
                                 score=skill_data['score'],
                                 description=skill_data.get('description')
@@ -461,6 +457,7 @@ def update_assessment(assessment_id: int):
             # Add new categories
             for category_data in data['categories']:
                 category = AssessmentCategory(
+                    assessment_id=assessment.id,
                     category_name=category_data['name'],
                     weight=category_data.get('weight', 1.0)
                 )
@@ -469,6 +466,7 @@ def update_assessment(assessment_id: int):
                     skills_data = {}
                     for skill_data in category_data['skills']:
                         skill = AssessmentSkill(
+                            category_id=category.id,
                             skill_name=skill_data['name'],
                             score=skill_data['score'],
                             description=skill_data.get('description')
