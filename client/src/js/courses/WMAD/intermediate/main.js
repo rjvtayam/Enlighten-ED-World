@@ -1,241 +1,248 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Tab Switching
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanes = document.querySelectorAll('.tab-pane');
+/**
+ * Intermediate Web Development Course JavaScript
+ * Handles interactive features for intermediate-level content
+ */
 
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetTab = button.dataset.tab;
-            
-            // Update active states
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            
-            button.classList.add('active');
-            document.getElementById(targetTab).classList.add('active');
-        });
-    });
-
-    // Flash Cards
-    const flashCard = document.querySelector('.flash-card');
-    const prevCardBtn = document.querySelector('.prev-card');
-    const nextCardBtn = document.querySelector('.next-card');
-    const cardCounter = document.querySelector('.card-counter');
-    let currentCardIndex = 0;
-    
-    const flashCardsData = [
-        {
-            question: "What is the Virtual DOM in React?",
-            answer: "A lightweight copy of the actual DOM that React uses to optimize rendering performance by minimizing direct DOM manipulation"
-        },
-        {
-            question: "What are React Hooks?",
-            answer: "Functions that allow you to use state and other React features in functional components"
-        },
-        {
-            question: "What is Redux?",
-            answer: "A predictable state container for JavaScript apps, commonly used with React for state management"
-        },
-        {
-            question: "What is Node.js?",
-            answer: "A JavaScript runtime built on Chrome's V8 JavaScript engine that allows running JavaScript on the server"
-        }
-    ];
-
-    flashCard.addEventListener('click', () => {
-        flashCard.classList.toggle('flipped');
-    });
-
-    function updateCard(index) {
-        const card = flashCardsData[index];
-        const frontContent = flashCard.querySelector('.flash-card-front p');
-        const backContent = flashCard.querySelector('.flash-card-back p');
+class IntermediateCourseManager {
+    constructor() {
+        this.progressData = {
+            completedLessons: 0,
+            totalLessons: 25
+        };
         
-        frontContent.textContent = card.question;
-        backContent.textContent = card.answer;
-        cardCounter.textContent = `${index + 1}/${flashCardsData.length}`;
-        
-        flashCard.classList.remove('flipped');
+        this.codeEditors = new Map();
+        this.initializeEventListeners();
     }
 
-    prevCardBtn.addEventListener('click', () => {
-        if (currentCardIndex > 0) {
-            currentCardIndex--;
-            updateCard(currentCardIndex);
-        }
-    });
-
-    nextCardBtn.addEventListener('click', () => {
-        if (currentCardIndex < flashCardsData.length - 1) {
-            currentCardIndex++;
-            updateCard(currentCardIndex);
-        }
-    });
-
-    // Memory Game
-    const memoryGameContainer = document.querySelector('.memory-game-grid');
-    const movesDisplay = document.querySelector('.moves');
-    const timerDisplay = document.querySelector('.timer');
-    const restartBtn = document.querySelector('.restart-game');
-    
-    const memoryCards = [
-        { id: 1, content: 'React' },
-        { id: 2, content: 'Node.js' },
-        { id: 3, content: 'Redux' },
-        { id: 4, content: 'Express' },
-        { id: 5, content: 'MongoDB' },
-        { id: 6, content: 'GraphQL' }
-    ].flatMap(card => [card, {...card}]);
-
-    let moves = 0;
-    let gameTimer;
-    let seconds = 0;
-    let flippedCards = [];
-    let matchedPairs = 0;
-
-    function shuffleCards(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    function createMemoryCard(card) {
-        const cardElement = document.createElement('div');
-        cardElement.classList.add('memory-card');
-        cardElement.dataset.id = card.id;
-        cardElement.innerHTML = `
-            <div class="memory-card-inner">
-                <div class="memory-card-front"></div>
-                <div class="memory-card-back">${card.content}</div>
-            </div>
-        `;
-        return cardElement;
-    }
-
-    function initializeMemoryGame() {
-        memoryGameContainer.innerHTML = '';
-        moves = 0;
-        seconds = 0;
-        matchedPairs = 0;
-        flippedCards = [];
-        movesDisplay.textContent = 'Moves: 0';
-        timerDisplay.textContent = 'Time: 0:00';
-        
-        const shuffledCards = shuffleCards([...memoryCards]);
-        shuffledCards.forEach(card => {
-            memoryGameContainer.appendChild(createMemoryCard(card));
+    initializeEventListeners() {
+        document.addEventListener('DOMContentLoaded', () => {
+            this.setupAdvancedEditors();
+            this.setupAPIPlayground();
+            this.initializeProgress();
         });
     }
 
-    // Quiz
-    const quizContainer = document.querySelector('.quiz-container');
-    const progressBar = document.querySelector('.quiz-progress .progress-bar');
-    const prevQuestionBtn = document.querySelector('.prev-question');
-    const nextQuestionBtn = document.querySelector('.next-question');
-    const submitQuizBtn = document.querySelector('.submit-quiz');
-    
-    const quizData = [
-        {
-            question: "Which hook in React is used to perform side effects in function components?",
-            options: [
-                { text: "useState", correct: false },
-                { text: "useEffect", correct: true },
-                { text: "useContext", correct: false },
-                { text: "useReducer", correct: false }
-            ]
-        },
-        {
-            question: "What is the purpose of Redux middleware?",
-            options: [
-                { text: "To handle asynchronous actions", correct: true },
-                { text: "To style components", correct: false },
-                { text: "To create routes", correct: false },
-                { text: "To validate forms", correct: false }
-            ]
-        },
-        {
-            question: "What is the purpose of Express.js?",
-            options: [
-                { text: "Frontend framework", correct: false },
-                { text: "Database management", correct: false },
-                { text: "Web application framework for Node.js", correct: true },
-                { text: "Testing framework", correct: false }
-            ]
-        }
-    ];
+    /**
+     * Sets up advanced code editors with multiple language support
+     */
+    setupAdvancedEditors() {
+        const editors = document.querySelectorAll('.intermediate-code-editor');
+        editors.forEach(editor => {
+            const language = editor.dataset.language;
+            const editorInstance = this.createCodeEditor(editor, language);
+            
+            if (editor.dataset.preview) {
+                this.setupLivePreview(editorInstance, editor.dataset.preview, language);
+            }
 
-    let currentQuestionIndex = 0;
-
-    function updateQuizProgress() {
-        const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
-        progressBar.style.width = `${progress}%`;
+            this.codeEditors.set(editor.id, editorInstance);
+        });
     }
 
-    function showQuestion(index) {
-        const question = quizData[index];
-        const questionElement = document.querySelector('.quiz-question');
-        
-        questionElement.innerHTML = `
-            <h3>Question ${index + 1}:</h3>
-            <p>${question.question}</p>
-            <div class="quiz-options">
-                ${question.options.map((option, i) => `
-                    <label class="option">
-                        <input type="radio" name="q${index}" value="${i}">
-                        <span>${option.text}</span>
-                    </label>
-                `).join('')}
-            </div>
-        `;
+    /**
+     * Creates a code editor with advanced features
+     */
+    createCodeEditor(element, language) {
+        // Initialize with basic features
+        const editor = {
+            element,
+            language,
+            value: '',
+            selections: [],
+            history: [],
+            
+            // Editor methods
+            setValue(code) {
+                this.value = code;
+                this.highlight();
+            },
+            
+            highlight() {
+                let highlighted = this.value;
+                
+                // Language-specific syntax highlighting
+                switch (this.language) {
+                    case 'javascript':
+                        highlighted = this.highlightJavaScript(highlighted);
+                        break;
+                    case 'react':
+                        highlighted = this.highlightReact(highlighted);
+                        break;
+                    case 'node':
+                        highlighted = this.highlightNode(highlighted);
+                        break;
+                }
+                
+                this.element.innerHTML = highlighted;
+            }
+        };
 
-        // Update navigation buttons
-        prevQuestionBtn.disabled = index === 0;
-        nextQuestionBtn.style.display = index === quizData.length - 1 ? 'none' : 'block';
-        submitQuizBtn.style.display = index === quizData.length - 1 ? 'block' : 'none';
-        
-        updateQuizProgress();
+        // Set up event listeners
+        element.addEventListener('input', (e) => {
+            editor.setValue(e.target.value);
+        });
+
+        return editor;
     }
 
-    // Initialize components
-    updateCard(0);
-    initializeMemoryGame();
-    showQuestion(0);
+    /**
+     * Sets up the API testing playground
+     */
+    setupAPIPlayground() {
+        const playground = document.querySelector('.api-playground');
+        if (!playground) return;
 
-    // Event listeners for quiz navigation
-    prevQuestionBtn.addEventListener('click', () => {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            showQuestion(currentQuestionIndex);
-        }
-    });
+        const sendButton = playground.querySelector('.send-request');
+        const urlInput = playground.querySelector('.url-input');
+        const methodSelect = playground.querySelector('.method-select');
+        const headersInput = playground.querySelector('.headers-input');
+        const bodyInput = playground.querySelector('.body-input');
+        const responseArea = playground.querySelector('.response-area');
 
-    nextQuestionBtn.addEventListener('click', () => {
-        if (currentQuestionIndex < quizData.length - 1) {
-            currentQuestionIndex++;
-            showQuestion(currentQuestionIndex);
-        }
-    });
-
-    submitQuizBtn.addEventListener('click', () => {
-        // Calculate and show results
-        const answers = [];
-        quizData.forEach((_, index) => {
-            const selected = document.querySelector(`input[name="q${index}"]:checked`);
-            if (selected) {
-                answers.push({
-                    questionIndex: index,
-                    selectedOption: parseInt(selected.value)
+        sendButton?.addEventListener('click', async () => {
+            try {
+                const response = await this.sendAPIRequest({
+                    url: urlInput.value,
+                    method: methodSelect.value,
+                    headers: this.parseHeaders(headersInput.value),
+                    body: this.parseBody(bodyInput.value)
                 });
+
+                this.displayAPIResponse(response, responseArea);
+            } catch (error) {
+                this.handleAPIError(error, responseArea);
             }
         });
+    }
+
+    /**
+     * Sends API requests from the playground
+     */
+    async sendAPIRequest({ url, method, headers, body }) {
+        const options = {
+            method,
+            headers: {
+                'Content-Type': 'application/json',
+                ...headers
+            }
+        };
+
+        if (['POST', 'PUT', 'PATCH'].includes(method) && body) {
+            options.body = JSON.stringify(body);
+        }
+
+        const response = await fetch(url, options);
+        const data = await response.json();
         
-        // Calculate score
-        const correctAnswers = answers.filter(answer => 
-            quizData[answer.questionIndex].options[answer.selectedOption].correct
-        ).length;
-        
-        alert(`You got ${correctAnswers} out of ${quizData.length} questions correct!`);
-    });
-});
+        return {
+            status: response.status,
+            headers: Object.fromEntries(response.headers.entries()),
+            data
+        };
+    }
+
+    /**
+     * Displays API response in the playground
+     */
+    displayAPIResponse(response, element) {
+        element.innerHTML = `
+            <div class="response-status ${response.status < 400 ? 'success' : 'error'}">
+                Status: ${response.status}
+            </div>
+            <div class="response-headers">
+                ${Object.entries(response.headers)
+                    .map(([key, value]) => `<div>${key}: ${value}</div>`)
+                    .join('')}
+            </div>
+            <pre class="response-body">${JSON.stringify(response.data, null, 2)}</pre>
+        `;
+    }
+
+    /**
+     * Handles API request errors
+     */
+    handleAPIError(error, element) {
+        element.innerHTML = `
+            <div class="response-status error">
+                Error: ${error.message}
+            </div>
+            <div class="error-details">
+                ${error.stack}
+            </div>
+        `;
+    }
+
+    /**
+     * Parses headers from input
+     */
+    parseHeaders(headerString) {
+        try {
+            return headerString
+                .split('\n')
+                .filter(line => line.trim())
+                .reduce((headers, line) => {
+                    const [key, value] = line.split(':').map(s => s.trim());
+                    headers[key] = value;
+                    return headers;
+                }, {});
+        } catch (error) {
+            console.error('Error parsing headers:', error);
+            return {};
+        }
+    }
+
+    /**
+     * Parses JSON body from input
+     */
+    parseBody(bodyString) {
+        try {
+            return JSON.parse(bodyString);
+        } catch (error) {
+            console.error('Error parsing body:', error);
+            return null;
+        }
+    }
+
+    /**
+     * Updates progress tracking
+     */
+    initializeProgress() {
+        const progressElement = document.querySelector('.progress-indicator');
+        if (progressElement) {
+            this.updateProgressUI();
+        }
+    }
+
+    updateProgressUI() {
+        const { completedLessons, totalLessons } = this.progressData;
+        const progressElement = document.querySelector('.progress-indicator');
+        if (progressElement) {
+            progressElement.querySelector('span').textContent = 
+                `Progress: ${completedLessons}/${totalLessons} lessons completed`;
+        }
+    }
+
+    /**
+     * Saves progress to backend
+     */
+    async saveProgress() {
+        try {
+            const response = await fetch('/api/progress/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.progressData)
+            });
+            
+            if (!response.ok) {
+                console.error('Failed to save progress');
+            }
+        } catch (error) {
+            console.error('Error saving progress:', error);
+        }
+    }
+}
+
+// Initialize the course manager
+const courseManager = new IntermediateCourseManager();

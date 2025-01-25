@@ -5,233 +5,109 @@
 {% block content %}
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
-    <nav class="course-sidebar">
-        <div class="course-title">
-            <h2>Expert Web Development</h2>
-            <p class="course-level">Advanced Level</p>
-        </div>
-        
-        <ul class="course-navigation">
+    <aside class="course-sidebar">
+        <nav class="sidebar-nav">
             <!-- Course Introduction -->
-            <li class="course-section">
-                <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Introduction
+            <div class="nav-group active">
+                <div class="nav-group-header">
+                    <span class="icon">📚</span>
+                    <span>Course Introduction</span>
                     <span class="duration">1 hour</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
-                    <li><a href="#" data-content="architecture">System Architecture</a></li>
-                    <li><a href="#" data-content="tech-stack">Modern Tech Stack</a></li>
-                </ul>
-            </li>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link active" data-content="welcome">Welcome & Overview</a>
+                    <a href="#" class="nav-link" data-content="architecture">System Architecture</a>
+                    <a href="#" class="nav-link" data-content="tech-stack">Modern Tech Stack</a>
+                </div>
+            </div>
 
             <!-- Advanced Frontend -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🎨</span>
-                    Advanced Frontend
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">🎨</span>
+                    <span>Advanced Frontend</span>
                     <span class="duration">5 hours</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="performance">Performance Optimization</a></li>
-                    <li><a href="#" data-content="pwa">Progressive Web Apps</a></li>
-                    <li><a href="#" data-content="animations">Advanced Animations</a></li>
-                    <li><a href="#" data-content="state-management">Advanced State Management</a></li>
-                    <li><a href="#" data-content="testing">Frontend Testing</a></li>
-                    <li><a href="#" data-content="frontend-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="performance">Performance Optimization</a>
+                    <a href="#" class="nav-link" data-content="pwa">Progressive Web Apps</a>
+                    <a href="#" class="nav-link" data-content="animations">Advanced Animations</a>
+                    <a href="#" class="nav-link" data-content="state-management">Advanced State Management</a>
+                    <a href="#" class="nav-link" data-content="testing">Frontend Testing</a>
+                    <a href="#" class="nav-link" data-content="frontend-quiz">Knowledge Check</a>
+                </div>
+            </div>
 
             <!-- Backend Architecture -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">⚙️</span>
-                    Backend Architecture
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">⚙️</span>
+                    <span>Backend Architecture</span>
                     <span class="duration">6 hours</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="microservices">Microservices</a></li>
-                    <li><a href="#" data-content="graphql">GraphQL APIs</a></li>
-                    <li><a href="#" data-content="caching">Caching Strategies</a></li>
-                    <li><a href="#" data-content="security">Security Best Practices</a></li>
-                    <li><a href="#" data-content="scaling">Scaling Applications</a></li>
-                    <li><a href="#" data-content="backend-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Cloud & DevOps -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">☁️</span>
-                    Cloud & DevOps
-                    <span class="duration">5 hours</span>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="scalability">Scalability Patterns</a>
+                    <a href="#" class="nav-link" data-content="microservices">Microservices Architecture</a>
+                    <a href="#" class="nav-link" data-content="api-design">Advanced API Design</a>
+                    <a href="#" class="nav-link" data-content="caching">Caching Strategies</a>
+                    <a href="#" class="nav-link" data-content="backend-quiz">Knowledge Check</a>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="aws">AWS Services</a></li>
-                    <li><a href="#" data-content="docker">Docker & Containers</a></li>
-                    <li><a href="#" data-content="ci-cd">CI/CD Pipelines</a></li>
-                    <li><a href="#" data-content="monitoring">Monitoring & Logging</a></li>
-                    <li><a href="#" data-content="devops-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Advanced Data Management -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">💾</span>
-                    Advanced Data Management
-                    <span class="duration">4 hours</span>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="db-design">Database Design Patterns</a></li>
-                    <li><a href="#" data-content="nosql">NoSQL Solutions</a></li>
-                    <li><a href="#" data-content="data-modeling">Advanced Data Modeling</a></li>
-                    <li><a href="#" data-content="optimization">Query Optimization</a></li>
-                    <li><a href="#" data-content="data-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
+            </div>
 
             <!-- Enterprise Project -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🚀</span>
-                    Enterprise Project
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">🚀</span>
+                    <span>Enterprise Project</span>
                     <span class="duration">6 hours</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="requirements">Requirements Analysis</a></li>
-                    <li><a href="#" data-content="architecture-design">System Design</a></li>
-                    <li><a href="#" data-content="implementation">Implementation</a></li>
-                    <li><a href="#" data-content="testing-deployment">Testing & Deployment</a></li>
-                    <li><a href="#" data-content="documentation">Documentation</a></li>
-                    <li><a href="#" data-content="project-submission">Project Submission</a></li>
-                </ul>
-            </li>
-
-            <!-- Final Assessment -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Final Assessment
-                    <span class="duration">3 hours</span>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="project-setup">Project Setup</a>
+                    <a href="#" class="nav-link" data-content="implementation">Implementation</a>
+                    <a href="#" class="nav-link" data-content="deployment">Deployment</a>
+                    <a href="#" class="nav-link" data-content="final-review">Final Review</a>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
-                    <li><a href="#" data-content="system-design">System Design Interview</a></li>
-                    <li><a href="#" data-content="project-review">Project Review</a></li>
-                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+            </div>
+        </nav>
+    </aside>
 
-    <!-- Right Content Area -->
+    <!-- Main Content Area -->
     <main class="course-content">
-        <div class="content-area active">
-            <div class="content-header">
-                <div class="header-top">
-                    <h1>Welcome to Advanced Web Development</h1>
-                    <div class="lesson-meta">
-                        <span class="time-remaining">📚 Time to complete: 30 hours</span>
-                        <span class="difficulty">👨‍💻 Difficulty: Advanced</span>
-                    </div>
-                </div>
-                <div class="progress-indicator">
-                    <span class="progress-text">Progress: 0/40 lessons completed</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 0%"></div>
-                    </div>
+        <div class="course-card">
+            <div class="course-card-header">
+                <h1>Welcome to Advanced Web Development</h1>
+                <div class="progress-indicator advanced">
+                    <span>Progress: 0/40 lessons completed</span>
                 </div>
             </div>
 
-            <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/WMAD/advanced/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/WMAD/advanced/welcome.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="content-text">
-                <div class="content-section">
-                    <h2>Course Overview</h2>
-                    <p>Welcome to Advanced Web Development! This expert-level course will teach you enterprise-grade development practices and modern architectural patterns:</p>
-                    
-                    <ul class="course-highlights">
-                        <li>
-                            <span class="highlight-icon">🎨</span>
-                            <div class="highlight-content">
-                                <strong>Advanced Frontend</strong>
-                                <p>Master performance optimization and modern architecture</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">⚙️</span>
-                            <div class="highlight-content">
-                                <strong>Backend Architecture</strong>
-                                <p>Design scalable and maintainable systems</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">☁️</span>
-                            <div class="highlight-content">
-                                <strong>Cloud & DevOps</strong>
-                                <p>Deploy and manage cloud-native applications</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🚀</span>
-                            <div class="highlight-content">
-                                <strong>Enterprise Project</strong>
-                                <p>Build a production-ready enterprise application</p>
-                            </div>
-                        </li>
+            <div class="content-section">
+                <h2>Course Overview</h2>
+                <p>Welcome to Advanced Web Development! This expert-level course will teach you enterprise-grade development practices and modern architectural patterns:</p>
+                
+                <div class="content-table">
+                    <h3>What You'll Learn</h3>
+                    <ul>
+                        <li>✓ Advanced frontend optimization techniques</li>
+                        <li>✓ Microservices architecture and implementation</li>
+                        <li>✓ Cloud deployment and DevOps practices</li>
+                        <li>✓ Enterprise-level system design</li>
+                        <li>✓ Advanced data management strategies</li>
                     </ul>
                 </div>
 
-                <div class="content-section">
-                    <h2>What You'll Learn</h2>
-                    <div class="learning-outcomes">
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Advanced frontend optimization techniques</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Microservices architecture and implementation</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Cloud deployment and DevOps practices</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Enterprise-level system design</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Advanced data management strategies</p>
-                        </div>
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>Prerequisites</h3>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>Prerequisites</h2>
-                    <ul class="requirements-list">
-                        <li>Completion of Intermediate Web Development course or equivalent experience</li>
-                        <li>Strong understanding of JavaScript and modern frameworks</li>
-                        <li>Experience with backend development and databases</li>
-                        <li>Basic understanding of system architecture</li>
-                        <li>Professional development experience</li>
-                    </ul>
-                </div>
-
-                <div class="next-steps">
-                    <h3>Ready to Master Web Development?</h3>
-                    <p>Begin with System Architecture to understand modern web application design principles.</p>
-                    <div class="navigation-buttons">
-                        <button class="btn btn-secondary" disabled>Previous</button>
-                        <button class="btn btn-primary">Next: System Architecture</button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Completion of Intermediate Web Development course or equivalent experience</li>
+                            <li>Strong understanding of JavaScript and modern frameworks</li>
+                            <li>Experience with backend development and databases</li>
+                            <li>Basic understanding of system architecture</li>
+                            <li>Professional development experience</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -241,6 +117,7 @@
 {% endblock %}
 
 {% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/WMAD/advanced.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/advanced.css') }}">
 {% endblock %}

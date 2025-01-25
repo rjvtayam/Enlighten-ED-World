@@ -5,232 +5,127 @@
 {% block content %}
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
-    <nav class="course-sidebar">
-        <div class="course-title">
-            <h2>Advanced Web Development</h2>
-            <p class="course-level">Intermediate Level</p>
-        </div>
-        
-        <ul class="course-navigation">
+    <aside class="course-sidebar">
+        <nav class="sidebar-nav">
             <!-- Course Introduction -->
-            <li class="course-section">
-                <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Introduction
+            <div class="nav-group active">
+                <div class="nav-group-header">
+                    <span class="icon">📚</span>
+                    <span>Course Introduction</span>
                     <span class="duration">1 hour</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
-                    <li><a href="#" data-content="setup">Development Environment</a></li>
-                    <li><a href="#" data-content="modern-web">Modern Web Development</a></li>
-                </ul>
-            </li>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link active" data-content="welcome">Welcome & Overview</a>
+                    <a href="#" class="nav-link" data-content="setup">Development Environment</a>
+                    <a href="#" class="nav-link" data-content="modern-web">Modern Web Development</a>
+                </div>
+            </div>
 
             <!-- Advanced JavaScript -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">⚡</span>
-                    Advanced JavaScript
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">⚡</span>
+                    <span>Advanced JavaScript</span>
                     <span class="duration">4 hours</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="js-es6">ES6+ Features</a></li>
-                    <li><a href="#" data-content="js-async">Async Programming</a></li>
-                    <li><a href="#" data-content="js-modules">Modules & Bundling</a></li>
-                    <li><a href="#" data-content="js-oop">Object-Oriented JS</a></li>
-                    <li><a href="#" data-content="js-patterns">Design Patterns</a></li>
-                    <li><a href="#" data-content="js-testing">Unit Testing</a></li>
-                    <li><a href="#" data-content="js-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="js-es6">ES6+ Features</a>
+                    <a href="#" class="nav-link" data-content="js-async">Async Programming</a>
+                    <a href="#" class="nav-link" data-content="js-modules">Modules & Bundling</a>
+                    <a href="#" class="nav-link" data-content="js-oop">Object-Oriented JS</a>
+                    <a href="#" class="nav-link" data-content="js-patterns">Design Patterns</a>
+                    <a href="#" class="nav-link" data-content="js-testing">Unit Testing</a>
+                    <a href="#" class="nav-link" data-content="js-quiz">Knowledge Check</a>
+                </div>
+            </div>
 
             <!-- Frontend Frameworks -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🔧</span>
-                    Frontend Frameworks
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">🔧</span>
+                    <span>Frontend Frameworks</span>
+                    <span class="duration">6 hours</span>
+                </div>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="frameworks-intro">Introduction to Frameworks</a>
+                    <a href="#" class="nav-link" data-content="react-basics">React Fundamentals</a>
+                    <a href="#" class="nav-link" data-content="react-state">State Management</a>
+                    <a href="#" class="nav-link" data-content="react-hooks">React Hooks</a>
+                    <a href="#" class="nav-link" data-content="react-router">Routing</a>
+                    <a href="#" class="nav-link" data-content="frameworks-quiz">Knowledge Check</a>
+                </div>
+            </div>
+
+            <!-- Backend Development -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">🔌</span>
+                    <span>Backend Development</span>
                     <span class="duration">5 hours</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="react-intro">React Fundamentals</a></li>
-                    <li><a href="#" data-content="react-components">Components & Props</a></li>
-                    <li><a href="#" data-content="react-state">State Management</a></li>
-                    <li><a href="#" data-content="react-hooks">Hooks</a></li>
-                    <li><a href="#" data-content="react-routing">Routing</a></li>
-                    <li><a href="#" data-content="react-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Backend Basics -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🔌</span>
-                    Backend Development
-                    <span class="duration">4 hours</span>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="node-intro">Node.js Basics</a>
+                    <a href="#" class="nav-link" data-content="express">Express Framework</a>
+                    <a href="#" class="nav-link" data-content="api-rest">RESTful APIs</a>
+                    <a href="#" class="nav-link" data-content="databases">Database Integration</a>
+                    <a href="#" class="nav-link" data-content="backend-quiz">Knowledge Check</a>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="node-intro">Node.js Basics</a></li>
-                    <li><a href="#" data-content="express">Express.js Framework</a></li>
-                    <li><a href="#" data-content="rest-api">RESTful APIs</a></li>
-                    <li><a href="#" data-content="mongodb">MongoDB Basics</a></li>
-                    <li><a href="#" data-content="backend-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Development Tools -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🛠️</span>
-                    Development Tools
-                    <span class="duration">3 hours</span>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="git-advanced">Advanced Git</a></li>
-                    <li><a href="#" data-content="npm">Package Management</a></li>
-                    <li><a href="#" data-content="webpack">Webpack</a></li>
-                    <li><a href="#" data-content="debugging">Debugging Tools</a></li>
-                    <li><a href="#" data-content="tools-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
+            </div>
 
             <!-- Full Stack Project -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🚀</span>
-                    Full Stack Project
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="icon">🚀</span>
+                    <span>Full Stack Project</span>
                     <span class="duration">5 hours</span>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="project-planning">Project Planning</a></li>
-                    <li><a href="#" data-content="frontend-dev">Frontend Development</a></li>
-                    <li><a href="#" data-content="backend-dev">Backend Development</a></li>
-                    <li><a href="#" data-content="database">Database Integration</a></li>
-                    <li><a href="#" data-content="deployment">Deployment</a></li>
-                    <li><a href="#" data-content="project-submission">Project Submission</a></li>
-                </ul>
-            </li>
-
-            <!-- Final Assessment -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Final Assessment
-                    <span class="duration">2 hours</span>
+                <div class="nav-group-content">
+                    <a href="#" class="nav-link" data-content="project-planning">Project Planning</a>
+                    <a href="#" class="nav-link" data-content="frontend-dev">Frontend Development</a>
+                    <a href="#" class="nav-link" data-content="backend-dev">Backend Development</a>
+                    <a href="#" class="nav-link" data-content="deployment">Deployment</a>
+                    <a href="#" class="nav-link" data-content="project-review">Project Review</a>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
-                    <li><a href="#" data-content="project-review">Project Review</a></li>
-                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+            </div>
+        </nav>
+    </aside>
 
-    <!-- Right Content Area -->
+    <!-- Main Content Area -->
     <main class="course-content">
-        <div class="content-area active">
-            <div class="content-header">
-                <div class="header-top">
-                    <h1>Welcome to Intermediate Web Development</h1>
-                    <div class="lesson-meta">
-                        <span class="time-remaining">📚 Time to complete: 24 hours</span>
-                        <span class="difficulty">👨‍💻 Difficulty: Intermediate</span>
-                    </div>
-                </div>
-                <div class="progress-indicator">
-                    <span class="progress-text">Progress: 0/35 lessons completed</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 0%"></div>
-                    </div>
+        <div class="course-card">
+            <div class="course-card-header">
+                <h1>Welcome to Intermediate Web Development</h1>
+                <div class="progress-indicator intermediate">
+                    <span>Progress: 0/25 lessons completed</span>
                 </div>
             </div>
 
-            <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/WMAD/intermediate/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/WMAD/intermediate/welcome.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="content-text">
-                <div class="content-section">
-                    <h2>Course Overview</h2>
-                    <p>Welcome to Intermediate Web Development! This course builds on your foundational knowledge to teach you professional-grade web development skills:</p>
-                    
-                    <ul class="course-highlights">
-                        <li>
-                            <span class="highlight-icon">⚡</span>
-                            <div class="highlight-content">
-                                <strong>Advanced JavaScript</strong>
-                                <p>Master modern JavaScript features and patterns</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🔧</span>
-                            <div class="highlight-content">
-                                <strong>React</strong>
-                                <p>Build dynamic UIs with React.js</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🔌</span>
-                            <div class="highlight-content">
-                                <strong>Backend Development</strong>
-                                <p>Create servers and APIs with Node.js</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🚀</span>
-                            <div class="highlight-content">
-                                <strong>Full Stack Project</strong>
-                                <p>Build and deploy a complete web application</p>
-                            </div>
-                        </li>
+            <div class="content-section">
+                <h2>Course Overview</h2>
+                <p>Welcome to Intermediate Web Development! This course builds on your foundational knowledge to teach you professional-grade web development skills.</p>
+                
+                <div class="content-table">
+                    <h3>What You'll Learn</h3>
+                    <ul>
+                        <li>✓ Advanced JavaScript concepts and ES6+ features</li>
+                        <li>✓ Modern frontend frameworks (React)</li>
+                        <li>✓ Backend development with Node.js</li>
+                        <li>✓ RESTful API design and implementation</li>
+                        <li>✓ Full-stack application development</li>
                     </ul>
                 </div>
 
-                <div class="content-section">
-                    <h2>What You'll Learn</h2>
-                    <div class="learning-outcomes">
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Modern JavaScript features and best practices</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Building applications with React.js</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Server-side development with Node.js</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Database design and integration</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Professional development tools and workflows</p>
-                        </div>
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>Prerequisites</h3>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>Prerequisites</h2>
-                    <ul class="requirements-list">
-                        <li>Completion of Beginner Web Development course or equivalent experience</li>
-                        <li>Basic understanding of HTML, CSS, and JavaScript</li>
-                        <li>Familiarity with command line interface</li>
-                        <li>Text editor or IDE</li>
-                    </ul>
-                </div>
-
-                <div class="next-steps">
-                    <h3>Ready to Level Up?</h3>
-                    <p>Start with the Development Environment setup to prepare for advanced web development.</p>
-                    <div class="navigation-buttons">
-                        <button class="btn btn-secondary" disabled>Previous</button>
-                        <button class="btn btn-primary">Next: Development Environment</button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Basic HTML, CSS, and JavaScript knowledge</li>
+                            <li>Understanding of web development fundamentals</li>
+                            <li>Familiarity with version control (Git)</li>
+                            <li>Completion of Beginner Web Development course or equivalent experience</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -240,6 +135,7 @@
 {% endblock %}
 
 {% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/WMAD/intermediate.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/intermediate.css') }}">
 {% endblock %}

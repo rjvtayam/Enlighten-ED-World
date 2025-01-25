@@ -1,0 +1,120 @@
+@import 'variables.css';
+
+/* Course Cards */
+.course-card {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.course-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.course-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+/* Progress Indicators */
+.progress-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.progress-indicator.beginner {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: var(--beginner-color);
+}
+
+.progress-indicator.intermediate {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--intermediate-color);
+}
+
+.progress-indicator.advanced {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--advanced-color);
+}
+
+/* Buttons */
+.course-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-weight: 500;
+    transition: var(--transition-fast);
+    cursor: pointer;
+}
+
+.course-btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.course-btn-primary:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+/* Content Tables */
+.content-table {
+    width: 100%;
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.content-table th,
+.content-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.content-table th {
+    background-color: var(--gray-50);
+    font-weight: 600;
+    text-align: left;
+}
+
+.content-table tr:nth-child(even) {
+    background-color: var(--gray-50);
+}
+
+/* Accordions */
+.accordion {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.accordion-header {
+    padding: var(--spacing-md);
+    background-color: var(--gray-50);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accordion-content {
+    padding: var(--spacing-md);
+    display: none;
+}
+
+.accordion.active .accordion-content {
+    display: block;
+}

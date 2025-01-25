@@ -22,6 +22,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/assessment.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+    
+    <!-- Course Styles -->
+    {% if request.blueprint == 'courses' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/variables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/components.css') }}">
+    {% endif %}
+    
+    {% block extra_css %}{% endblock %}
    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('public.static', filename='favicon/favicon.ico') }}">
