@@ -7,43 +7,53 @@ faq = Blueprint('faq', __name__, url_prefix='/api/faqs')
 
 @faq.route('/')
 def get_faqs():
-    try:
-        # Check if we have any FAQs, if not add defaults
-        if FAQ.query.count() == 0:
-            FAQ.add_default_faqs()
-        
-        faqs = FAQ.query.all()
-        
-        # Format response based on user authentication
-        faq_list = []
-        for faq_item in faqs:
-            faq_data = {
-                'id': faq_item.id,
-                'question': faq_item.question,
-                'answer': faq_item.answer,
-            }
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        try:
+            # Check if we have any FAQs, if not add defaults
+            if FAQ.query.count() == 0:
+                FAQ.add_default_faqs()
             
-            if current_user.is_authenticated:
-                answers = FAQAnswer.query.filter_by(faq_id=faq_item.id).all()
-                faq_data['user_answers'] = [{
-                    'id': answer.id,
-                    'answer': answer.answer,
-                    'created_at': answer.created_at.isoformat()
-                } for answer in answers]
+            faqs = FAQ.query.all()
             
-            faq_list.append(faq_data)
+            # Format response based on user authentication
+            faq_list = []
+            for faq_item in faqs:
+                faq_data = {
+                    'id': faq_item.id,
+                    'question': faq_item.question,
+                    'answer': faq_item.answer,
+                }
+                
+                if current_user.is_authenticated:
+                    answers = FAQAnswer.query.filter_by(faq_id=faq_item.id).all()
+                    faq_data['user_answers'] = [{
+                        'id': answer.id,
+                        'answer': answer.answer,
+                        'created_at': answer.created_at.isoformat()
+                    } for answer in answers]
+                
+                faq_list.append(faq_data)
             
-        return jsonify({
-            'success': True,
-            'faqs': faq_list,
-            'is_authenticated': current_user.is_authenticated
-        })
-    except Exception as e:
-        current_app.logger.error(f"Error getting FAQs: {str(e)}")
-        return jsonify({
-            'success': False,
-            'error': 'Failed to get FAQs'
-        }), 500
+            return jsonify({
+                'success': True,
+                'faqs': faq_list,
+                'is_authenticated': current_user.is_authenticated
+            })
+            
+        except Exception as e:
+            retry_count += 1
+            current_app.logger.error(f"Error getting FAQs (attempt {retry_count}/{max_retries}): {str(e)}")
+            if retry_count >= max_retries:
+                return jsonify({
+                    'success': False,
+                    'error': 'Unable to fetch FAQs after multiple attempts',
+                    'details': str(e)
+                }), 500
+            import time
+            time.sleep(1)  # Wait 1 second before retrying
 
 @faq.route('/<int:faq_id>/answer', methods=['POST'])
 @login_required

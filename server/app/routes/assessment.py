@@ -147,7 +147,6 @@ def submit_assessment():
             user_id=current_user.id,
             program=program,
             major=major,
-            assessment_date=date.today(),
             is_completed=True,
             skill_technical_1=scores['technical'][0],
             skill_technical_2=scores['technical'][1],
