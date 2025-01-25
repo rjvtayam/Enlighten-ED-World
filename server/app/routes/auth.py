@@ -533,8 +533,6 @@ def google_login():
             state=state,
             access_type="offline",  # Get refresh token
             prompt="consent",       # Force consent screen
-            include_granted_scopes="true",  # Enable incremental authorization
-            scope=["openid", "email", "profile"]
         )
         
         logger.info(f"Generated auth URL: {authorization_url}")
