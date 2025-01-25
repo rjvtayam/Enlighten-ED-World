@@ -39,3 +39,18 @@ def privacy_policy():
 @main.route('/cookie-policy')
 def cookie_policy():
     return render_template('legal/cookie-policy.html')
+
+@main.route('/courses/<course_code>/<level>')
+@login_required
+def course_page(course_code, level):
+    """
+    Display course content for a specific course and level
+    Args:
+        course_code: The course code (e.g., wmad, netad)
+        level: The difficulty level (beginner, intermediate, advanced)
+    """
+    try:
+        template_path = f'courses/{course_code.upper()}/{level}/index.html'
+        return render_template(template_path)
+    except Exception as e:
+        return f"Course not found: {str(e)}", 404
