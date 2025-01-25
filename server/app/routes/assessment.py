@@ -171,38 +171,28 @@ def submit_assessment():
                 )
                 db.session.add(skill)
         
-        # Calculate overall score
+        # Calculate overall score and get recommendations
         all_scores = [score for scores_list in scores.values() for score in scores_list]
-        assessment.overall_score = sum(all_scores) / len(all_scores)
-        assessment.overall_level = skill_assessment.get_overall_level(assessment.overall_score)
+        overall_score = sum(all_scores) / len(all_scores)
+        score_percentage = (overall_score / 3) * 100  # Convert to percentage
+        
+        # Get recommendations with score percentage
+        recommendations = get_course_recommendations(score_percentage, major)
+        
+        # Calculate category scores (as percentages)
+        category_scores = {}
+        for category, scores_list in scores.items():
+            category_scores[category] = (sum(scores_list) / len(scores_list)) / 3 * 100
         
         # Save to database
         db.session.commit()
         current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
         
-        # Get course recommendations based on major
-        overall_score = sum(sum(scores.values(), [])) / (len(scores) * 3)
-        recommendations = get_course_recommendations(overall_score, major)
-        
-        # Prepare response
-        results = {
-            'overall_score': overall_score,
-            'category_scores': {
-                category: sum(scores[category]) / len(scores[category])
-                for category in scores
-            },
-            'assessment_id': assessment.id,
-            'analysis': analysis_results,
-            'recommendations': recommendations
-        }
-        
-        current_app.logger.info("=== Assessment Submission Complete ===")
-        current_app.logger.info(f"Results: {results}")
-        
         return jsonify({
             'success': True,
-            'results': results,
-            'message': 'Assessment submitted successfully'
+            'recommendations': recommendations,
+            'category_scores': category_scores,
+            'assessment_id': assessment.id
         })
         
     except ValueError as e:
@@ -271,28 +261,25 @@ def get_course_recommendations(overall_score: float, major: str) -> dict:
     """Get course recommendations based on assessment score and user's major"""
     current_app.logger.info(f"Getting course recommendations - Score: {overall_score}, Major: {major}")
     
-    # Convert score to percentage (0-100)
-    score_percentage = overall_score * 20  # Convert 0-5 scale to percentage
-    
     # Determine level based on score
-    if score_percentage < 40:
+    if overall_score < 40:
         level = 'beginner'
         level_text = 'Beginner'
-    elif score_percentage < 70:
+    elif overall_score < 70:
         level = 'intermediate'
         level_text = 'Intermediate'
     else:
         level = 'advanced'
         level_text = 'Advanced'
     
-    current_app.logger.info(f"Determined level: {level_text} ({score_percentage}%)")
+    current_app.logger.info(f"Determined level: {level_text} ({overall_score}%)")
     
     # Get course info from cache
     course_info = get_course_info(major)
     if not course_info:
         current_app.logger.error(f"No course information found for major: {major}")
         return {
-            'score': score_percentage,
+            'score': overall_score,
             'level': level_text,
             'courses': []
         }
@@ -315,7 +302,7 @@ def get_course_recommendations(overall_score: float, major: str) -> dict:
         current_app.logger.warning(f"Course template not found: {template_path}")
     
     result = {
-        'score': score_percentage,
+        'score': overall_score,
         'level': level_text,
         'courses': recommendations
     }
