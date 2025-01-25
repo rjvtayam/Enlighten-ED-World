@@ -9,7 +9,7 @@
     border-radius: 8px;
     padding: 2rem;
     margin-bottom: 2rem;
-    border-left: 4px solid #dc3545;  /* Advanced level color */
+    border-left: 4px solid #9333ea;  /* Advanced purple */
 }
 
 .course-details {
@@ -35,7 +35,7 @@
     display: block;
     font-weight: 600;
     margin-top: 0.5rem;
-    color: #dc3545;  /* Advanced level color */
+    color: #9333ea;  /* Advanced purple */
 }
 
 /* Learning Interface Styles */
@@ -64,11 +64,11 @@
 }
 
 .tab-button:hover {
-    color: #dc3545;  /* Advanced level color */
+    color: #9333ea;  /* Advanced purple */
 }
 
 .tab-button.active {
-    color: #dc3545;  /* Advanced level color */
+    color: #9333ea;  /* Advanced purple */
 }
 
 .tab-button.active::after {
@@ -78,7 +78,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #dc3545;  /* Advanced level color */
+    background-color: #9333ea;  /* Advanced purple */
 }
 
 .tab-content {
@@ -138,7 +138,7 @@
 }
 
 .flash-card-front h3 {
-    color: #dc3545;  /* Advanced level color */
+    color: #9333ea;  /* Advanced purple */
     margin-bottom: 1rem;
 }
 
@@ -196,7 +196,7 @@
 }
 
 .memory-card-front {
-    background-color: #dc3545;  /* Advanced level color */
+    background-color: #9333ea;  /* Advanced purple */
     color: white;
 }
 
@@ -230,7 +230,7 @@
 
 .quiz-progress .progress-bar {
     height: 100%;
-    background-color: #dc3545;  /* Advanced level color */
+    background-color: #9333ea;  /* Advanced purple */
     width: 0;
     transition: width 0.3s ease;
 }
@@ -259,7 +259,7 @@
 }
 
 .option input[type="radio"]:checked + span {
-    color: #dc3545;  /* Advanced level color */
+    color: #9333ea;  /* Advanced purple */
     font-weight: 600;
 }
 
