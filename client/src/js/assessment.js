@@ -184,6 +184,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 soft: 'Soft Skills',
                 creativity: 'Creativity Skills'
             };
+
+            // Display individual category scores
+            const categoryResults = document.getElementById('categoryResults');
+            categoryResults.innerHTML = ''; // Clear existing content
+            
+            Object.entries(results.category_scores).forEach(([category, score]) => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                
+                const levelText = score < 40 ? 'Beginner' : 
+                                score < 70 ? 'Intermediate' : 
+                                'Advanced';
+                
+                categoryCard.innerHTML = `
+                    <h3>${categoryLabels[category]}</h3>
+                    <div class="score-info">
+                        <div class="score-value">${Math.round(score)}%</div>
+                        <div class="score-level">${levelText}</div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: ${score}%" 
+                             aria-valuenow="${score}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                        </div>
+                    </div>
+                `;
+                
+                categoryResults.appendChild(categoryCard);
+            });
             
             skillsChart = new Chart(ctx, {
                 type: 'radar',
