@@ -1,7 +1,6 @@
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 import numpy as np
-import requests
 import os
 from typing import List, Dict, Tuple, Optional
 from dotenv import load_dotenv
@@ -12,7 +11,7 @@ load_dotenv()
 class SkillAssessment:
     def __init__(self):
         self.scaler = StandardScaler()
-        self.knn = KNeighborsClassifier(n_neighbors=5)
+        self.knn = KNeighborsClassifier(n_neighbors=3)  # Reduced neighbors for more precise boundaries
         # Pre-defined skill vectors for each category
         self.training_data = {
             CategoryType.TECHNICAL: self._generate_technical_data(),
@@ -24,23 +23,32 @@ class SkillAssessment:
     def _generate_technical_data(self) -> Tuple[np.ndarray, np.ndarray]:
         """Generate training data for technical skills"""
         X = np.array([
-            [1, 1, 1],  # Beginner
+            # Beginner level (scores 1-1.66)
+            [1, 1, 1],
             [1, 1, 2],
+            [2, 1, 1],
             [1, 2, 1],
-            [2, 1, 2],  # Intermediate
+            # Intermediate level (scores 1.67-2.33)
             [2, 2, 2],
             [2, 2, 3],
-            [3, 2, 3],  # Advanced
+            [3, 2, 2],
+            [2, 3, 2],
+            # Advanced level (scores 2.34-3)
+            [3, 3, 3],
             [3, 3, 2],
-            [3, 3, 3]
+            [2, 3, 3],
+            [3, 2, 3]
         ])
         y = np.array([
             SkillLevel.BEGINNER.value,
             SkillLevel.BEGINNER.value,
             SkillLevel.BEGINNER.value,
+            SkillLevel.BEGINNER.value,
             SkillLevel.INTERMEDIATE.value,
             SkillLevel.INTERMEDIATE.value,
             SkillLevel.INTERMEDIATE.value,
+            SkillLevel.INTERMEDIATE.value,
+            SkillLevel.ADVANCED.value,
             SkillLevel.ADVANCED.value,
             SkillLevel.ADVANCED.value,
             SkillLevel.ADVANCED.value
@@ -50,23 +58,32 @@ class SkillAssessment:
     def _generate_soft_data(self) -> Tuple[np.ndarray, np.ndarray]:
         """Generate training data for soft skills"""
         X = np.array([
-            [1, 1, 1],  # Beginner
+            # Beginner level (scores 1-1.66)
+            [1, 1, 1],
             [1, 1, 2],
+            [2, 1, 1],
             [1, 2, 1],
-            [2, 1, 2],  # Intermediate
+            # Intermediate level (scores 1.67-2.33)
             [2, 2, 2],
             [2, 2, 3],
-            [3, 2, 3],  # Advanced
+            [3, 2, 2],
+            [2, 3, 2],
+            # Advanced level (scores 2.34-3)
+            [3, 3, 3],
             [3, 3, 2],
-            [3, 3, 3]
+            [2, 3, 3],
+            [3, 2, 3]
         ])
         y = np.array([
             SkillLevel.BEGINNER.value,
             SkillLevel.BEGINNER.value,
             SkillLevel.BEGINNER.value,
+            SkillLevel.BEGINNER.value,
             SkillLevel.INTERMEDIATE.value,
             SkillLevel.INTERMEDIATE.value,
             SkillLevel.INTERMEDIATE.value,
+            SkillLevel.INTERMEDIATE.value,
+            SkillLevel.ADVANCED.value,
             SkillLevel.ADVANCED.value,
             SkillLevel.ADVANCED.value,
             SkillLevel.ADVANCED.value
@@ -89,7 +106,20 @@ class SkillAssessment:
         self.knn.fit(X_scaled, y)
         predicted_level = self.knn.predict(scores_scaled)[0]
         
-        # Return the SkillLevel enum directly since we're using enum values in training data
+        # Get probabilities for each class
+        probabilities = self.knn.predict_proba(scores_scaled)[0]
+        confidence = max(probabilities)
+        
+        # If confidence is low, use score-based approach as fallback
+        if confidence < 0.6:
+            avg_score = sum(scores) / len(scores)
+            if avg_score < 1.67:
+                return SkillLevel.BEGINNER
+            elif avg_score < 2.34:
+                return SkillLevel.INTERMEDIATE
+            else:
+                return SkillLevel.ADVANCED
+        
         return SkillLevel(predicted_level)
 
     def get_overall_level(self, score: float) -> str:
@@ -107,179 +137,39 @@ class SkillAssessment:
         else:  # 2.34 and above (closer to 3)
             return SkillLevel.ADVANCED.value
 
-    @staticmethod
-    def fetch_learning_resources(skill: str, level: SkillLevel) -> Dict:
-        """Fetch relevant learning resources from YouTube and Google"""
-        youtube_key = os.getenv('YOUTUBE_API_KEY')
-        google_key = os.getenv('GOOGLE_API_KEY')
-        cse_id = os.getenv('CUSTOM_SEARCH_ENGINE_ID')
-        
-        # Skip API calls if keys are not configured
-        if not all([youtube_key, google_key, cse_id]):
-            return {'youtube': [], 'web': []}
-        
-        results = {'youtube': [], 'web': []}
-        
-        # YouTube search
-        if youtube_key:
-            youtube_url = 'https://www.googleapis.com/youtube/v3/search'
-            youtube_params = {
-                'key': youtube_key,
-                'q': f'{skill} {level.value} programming tutorial',
-                'part': 'snippet',
-                'maxResults': 3,
-                'type': 'video',
-                'relevanceLanguage': 'en',
-                'videoEmbeddable': 'true'
-            }
-            
-            try:
-                youtube_response = requests.get(youtube_url, params=youtube_params, timeout=5)
-                youtube_response.raise_for_status()
-                youtube_data = youtube_response.json()
-                results['youtube'] = youtube_data.get('items', [])
-            except Exception as e:
-                print(f"YouTube API error: {str(e)}")
-        
-        # Google Custom Search
-        if google_key and cse_id:
-            google_url = 'https://www.googleapis.com/customsearch/v1'
-            google_params = {
-                'key': google_key,
-                'cx': cse_id,
-                'q': f'{skill} {level.value} programming learning resources',
-                'num': 3,
-                'lr': 'lang_en'
-            }
-            
-            try:
-                google_response = requests.get(google_url, params=google_params, timeout=5)
-                google_response.raise_for_status()
-                google_data = google_response.json()
-                results['web'] = google_data.get('items', [])
-            except Exception as e:
-                print(f"Google API error: {str(e)}")
-        
-        return results
-
     def analyze_skills(self, skills_data: Dict[str, List[int]]) -> Dict:
         """Analyze skills and provide recommendations"""
         results = {}
         
-        skill_descriptions = {
-            'technical': {
-                1: 'Problem Solving',
-                2: 'Design Thinking',
-                3: 'Problem Reframing'
-            },
-            'communication': {
-                1: 'Written Communication',
-                2: 'Verbal Communication',
-                3: 'Presentation Skills'
-            },
-            'soft': {
-                1: 'Teamwork',
-                2: 'Leadership',
-                3: 'Time Management'
-            },
-            'creativity': {
-                1: 'Innovation',
-                2: 'Design',
-                3: 'Creative Problem Solving'
-            }
-        }
-
-        recommendations = {
-            SkillLevel.BEGINNER: {
-                'technical': 'Focus on building foundational programming concepts and problem-solving skills.',
-                'communication': 'Practice expressing technical concepts clearly and work on documentation skills.',
-                'soft': 'Develop collaboration skills and engage more in team projects.',
-                'creativity': 'Explore different approaches to problem-solving and design thinking.'
-            },
-            SkillLevel.INTERMEDIATE: {
-                'technical': 'Deepen your understanding of advanced concepts and work on complex projects.',
-                'communication': 'Take leadership in presentations and improve technical writing.',
-                'soft': 'Mentor others and lead small team projects.',
-                'creativity': 'Challenge yourself with innovative solutions and unique approaches.'
-            },
-            SkillLevel.ADVANCED: {
-                'technical': 'Focus on system design and architecture. Consider specializing in specific areas.',
-                'communication': 'Share knowledge through workshops and technical blogs.',
-                'soft': 'Take on project leadership roles and mentor junior developers.',
-                'creativity': 'Drive innovation in projects and explore cutting-edge technologies.'
-            }
-        }
-        
-        for category_name, scores in skills_data.items():
+        # Process each category
+        for category, scores in skills_data.items():
             try:
-                category = CategoryType[category_name.upper()]
-                level = self.predict_level(category, scores)
+                # Convert category string to enum
+                category_type = CategoryType[category.upper()]
                 
-                # Calculate average score
-                avg_score = sum(scores) / len(scores)
+                # Predict level for this category
+                predicted_level = self.predict_level(category_type, scores)
                 
-                # Identify strengths and areas for improvement
-                strengths = []
-                improvements = []
-                for i, score in enumerate(scores, 1):
-                    skill_name = skill_descriptions[category_name][i]
-                    if score >= 2.5:
-                        strengths.append(skill_name)
-                    elif score <= 1.5:
-                        improvements.append(skill_name)
+                # Calculate score as percentage
+                category_score = (sum(scores) / len(scores)) / 3 * 100
                 
-                # Get learning resources for skills that need improvement
-                resources = []
-                for skill in improvements:
-                    skill_resources = self.fetch_learning_resources(skill, level)
-                    if skill_resources.get('youtube') or skill_resources.get('web'):
-                        for yt in skill_resources.get('youtube', [])[:2]:
-                            resources.append({
-                                'title': yt['snippet']['title'],
-                                'url': f"https://www.youtube.com/watch?v={yt['id']['videoId']}",
-                                'type': 'video'
-                            })
-                        for web in skill_resources.get('web', [])[:2]:
-                            resources.append({
-                                'title': web['title'],
-                                'url': web['link'],
-                                'type': 'article'
-                            })
-                
-                # Generate personalized recommendation
-                base_recommendation = recommendations[level][category_name]
-                specific_recommendations = []
-                
-                if strengths:
-                    specific_recommendations.append(
-                        f"Your strengths are in {', '.join(strengths)}. "
-                        "Build upon these skills while working on other areas."
-                    )
-                
-                if improvements:
-                    specific_recommendations.append(
-                        f"Focus on improving {', '.join(improvements)} through practice and learning resources."
-                    )
-                
-                results[category.name] = {
-                    'level': level.value,
-                    'average_score': round(avg_score, 2),
-                    'scores': scores,
-                    'strengths': strengths,
-                    'areas_for_improvement': improvements,
-                    'recommendation': base_recommendation + ' ' + ' '.join(specific_recommendations),
-                    'resources': resources[:4]  # Limit to top 4 resources
+                results[category] = {
+                    'level': predicted_level.value,
+                    'score': category_score
                 }
             except Exception as e:
-                print(f"Error analyzing {category_name}: {str(e)}")
-                results[category_name] = {
+                print(f"Error analyzing {category}: {str(e)}")
+                results[category] = {
                     'level': SkillLevel.BEGINNER.value,
-                    'average_score': sum(scores) / len(scores),
-                    'scores': scores,
-                    'strengths': [],
-                    'areas_for_improvement': [],
-                    'recommendation': 'An error occurred while analyzing this category. Please try again.',
-                    'resources': []
+                    'score': (sum(scores) / len(scores)) / 3 * 100
                 }
         
-        return results
+        # Calculate overall score
+        all_scores = [score for scores_list in skills_data.values() for score in scores_list]
+        overall_score = (sum(all_scores) / len(all_scores)) / 3 * 100
+        
+        return {
+            'categories': results,
+            'overall_score': overall_score,
+            'overall_level': self.get_overall_level(sum(all_scores) / len(all_scores))
+        }
