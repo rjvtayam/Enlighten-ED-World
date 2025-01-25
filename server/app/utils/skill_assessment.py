@@ -92,6 +92,21 @@ class SkillAssessment:
         # Return the SkillLevel enum directly since we're using enum values in training data
         return SkillLevel(predicted_level)
 
+    def get_overall_level(self, score: float) -> str:
+        """
+        Determine overall skill level based on score
+        Args:
+            score: Average score across all skills (1-3)
+        Returns:
+            Skill level as string (beginner, intermediate, advanced)
+        """
+        if score < 1.67:  # Below 1.67 (closer to 1)
+            return SkillLevel.BEGINNER.value
+        elif score < 2.34:  # Between 1.67 and 2.34
+            return SkillLevel.INTERMEDIATE.value
+        else:  # 2.34 and above (closer to 3)
+            return SkillLevel.ADVANCED.value
+
     @staticmethod
     def fetch_learning_resources(skill: str, level: SkillLevel) -> Dict:
         """Fetch relevant learning resources from YouTube and Google"""
