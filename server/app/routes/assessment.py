@@ -184,6 +184,9 @@ def submit_assessment():
         for category, scores_list in scores.items():
             category_scores[category] = (sum(scores_list) / len(scores_list)) / 3 * 100
         
+        # Update user's assessment completion status
+        current_user.has_completed_assessment = True
+        
         # Save to database
         db.session.commit()
         current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")

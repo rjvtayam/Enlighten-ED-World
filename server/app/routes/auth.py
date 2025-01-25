@@ -215,7 +215,8 @@ def handle_oauth_login(provider, oauth_id, email, username, full_name, access_to
                     email=email,
                     oauth_provider=provider,
                     oauth_id=oauth_id,
-                    is_verified=True
+                    is_verified=True,
+                    has_completed_assessment=False  # Explicitly set for new users
                 )
                 db.session.add(user)
                 db.session.flush()  # Get user.id
@@ -427,22 +428,21 @@ def register():
                 return redirect(url_for('auth.register'))
 
             # Create new user
-            verification_token = uuid.uuid4()
-            new_user = User(
-                student_id=student_id,
+            user = User(
                 username=username,
                 email=email,
+                student_id=student_id,
                 user_type=role,
-                verification_token=verification_token,
-                is_verified=False
+                has_completed_assessment=False  # Explicitly set for new users
             )
-            new_user.set_password(password)
+            user.set_password(password)
             
             # Save to database
-            db.session.add(new_user)
+            db.session.add(user)
             db.session.commit()
             
             # Send verification email
+            verification_token = uuid.uuid4()
             send_verification_email(email, username, str(verification_token))
             
             # Store email in session and redirect
