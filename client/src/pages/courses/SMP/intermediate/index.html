@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %}IT Service Management Program Intermediate Course - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="course-container">
+    <!-- Left Sidebar Navigation -->
+    <nav class="course-sidebar">
+        <div class="course-title">
+            <h2>Advanced IT Service Management</h2>
+            <p class="course-level">Intermediate Level</p>
+        </div>
+        
+        <ul class="course-navigation">
+            <!-- Course Introduction -->
+            <li class="course-section">
+                <div class="section-header active">
+                    <span class="section-icon">📚</span>
+                    Course Introduction
+                    <span class="duration">1 hour</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
+                    <li><a href="#" data-content="itil-advanced">Advanced ITIL Concepts</a></li>
+                    <li><a href="#" data-content="service-value">Service Value System</a></li>
+                </ul>
+            </li>
+
+            <!-- Service Value Chain -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">⚡</span>
+                    Service Value Chain
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="value-streams">Value Streams</a></li>
+                    <li><a href="#" data-content="demand-engagement">Demand to Value</a></li>
+                    <li><a href="#" data-content="service-delivery">Service Delivery</a></li>
+                    <li><a href="#" data-content="value-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Management Practices -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">📊</span>
+                    Management Practices
+                    <span class="duration">5 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="general-practices">General Management</a></li>
+                    <li><a href="#" data-content="service-practices">Service Management</a></li>
+                    <li><a href="#" data-content="technical-practices">Technical Management</a></li>
+                    <li><a href="#" data-content="practices-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Service Measurement -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">📈</span>
+                    Service Measurement
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="metrics">Service Metrics</a></li>
+                    <li><a href="#" data-content="kpis">Key Performance Indicators</a></li>
+                    <li><a href="#" data-content="reporting">Service Reporting</a></li>
+                    <li><a href="#" data-content="measurement-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Continual Improvement -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🔄</span>
+                    Continual Improvement
+                    <span class="duration">3 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="improvement-model">Improvement Model</a></li>
+                    <li><a href="#" data-content="assessment">Service Assessment</a></li>
+                    <li><a href="#" data-content="implementation">Implementation</a></li>
+                    <li><a href="#" data-content="improvement-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Case Studies -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">📋</span>
+                    Case Studies
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="case-study-1">Enterprise IT Services</a></li>
+                    <li><a href="#" data-content="case-study-2">Digital Transformation</a></li>
+                    <li><a href="#" data-content="case-analysis">Analysis & Discussion</a></li>
+                </ul>
+            </li>
+
+            <!-- Final Assessment -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎯</span>
+                    Final Assessment
+                    <span class="duration">3 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
+                    <li><a href="#" data-content="practical-exam">Practical Assessment</a></li>
+                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Content Area -->
+    <main class="course-content">
+        <div class="content-area active">
+            <div class="content-header">
+                <div class="header-top">
+                    <h1>Welcome to Advanced IT Service Management</h1>
+                    <div class="lesson-meta">
+                        <span class="time-remaining">📚 Time to complete: 24 hours</span>
+                        <span class="difficulty">👨‍💻 Difficulty: Intermediate</span>
+                    </div>
+                </div>
+                <div class="progress-indicator">
+                    <span class="progress-text">Progress: 0/25 lessons completed</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <video controls poster="{{ url_for('static', filename='images/courses/SMP/intermediate/welcome-thumb.jpg') }}">
+                    <source src="{{ url_for('static', filename='videos/courses/SMP/intermediate/welcome.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="content-text">
+                <div class="content-section">
+                    <h2>Course Overview</h2>
+                    <p>Welcome to Advanced IT Service Management! This intermediate course builds on your foundational knowledge to teach you advanced ITIL concepts and practices:</p>
+                    
+                    <ul class="course-highlights">
+                        <li>
+                            <span class="highlight-icon">⚡</span>
+                            <div class="highlight-content">
+                                <strong>Service Value Chain</strong>
+                                <p>Master the end-to-end service delivery process</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">📊</span>
+                            <div class="highlight-content">
+                                <strong>Management Practices</strong>
+                                <p>Learn advanced service management techniques</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">📈</span>
+                            <div class="highlight-content">
+                                <strong>Service Measurement</strong>
+                                <p>Implement effective service metrics and KPIs</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🔄</span>
+                            <div class="highlight-content">
+                                <strong>Continual Improvement</strong>
+                                <p>Drive ongoing service enhancement</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>What You'll Learn</h2>
+                    <div class="learning-outcomes">
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Advanced ITIL principles and practices</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Service value chain implementation</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Performance measurement and metrics</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Service improvement techniques</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Real-world case study analysis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Prerequisites</h2>
+                    <ul class="requirements-list">
+                        <li>Completion of SMP Beginner course or ITIL Foundation certification</li>
+                        <li>Basic understanding of service management concepts</li>
+                        <li>Some practical experience in IT service delivery</li>
+                        <li>Familiarity with basic service management tools</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Ready to Advance Your Skills?</h3>
+                    <p>Begin with Advanced ITIL Concepts to deepen your understanding of service management.</p>
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" disabled>Previous</button>
+                        <button class="btn btn-primary">Next: Advanced ITIL Concepts</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/courses/SMP/intermediate/main.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/SMP/intermediate/style.css') }}">
+{% endblock %}

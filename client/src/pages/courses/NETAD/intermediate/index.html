@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}Network Administration Intermediate Course - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="course-container">
+    <!-- Left Sidebar Navigation -->
+    <nav class="course-sidebar">
+        <div class="course-title">
+            <h2>Advanced Network Administration</h2>
+            <p class="course-level">Intermediate Level</p>
+        </div>
+        
+        <ul class="course-navigation">
+            <!-- Course Introduction -->
+            <li class="course-section">
+                <div class="section-header active">
+                    <span class="section-icon">📚</span>
+                    Course Introduction
+                    <span class="duration">1 hour</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
+                    <li><a href="#" data-content="advanced-concepts">Advanced Networking Concepts</a></li>
+                    <li><a href="#" data-content="prerequisites-check">Prerequisites Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Advanced Routing and Switching -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🌐</span>
+                    Advanced Routing & Switching
+                    <span class="duration">6 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="routing-protocols">Dynamic Routing Protocols</a></li>
+                    <li><a href="#" data-content="vlan-management">VLAN Configuration & Management</a></li>
+                    <li><a href="#" data-content="spanning-tree">Spanning Tree Protocol</a></li>
+                    <li><a href="#" data-content="router-redundancy">Router Redundancy Protocols</a></li>
+                    <li><a href="#" data-content="routing-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Security -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🔒</span>
+                    Advanced Network Security
+                    <span class="duration">8 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="access-control">Access Control Lists (ACLs)</a></li>
+                    <li><a href="#" data-content="vpn-setup">VPN Implementation</a></li>
+                    <li><a href="#" data-content="ids-ips">IDS/IPS Systems</a></li>
+                    <li><a href="#" data-content="network-hardening">Network Hardening</a></li>
+                    <li><a href="#" data-content="security-quiz">Security Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Services -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">⚡</span>
+                    Enterprise Network Services
+                    <span class="duration">6 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="active-directory">Active Directory Integration</a></li>
+                    <li><a href="#" data-content="email-services">Email Services Configuration</a></li>
+                    <li><a href="#" data-content="web-services">Web Services & Proxy</a></li>
+                    <li><a href="#" data-content="services-quiz">Services Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Monitoring -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">📊</span>
+                    Network Monitoring & Management
+                    <span class="duration">5 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="snmp">SNMP Configuration</a></li>
+                    <li><a href="#" data-content="syslog">Syslog Server Setup</a></li>
+                    <li><a href="#" data-content="netflow">NetFlow Analysis</a></li>
+                    <li><a href="#" data-content="monitoring-tools">Monitoring Tools</a></li>
+                    <li><a href="#" data-content="monitoring-quiz">Monitoring Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- WAN Technologies -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🌍</span>
+                    WAN Technologies
+                    <span class="duration">6 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="mpls">MPLS Networks</a></li>
+                    <li><a href="#" data-content="sdwan">SD-WAN Implementation</a></li>
+                    <li><a href="#" data-content="wan-optimization">WAN Optimization</a></li>
+                    <li><a href="#" data-content="wan-quiz">WAN Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Automation -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🤖</span>
+                    Network Automation
+                    <span class="duration">5 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="python-automation">Python for Network Automation</a></li>
+                    <li><a href="#" data-content="ansible">Ansible Basics</a></li>
+                    <li><a href="#" data-content="api-integration">API Integration</a></li>
+                    <li><a href="#" data-content="automation-quiz">Automation Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- Practical Labs -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">💻</span>
+                    Advanced Labs
+                    <span class="duration">8 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="lab-routing">Enterprise Routing Lab</a></li>
+                    <li><a href="#" data-content="lab-security">Security Implementation Lab</a></li>
+                    <li><a href="#" data-content="lab-monitoring">Monitoring Setup Lab</a></li>
+                    <li><a href="#" data-content="lab-automation">Automation Practice Lab</a></li>
+                </ul>
+            </li>
+
+            <!-- Final Assessment -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎯</span>
+                    Final Assessment
+                    <span class="duration">3 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="theory-exam">Theory Examination</a></li>
+                    <li><a href="#" data-content="practical-exam">Practical Examination</a></li>
+                    <li><a href="#" data-content="project">Final Project</a></li>
+                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Content Area -->
+    <main class="course-content">
+        <div class="content-area active">
+            <div class="content-header">
+                <div class="header-top">
+                    <h1>Welcome to Advanced Network Administration</h1>
+                    <div class="lesson-meta">
+                        <span class="time-remaining">📚 Time to complete: 48 hours</span>
+                        <span class="difficulty">👨‍💻 Difficulty: Intermediate</span>
+                    </div>
+                </div>
+                <div class="progress-indicator">
+                    <span class="progress-text">Progress: 0/35 lessons completed</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <video controls poster="{{ url_for('static', filename='images/courses/NETAD/intermediate/welcome-thumb.jpg') }}">
+                    <source src="{{ url_for('static', filename='videos/courses/NETAD/intermediate/welcome.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="content-text">
+                <div class="content-section">
+                    <h2>Course Overview</h2>
+                    <p>Welcome to Advanced Network Administration! This intermediate course builds upon your foundational knowledge to teach you enterprise-level networking concepts:</p>
+                    
+                    <ul class="course-highlights">
+                        <li>
+                            <span class="highlight-icon">🌐</span>
+                            <div class="highlight-content">
+                                <strong>Advanced Routing & Switching</strong>
+                                <p>Master enterprise routing protocols and VLAN management</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🔒</span>
+                            <div class="highlight-content">
+                                <strong>Network Security</strong>
+                                <p>Implement advanced security measures and VPNs</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">📊</span>
+                            <div class="highlight-content">
+                                <strong>Network Monitoring</strong>
+                                <p>Setup comprehensive network monitoring systems</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🤖</span>
+                            <div class="highlight-content">
+                                <strong>Network Automation</strong>
+                                <p>Learn Python and Ansible for network automation</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>What You'll Learn</h2>
+                    <div class="learning-outcomes">
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Configure and manage enterprise routing protocols</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Implement advanced network security measures</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Setup and manage network monitoring systems</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Automate network tasks using Python and Ansible</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Configure and optimize WAN technologies</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Prerequisites</h2>
+                    <ul class="requirements-list">
+                        <li>Completion of NETAD Beginner course or equivalent experience</li>
+                        <li>Understanding of basic networking concepts and protocols</li>
+                        <li>Familiarity with network hardware and configurations</li>
+                        <li>Basic command-line interface experience</li>
+                        <li>Basic understanding of network security concepts</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Ready to Advance Your Network Administration Skills?</h3>
+                    <p>Begin with Advanced Networking Concepts to build upon your existing knowledge.</p>
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" disabled>Previous</button>
+                        <button class="btn btn-primary">Next: Advanced Networking Concepts</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/courses/NETAD/intermediate/main.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/NETAD/intermediate/style.css') }}">
+{% endblock %}

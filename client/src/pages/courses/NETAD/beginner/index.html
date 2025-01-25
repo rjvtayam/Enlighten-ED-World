@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Network Administration Beginner Course - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="course-container">
+    <!-- Left Sidebar Navigation -->
+    <nav class="course-sidebar">
+        <div class="course-title">
+            <h2>Network Administration Fundamentals</h2>
+            <p class="course-level">Beginner Level</p>
+        </div>
+        
+        <ul class="course-navigation">
+            <!-- Course Introduction -->
+            <li class="course-section">
+                <div class="section-header active">
+                    <span class="section-icon">📚</span>
+                    Course Introduction
+                    <span class="duration">1 hour</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
+                    <li><a href="#" data-content="networking-basics">Introduction to Networking</a></li>
+                    <li><a href="#" data-content="career-path">Career in Network Administration</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Fundamentals -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🌐</span>
+                    Network Fundamentals
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="osi-model">OSI Model</a></li>
+                    <li><a href="#" data-content="tcp-ip">TCP/IP Protocol Suite</a></li>
+                    <li><a href="#" data-content="ip-addressing">IP Addressing</a></li>
+                    <li><a href="#" data-content="subnetting">Subnetting Basics</a></li>
+                    <li><a href="#" data-content="network-quiz-1">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Hardware -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🔌</span>
+                    Network Hardware
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="network-cables">Network Cables</a></li>
+                    <li><a href="#" data-content="network-devices">Network Devices</a></li>
+                    <li><a href="#" data-content="wireless-networking">Wireless Networking</a></li>
+                    <li><a href="#" data-content="hardware-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Services -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">⚡</span>
+                    Network Services
+                    <span class="duration">5 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="dhcp">DHCP</a></li>
+                    <li><a href="#" data-content="dns">DNS</a></li>
+                    <li><a href="#" data-content="ftp">FTP</a></li>
+                    <li><a href="#" data-content="services-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Security -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🔒</span>
+                    Network Security Basics
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="security-concepts">Security Concepts</a></li>
+                    <li><a href="#" data-content="firewalls">Firewalls</a></li>
+                    <li><a href="#" data-content="encryption">Basic Encryption</a></li>
+                    <li><a href="#" data-content="security-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Network Troubleshooting -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🔧</span>
+                    Basic Troubleshooting
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="troubleshooting-methodology">Troubleshooting Methodology</a></li>
+                    <li><a href="#" data-content="network-tools">Network Tools</a></li>
+                    <li><a href="#" data-content="common-issues">Common Issues</a></li>
+                    <li><a href="#" data-content="troubleshooting-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Hands-on Labs -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">💻</span>
+                    Practical Labs
+                    <span class="duration">6 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="lab-network-setup">Basic Network Setup</a></li>
+                    <li><a href="#" data-content="lab-ip-config">IP Configuration</a></li>
+                    <li><a href="#" data-content="lab-tools">Using Network Tools</a></li>
+                    <li><a href="#" data-content="lab-quiz">Lab Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- Final Assessment -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎯</span>
+                    Final Assessment
+                    <span class="duration">2 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
+                    <li><a href="#" data-content="practical-exam">Practical Exam</a></li>
+                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Content Area -->
+    <main class="course-content">
+        <div class="content-area active">
+            <div class="content-header">
+                <div class="header-top">
+                    <h1>Welcome to Network Administration</h1>
+                    <div class="lesson-meta">
+                        <span class="time-remaining">📚 Time to complete: 30 hours</span>
+                        <span class="difficulty">👨‍💻 Difficulty: Beginner</span>
+                    </div>
+                </div>
+                <div class="progress-indicator">
+                    <span class="progress-text">Progress: 0/28 lessons completed</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <video controls poster="{{ url_for('static', filename='images/courses/NETAD/beginner/welcome-thumb.jpg') }}">
+                    <source src="{{ url_for('static', filename='videos/courses/NETAD/beginner/welcome.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="content-text">
+                <div class="content-section">
+                    <h2>Course Overview</h2>
+                    <p>Welcome to Network Administration Fundamentals! This comprehensive beginner course will teach you the essential concepts of networking:</p>
+                    
+                    <ul class="course-highlights">
+                        <li>
+                            <span class="highlight-icon">🌐</span>
+                            <div class="highlight-content">
+                                <strong>Network Fundamentals</strong>
+                                <p>Learn OSI model and TCP/IP protocols</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🔌</span>
+                            <div class="highlight-content">
+                                <strong>Network Hardware</strong>
+                                <p>Understand networking equipment and cables</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">⚡</span>
+                            <div class="highlight-content">
+                                <strong>Network Services</strong>
+                                <p>Master DHCP, DNS, and other services</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🔒</span>
+                            <div class="highlight-content">
+                                <strong>Network Security</strong>
+                                <p>Learn basic security concepts</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>What You'll Learn</h2>
+                    <div class="learning-outcomes">
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Understanding of network protocols and models</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Network hardware configuration skills</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Basic network security practices</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Troubleshooting methodologies</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Hands-on experience with network tools</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Prerequisites</h2>
+                    <ul class="requirements-list">
+                        <li>Basic computer literacy</li>
+                        <li>Understanding of basic computer operations</li>
+                        <li>No prior networking experience required</li>
+                        <li>Willingness to learn technical concepts</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Ready to Begin Your Network Administration Journey?</h3>
+                    <p>Start with Introduction to Networking to build your foundation in network administration.</p>
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" disabled>Previous</button>
+                        <button class="btn btn-primary">Next: Introduction to Networking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/courses/NETAD/beginner/main.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/NETAD/beginner/style.css') }}">
+{% endblock %}

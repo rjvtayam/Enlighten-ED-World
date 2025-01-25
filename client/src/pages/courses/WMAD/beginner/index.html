@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}Web Development Beginner Course - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="course-container">
+    <!-- Left Sidebar Navigation -->
+    <nav class="course-sidebar">
+        <div class="course-title">
+            <h2>Web Development Fundamentals</h2>
+            <p class="course-level">Beginner Level</p>
+        </div>
+        
+        <ul class="course-navigation">
+            <!-- Course Introduction -->
+            <li class="course-section">
+                <div class="section-header active">
+                    <span class="section-icon">📚</span>
+                    Course Introduction
+                    <span class="duration">30 mins</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
+                    <li><a href="#" data-content="prerequisites">Prerequisites & Setup</a></li>
+                    <li><a href="#" data-content="tools">Development Tools</a></li>
+                </ul>
+            </li>
+
+            <!-- HTML5 Fundamentals -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🌐</span>
+                    HTML5 Fundamentals
+                    <span class="duration">2 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="html-intro">Introduction to HTML5</a></li>
+                    <li><a href="#" data-content="html-structure">Document Structure</a></li>
+                    <li><a href="#" data-content="html-elements">Basic Elements</a></li>
+                    <li><a href="#" data-content="html-forms">Forms & Input</a></li>
+                    <li><a href="#" data-content="html-semantic">Semantic HTML</a></li>
+                    <li><a href="#" data-content="html-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- CSS3 Essentials -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎨</span>
+                    CSS3 Essentials
+                    <span class="duration">2.5 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="css-intro">Introduction to CSS</a></li>
+                    <li><a href="#" data-content="css-selectors">Selectors & Properties</a></li>
+                    <li><a href="#" data-content="css-box-model">Box Model</a></li>
+                    <li><a href="#" data-content="css-layout">Layout Basics</a></li>
+                    <li><a href="#" data-content="css-responsive">Responsive Design</a></li>
+                    <li><a href="#" data-content="css-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- JavaScript Basics -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">⚡</span>
+                    JavaScript Basics
+                    <span class="duration">3 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="js-intro">Introduction to JavaScript</a></li>
+                    <li><a href="#" data-content="js-variables">Variables & Data Types</a></li>
+                    <li><a href="#" data-content="js-control">Control Flow</a></li>
+                    <li><a href="#" data-content="js-functions">Functions</a></li>
+                    <li><a href="#" data-content="js-dom">DOM Basics</a></li>
+                    <li><a href="#" data-content="js-events">Events</a></li>
+                    <li><a href="#" data-content="js-quiz">Knowledge Check</a></li>
+                </ul>
+            </li>
+
+            <!-- Project Work -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🚀</span>
+                    Project Work
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="project-planning">Project Planning</a></li>
+                    <li><a href="#" data-content="project-structure">Setting Up Structure</a></li>
+                    <li><a href="#" data-content="project-styling">Styling Your Site</a></li>
+                    <li><a href="#" data-content="project-interaction">Adding Interactivity</a></li>
+                    <li><a href="#" data-content="project-submission">Project Submission</a></li>
+                </ul>
+            </li>
+
+            <!-- Final Assessment -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎯</span>
+                    Final Assessment
+                    <span class="duration">1 hour</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
+                    <li><a href="#" data-content="project-review">Project Review</a></li>
+                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Content Area -->
+    <main class="course-content">
+        <div class="content-area active">
+            <div class="content-header">
+                <div class="header-top">
+                    <h1>Welcome to Web Development</h1>
+                    <div class="lesson-meta">
+                        <span class="time-remaining">📚 Time to complete: 13 hours</span>
+                        <span class="difficulty">👨‍💻 Difficulty: Beginner</span>
+                    </div>
+                </div>
+                <div class="progress-indicator">
+                    <span class="progress-text">Progress: 0/25 lessons completed</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <video controls poster="{{ url_for('static', filename='images/courses/WMAD/beginner/welcome-thumb.jpg') }}">
+                    <source src="{{ url_for('static', filename='videos/courses/WMAD/beginner/welcome.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="content-text">
+                <div class="content-section">
+                    <h2>Course Overview</h2>
+                    <p>Welcome to Web Development Fundamentals! This comprehensive beginner course will teach you the essential skills needed to create modern, responsive websites. You'll learn:</p>
+                    
+                    <ul class="course-highlights">
+                        <li>
+                            <span class="highlight-icon">🌐</span>
+                            <div class="highlight-content">
+                                <strong>HTML5</strong>
+                                <p>Create well-structured, semantic web pages</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🎨</span>
+                            <div class="highlight-content">
+                                <strong>CSS3</strong>
+                                <p>Style your pages with modern design techniques</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">⚡</span>
+                            <div class="highlight-content">
+                                <strong>JavaScript</strong>
+                                <p>Add interactivity and dynamic features</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">🚀</span>
+                            <div class="highlight-content">
+                                <strong>Real Project</strong>
+                                <p>Build a complete website from scratch</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>What You'll Learn</h2>
+                    <div class="learning-outcomes">
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Structure web content using HTML5 semantic elements</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Style websites using CSS3 properties and responsive design</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Create interactive features using JavaScript</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Build and deploy a complete website project</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Course Requirements</h2>
+                    <ul class="requirements-list">
+                        <li>A computer with internet access</li>
+                        <li>Basic computer skills</li>
+                        <li>Text editor (we'll help you install one)</li>
+                        <li>No prior coding experience needed!</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Ready to Begin?</h3>
+                    <p>Start with the Prerequisites & Setup section to prepare your development environment.</p>
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" disabled>Previous</button>
+                        <button class="btn btn-primary">Next: Prerequisites & Setup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/courses/WMAD/beginner.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner.css') }}">
+{% endblock %}

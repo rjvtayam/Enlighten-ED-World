@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}Animation & Motion Graphics Intermediate Course - Enlighten ED{% endblock %}
+
+{% block content %}
+<div class="course-container">
+    <!-- Left Sidebar Navigation -->
+    <nav class="course-sidebar">
+        <div class="course-title">
+            <h2>Advanced Animation & Motion Graphics</h2>
+            <p class="course-level">Intermediate Level</p>
+        </div>
+        
+        <ul class="course-navigation">
+            <!-- Course Introduction -->
+            <li class="course-section">
+                <div class="section-header active">
+                    <span class="section-icon">📚</span>
+                    Course Overview
+                    <span class="duration">2 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
+                    <li><a href="#" data-content="workflow">Professional Workflow</a></li>
+                    <li><a href="#" data-content="prerequisites">Skills Assessment</a></li>
+                </ul>
+            </li>
+
+            <!-- Advanced Design -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎨</span>
+                    Advanced Design
+                    <span class="duration">8 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="color-advanced">Advanced Color Theory</a></li>
+                    <li><a href="#" data-content="composition-pro">Cinematic Composition</a></li>
+                    <li><a href="#" data-content="typography-motion">Typography in Motion</a></li>
+                    <li><a href="#" data-content="visual-hierarchy">Visual Hierarchy</a></li>
+                    <li><a href="#" data-content="design-project">Design Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Character Animation -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎭</span>
+                    Character Animation
+                    <span class="duration">12 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="character-design">Character Design</a></li>
+                    <li><a href="#" data-content="rigging">Character Rigging</a></li>
+                    <li><a href="#" data-content="facial-animation">Facial Animation</a></li>
+                    <li><a href="#" data-content="walk-cycles">Walk Cycles</a></li>
+                    <li><a href="#" data-content="character-acting">Character Acting</a></li>
+                    <li><a href="#" data-content="character-project">Character Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Motion Graphics -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">📱</span>
+                    Advanced Motion Graphics
+                    <span class="duration">10 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="3d-motion">3D in Motion Graphics</a></li>
+                    <li><a href="#" data-content="particle-systems">Particle Systems</a></li>
+                    <li><a href="#" data-content="expressions">Expressions & Scripts</a></li>
+                    <li><a href="#" data-content="motion-tracking">Motion Tracking</a></li>
+                    <li><a href="#" data-content="motion-project">Motion Graphics Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Visual Effects -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">✨</span>
+                    Visual Effects
+                    <span class="duration">8 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="compositing">Basic Compositing</a></li>
+                    <li><a href="#" data-content="color-grading">Color Grading</a></li>
+                    <li><a href="#" data-content="effects-intro">VFX Introduction</a></li>
+                    <li><a href="#" data-content="effects-project">VFX Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Sound Design -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎵</span>
+                    Advanced Sound
+                    <span class="duration">6 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="sound-design">Sound Design</a></li>
+                    <li><a href="#" data-content="music-editing">Music Editing</a></li>
+                    <li><a href="#" data-content="audio-sync">Advanced Audio Sync</a></li>
+                    <li><a href="#" data-content="sound-project">Sound Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Professional Tools -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🛠️</span>
+                    Professional Tools
+                    <span class="duration">8 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="after-effects-pro">After Effects Advanced</a></li>
+                    <li><a href="#" data-content="cinema-4d">Cinema 4D Basics</a></li>
+                    <li><a href="#" data-content="plugins">Essential Plugins</a></li>
+                    <li><a href="#" data-content="tools-project">Tools Integration Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Client Projects -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">💼</span>
+                    Client Work
+                    <span class="duration">10 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="client-brief">Understanding Client Briefs</a></li>
+                    <li><a href="#" data-content="project-planning">Project Planning</a></li>
+                    <li><a href="#" data-content="client-feedback">Handling Feedback</a></li>
+                    <li><a href="#" data-content="delivery">Project Delivery</a></li>
+                    <li><a href="#" data-content="client-project">Client Project</a></li>
+                </ul>
+            </li>
+
+            <!-- Portfolio Development -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">📂</span>
+                    Portfolio Building
+                    <span class="duration">6 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="portfolio-strategy">Portfolio Strategy</a></li>
+                    <li><a href="#" data-content="showreel">Creating a Showreel</a></li>
+                    <li><a href="#" data-content="online-presence">Online Presence</a></li>
+                    <li><a href="#" data-content="portfolio-review">Portfolio Review</a></li>
+                </ul>
+            </li>
+
+            <!-- Final Assessment -->
+            <li class="course-section">
+                <div class="section-header">
+                    <span class="section-icon">🎯</span>
+                    Course Completion
+                    <span class="duration">4 hours</span>
+                </div>
+                <ul class="section-content">
+                    <li><a href="#" data-content="final-project">Final Project</a></li>
+                    <li><a href="#" data-content="portfolio-presentation">Portfolio Presentation</a></li>
+                    <li><a href="#" data-content="assessment">Final Assessment</a></li>
+                    <li><a href="#" data-content="certification">Get Certification</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Right Content Area -->
+    <main class="course-content">
+        <div class="content-area active">
+            <div class="content-header">
+                <div class="header-top">
+                    <h1>Welcome to Advanced Animation & Motion Graphics</h1>
+                    <div class="lesson-meta">
+                        <span class="time-remaining">📚 Time to complete: 74 hours</span>
+                        <span class="difficulty">🎨 Difficulty: Intermediate</span>
+                    </div>
+                </div>
+                <div class="progress-indicator">
+                    <span class="progress-text">Progress: 0/45 lessons completed</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <video controls poster="{{ url_for('static', filename='images/courses/AMG/intermediate/welcome-thumb.jpg') }}">
+                    <source src="{{ url_for('static', filename='videos/courses/AMG/intermediate/welcome.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="content-text">
+                <div class="content-section">
+                    <h2>Course Overview</h2>
+                    <p>Welcome to the intermediate level of Animation & Motion Graphics! This course builds upon your foundation to develop professional-grade skills:</p>
+                    
+                    <ul class="course-highlights">
+                        <li>
+                            <span class="highlight-icon">🎭</span>
+                            <div class="highlight-content">
+                                <strong>Character Animation</strong>
+                                <p>Master character design and animation</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">📱</span>
+                            <div class="highlight-content">
+                                <strong>Advanced Motion Graphics</strong>
+                                <p>Create complex motion graphics with 3D elements</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">✨</span>
+                            <div class="highlight-content">
+                                <strong>Visual Effects</strong>
+                                <p>Learn compositing and visual effects</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="highlight-icon">💼</span>
+                            <div class="highlight-content">
+                                <strong>Client Projects</strong>
+                                <p>Work on real-world client briefs</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>What You'll Master</h2>
+                    <div class="learning-outcomes">
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Create professional character animations</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Develop advanced motion graphics</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Implement visual effects and compositing</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Handle professional client projects</p>
+                        </div>
+                        <div class="outcome">
+                            <span class="check">✓</span>
+                            <p>Build a professional portfolio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Prerequisites</h2>
+                    <ul class="requirements-list">
+                        <li>Completion of AMG Beginner course or equivalent experience</li>
+                        <li>Strong understanding of animation principles</li>
+                        <li>Proficiency in basic digital tools</li>
+                        <li>Basic understanding of design principles</li>
+                        <li>Portfolio demonstrating foundational skills</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Ready to Advance Your Animation Career?</h3>
+                    <p>Begin with Professional Workflow to understand industry-standard practices.</p>
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" disabled>Previous</button>
+                        <button class="btn btn-primary">Next: Professional Workflow</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/courses/AMG/intermediate/main.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/courses/AMG/intermediate/style.css') }}">
+{% endblock %}

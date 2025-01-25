@@ -1,0 +1,385 @@
+/* Animation & Motion Graphics Advanced Course Styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #e74c3c;
+    --accent-color: #3498db;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --error-color: #e74c3c;
+    --text-color: #2c3e50;
+    --text-light: #7f8c8d;
+    --background-light: #ecf0f1;
+    --background-dark: #2c3e50;
+    --border-color: #bdc3c7;
+    --sidebar-width: 320px;
+    --header-height: 64px;
+    --gradient-primary: linear-gradient(135deg, #2c3e50, #3498db);
+    --gradient-secondary: linear-gradient(45deg, #e74c3c, #f39c12);
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.1);
+    --shadow-hard: 0 8px 16px rgba(0, 0, 0, 0.15);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Professional Container */
+.course-container {
+    display: flex;
+    min-height: calc(100vh - var(--header-height));
+    background: var(--background-light);
+    position: relative;
+}
+
+/* Advanced Sidebar */
+.course-sidebar {
+    width: var(--sidebar-width);
+    background: var(--gradient-primary);
+    color: white;
+    overflow-y: auto;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-hard);
+    position: relative;
+    z-index: 100;
+}
+
+.course-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/static/images/courses/AMG/patterns/circuit-pattern.svg');
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.course-title {
+    padding: 28px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.course-title h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(120deg, #fff, #e0e0e0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.course-level {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+/* Professional Navigation */
+.section-header {
+    padding: 18px 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+}
+
+.section-header.active {
+    background: var(--accent-color);
+    box-shadow: var(--shadow-medium);
+}
+
+.section-header.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--secondary-color);
+}
+
+.section-icon {
+    margin-right: 14px;
+    font-size: 1.2rem;
+    transition: var(--transition-smooth);
+}
+
+.section-header:hover .section-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Industry-Level Content Area */
+.content-area {
+    background: white;
+    border-radius: 16px;
+    margin: 28px;
+    padding: 36px;
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    overflow: hidden;
+}
+
+.content-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-secondary);
+}
+
+/* Professional Interactive Elements */
+.workspace {
+    background: var(--background-dark);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    color: white;
+}
+
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.workspace-tools {
+    display: flex;
+    gap: 12px;
+}
+
+.tool-button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.tool-button:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Advanced Timeline */
+.timeline-editor {
+    background: var(--background-dark);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    color: white;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timeline-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.timeline-track {
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin: 8px 0;
+    position: relative;
+}
+
+/* Professional Preview Window */
+.preview-window {
+    background: var(--background-dark);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.preview-screen {
+    background: #1a1a1a;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-hard);
+}
+
+/* Industry Project Gallery */
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    margin: 28px 0;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition-smooth);
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hard);
+}
+
+.gallery-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.gallery-info {
+    padding: 24px;
+}
+
+/* Professional Buttons */
+.btn {
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hard);
+}
+
+.btn-secondary {
+    background: var(--background-light);
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+    transform: translateY(-2px);
+}
+
+/* Professional Notifications */
+.notification {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    padding: 16px 28px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: var(--shadow-hard);
+    transform: translateY(100%);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    z-index: 1000;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Industry-Level Components */
+.component {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: var(--shadow-medium);
+}
+
+.component-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .course-container {
+        flex-direction: column;
+    }
+
+    .course-sidebar {
+        width: 100%;
+        max-height: 300px;
+    }
+
+    .content-area {
+        margin: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .workspace-tools {
+        flex-wrap: wrap;
+    }
+
+    .timeline-controls {
+        flex-wrap: wrap;
+    }
+
+    .project-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 8px 0;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-light: #1a1a1a;
+        --text-color: #ffffff;
+        --text-light: #b0bec5;
+        --border-color: #2c3e50;
+    }
+
+    .content-area,
+    .component,
+    .gallery-item {
+        background: #2a2a2a;
+    }
+
+    .notification {
+        background: #2a2a2a;
+        color: white;
+    }
+}
