@@ -175,24 +175,31 @@ def generate_pkce_challenge():
 
 def verify_oauth_state(state, provider):
     """Verify OAuth state token"""
-    if not state:
-        logger.error("No state parameter received")
-        return False
-    
-    stored_state = session.get(f'{provider}_oauth_state')
-    if not stored_state:
-        logger.error(f"No stored state found for {provider}")
-        return False
+    try:
+        if not state:
+            logger.error("No state parameter received")
+            return False
         
-    # Clear the stored state immediately to prevent replay attacks
-    session.pop(f'{provider}_oauth_state', None)
-    session.modified = True
-    
-    # Compare the states
-    matches = state == stored_state
-    if not matches:
-        logger.error(f"State mismatch - Received: {state}, Stored: {stored_state}")
-    return matches
+        stored_state = session.get(f'{provider}_oauth_state')
+        if not stored_state:
+            logger.error(f"No stored state found for {provider}")
+            return False
+            
+        # Compare the states before clearing
+        matches = state == stored_state
+        if not matches:
+            logger.error(f"State mismatch - Received: {state}, Stored: {stored_state}")
+        
+        # Clear the stored state only if it matches to prevent replay attacks
+        if matches:
+            session.pop(f'{provider}_oauth_state', None)
+            session.modified = True
+            
+        return matches
+        
+    except Exception as e:
+        logger.error(f"Error verifying OAuth state: {str(e)}")
+        return False
 
 def handle_oauth_login(provider, oauth_id, email, username, full_name, access_token, refresh_token=None):
     """Handle OAuth login for both Google and GitHub"""
@@ -511,7 +518,7 @@ def google_login():
         authorization_endpoint = google_provider_cfg["authorization_endpoint"]
         logger.info(f"Authorization endpoint: {authorization_endpoint}")
 
-        # Generate state
+        # Generate state once and store it
         state = generate_oauth_state('google')
         logger.info(f"Generated state: {state}")
         
@@ -520,9 +527,12 @@ def google_login():
         if not client:
             raise Exception("Google OAuth client not initialized")
         
-        # Generate authorization URL
-        authorization_url, state = client.authorization_url(
+        # Generate authorization URL using the same state
+        authorization_url = client.prepare_request_uri(
             authorization_endpoint,
+            redirect_uri=current_app.config['GOOGLE_CALLBACK_URL'],
+            scope=["openid", "email", "profile"],
+            state=state,
             access_type="offline",  # Get refresh token
             prompt="consent",       # Force consent screen
             include_granted_scopes="true"  # Enable incremental authorization
