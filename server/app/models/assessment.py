@@ -15,11 +15,13 @@ class SkillLevel(str, Enum):
     EXPERT = "expert"
 
 class ProgramType(str, Enum):
-    WMAD = "wmad"
-    BIA = "bia"
-    DM = "dm"
-    ISM = "ism"
-    SMP = "smp"
+    BSIT = "bsit"  # Bachelor of Science in Information Technology
+    BSCS = "bscs"  # Bachelor of Science in Computer Science
+    BSIS = "bsis"  # Bachelor of Science in Information Systems
+    WMAD = "wmad"  # Web & Mobile App Development
+    AMG = "amg"    # Animation & Motion Graphics
+    NETAD = "netad"  # Network Administration
+    SMP = "smp"    # Service Management Program
 
 class Assessment(db.Model):
     __tablename__ = 'assessments'

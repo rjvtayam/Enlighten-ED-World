@@ -81,103 +81,25 @@ def submit_assessment():
         
         # Validate program type
         try:
-            program = program.lower() if program else None  # Convert to lowercase
+            program = program.lower() if program else None
             if not program:
                 raise ValueError("Program is required")
             
-            program_type = ProgramType[program.upper()]  # Use uppercase for enum lookup
-            if not program_type:
-                raise ValueError(f"Invalid program type: {program}")
-            current_app.logger.info(f"Program type validated: {program_type.value}")
-
-            # Collect skill scores
-            scores = {}
-            for category in ['technical', 'communication', 'soft', 'creativity']:
-                category_scores = []
-                for i in range(1, 4):
-                    score = request.form.get(f'skill_{category}_{i}')
-                    if not score:
-                        raise ValueError(f"Missing score for {category} skill {i}")
-                    score = int(score)
-                    if score < 1 or score > 3:
-                        raise ValueError(f"Score {score} out of range (1-3)")
-                    category_scores.append(score)
-                scores[category] = category_scores
-
-            # Initialize skill assessment and analyze
-            skill_assessment = SkillAssessment()
-            analysis_results = skill_assessment.analyze_skills(scores)
-
-            # Create assessment
-            assessment = Assessment(
-                user_id=current_user.id,
-                program=program_type.value,  # Use value directly, already lowercase
-                major=major,
-                assessment_date=date.today(),
-                is_completed=True,
-                skill_technical_1=scores['technical'][0],
-                skill_technical_2=scores['technical'][1],
-                skill_technical_3=scores['technical'][2],
-                skill_communication_1=scores['communication'][0],
-                skill_communication_2=scores['communication'][1],
-                skill_communication_3=scores['communication'][2],
-                skill_soft_1=scores['soft'][0],
-                skill_soft_2=scores['soft'][1],
-                skill_soft_3=scores['soft'][2],
-                skill_creativity_1=scores['creativity'][0],
-                skill_creativity_2=scores['creativity'][1],
-                skill_creativity_3=scores['creativity'][2]
-            )
-
-            # Process categories and recommendations
-            for category_name, result in analysis_results.items():
-                category = AssessmentCategory(
-                    category_name=category_name,
-                    score=sum(scores[category_name.lower()]) / len(scores[category_name.lower()]),
-                    level=result['level']
-                )
-                
-                # Add skills to category
-                for i, score in enumerate(scores[category_name.lower()], 1):
-                    skill = AssessmentSkill(
-                        skill_name=f"{category_name}_skill_{i}",
-                        score=score,
-                        description=f"Skill {i} for {category_name}"
-                    )
-                    category.skills.append(skill)
-                
-                assessment.categories.append(category)
+            # Try to get program type, if not found, just store the program as is
+            try:
+                program_type = ProgramType[program.upper()]
+                program = program_type.value
+            except KeyError:
+                current_app.logger.warning(f"Program type {program.upper()} not found in enum, using as is")
+                # Continue with the program value as provided
             
-            # Save to database
-            db.session.add(assessment)
-            db.session.commit()
-            current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
+            current_app.logger.info(f"Program validated: {program}")
             
-            # Get course recommendations based on major
-            overall_score = sum(sum(scores.values(), [])) / (len(scores) * 3)
-            recommendations = get_course_recommendations(overall_score, major)
-            
-            # Prepare response
-            results = {
-                'overall_score': overall_score,
-                'category_scores': {
-                    category: sum(scores[category]) / len(scores[category])
-                    for category in scores
-                },
-                'assessment_id': assessment.id,
-                'analysis': analysis_results,
-                'recommendations': recommendations
-            }
-            
-            current_app.logger.info("=== Assessment Submission Complete ===")
-            current_app.logger.info(f"Results: {results}")
-            
-            return jsonify({
-                'success': True,
-                'results': results,
-                'message': 'Assessment submitted successfully'
-            })
-            
+            # Validate major has available courses
+            if not validate_major(major):
+                current_app.logger.error(f"Invalid major or no course templates available: {major}")
+                return jsonify({'error': f'No course templates available for major: {major}'}), HTTPStatus.BAD_REQUEST
+        
         except ValueError as e:
             db.session.rollback()
             current_app.logger.error(f"Validation error: {str(e)}")
@@ -194,6 +116,118 @@ def submit_assessment():
                 'error': 'Database error occurred'
             }), HTTPStatus.INTERNAL_SERVER_ERROR
             
+        except Exception as e:
+            current_app.logger.error(f"Error in submit_assessment: {str(e)}")
+            current_app.logger.exception("Full traceback:")
+            return jsonify({
+                'success': False,
+                'error': 'An unexpected error occurred'
+            }), HTTPStatus.INTERNAL_SERVER_ERROR
+        
+        # Collect skill scores
+        scores = {}
+        for category in ['technical', 'communication', 'soft', 'creativity']:
+            category_scores = []
+            for i in range(1, 4):
+                score = request.form.get(f'skill_{category}_{i}')
+                if not score:
+                    raise ValueError(f"Missing score for {category} skill {i}")
+                score = int(score)
+                if score < 1 or score > 3:
+                    raise ValueError(f"Score {score} out of range (1-3)")
+                category_scores.append(score)
+            scores[category] = category_scores
+
+        # Initialize skill assessment and analyze
+        skill_assessment = SkillAssessment()
+        analysis_results = skill_assessment.analyze_skills(scores)
+
+        # Create assessment
+        assessment = Assessment(
+            user_id=current_user.id,
+            program=program,
+            major=major,
+            assessment_date=date.today(),
+            is_completed=True,
+            skill_technical_1=scores['technical'][0],
+            skill_technical_2=scores['technical'][1],
+            skill_technical_3=scores['technical'][2],
+            skill_communication_1=scores['communication'][0],
+            skill_communication_2=scores['communication'][1],
+            skill_communication_3=scores['communication'][2],
+            skill_soft_1=scores['soft'][0],
+            skill_soft_2=scores['soft'][1],
+            skill_soft_3=scores['soft'][2],
+            skill_creativity_1=scores['creativity'][0],
+            skill_creativity_2=scores['creativity'][1],
+            skill_creativity_3=scores['creativity'][2]
+        )
+
+        # Process categories and recommendations
+        for category_name, result in analysis_results.items():
+            category = AssessmentCategory(
+                category_name=category_name,
+                score=sum(scores[category_name.lower()]) / len(scores[category_name.lower()]),
+                level=result['level']
+            )
+            
+            # Add skills to category
+            for i, score in enumerate(scores[category_name.lower()], 1):
+                skill = AssessmentSkill(
+                    skill_name=f"{category_name}_skill_{i}",
+                    score=score,
+                    description=f"Skill {i} for {category_name}"
+                )
+                category.skills.append(skill)
+            
+            assessment.categories.append(category)
+        
+        # Save to database
+        db.session.add(assessment)
+        db.session.commit()
+        current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
+        
+        # Get course recommendations based on major
+        overall_score = sum(sum(scores.values(), [])) / (len(scores) * 3)
+        recommendations = get_course_recommendations(overall_score, major)
+        
+        # Prepare response
+        results = {
+            'overall_score': overall_score,
+            'category_scores': {
+                category: sum(scores[category]) / len(scores[category])
+                for category in scores
+            },
+            'assessment_id': assessment.id,
+            'analysis': analysis_results,
+            'recommendations': recommendations
+        }
+        
+        current_app.logger.info("=== Assessment Submission Complete ===")
+        current_app.logger.info(f"Results: {results}")
+        
+        return jsonify({
+            'success': True,
+            'results': results,
+            'message': 'Assessment submitted successfully'
+        })
+        
+    except ValueError as e:
+        db.session.rollback()
+        current_app.logger.error(f"Validation error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), HTTPStatus.BAD_REQUEST
+        
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        current_app.logger.error(f"Database error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': 'Database error occurred'
+        }), HTTPStatus.INTERNAL_SERVER_ERROR
+        
     except Exception as e:
         current_app.logger.error(f"Error in submit_assessment: {str(e)}")
         current_app.logger.exception("Full traceback:")
