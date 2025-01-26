@@ -1,15 +1,8 @@
 :root {
-    /* Colors */
-    --primary: #0d6efd;
-    --primary-dark: #0b5ed7;
-    --primary-light: #e7f1ff;
-    --secondary: #6c757d;
-    --success: #146c43;
-    --success-light: #d1e7dd;
-    --warning: #997404;
-    --warning-light: #fff3cd;
-    --danger: #b02a37;
-    --danger-light: #f8d7da;
+    /* Theme Colors */
+    --primary: #3699ff;
+    --primary-dark: #1a73e8;
+    --primary-light: #e8f0fe;
     
     /* Neutral Colors */
     --gray-100: #f8f9fa;
@@ -22,6 +15,13 @@
     --gray-800: #343a40;
     --gray-900: #212529;
     
+    /* Sidebar Theme */
+    --sidebar-bg: #1a2035;
+    --sidebar-text: #ffffff;
+    --sidebar-text-muted: rgba(255, 255, 255, 0.7);
+    --sidebar-hover: rgba(255, 255, 255, 0.05);
+    --sidebar-active: rgba(255, 255, 255, 0.1);
+    
     /* Text Colors */
     --text-primary: #2c3e50;
     --text-secondary: #6c757d;
@@ -32,18 +32,25 @@
     --bg-secondary: #f8f9fa;
     --bg-tertiary: #e9ecef;
     
+    /* Status Colors */
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --info: #17a2b8;
+    
     /* Border Colors */
     --border-color: #e9ecef;
     --border-color-hover: #ced4da;
     
     /* Spacing */
-    --spacing-xs: 0.25rem;   /* 4px */
-    --spacing-sm: 0.5rem;    /* 8px */
-    --spacing-md: 1rem;      /* 16px */
-    --spacing-lg: 1.5rem;    /* 24px */
-    --spacing-xl: 2rem;      /* 32px */
-    --spacing-2xl: 2.5rem;   /* 40px */
-    --spacing-3xl: 3rem;     /* 48px */
+    --space-1: 0.25rem;  /* 4px */
+    --space-2: 0.5rem;   /* 8px */
+    --space-3: 0.75rem;  /* 12px */
+    --space-4: 1rem;     /* 16px */
+    --space-5: 1.5rem;   /* 24px */
+    --space-6: 2rem;     /* 32px */
+    --space-7: 2.5rem;   /* 40px */
+    --space-8: 3rem;     /* 48px */
     
     /* Font Sizes */
     --text-xs: 0.75rem;      /* 12px */
@@ -52,11 +59,9 @@
     --text-lg: 1.125rem;     /* 18px */
     --text-xl: 1.25rem;      /* 20px */
     --text-2xl: 1.5rem;      /* 24px */
-    --text-3xl: 1.875rem;    /* 30px */
-    --text-4xl: 2.25rem;     /* 36px */
+    --text-3xl: 2rem;        /* 32px */
     
     /* Font Weights */
-    --font-light: 300;
     --font-normal: 400;
     --font-medium: 500;
     --font-semibold: 600;
@@ -65,34 +70,28 @@
     /* Line Heights */
     --leading-none: 1;
     --leading-tight: 1.25;
-    --leading-snug: 1.375;
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
     --leading-loose: 2;
     
     /* Border Radius */
-    --radius-sm: 4px;
-    --radius-md: 6px;
-    --radius-lg: 8px;
-    --radius-xl: 12px;
-    --radius-2xl: 16px;
-    --radius-full: 9999px;
+    --radius-sm: 0.25rem;    /* 4px */
+    --radius-md: 0.375rem;   /* 6px */
+    --radius-lg: 0.5rem;     /* 8px */
+    --radius-xl: 0.75rem;    /* 12px */
+    --radius-2xl: 1rem;      /* 16px */
     
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 8px 12px rgba(0, 0, 0, 0.05);
-    --shadow-2xl: 0 12px 16px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     
     /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
+    --transition-fast: 150ms ease;
+    --transition-normal: 300ms ease;
+    --transition-slow: 500ms ease;
     
     /* Z-index */
-    --z-negative: -1;
-    --z-normal: 1;
     --z-dropdown: 1000;
     --z-sticky: 1020;
     --z-fixed: 1030;
