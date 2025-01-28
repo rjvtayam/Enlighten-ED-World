@@ -24,22 +24,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
     
     <!-- Course Styles -->
-    {% if request.blueprint == 'courses' and (
-        'WMAD/beginner' in request.url or 
-        'WMAD/intermediate' in request.url or 
-        'WMAD/advanced' in request.url or 
-        'SMP/beginner' in request.url or 
-        'SMP/intermediate' in request.url or 
-        'SMP/advanced' in request.url or 
-        'AMG/beginner' in request.url or 
-        'AMG/intermediate' in request.url or 
-        'AMG/advanced' in request.url or 
-        'NETAD/beginner' in request.url or 
-        'NETAD/intermediate' in request.url or 
-        'NETAD/advanced' in request.url
-    ) %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
-    {% endif %}
+    {% comment %}Removed shared course CSS link{% endcomment %}
     
     {% block extra_css %}{% endblock %}
    
