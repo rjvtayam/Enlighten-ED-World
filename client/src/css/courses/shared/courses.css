@@ -1,0 +1,156 @@
+/* Add this to your CSS file or in a <style> tag in the head of your HTML */
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --text-color: #333;
+    --background-color: #f4f4f4;
+    --sidebar-width: 300px;
+    --transition-speed: 0.3s;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .course-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .course-sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--secondary-color);
+    color: white;
+    overflow-y: auto;
+    transition: transform var(--transition-speed);
+  }
+  
+  .sidebar-nav {
+    padding: 20px;
+  }
+  
+  .nav-group {
+    margin-bottom: 20px;
+  }
+  
+  .nav-group-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .nav-group-header:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-group-header .icon {
+    margin-right: 10px;
+  }
+  
+  .nav-group-content {
+    display: none;
+    padding-left: 20px;
+  }
+  
+  .nav-group.active .nav-group-content {
+    display: block;
+  }
+  
+  .nav-link {
+    display: block;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .nav-link:hover, .nav-link.active {
+    background-color: var(--primary-color);
+  }
+  
+  .course-content {
+    flex-grow: 1;
+    padding: 20px;
+    transition: margin-left var(--transition-speed);
+  }
+  
+  .course-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .course-card-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .progress-indicator {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .progress-indicator.beginner {
+    background-color: #2ecc71;
+  }
+  
+  .content-table {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  .accordion {
+    margin-top: 20px;
+  }
+  
+  .accordion-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .accordion-content {
+    display: none;
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    border-top: none;
+    padding: 15px;
+    border-radius: 0 0 5px 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .course-sidebar {
+      position: fixed;
+      left: -var(--sidebar-width);
+      top: 0;
+      bottom: 0;
+      z-index: 1000;
+    }
+  
+    .course-sidebar.active {
+      transform: translateX(var(--sidebar-width));
+    }
+  
+    .course-content {
+      margin-left: 0;
+    }
+  }

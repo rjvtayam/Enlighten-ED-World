@@ -25,9 +25,7 @@
     
     <!-- Course Styles -->
     {% if request.blueprint == 'courses' %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/variables.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/layout.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
     {% endif %}
     
     {% block extra_css %}{% endblock %}
