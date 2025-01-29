@@ -115,12 +115,13 @@ body {
 }
 
 .section-header a {
-  color: #fff;
+  color: white; /* Full white for better contrast */
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   width: 100%;
+  font-weight: 500; /* Slightly bolder */
 }
 
 .section-icon {
@@ -143,6 +144,9 @@ body {
   display: none;
   padding-left: 20px;
   animation: fadeIn 0.3s ease-out;
+  background-color: rgba(0, 0, 0, 0.2); /* Subtle dark background */
+  margin: 0 8px;
+  border-radius: var(--border-radius);
 }
 
 .course-section.active .section-content {
@@ -150,10 +154,10 @@ body {
 }
 
 .section-content a {
+  color: rgba(255, 255, 255, 0.85); /* Brighter text color */
+  text-decoration: none;
   display: block;
   padding: 8px 12px;
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
   border-radius: var(--border-radius);
   transition: all var(--transition-speed);
   font-size: 0.9rem;
