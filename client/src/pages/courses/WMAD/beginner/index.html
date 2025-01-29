@@ -6,13 +6,10 @@
     <title>Web Development Beginner Course - Enlighten ED</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
-    
     <!-- Course Specific Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
-
 </head>
 <body>
     <div class="course-container">
@@ -32,7 +29,6 @@
                         <a href="#" class="nav-link" data-content="web-basics">Web Basics</a>
                     </div>
                 </div>
-
                 <!-- HTML Fundamentals -->
                 <div class="nav-group">
                     <div class="nav-group-header">
@@ -48,7 +44,6 @@
                         <a href="#" class="nav-link" data-content="html-quiz">Knowledge Check</a>
                     </div>
                 </div>
-
                 <!-- CSS Styling -->
                 <div class="nav-group">
                     <div class="nav-group-header">
@@ -64,7 +59,6 @@
                         <a href="#" class="nav-link" data-content="css-quiz">Knowledge Check</a>
                     </div>
                 </div>
-
                 <!-- JavaScript Basics -->
                 <div class="nav-group">
                     <div class="nav-group-header">
@@ -82,7 +76,6 @@
                         <a href="#" class="nav-link" data-content="js-quiz">Knowledge Check</a>
                     </div>
                 </div>
-
                 <!-- Mini Projects -->
                 <div class="nav-group">
                     <div class="nav-group-header">
@@ -99,7 +92,6 @@
                 </div>
             </nav>
         </aside>
-
         <!-- Main Content Area -->
         <main class="course-content">
             <div class="course-card">
@@ -109,11 +101,9 @@
                         <span>Progress: 0/20 lessons completed</span>
                     </div>
                 </div>
-
                 <div class="content-section">
                     <h2>Course Overview</h2>
                     <p>Welcome to Web Development! This beginner-friendly course will teach you the fundamentals of web development and help you build your first websites.</p>
-                    
                     <div class="content-table">
                         <h3>What You'll Learn</h3>
                         <ul>
@@ -124,7 +114,6 @@
                             <li>✓ Building responsive websites</li>
                         </ul>
                     </div>
-
                     <div class="accordion">
                         <div class="accordion-header">
                             <h3>Prerequisites</h3>
@@ -141,10 +130,8 @@
             </div>
         </main>
     </div>
-
     <!-- Course Specific Scripts -->
     <script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/main.js') }}"></script>
-
 </body>
 </html>
