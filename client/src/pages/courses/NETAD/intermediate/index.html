@@ -1,8 +1,20 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Administration Intermediate Course - Enlighten ED</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Course Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
 
-{% block title %}Network Administration Intermediate Course - Enlighten ED{% endblock %}
-
-{% block content %}
+</head>
+<body>
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
     <nav class="course-sidebar">
@@ -15,9 +27,11 @@
             <!-- Course Introduction -->
             <li class="course-section">
                 <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Introduction
-                    <span class="duration">1 hour</span>
+                    <a href="#">
+                        <span class="section-icon">📚</span>
+                        Course Introduction
+                        <span class="duration">1 hour</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
@@ -29,9 +43,11 @@
             <!-- Advanced Routing and Switching -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🌐</span>
-                    Advanced Routing & Switching
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🌐</span>
+                        Advanced Routing & Switching
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="routing-protocols">Dynamic Routing Protocols</a></li>
@@ -45,9 +61,11 @@
             <!-- Network Security -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🔒</span>
-                    Advanced Network Security
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🔒</span>
+                        Advanced Network Security
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="access-control">Access Control Lists (ACLs)</a></li>
@@ -61,9 +79,11 @@
             <!-- Network Services -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">⚡</span>
-                    Enterprise Network Services
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">⚡</span>
+                        Enterprise Network Services
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="active-directory">Active Directory Integration</a></li>
@@ -76,9 +96,11 @@
             <!-- Network Monitoring -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">📊</span>
-                    Network Monitoring & Management
-                    <span class="duration">5 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📊</span>
+                        Network Monitoring & Management
+                        <span class="duration">5 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="snmp">SNMP Configuration</a></li>
@@ -92,9 +114,11 @@
             <!-- WAN Technologies -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🌍</span>
-                    WAN Technologies
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🌍</span>
+                        WAN Technologies
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="mpls">MPLS Networks</a></li>
@@ -107,9 +131,11 @@
             <!-- Network Automation -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🤖</span>
-                    Network Automation
-                    <span class="duration">5 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🤖</span>
+                        Network Automation
+                        <span class="duration">5 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="python-automation">Python for Network Automation</a></li>
@@ -122,9 +148,11 @@
             <!-- Practical Labs -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">💻</span>
-                    Advanced Labs
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">💻</span>
+                        Advanced Labs
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="lab-routing">Enterprise Routing Lab</a></li>
@@ -137,9 +165,11 @@
             <!-- Final Assessment -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Final Assessment
-                    <span class="duration">3 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎯</span>
+                        Final Assessment
+                        <span class="duration">3 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="theory-exam">Theory Examination</a></li>
@@ -171,8 +201,8 @@
             </div>
 
             <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/NETAD/intermediate/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/NETAD/intermediate/welcome.mp4') }}" type="video/mp4">
+                <video controls poster="/static/images/courses/NETAD/intermediate/welcome-thumb.jpg">
+                    <source src="/static/videos/courses/NETAD/intermediate/welcome.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -263,8 +293,10 @@
         </div>
     </main>
 </div>
-{% endblock %}
 
-{% block scripts %}
+<!-- Course Specific Scripts -->
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/NETAD/intermediate/main.js') }}"></script>
-{% endblock %}
+
+</body>
+</html>

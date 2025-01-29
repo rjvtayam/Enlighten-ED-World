@@ -1,8 +1,20 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation & Motion Graphics Intermediate Course - Enlighten ED</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Course Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
 
-{% block title %}Animation & Motion Graphics Intermediate Course - Enlighten ED{% endblock %}
-
-{% block content %}
+</head>
+<body>
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
     <nav class="course-sidebar">
@@ -15,9 +27,11 @@
             <!-- Course Introduction -->
             <li class="course-section">
                 <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Overview
-                    <span class="duration">2 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📚</span>
+                        Course Overview
+                        <span class="duration">2 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
@@ -29,9 +43,11 @@
             <!-- Advanced Design -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎨</span>
-                    Advanced Design
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎨</span>
+                        Advanced Design
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="color-advanced">Advanced Color Theory</a></li>
@@ -45,9 +61,11 @@
             <!-- Character Animation -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎭</span>
-                    Character Animation
-                    <span class="duration">12 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎭</span>
+                        Character Animation
+                        <span class="duration">12 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="character-design">Character Design</a></li>
@@ -62,9 +80,11 @@
             <!-- Motion Graphics -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">📱</span>
-                    Advanced Motion Graphics
-                    <span class="duration">10 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📱</span>
+                        Advanced Motion Graphics
+                        <span class="duration">10 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="3d-motion">3D in Motion Graphics</a></li>
@@ -78,9 +98,11 @@
             <!-- Visual Effects -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">✨</span>
-                    Visual Effects
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">✨</span>
+                        Visual Effects
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="compositing">Basic Compositing</a></li>
@@ -93,9 +115,11 @@
             <!-- Sound Design -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎵</span>
-                    Advanced Sound
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎵</span>
+                        Advanced Sound
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="sound-design">Sound Design</a></li>
@@ -108,9 +132,11 @@
             <!-- Professional Tools -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🛠️</span>
-                    Professional Tools
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🛠️</span>
+                        Professional Tools
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="after-effects-pro">After Effects Advanced</a></li>
@@ -123,9 +149,11 @@
             <!-- Client Projects -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">💼</span>
-                    Client Work
-                    <span class="duration">10 hours</span>
+                    <a href="#">
+                        <span class="section-icon">💼</span>
+                        Client Work
+                        <span class="duration">10 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="client-brief">Understanding Client Briefs</a></li>
@@ -139,9 +167,11 @@
             <!-- Portfolio Development -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">📂</span>
-                    Portfolio Building
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📂</span>
+                        Portfolio Building
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="portfolio-strategy">Portfolio Strategy</a></li>
@@ -154,9 +184,11 @@
             <!-- Final Assessment -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Course Completion
-                    <span class="duration">4 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎯</span>
+                        Course Completion
+                        <span class="duration">4 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="final-project">Final Project</a></li>
@@ -188,8 +220,8 @@
             </div>
 
             <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/AMG/intermediate/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/AMG/intermediate/welcome.mp4') }}" type="video/mp4">
+                <video controls poster="/static/images/courses/AMG/intermediate/welcome-thumb.jpg">
+                    <source src="/static/videos/courses/AMG/intermediate/welcome.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -280,8 +312,10 @@
         </div>
     </main>
 </div>
-{% endblock %}
 
-{% block scripts %}
+<!-- Course Specific Scripts -->
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/AMG/intermediate/main.js') }}"></script>
-{% endblock %}
+
+</body>
+</html>

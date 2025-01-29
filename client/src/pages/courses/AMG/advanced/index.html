@@ -1,8 +1,19 @@
-{% extends "base.html" %}
-
-{% block title %}Animation & Motion Graphics Advanced Course - Enlighten ED{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation & Motion Graphics Advanced Course - Enlighten ED</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Course Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
+</head>
+<body>
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
     <nav class="course-sidebar">
@@ -15,9 +26,11 @@
             <!-- Course Introduction -->
             <li class="course-section">
                 <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Overview
-                    <span class="duration">2 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📚</span>
+                        Course Overview
+                        <span class="duration">2 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
@@ -29,9 +42,11 @@
             <!-- Advanced Animation Theory -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Advanced Theory
-                    <span class="duration">10 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎯</span>
+                        Advanced Theory
+                        <span class="duration">10 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="psychology">Animation Psychology</a></li>
@@ -45,9 +60,11 @@
             <!-- 3D Animation & Integration -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">💫</span>
-                    3D Integration
-                    <span class="duration">15 hours</span>
+                    <a href="#">
+                        <span class="section-icon">💫</span>
+                        3D Integration
+                        <span class="duration">15 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="3d-fundamentals">3D Fundamentals</a></li>
@@ -62,9 +79,11 @@
             <!-- Advanced Motion Graphics -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎨</span>
-                    Motion Design
-                    <span class="duration">12 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎨</span>
+                        Motion Design
+                        <span class="duration">12 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="procedural">Procedural Animation</a></li>
@@ -78,9 +97,11 @@
             <!-- Visual Effects Mastery -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">✨</span>
-                    VFX Mastery
-                    <span class="duration">15 hours</span>
+                    <a href="#">
+                        <span class="section-icon">✨</span>
+                        VFX Mastery
+                        <span class="duration">15 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="compositing">Advanced Compositing</a></li>
@@ -94,9 +115,11 @@
             <!-- Pipeline & Workflow -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">⚙️</span>
-                    Production Pipeline
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">⚙️</span>
+                        Production Pipeline
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="pipeline">Pipeline Development</a></li>
@@ -109,9 +132,11 @@
             <!-- Industry Projects -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎬</span>
-                    Industry Projects
-                    <span class="duration">20 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎬</span>
+                        Industry Projects
+                        <span class="duration">20 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="broadcast">Broadcast Package</a></li>
@@ -125,9 +150,11 @@
             <!-- Professional Development -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">💼</span>
-                    Career Development
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">💼</span>
+                        Career Development
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="industry-analysis">Industry Analysis</a></li>
@@ -140,9 +167,11 @@
             <!-- Final Mastery -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎓</span>
-                    Course Completion
-                    <span class="duration">10 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎓</span>
+                        Course Completion
+                        <span class="duration">10 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="masterpiece">Masterpiece Project</a></li>
@@ -174,8 +203,8 @@
             </div>
 
             <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/AMG/advanced/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/AMG/advanced/welcome.mp4') }}" type="video/mp4">
+                <video controls poster="/static/images/courses/AMG/advanced/welcome-thumb.jpg">
+                    <source src="/static/videos/courses/AMG/advanced/welcome.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -266,8 +295,10 @@
         </div>
     </main>
 </div>
-{% endblock %}
 
-{% block scripts %}
+<!-- Course Specific Scripts -->
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/AMG/advanced/main.js') }}"></script>
-{% endblock %}
+
+</body>
+</html>

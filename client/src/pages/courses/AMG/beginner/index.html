@@ -1,8 +1,20 @@
-{% extends "base.html" %}
-
-{% block title %}Animation & Motion Graphics Beginner Course - Enlighten ED{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation & Motion Graphics Beginner Course - Enlighten ED</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Course Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
+    
+</head>
+<body>
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
     <nav class="course-sidebar">
@@ -15,9 +27,11 @@
             <!-- Course Introduction -->
             <li class="course-section">
                 <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Introduction
-                    <span class="duration">2 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📚</span>
+                        Course Introduction
+                        <span class="duration">2 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
@@ -29,9 +43,11 @@
             <!-- Design Fundamentals -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎨</span>
-                    Design Basics
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎨</span>
+                        Design Basics
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="color-theory">Color Theory</a></li>
@@ -45,9 +61,11 @@
             <!-- Drawing Skills -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">✏️</span>
-                    Basic Drawing
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">✏️</span>
+                        Basic Drawing
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="shapes">Basic Shapes</a></li>
@@ -61,9 +79,11 @@
             <!-- Digital Tools -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🖥️</span>
-                    Digital Tools
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🖥️</span>
+                        Digital Tools
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="photoshop-basics">Photoshop Basics</a></li>
@@ -76,9 +96,11 @@
             <!-- Animation Principles -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎬</span>
-                    Animation Basics
-                    <span class="duration">10 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎬</span>
+                        Animation Basics
+                        <span class="duration">10 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="12-principles">12 Principles of Animation</a></li>
@@ -92,9 +114,11 @@
             <!-- Motion Graphics -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">📱</span>
-                    Basic Motion Graphics
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">📱</span>
+                        Basic Motion Graphics
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="shape-animation">Shape Animation</a></li>
@@ -107,9 +131,11 @@
             <!-- Sound & Timing -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎵</span>
-                    Sound Basics
-                    <span class="duration">4 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎵</span>
+                        Sound Basics
+                        <span class="duration">4 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="audio-basics">Audio Fundamentals</a></li>
@@ -122,9 +148,11 @@
             <!-- Projects -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Beginner Projects
-                    <span class="duration">8 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎯</span>
+                        Beginner Projects
+                        <span class="duration">8 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="project-logo">Animated Logo</a></li>
@@ -137,9 +165,11 @@
             <!-- Final Assessment -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎓</span>
-                    Course Completion
-                    <span class="duration">2 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎓</span>
+                        Course Completion
+                        <span class="duration">2 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="theory-exam">Theory Assessment</a></li>
@@ -171,8 +201,8 @@
             </div>
 
             <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/AMG/beginner/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/AMG/beginner/welcome.mp4') }}" type="video/mp4">
+                <video controls poster="/static/images/courses/AMG/beginner/welcome-thumb.jpg">
+                    <source src="/static/videos/courses/AMG/beginner/welcome.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -263,8 +293,10 @@
         </div>
     </main>
 </div>
-{% endblock %}
 
-{% block scripts %}
+<!-- Course Specific Scripts -->
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/AMG/beginner/main.js') }}"></script>
-{% endblock %}
+
+</body>
+</html>

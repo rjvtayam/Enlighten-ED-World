@@ -1,8 +1,20 @@
-{% extends "base.html" %}
-
-{% block title %}Network Administration Beginner Course - Enlighten ED{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Administration Beginner Course - Enlighten ED</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Course Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
+    
+</head>
+<body>
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
     <nav class="course-sidebar">
@@ -15,9 +27,11 @@
             <!-- Course Introduction -->
             <li class="course-section">
                 <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Introduction
-                    <span class="duration">1 hour</span>
+                    <a href="#">
+                        <span class="section-icon">📚</span>
+                        Course Introduction
+                        <span class="duration">1 hour</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
@@ -29,9 +43,11 @@
             <!-- Network Fundamentals -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🌐</span>
-                    Network Fundamentals
-                    <span class="duration">4 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🌐</span>
+                        Network Fundamentals
+                        <span class="duration">4 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="osi-model">OSI Model</a></li>
@@ -45,9 +61,11 @@
             <!-- Network Hardware -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🔌</span>
-                    Network Hardware
-                    <span class="duration">4 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🔌</span>
+                        Network Hardware
+                        <span class="duration">4 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="network-cables">Network Cables</a></li>
@@ -60,9 +78,11 @@
             <!-- Network Services -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">⚡</span>
-                    Network Services
-                    <span class="duration">5 hours</span>
+                    <a href="#">
+                        <span class="section-icon">⚡</span>
+                        Network Services
+                        <span class="duration">5 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="dhcp">DHCP</a></li>
@@ -75,9 +95,11 @@
             <!-- Network Security -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🔒</span>
-                    Network Security Basics
-                    <span class="duration">4 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🔒</span>
+                        Network Security Basics
+                        <span class="duration">4 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="security-concepts">Security Concepts</a></li>
@@ -90,9 +112,11 @@
             <!-- Network Troubleshooting -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🔧</span>
-                    Basic Troubleshooting
-                    <span class="duration">4 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🔧</span>
+                        Basic Troubleshooting
+                        <span class="duration">4 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="troubleshooting-methodology">Troubleshooting Methodology</a></li>
@@ -105,9 +129,11 @@
             <!-- Hands-on Labs -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">💻</span>
-                    Practical Labs
-                    <span class="duration">6 hours</span>
+                    <a href="#">
+                        <span class="section-icon">💻</span>
+                        Practical Labs
+                        <span class="duration">6 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="lab-network-setup">Basic Network Setup</a></li>
@@ -120,9 +146,11 @@
             <!-- Final Assessment -->
             <li class="course-section">
                 <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Final Assessment
-                    <span class="duration">2 hours</span>
+                    <a href="#">
+                        <span class="section-icon">🎯</span>
+                        Final Assessment
+                        <span class="duration">2 hours</span>
+                    </a>
                 </div>
                 <ul class="section-content">
                     <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
@@ -153,8 +181,8 @@
             </div>
 
             <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/NETAD/beginner/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/NETAD/beginner/welcome.mp4') }}" type="video/mp4">
+                <video controls poster="/static/images/courses/NETAD/beginner/welcome-thumb.jpg">
+                    <source src="/static/videos/courses/NETAD/beginner/welcome.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -244,8 +272,10 @@
         </div>
     </main>
 </div>
-{% endblock %}
 
-{% block scripts %}
+<!-- Course Specific Scripts -->
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
 <script src="{{ url_for('static', filename='js/courses/NETAD/beginner/main.js') }}"></script>
-{% endblock %}
+
+</body>
+</html>

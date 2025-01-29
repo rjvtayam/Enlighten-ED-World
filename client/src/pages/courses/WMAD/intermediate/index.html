@@ -1,8 +1,19 @@
-{% extends "base.html" %}
-
-{% block title %}Web Development Intermediate Course - Enlighten ED{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Intermediate Course - Enlighten ED</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    
+    <!-- Course Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
+</head>
+<body>
 <div class="course-container">
     <!-- Left Sidebar Navigation -->
     <aside class="course-sidebar">
@@ -132,9 +143,10 @@
         </div>
     </main>
 </div>
-{% endblock %}
 
-{% block scripts %}
-{{ super() }}
-<script src="{{ url_for('static', filename='js/courses/WMAD/intermediate.js') }}"></script>
-{% endblock %}
+<!-- Course Specific Scripts -->
+<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/courses/WMAD/intermediate/main.js') }}"></script>
+
+</body>
+</html>
