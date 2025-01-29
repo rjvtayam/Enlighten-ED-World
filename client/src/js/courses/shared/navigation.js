@@ -4,11 +4,49 @@ document.addEventListener("DOMContentLoaded", function () {
     const contentSection = document.querySelector(".content-section");
     const initialContent = contentSection.innerHTML; // Store the initial content
   
-    // Function to update the content section (placeholder for dynamic content)
+    // Accordion Functionality
+    function initializeAccordions() {
+      const accordions = document.querySelectorAll('.accordion');
+      accordions.forEach(accordion => {
+        const header = accordion.querySelector('.accordion-header');
+        const content = accordion.querySelector('.accordion-content');
+        
+        // Set initial state - show prerequisites content
+        content.style.maxHeight = content.scrollHeight + "px";
+        header.classList.add('active');
+        
+        header.addEventListener('click', () => {
+          header.classList.toggle('active');
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          }
+        });
+      });
+    }
+  
+    // Radio Button Functionality
+    function initializeRadioButtons() {
+      const radioButtons = document.querySelectorAll('.prerequisite-item input[type="radio"]');
+      radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+          const label = this.closest('.prerequisite-item');
+          if (this.checked) {
+            label.classList.add('checked');
+          } else {
+            label.classList.remove('checked');
+          }
+        });
+      });
+    }
+  
     function updateContent(contentId) {
-      // Replace this with your logic to fetch or inject content dynamically
       if (contentId === "welcome") {
-        contentSection.innerHTML = initialContent; // Restore the initial content
+        contentSection.innerHTML = initialContent;
+        // Reinitialize accordion and radio buttons after content update
+        initializeAccordions();
+        initializeRadioButtons();
       } else {
         contentSection.innerHTML = `
           <h2>Loading Content...</h2>
@@ -17,31 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   
-    // Function to handle navigation link clicks
     function handleNavLinkClick(event) {
       event.preventDefault();
-  
-      // Remove active class from all links
       navLinks.forEach((link) => link.classList.remove("active"));
-  
-      // Add active class to the clicked link
       const clickedLink = event.currentTarget;
       clickedLink.classList.add("active");
-  
-      // Update the content section
       const contentId = clickedLink.getAttribute("data-content");
       updateContent(contentId);
     }
   
-    // Function to handle nav group header clicks (expand/collapse)
     function handleNavGroupHeaderClick(event) {
       const header = event.currentTarget;
       const group = header.parentElement;
-  
-      // Toggle the expanded class
       group.classList.toggle("expanded");
-  
-      // Close other expanded groups
       navGroups.forEach((otherGroup) => {
         if (otherGroup !== group && otherGroup.classList.contains("expanded")) {
           otherGroup.classList.remove("expanded");
@@ -49,21 +75,25 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   
-    // Add event listeners to nav links
+    // Add event listeners
     navLinks.forEach((link) => {
       link.addEventListener("click", handleNavLinkClick);
     });
   
-    // Add event listeners to nav group headers
     const navGroupHeaders = document.querySelectorAll(".nav-group-header");
     navGroupHeaders.forEach((header) => {
       header.addEventListener("click", handleNavGroupHeaderClick);
     });
   
-    // Initialize the first link as active and load its content
+    // Initialize first link, accordion, and radio buttons
     if (navLinks.length > 0) {
-      navLinks[0].classList.add("active");
-      updateContent(navLinks[0].getAttribute("data-content"));
+      navLinks.forEach((link) => link.classList.remove("active"));
+      const firstLink = document.querySelector(".nav-link[data-content='welcome']");
+      firstLink.classList.add("active");
+      updateContent("welcome");
     }
-  });
   
+    // Initialize accordions and radio buttons on page load
+    initializeAccordions();
+    initializeRadioButtons();
+  });

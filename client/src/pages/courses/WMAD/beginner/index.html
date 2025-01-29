@@ -16,6 +16,17 @@
         <!-- Left Sidebar Navigation -->
         <aside class="course-sidebar">
             <nav class="sidebar-nav">
+                <!-- Pre Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📃</span>
+                        <span>Pre Assessment</span>
+                        <span class="duration">0.5 hour</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="pre-assessment">Start Pre Assessment</a>
+                    </div>
+                </div>
                 <!-- Course Introduction -->
                 <div class="nav-group active">
                     <div class="nav-group-header">
@@ -90,6 +101,17 @@
                         <a href="#" class="nav-link" data-content="project-review">Project Review</a>
                     </div>
                 </div>
+                <!-- Post Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📊</span>
+                        <span>Post Assessment</span>
+                        <span class="duration">0.5 hour</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="post-assessment">Start Post Assessment</a>
+                    </div>
+                </div>
             </nav>
         </aside>
         <!-- Main Content Area -->
@@ -119,10 +141,28 @@
                             <h3>Prerequisites</h3>
                         </div>
                         <div class="accordion-content">
-                            <ul>
-                                <li>Basic computer skills</li>
-                                <li>Interest in web development</li>
-                                <li>No prior coding experience required</li>
+                            <ul class="prerequisites-list">
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq1" checked>
+                                        <span class="radio-custom"></span>
+                                        Basic computer skills
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq2" checked>
+                                        <span class="radio-custom"></span>
+                                        Interest in web development
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq3" checked>
+                                        <span class="radio-custom"></span>
+                                        No prior coding experience required
+                                    </label>
+                                </li>
                             </ul>
                         </div>
                     </div>
