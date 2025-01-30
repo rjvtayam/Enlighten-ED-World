@@ -6,300 +6,144 @@
     <title>Network Administration Advanced Course - Enlighten ED</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
-    
     <!-- Course Specific Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
-    
 </head>
 <body>
-<div class="course-container">
-    <!-- Left Sidebar Navigation -->
-    <nav class="course-sidebar">
-        <div class="course-title">
-            <h2>Enterprise Network Administration</h2>
-            <p class="course-level">Advanced Level</p>
-        </div>
-        
-        <ul class="course-navigation">
-            <!-- Course Introduction -->
-            <li class="course-section">
-                <div class="section-header active">
-                    <a href="#">
-                        <span class="section-icon">📚</span>
-                        Course Overview
+    <div class="course-container">
+        <!-- Left Sidebar Navigation -->
+        <aside class="course-sidebar">
+            <nav class="sidebar-nav">
+                <!-- Pre Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📃</span>
+                        <span>Pre Assessment</span>
+                        <span class="duration">1 hour</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="pre-assessment">Start Pre Assessment</a>
+                    </div>
+                </div>
+                <!-- Course Introduction -->
+                <div class="nav-group active">
+                    <div class="nav-group-header">
+                        <span class="icon">📚</span>
+                        <span>Course Overview</span>
                         <span class="duration">2 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link active" data-content="welcome">Welcome & Prerequisites</a>
+                        <a href="#" class="nav-link" data-content="enterprise-overview">Enterprise Architecture Overview</a>
+                        <a href="#" class="nav-link" data-content="course-objectives">Learning Objectives</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" class="active" data-content="welcome">Welcome & Prerequisites</a></li>
-                    <li><a href="#" data-content="enterprise-overview">Enterprise Architecture Overview</a></li>
-                    <li><a href="#" data-content="course-objectives">Learning Objectives</a></li>
-                </ul>
-            </li>
-
-            <!-- Enterprise Network Design -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🏗️</span>
-                        Enterprise Network Design
+                <!-- Enterprise Network Design -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🏗️</span>
+                        <span>Enterprise Network Design</span>
                         <span class="duration">10 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="network-architecture">Enterprise Architecture</a>
+                        <a href="#" class="nav-link" data-content="scalability">Scalability & High Availability</a>
+                        <a href="#" class="nav-link" data-content="redundancy">Redundancy Planning</a>
+                        <a href="#" class="nav-link" data-content="network-segmentation">Advanced Network Segmentation</a>
+                        <a href="#" class="nav-link" data-content="design-lab">Network Design Lab</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="network-architecture">Enterprise Architecture</a></li>
-                    <li><a href="#" data-content="scalability">Scalability & High Availability</a></li>
-                    <li><a href="#" data-content="redundancy">Redundancy Planning</a></li>
-                    <li><a href="#" data-content="network-segmentation">Advanced Network Segmentation</a></li>
-                    <li><a href="#" data-content="design-lab">Network Design Lab</a></li>
-                </ul>
-            </li>
-
-            <!-- Advanced Security -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🔐</span>
-                        Enterprise Security
-                        <span class="duration">12 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="security-architecture">Security Architecture</a></li>
-                    <li><a href="#" data-content="threat-detection">Advanced Threat Detection</a></li>
-                    <li><a href="#" data-content="zero-trust">Zero Trust Implementation</a></li>
-                    <li><a href="#" data-content="compliance">Security Compliance & Auditing</a></li>
-                    <li><a href="#" data-content="incident-response">Incident Response</a></li>
-                    <li><a href="#" data-content="security-lab">Security Implementation Lab</a></li>
-                </ul>
-            </li>
-
-            <!-- Cloud Integration -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">☁️</span>
-                        Cloud & Hybrid Networks
-                        <span class="duration">8 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="cloud-networking">Cloud Networking</a></li>
-                    <li><a href="#" data-content="hybrid-architecture">Hybrid Architecture</a></li>
-                    <li><a href="#" data-content="cloud-security">Cloud Security</a></li>
-                    <li><a href="#" data-content="migration">Cloud Migration Strategies</a></li>
-                    <li><a href="#" data-content="cloud-lab">Cloud Integration Lab</a></li>
-                </ul>
-            </li>
-
-            <!-- Network Automation -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🤖</span>
-                        Enterprise Automation
-                        <span class="duration">10 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="automation-framework">Automation Framework Design</a></li>
-                    <li><a href="#" data-content="ci-cd">CI/CD for Network Infrastructure</a></li>
-                    <li><a href="#" data-content="config-management">Configuration Management</a></li>
-                    <li><a href="#" data-content="automation-testing">Testing & Validation</a></li>
-                    <li><a href="#" data-content="automation-lab">Automation Pipeline Lab</a></li>
-                </ul>
-            </li>
-
-            <!-- Performance Optimization -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">📈</span>
-                        Performance & Optimization
-                        <span class="duration">8 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="performance-metrics">Advanced Metrics & Monitoring</a></li>
-                    <li><a href="#" data-content="optimization">Network Optimization</a></li>
-                    <li><a href="#" data-content="troubleshooting">Advanced Troubleshooting</a></li>
-                    <li><a href="#" data-content="performance-lab">Performance Tuning Lab</a></li>
-                </ul>
-            </li>
-
-            <!-- Disaster Recovery -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🔄</span>
-                        Business Continuity
-                        <span class="duration">8 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="disaster-planning">Disaster Recovery Planning</a></li>
-                    <li><a href="#" data-content="backup-strategies">Advanced Backup Strategies</a></li>
-                    <li><a href="#" data-content="failover">Failover & Recovery</a></li>
-                    <li><a href="#" data-content="dr-testing">DR Testing & Validation</a></li>
-                    <li><a href="#" data-content="dr-lab">DR Implementation Lab</a></li>
-                </ul>
-            </li>
-
-            <!-- Enterprise Labs -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🔬</span>
-                        Enterprise Labs
-                        <span class="duration">12 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="lab-enterprise">Enterprise Network Setup</a></li>
-                    <li><a href="#" data-content="lab-security">Security Implementation</a></li>
-                    <li><a href="#" data-content="lab-automation">Automation Pipeline</a></li>
-                    <li><a href="#" data-content="lab-dr">Disaster Recovery</a></li>
-                </ul>
-            </li>
-
-            <!-- Final Assessment -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🎯</span>
-                        Certification
+                <!-- Additional sections... -->
+                <!-- Final Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🎯</span>
+                        <span>Certification</span>
                         <span class="duration">4 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="theory-exam">Enterprise Theory Exam</a>
+                        <a href="#" class="nav-link" data-content="practical-exam">Enterprise Lab Exam</a>
+                        <a href="#" class="nav-link" data-content="project">Enterprise Project</a>
+                        <a href="#" class="nav-link" data-content="certification">Get Enterprise Certificate</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="theory-exam">Enterprise Theory Exam</a></li>
-                    <li><a href="#" data-content="practical-exam">Enterprise Lab Exam</a></li>
-                    <li><a href="#" data-content="project">Enterprise Project</a></li>
-                    <li><a href="#" data-content="certification">Get Enterprise Certificate</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Right Content Area -->
-    <main class="course-content">
-        <div class="content-area active">
-            <div class="content-header">
-                <div class="header-top">
+            </nav>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="course-content">
+            <div class="course-card">
+                <div class="course-card-header">
                     <h1>Enterprise Network Administration</h1>
-                    <div class="lesson-meta">
-                        <span class="time-remaining">📚 Time to complete: 74 hours</span>
-                        <span class="difficulty">👨‍💻 Difficulty: Advanced</span>
+                    <div class="progress-indicator advanced">
+                        <span>Progress: 0/45 lessons completed</span>
                     </div>
                 </div>
-                <div class="progress-indicator">
-                    <span class="progress-text">Progress: 0/45 lessons completed</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="video-container">
-                <video controls poster="/static/images/courses/NETAD/advanced/welcome-thumb.jpg">
-                    <source src="/static/videos/courses/NETAD/advanced/welcome.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="content-text">
                 <div class="content-section">
                     <h2>Enterprise Course Overview</h2>
                     <p>Welcome to Enterprise Network Administration! This advanced course prepares you for managing large-scale enterprise networks:</p>
-                    
-                    <ul class="course-highlights">
-                        <li>
-                            <span class="highlight-icon">🏗️</span>
-                            <div class="highlight-content">
-                                <strong>Enterprise Architecture</strong>
-                                <p>Design and implement scalable enterprise networks</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🔐</span>
-                            <div class="highlight-content">
-                                <strong>Advanced Security</strong>
-                                <p>Implement enterprise-grade security measures</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">☁️</span>
-                            <div class="highlight-content">
-                                <strong>Cloud Integration</strong>
-                                <p>Design and manage hybrid cloud networks</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🤖</span>
-                            <div class="highlight-content">
-                                <strong>Enterprise Automation</strong>
-                                <p>Build automated network management pipelines</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-section">
-                    <h2>Enterprise Skills You'll Master</h2>
-                    <div class="learning-outcomes">
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Design and implement enterprise network architectures</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Deploy advanced security measures and compliance frameworks</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Integrate cloud services with on-premises infrastructure</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Build automated network management pipelines</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Implement comprehensive disaster recovery solutions</p>
-                        </div>
+                    <div class="content-table">
+                        <h3>Enterprise Skills You'll Master</h3>
+                        <ul>
+                            <li>✓ Design and implement enterprise network architectures</li>
+                            <li>✓ Deploy advanced security measures and compliance frameworks</li>
+                            <li>✓ Integrate cloud services with on-premises infrastructure</li>
+                            <li>✓ Build automated network management pipelines</li>
+                            <li>✓ Implement comprehensive disaster recovery solutions</li>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>Prerequisites</h2>
-                    <ul class="requirements-list">
-                        <li>Completion of NETAD Intermediate course or equivalent experience</li>
-                        <li>Strong understanding of network protocols and architectures</li>
-                        <li>Experience with network security and monitoring</li>
-                        <li>Basic scripting and automation knowledge</li>
-                        <li>Familiarity with cloud concepts and services</li>
-                    </ul>
-                </div>
-
-                <div class="next-steps">
-                    <h3>Ready to Master Enterprise Networking?</h3>
-                    <p>Begin with Enterprise Architecture Overview to understand large-scale network design.</p>
-                    <div class="navigation-buttons">
-                        <button class="btn btn-secondary" disabled>Previous</button>
-                        <button class="btn btn-primary">Next: Enterprise Architecture Overview</button>
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>Prerequisites</h3>
+                        </div>
+                        <div class="accordion-content">
+                            <ul class="prerequisites-list">
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq1" checked>
+                                        <span class="radio-custom"></span>
+                                        Completion of NETAD Intermediate course or equivalent experience
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq2" checked>
+                                        <span class="radio-custom"></span>
+                                        Strong understanding of network protocols and architectures
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq3" checked>
+                                        <span class="radio-custom"></span>
+                                        Experience with network security and monitoring
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq4" checked>
+                                        <span class="radio-custom"></span>
+                                        Basic scripting and automation knowledge
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq5" checked>
+                                        <span class="radio-custom"></span>
+                                        Familiarity with cloud concepts and services
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
-
-<!-- Course Specific Scripts -->
-<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
-<script src="{{ url_for('static', filename='js/courses/NETAD/advanced/main.js') }}"></script>
-
+        </main>
+    </div>
+    <!-- Course Specific Scripts -->
+    <script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/courses/NETAD/advanced/main.js') }}"></script>
 </body>
 </html>

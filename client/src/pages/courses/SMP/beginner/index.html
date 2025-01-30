@@ -6,223 +6,168 @@
     <title>IT Service Management Program Beginner Course - Enlighten ED</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
-    
     <!-- Course Specific Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
 </head>
 <body>
-<div class="course-container">
-    <!-- Left Sidebar Navigation -->
-    <nav class="course-sidebar">
-        <div class="course-title">
-            <h2>IT Service Management Fundamentals</h2>
-            <p class="course-level">Beginner Level</p>
-        </div>
-        
-        <ul class="course-navigation">
-            <!-- Course Introduction -->
-            <li class="course-section">
-                <div class="section-header active">
-                    <span class="section-icon">📚</span>
-                    Course Introduction
-                    <span class="duration">1 hour</span>
+    <div class="course-container">
+        <!-- Left Sidebar Navigation -->
+        <aside class="course-sidebar">
+            <nav class="sidebar-nav">
+                <!-- Pre Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📃</span>
+                        <span>Pre Assessment</span>
+                        <span class="duration">0.5 hour</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="pre-assessment">Start Pre Assessment</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
-                    <li><a href="#" data-content="itil-intro">Introduction to ITIL</a></li>
-                    <li><a href="#" data-content="service-management">Service Management Basics</a></li>
-                </ul>
-            </li>
-
-            <!-- Service Strategy -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Service Strategy
-                    <span class="duration">3 hours</span>
+                <!-- Course Introduction -->
+                <div class="nav-group active">
+                    <div class="nav-group-header">
+                        <span class="icon">📚</span>
+                        <span>Course Introduction</span>
+                        <span class="duration">1 hour</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link active" data-content="welcome">Welcome & Overview</a>
+                        <a href="#" class="nav-link" data-content="itil-intro">Introduction to ITIL</a>
+                        <a href="#" class="nav-link" data-content="service-management">Service Management Basics</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="strategy-basics">Strategy Fundamentals</a></li>
-                    <li><a href="#" data-content="service-portfolio">Service Portfolio Management</a></li>
-                    <li><a href="#" data-content="business-relationship">Business Relationship Management</a></li>
-                    <li><a href="#" data-content="strategy-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Service Design -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">📐</span>
-                    Service Design
-                    <span class="duration">3 hours</span>
+                <!-- Service Strategy -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🎯</span>
+                        <span>Service Strategy</span>
+                        <span class="duration">3 hours</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="strategy-basics">Strategy Fundamentals</a>
+                        <a href="#" class="nav-link" data-content="service-portfolio">Service Portfolio Management</a>
+                        <a href="#" class="nav-link" data-content="business-relationship">Business Relationship Management</a>
+                        <a href="#" class="nav-link" data-content="strategy-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="design-principles">Design Principles</a></li>
-                    <li><a href="#" data-content="service-catalog">Service Catalog Management</a></li>
-                    <li><a href="#" data-content="sla-management">SLA Management</a></li>
-                    <li><a href="#" data-content="design-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Service Transition -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🔄</span>
-                    Service Transition
-                    <span class="duration">3 hours</span>
+                <!-- Service Design -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📐</span>
+                        <span>Service Design</span>
+                        <span class="duration">3 hours</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="design-principles">Design Principles</a>
+                        <a href="#" class="nav-link" data-content="service-catalog">Service Catalog Management</a>
+                        <a href="#" class="nav-link" data-content="sla-management">SLA Management</a>
+                        <a href="#" class="nav-link" data-content="design-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="change-management">Change Management</a></li>
-                    <li><a href="#" data-content="release-management">Release Management</a></li>
-                    <li><a href="#" data-content="knowledge-management">Knowledge Management</a></li>
-                    <li><a href="#" data-content="transition-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Service Operation -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">⚙️</span>
-                    Service Operation
-                    <span class="duration">3 hours</span>
+                <!-- Service Transition -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🔄</span>
+                        <span>Service Transition</span>
+                        <span class="duration">3 hours</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="change-management">Change Management</a>
+                        <a href="#" class="nav-link" data-content="release-management">Release Management</a>
+                        <a href="#" class="nav-link" data-content="knowledge-management">Knowledge Management</a>
+                        <a href="#" class="nav-link" data-content="transition-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="incident-management">Incident Management</a></li>
-                    <li><a href="#" data-content="problem-management">Problem Management</a></li>
-                    <li><a href="#" data-content="event-management">Event Management</a></li>
-                    <li><a href="#" data-content="operation-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Final Assessment -->
-            <li class="course-section">
-                <div class="section-header">
-                    <span class="section-icon">🎯</span>
-                    Final Assessment
-                    <span class="duration">2 hours</span>
+                <!-- Service Operation -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">⚙️</span>
+                        <span>Service Operation</span>
+                        <span class="duration">3 hours</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="incident-management">Incident Management</a>
+                        <a href="#" class="nav-link" data-content="problem-management">Problem Management</a>
+                        <a href="#" class="nav-link" data-content="event-management">Event Management</a>
+                        <a href="#" class="nav-link" data-content="operation-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="final-quiz">Final Quiz</a></li>
-                    <li><a href="#" data-content="case-study">Case Study</a></li>
-                    <li><a href="#" data-content="certificate">Get Certificate</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Right Content Area -->
-    <main class="course-content">
-        <div class="content-area active">
-            <div class="content-header">
-                <div class="header-top">
+                <!-- Post Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📊</span>
+                        <span>Post Assessment</span>
+                        <span class="duration">1.5 hours</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="final-quiz">Final Quiz</a>
+                        <a href="#" class="nav-link" data-content="case-study">Case Study</a>
+                        <a href="#" class="nav-link" data-content="certificate">Get Certificate</a>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="course-content">
+            <div class="course-card">
+                <div class="course-card-header">
                     <h1>Welcome to IT Service Management</h1>
-                    <div class="lesson-meta">
-                        <span class="time-remaining">📚 Time to complete: 15 hours</span>
-                        <span class="difficulty">👨‍💻 Difficulty: Beginner</span>
+                    <div class="progress-indicator beginner">
+                        <span>Progress: 0/20 lessons completed</span>
                     </div>
                 </div>
-                <div class="progress-indicator">
-                    <span class="progress-text">Progress: 0/20 lessons completed</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/SMP/beginner/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/SMP/beginner/welcome.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="content-text">
                 <div class="content-section">
                     <h2>Course Overview</h2>
                     <p>Welcome to IT Service Management Fundamentals! This comprehensive beginner course will teach you the essential concepts of ITIL and IT service management:</p>
-                    
-                    <ul class="course-highlights">
-                        <li>
-                            <span class="highlight-icon">🎯</span>
-                            <div class="highlight-content">
-                                <strong>Service Strategy</strong>
-                                <p>Learn strategic service management principles</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">📐</span>
-                            <div class="highlight-content">
-                                <strong>Service Design</strong>
-                                <p>Master service design and SLA management</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🔄</span>
-                            <div class="highlight-content">
-                                <strong>Service Transition</strong>
-                                <p>Understand change and release management</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">⚙️</span>
-                            <div class="highlight-content">
-                                <strong>Service Operation</strong>
-                                <p>Learn incident and problem management</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-section">
-                    <h2>What You'll Learn</h2>
-                    <div class="learning-outcomes">
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>ITIL framework fundamentals</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Service lifecycle stages</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Basic service management processes</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Best practices in IT service delivery</p>
-                        </div>
+                    <div class="content-table">
+                        <h3>What You'll Learn</h3>
+                        <ul>
+                            <li>✓ ITIL framework fundamentals</li>
+                            <li>✓ Service lifecycle stages</li>
+                            <li>✓ Basic service management processes</li>
+                            <li>✓ Best practices in IT service delivery</li>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>Prerequisites</h2>
-                    <ul class="requirements-list">
-                        <li>Basic understanding of IT concepts</li>
-                        <li>No prior ITIL knowledge required</li>
-                        <li>Willingness to learn service management</li>
-                    </ul>
-                </div>
-
-                <div class="next-steps">
-                    <h3>Ready to Begin?</h3>
-                    <p>Start with the Introduction to ITIL to understand the fundamental concepts.</p>
-                    <div class="navigation-buttons">
-                        <button class="btn btn-secondary" disabled>Previous</button>
-                        <button class="btn btn-primary">Next: Introduction to ITIL</button>
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>Prerequisites</h3>
+                        </div>
+                        <div class="accordion-content">
+                            <ul class="prerequisites-list">
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq1" checked>
+                                        <span class="radio-custom"></span>
+                                        Basic understanding of IT concepts
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq2" checked>
+                                        <span class="radio-custom"></span>
+                                        No prior ITIL knowledge required
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq3" checked>
+                                        <span class="radio-custom"></span>
+                                        Willingness to learn service management
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
-
-<!-- Course Specific Scripts -->
-<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
-<script src="{{ url_for('static', filename='js/courses/SMP/beginner/main.js') }}"></script>
-
+        </main>
+    </div>
+    <!-- Course Specific Scripts -->
+    <script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/courses/SMP/beginner/main.js') }}"></script>
 </body>
 </html>

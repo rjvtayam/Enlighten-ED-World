@@ -6,256 +6,189 @@
     <title>IT Service Management Program Advanced Course - Enlighten ED</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
-    
     <!-- Course Specific Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/shared/courses.css') }}">
 </head>
 <body>
-<div class="course-container">
-    <!-- Left Sidebar Navigation -->
-    <nav class="course-sidebar">
-        <div class="course-title">
-            <h2>Advanced IT Service Management</h2>
-            <p class="course-level">Advanced Level</p>
-        </div>
-        
-        <ul class="course-navigation">
-            <!-- Course Introduction -->
-            <li class="course-section">
-                <div class="section-header active">
-                    <a href="#">
-                        <span class="section-icon">📚</span>
-                        Course Introduction
+    <div class="course-container">
+        <!-- Left Sidebar Navigation -->
+        <aside class="course-sidebar">
+            <nav class="sidebar-nav">
+                <!-- Pre Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📃</span>
+                        <span>Pre Assessment</span>
                         <span class="duration">1 hour</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="pre-assessment">Start Pre Assessment</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" class="active" data-content="welcome">Welcome & Overview</a></li>
-                    <li><a href="#" data-content="itil-expert">ITIL Expert Concepts</a></li>
-                    <li><a href="#" data-content="service-excellence">Service Excellence Framework</a></li>
-                </ul>
-            </li>
-
-            <!-- Strategic Service Management -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🎯</span>
-                        Strategic Service Management
+                <!-- Course Introduction -->
+                <div class="nav-group active">
+                    <div class="nav-group-header">
+                        <span class="icon">📚</span>
+                        <span>Course Introduction</span>
+                        <span class="duration">1 hour</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link active" data-content="welcome">Welcome & Overview</a>
+                        <a href="#" class="nav-link" data-content="itil-expert">ITIL Expert Concepts</a>
+                        <a href="#" class="nav-link" data-content="service-excellence">Service Excellence Framework</a>
+                    </div>
+                </div>
+                <!-- Strategic Service Management -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🎯</span>
+                        <span>Strategic Service Management</span>
                         <span class="duration">5 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="business-strategy">Business Strategy Alignment</a>
+                        <a href="#" class="nav-link" data-content="portfolio-optimization">Service Portfolio Optimization</a>
+                        <a href="#" class="nav-link" data-content="value-streams-advanced">Advanced Value Streams</a>
+                        <a href="#" class="nav-link" data-content="strategy-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="business-strategy">Business Strategy Alignment</a></li>
-                    <li><a href="#" data-content="portfolio-optimization">Service Portfolio Optimization</a></li>
-                    <li><a href="#" data-content="value-streams-advanced">Advanced Value Streams</a></li>
-                    <li><a href="#" data-content="strategy-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Advanced Service Design and Transition -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🔧</span>
-                        Advanced Service Design and Transition
+                <!-- Advanced Service Design and Transition -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🔧</span>
+                        <span>Advanced Service Design and Transition</span>
                         <span class="duration">6 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="complex-architectures">Complex Service Architectures</a>
+                        <a href="#" class="nav-link" data-content="advanced-slas">Advanced SLAs and OLAs</a>
+                        <a href="#" class="nav-link" data-content="change-management">Enterprise Change Management</a>
+                        <a href="#" class="nav-link" data-content="design-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="complex-architectures">Complex Service Architectures</a></li>
-                    <li><a href="#" data-content="advanced-slas">Advanced SLAs and OLAs</a></li>
-                    <li><a href="#" data-content="change-management">Enterprise Change Management</a></li>
-                    <li><a href="#" data-content="design-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- High-Performance Service Operations -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">⚡</span>
-                        High-Performance Service Operations
+                <!-- High-Performance Service Operations -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">⚡</span>
+                        <span>High-Performance Service Operations</span>
                         <span class="duration">5 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="ai-ops">AI-Driven Operations</a>
+                        <a href="#" class="nav-link" data-content="predictive-analytics">Predictive Analytics in ITSM</a>
+                        <a href="#" class="nav-link" data-content="automation-orchestration">Advanced Automation and Orchestration</a>
+                        <a href="#" class="nav-link" data-content="operations-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="ai-ops">AI-Driven Operations</a></li>
-                    <li><a href="#" data-content="predictive-analytics">Predictive Analytics in ITSM</a></li>
-                    <li><a href="#" data-content="automation-orchestration">Advanced Automation and Orchestration</a></li>
-                    <li><a href="#" data-content="operations-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Continual Service Improvement Mastery -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🔄</span>
-                        Continual Service Improvement Mastery
+                <!-- Continual Service Improvement Mastery -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🔄</span>
+                        <span>Continual Service Improvement Mastery</span>
                         <span class="duration">4 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="improvement-frameworks">Advanced Improvement Frameworks</a>
+                        <a href="#" class="nav-link" data-content="metrics-analytics">Advanced Metrics and Analytics</a>
+                        <a href="#" class="nav-link" data-content="cultural-transformation">Cultural Transformation for CSI</a>
+                        <a href="#" class="nav-link" data-content="improvement-quiz">Knowledge Check</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="improvement-frameworks">Advanced Improvement Frameworks</a></li>
-                    <li><a href="#" data-content="metrics-analytics">Advanced Metrics and Analytics</a></li>
-                    <li><a href="#" data-content="cultural-transformation">Cultural Transformation for CSI</a></li>
-                    <li><a href="#" data-content="improvement-quiz">Knowledge Check</a></li>
-                </ul>
-            </li>
-
-            <!-- Enterprise Case Studies -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">📋</span>
-                        Enterprise Case Studies
-                        <span class="duration">5 hours</span>
-                    </a>
-                </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="case-study-1">Global ITSM Transformation</a></li>
-                    <li><a href="#" data-content="case-study-2">AI-Driven Service Management</a></li>
-                    <li><a href="#" data-content="case-analysis">Critical Analysis & Strategies</a></li>
-                </ul>
-            </li>
-
-            <!-- Capstone Project -->
-            <li class="course-section">
-                <div class="section-header">
-                    <a href="#">
-                        <span class="section-icon">🎓</span>
-                        Capstone Project
+                <!-- Capstone Project -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">🎓</span>
+                        <span>Capstone Project</span>
                         <span class="duration">8 hours</span>
-                    </a>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="project-brief">Enterprise ITSM Strategy</a>
+                        <a href="#" class="nav-link" data-content="implementation-plan">Implementation Roadmap</a>
+                        <a href="#" class="nav-link" data-content="presentation">Executive Presentation</a>
+                    </div>
                 </div>
-                <ul class="section-content">
-                    <li><a href="#" data-content="project-brief">Enterprise ITSM Strategy</a></li>
-                    <li><a href="#" data-content="implementation-plan">Implementation Roadmap</a></li>
-                    <li><a href="#" data-content="presentation">Executive Presentation</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Right Content Area -->
-    <main class="course-content">
-        <div class="content-area active">
-            <div class="content-header">
-                <div class="header-top">
+                <!-- Post Assessment -->
+                <div class="nav-group">
+                    <div class="nav-group-header">
+                        <span class="icon">📊</span>
+                        <span>Post Assessment</span>
+                        <span class="duration">4 hours</span>
+                    </div>
+                    <div class="nav-group-content">
+                        <a href="#" class="nav-link" data-content="final-quiz">Final Quiz</a>
+                        <a href="#" class="nav-link" data-content="case-analysis">Enterprise Case Analysis</a>
+                        <a href="#" class="nav-link" data-content="certificate">Get Certificate</a>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="course-content">
+            <div class="course-card">
+                <div class="course-card-header">
                     <h1>Welcome to Advanced IT Service Management</h1>
-                    <div class="lesson-meta">
-                        <span class="time-remaining">📚 Time to complete: 34 hours</span>
-                        <span class="difficulty">👨‍💻 Difficulty: Advanced</span>
+                    <div class="progress-indicator advanced">
+                        <span>Progress: 0/30 lessons completed</span>
                     </div>
                 </div>
-                <div class="progress-indicator">
-                    <span class="progress-text">Progress: 0/30 lessons completed</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="video-container">
-                <video controls poster="{{ url_for('static', filename='images/courses/ITSM/advanced/welcome-thumb.jpg') }}">
-                    <source src="{{ url_for('static', filename='videos/courses/ITSM/advanced/welcome.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="content-text">
                 <div class="content-section">
                     <h2>Course Overview</h2>
                     <p>Welcome to the Advanced IT Service Management course! This expert-level program will elevate your ITSM skills to a strategic level:</p>
-                    
-                    <ul class="course-highlights">
-                        <li>
-                            <span class="highlight-icon">🎯</span>
-                            <div class="highlight-content">
-                                <strong>Strategic Service Management</strong>
-                                <p>Align IT services with business strategy and optimize service portfolios</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🔧</span>
-                            <div class="highlight-content">
-                                <strong>Advanced Service Design</strong>
-                                <p>Master complex service architectures and enterprise-level SLAs</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">⚡</span>
-                            <div class="highlight-content">
-                                <strong>High-Performance Operations</strong>
-                                <p>Implement AI-driven operations and predictive analytics</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="highlight-icon">🔄</span>
-                            <div class="highlight-content">
-                                <strong>Improvement Mastery</strong>
-                                <p>Lead cultural transformations for continual service improvement</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content-section">
-                    <h2>What You'll Master</h2>
-                    <div class="learning-outcomes">
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>ITIL Expert-level concepts and practices</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Strategic alignment of IT services with business goals</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Advanced service design for complex environments</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>AI and predictive analytics in ITSM</p>
-                        </div>
-                        <div class="outcome">
-                            <span class="check">✓</span>
-                            <p>Enterprise-level case study analysis and strategy formulation</p>
-                        </div>
+                    <div class="content-table">
+                        <h3>What You'll Master</h3>
+                        <ul>
+                            <li>✓ ITIL Expert-level concepts and practices</li>
+                            <li>✓ Strategic alignment of IT services with business goals</li>
+                            <li>✓ Advanced service design for complex environments</li>
+                            <li>✓ AI and predictive analytics in ITSM</li>
+                            <li>✓ Enterprise-level case study analysis and strategy formulation</li>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>Prerequisites</h2>
-                    <ul class="requirements-list">
-                        <li>Completion of ITSM Intermediate course or ITIL Practitioner certification</li>
-                        <li>Extensive practical experience in IT service management</li>
-                        <li>Familiarity with enterprise IT architectures and strategies</li>
-                        <li>Understanding of emerging technologies in IT operations</li>
-                    </ul>
-                </div>
-
-                <div class="next-steps">
-                    <h3>Ready to Become an ITSM Expert?</h3>
-                    <p>Begin with ITIL Expert Concepts to elevate your understanding of strategic service management.</p>
-                    <div class="navigation-buttons">
-                        <button class="btn btn-secondary" disabled>Previous</button>
-                        <button class="btn btn-primary">Next: ITIL Expert Concepts</button>
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>Prerequisites</h3>
+                        </div>
+                        <div class="accordion-content">
+                            <ul class="prerequisites-list">
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq1" checked>
+                                        <span class="radio-custom"></span>
+                                        Completion of ITSM Intermediate course or ITIL Practitioner certification
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq2" checked>
+                                        <span class="radio-custom"></span>
+                                        Extensive practical experience in IT service management
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq3" checked>
+                                        <span class="radio-custom"></span>
+                                        Familiarity with enterprise IT architectures and strategies
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="prerequisite-item">
+                                        <input type="radio" name="prereq4" checked>
+                                        <span class="radio-custom"></span>
+                                        Understanding of emerging technologies in IT operations
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
-
-<!-- Course Specific Scripts -->
-<script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
-<script src="{{ url_for('static', filename='js/courses/SMP/advanced/main.js') }}"></script>
-
+        </main>
+    </div>
+    <!-- Course Specific Scripts -->
+    <script src="{{ url_for('static', filename='js/courses/shared/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/courses/SMP/advanced/main.js') }}"></script>
 </body>
 </html>
