@@ -372,17 +372,18 @@
 }
 
 .score-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 8px solid #4f46e5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #4f46e5;
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    border: none;
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);
+    color: white;
+    font-size: 3rem;
+    transition: transform 0.3s ease;
+}
+
+.score-circle:hover {
+    transform: scale(1.05);
 }
 
 .category-scores {
@@ -506,16 +507,19 @@
 }
 
 .score-level {
-    font-size: 1.2rem;
-    color: #666;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.5rem;
 }
 
 .skills-radar {
     background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    height: 400px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.1);
+    height: 450px;
 }
 
 #skillsRadarChart {
@@ -558,12 +562,16 @@
 
 .category-card {
     background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    animation: fadeInUp 0.5s ease forwards;
-    opacity: 0;
-    transform: translateY(20px);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.1);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(79, 70, 229, 0.12);
 }
 
 @keyframes fadeInUp {
@@ -578,10 +586,10 @@
 }
 
 .category-card h3 {
-    margin-bottom: 1rem;
-    color: #333;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
 }
 
 .score-info {
@@ -592,31 +600,35 @@
 }
 
 .score-value {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary);
-    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
 }
 
 .score-level {
     font-size: 0.9rem;
-    color: #666;
-    padding: 0.35rem 0.75rem;
-    background: #f8f9fa;
-    border-radius: 20px;
     font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    background: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
 }
 
 .category-card .progress {
-    height: 8px;
-    background-color: #e9ecef;
-    border-radius: 4px;
+    height: 10px;
+    background-color: rgba(79, 70, 229, 0.1);
+    border-radius: 10px;
     overflow: hidden;
+    margin-top: 1.5rem;
 }
 
 .category-card .progress-bar {
-    background-color: var(--primary);
-    transition: width 1s ease;
+    background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: 1200px) {
