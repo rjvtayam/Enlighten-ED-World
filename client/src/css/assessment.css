@@ -515,11 +515,10 @@
 
 .skills-radar {
     background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(79, 70, 229, 0.1);
-    height: 450px;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: 400px;
 }
 
 #skillsRadarChart {
@@ -604,31 +603,29 @@
     font-weight: 700;
     background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1;
 }
 
 .score-level {
     font-size: 0.9rem;
+    color: #666;
+    padding: 0.35rem 0.75rem;
+    background: #f8f9fa;
+    border-radius: 20px;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 30px;
-    background: rgba(79, 70, 229, 0.1);
-    color: #4f46e5;
 }
 
 .category-card .progress {
-    height: 10px;
-    background-color: rgba(79, 70, 229, 0.1);
-    border-radius: 10px;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
     overflow: hidden;
-    margin-top: 1.5rem;
 }
 
 .category-card .progress-bar {
-    background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
-    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--primary);
+    transition: width 1s ease;
 }
 
 @media (max-width: 1200px) {
