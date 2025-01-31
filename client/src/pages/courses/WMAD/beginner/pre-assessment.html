@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WMAD Beginner Pre-Assessment</title>
+    
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animate.css for Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/pre-assessment.css') }}">
+</head>
+<body>
+    <!-- Animated Background Container -->
+    <div class="animated-bg-section">
+        <!-- Shared Background Elements -->
+        <div class="animated-background"></div>
+        <div class="animated-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <div class="pre-assessment-container animate__animated animate__fadeIn">
+        <header class="assessment-header">
+            <h1 class="text-center">Web and Mobile App Development Pre-Assessment</h1>
+            <p class="text-center">You have 30 minutes to complete this assessment</p>
+            
+            <!-- Timer Display -->
+            <div class="timer" role="timer" aria-live="polite">
+                <i class="fas fa-clock"></i> Time Remaining: <span id="timeLeft">30:00</span>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress" id="progressBar"></div>
+            </div>
+        </header>
+
+        <!-- Main Assessment Container -->
+        <main>
+            <!-- Questions Container -->
+            <div id="assessmentQuestions" class="questions-container" role="form">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-container" style="display: none;" role="region" aria-label="Assessment Results">
+                <div id="resultText" class="results-content">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+                <div class="text-center">
+                    <div class="button-group">
+                        <a href="#" class="nav-btn">Back to Course</a>
+                        <button id="retakeAssessmentBtn" class="nav-btn">
+                            <i class="fas fa-redo"></i> Retake Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="assessment-footer">
+            <p class="text-center">
+                <small>Answer all questions to the best of your knowledge. Your results will help determine your readiness for the course.</small>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <span>Loading...</span>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message" style="display: none;" role="alert">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>An error occurred. Please try again.</span>
+    </div>
+
+    <!-- Custom Scripts -->
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/pre-assessment.js') }}"></script>
+</body>
+</html>

@@ -168,42 +168,78 @@ INSERT INTO faqs (question, answer, category) VALUES
     'Platform Features'
 );
 
--- Drop existing assessment-related tables if they exist
-DROP TABLE IF EXISTS skill_details CASCADE;
-DROP TABLE IF EXISTS skill_category_scores CASCADE;
-DROP TABLE IF EXISTS skill_assessments CASCADE;
-DROP TABLE IF EXISTS learning_paths CASCADE;
-DROP TABLE IF EXISTS recommended_courses CASCADE;
-
--- Create new simplified assessment tables
+-- Updated Assessments Table
 CREATE TABLE assessments (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    program VARCHAR(10) NOT NULL,
+    
+    -- Program and Major Details
+    program VARCHAR(20) NOT NULL,  -- Expanded to accommodate full program names
+    major VARCHAR(50),
+    
+    -- Assessment Metadata
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    overall_score FLOAT,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Scoring Information
+    overall_score FLOAT CHECK (overall_score >= 0 AND overall_score <= 100),
     overall_level VARCHAR(20),
-    is_completed BOOLEAN NOT NULL DEFAULT FALSE
+    
+    -- Skill Category Scores (as JSON to allow flexibility)
+    category_scores JSONB,
+    
+    -- Assessment Status
+    is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    assessment_type VARCHAR(50),  -- e.g., 'initial', 'pre-course', 'mid-course'
+    
+    -- Recommendation Tracking
+    recommended_courses JSONB,
+    
+    -- Additional Metadata
+    ip_address INET,
+    user_agent TEXT
 );
 
+-- Assessment Categories Table (Enhanced)
 CREATE TABLE assessment_categories (
     id SERIAL PRIMARY KEY,
     assessment_id INTEGER NOT NULL REFERENCES assessments(id) ON DELETE CASCADE,
-    category_name VARCHAR(50) NOT NULL,
+    
+    -- Category Details
+    category_name VARCHAR(50) NOT NULL,  -- technical, communication, soft, creativity
     score FLOAT CHECK (score >= 0 AND score <= 100),
     level VARCHAR(20),
+    
+    -- Detailed Scoring
+    raw_scores INTEGER[] CHECK (array_length(raw_scores, 1) BETWEEN 1 AND 10),
+    
+    -- Tracking
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Assessment Skills Table (Enhanced)
 CREATE TABLE assessment_skills (
     id SERIAL PRIMARY KEY,
     category_id INTEGER NOT NULL REFERENCES assessment_categories(id) ON DELETE CASCADE,
-    skill_name VARCHAR(50) NOT NULL,
+    
+    -- Skill Details
+    skill_name VARCHAR(100) NOT NULL,
     score INTEGER CHECK (score >= 1 AND score <= 3),
+    
+    -- Additional Context
+    skill_description TEXT,
+    improvement_area TEXT,
+    
+    -- Tracking
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create indexes
+-- Indexes for Performance and Querying
 CREATE INDEX idx_assessments_user_id ON assessments(user_id);
+CREATE INDEX idx_assessments_program ON assessments(program);
 CREATE INDEX idx_assessment_categories_assessment_id ON assessment_categories(assessment_id);
 CREATE INDEX idx_assessment_skills_category_id ON assessment_skills(category_id);
+
+-- Optional: GIN index for JSON columns to improve querying
+CREATE INDEX idx_assessments_category_scores ON assessments USING GIN (category_scores);
+CREATE INDEX idx_assessments_recommended_courses ON assessments USING GIN (recommended_courses);
