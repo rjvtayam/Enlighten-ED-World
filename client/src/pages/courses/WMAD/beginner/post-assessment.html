@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Beginner - Post Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="/static/css/post-assessment.css">
+</head>
+<body>
+    <div class="assessment-container">
+        <header class="assessment-header">
+            <div class="header-content">
+                <h1>Post-Assessment: Web Development Fundamentals</h1>
+                <div class="assessment-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Time Remaining: <span id="timer">60:00</span></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tasks"></i>
+                        <span>Progress: <span id="progress">0/75</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 0%"></div>
+            </div>
+        </header>
+
+        <main class="assessment-content">
+            <div class="question-container">
+                <div class="assessment-tabs">
+                    <button class="tab-btn active" data-section="multiple-choice">Multiple Choice (45)</button>
+                    <button class="tab-btn" data-section="coding">Coding Challenges (15)</button>
+                    <button class="tab-btn" data-section="debugging">Debugging (15)</button>
+                </div>
+
+                <div class="question-sections">
+                    <section id="multiple-choice" class="question-section active">
+                        <!-- Multiple Choice Questions -->
+                        <div class="question" data-question="1">
+                            <div class="question-header">
+                                <span class="question-number">Question 1</span>
+                                <span class="question-category">Web Basics</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>What does HTML stand for?</h3>
+                                <div class="options">
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="0" data-correct="true">
+                                        <span class="option-text">Hyper Text Markup Language</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="1">
+                                        <span class="option-text">High Tech Modern Language</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="2">
+                                        <span class="option-text">Hyperlink and Text Markup Language</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="3">
+                                        <span class="option-text">Home Tool Markup Language</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Question 2 -->
+                    <div class="question" data-question="2">
+                        <div class="question-header">
+                            <span class="question-number">Question 2</span>
+                            <span class="question-category">CSS Basics</span>
+                        </div>
+                        <div class="question-content">
+                            <h3>Which CSS property is used to change the text color of an element?</h3>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q2" value="0">
+                                    <span class="option-text">text-color</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="1" data-correct="true">
+                                    <span class="option-text">color</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="2">
+                                    <span class="option-text">font-color</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="3">
+                                    <span class="option-text">text-style</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="question" data-question="3">
+                        <div class="question-header">
+                            <span class="question-number">Question 3</span>
+                            <span class="question-category">JavaScript Basics</span>
+                        </div>
+                        <div class="question-content">
+                            <h3>Which keyword is used to declare a variable in JavaScript?</h3>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q3" value="0">
+                                    <span class="option-text">int</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="1">
+                                    <span class="option-text">string</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="2" data-correct="true">
+                                    <span class="option-text">let</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="3">
+                                    <span class="option-text">variable</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="question" data-question="4">
+                        <div class="question-header">
+                            <span class="question-number">Question 4</span>
+                            <span class="question-category">HTML Structure</span>
+                        </div>
+                        <div class="question-content">
+                            <h3>Which HTML tag is used to define an unordered list?</h3>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q4" value="0">
+                                    <span class="option-text">&lt;ol&gt;</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q4" value="1" data-correct="true">
+                                    <span class="option-text">&lt;ul&gt;</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q4" value="2">
+                                    <span class="option-text">&lt;list&gt;</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q4" value="3">
+                                    <span class="option-text">&lt;dl&gt;</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="question" data-question="5">
+                        <div class="question-header">
+                            <span class="question-number">Question 5</span>
+                            <span class="question-category">CSS Selectors</span>
+                        </div>
+                        <div class="question-content">
+                            <h3>Which CSS selector is used to select all elements with a specific class?</h3>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q5" value="0">
+                                    <span class="option-text">#</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q5" value="1" data-correct="true">
+                                    <span class="option-text">.</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q5" value="2">
+                                    <span class="option-text">*</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q5" value="3">
+                                    <span class="option-text">:</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Question 6 -->
+<div class="question" data-question="6">
+    <div class="question-header">
+        <span class="question-number">Question 6</span>
+        <span class="question-category">JavaScript Functions</span>
+    </div>
+    <div class="question-content">
+        <h3>Which of the following is the correct way to define a function in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q6" value="0">
+                <span class="option-text">function = myFunction() {}</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q6" value="1" data-correct="true">
+                <span class="option-text">function myFunction() {}</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q6" value="2">
+                <span class="option-text">def myFunction() {}</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q6" value="3">
+                <span class="option-text">myFunction: function() {}</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 7 -->
+<div class="question" data-question="7">
+    <div class="question-header">
+        <span class="question-number">Question 7</span>
+        <span class="question-category">HTML Forms</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML element is used to create a dropdown list?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q7" value="0">
+                <span class="option-text">&lt;input type="dropdown"&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q7" value="1">
+                <span class="option-text">&lt;list&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q7" value="2" data-correct="true">
+                <span class="option-text">&lt;select&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q7" value="3">
+                <span class="option-text">&lt;dropdown&gt;</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 8 -->
+<div class="question" data-question="8">
+    <div class="question-header">
+        <span class="question-number">Question 8</span>
+        <span class="question-category">CSS Box Model</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS property is used to create space between the element's border and its content?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q8" value="0">
+                <span class="option-text">margin</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q8" value="1" data-correct="true">
+                <span class="option-text">padding</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q8" value="2">
+                <span class="option-text">border-spacing</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q8" value="3">
+                <span class="option-text">content-gap</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 9 -->
+<div class="question" data-question="9">
+    <div class="question-header">
+        <span class="question-number">Question 9</span>
+        <span class="question-category">JavaScript Arrays</span>
+    </div>
+    <div class="question-content">
+        <h3>Which method is used to add one or more elements to the end of an array in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q9" value="0">
+                <span class="option-text">append()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q9" value="1">
+                <span class="option-text">addToEnd()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q9" value="2">
+                <span class="option-text">insert()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q9" value="3" data-correct="true">
+                <span class="option-text">push()</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 10 -->
+<div class="question" data-question="10">
+    <div class="question-header">
+        <span class="question-number">Question 10</span>
+        <span class="question-category">HTML Semantics</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML5 semantic element is used to represent the main content of a document?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q10" value="0">
+                <span class="option-text">&lt;content&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q10" value="1" data-correct="true">
+                <span class="option-text">&lt;main&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q10" value="2">
+                <span class="option-text">&lt;body&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q10" value="3">
+                <span class="option-text">&lt;article&gt;</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 11 -->
+<div class="question" data-question="11">
+    <div class="question-header">
+        <span class="question-number">Question 11</span>
+        <span class="question-category">CSS Flexbox</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS property is used to define the main axis of a flex container?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q11" value="0">
+                <span class="option-text">flex-wrap</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q11" value="1">
+                <span class="option-text">justify-content</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q11" value="2" data-correct="true">
+                <span class="option-text">flex-direction</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q11" value="3">
+                <span class="option-text">align-items</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 12 -->
+<div class="question" data-question="12">
+    <div class="question-header">
+        <span class="question-number">Question 12</span>
+        <span class="question-category">JavaScript DOM Manipulation</span>
+    </div>
+    <div class="question-content">
+        <h3>Which method is used to select an HTML element by its id in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q12" value="0">
+                <span class="option-text">querySelector()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q12" value="1" data-correct="true">
+                <span class="option-text">getElementById()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q12" value="2">
+                <span class="option-text">getElementsByClassName()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q12" value="3">
+                <span class="option-text">getElementsByTagName()</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 13 -->
+<div class="question" data-question="13">
+    <div class="question-header">
+        <span class="question-number">Question 13</span>
+        <span class="question-category">HTML Attributes</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML attribute is used to specify an alternate text for an image?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q13" value="0">
+                <span class="option-text">title</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q13" value="1">
+                <span class="option-text">description</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q13" value="2">
+                <span class="option-text">caption</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q13" value="3" data-correct="true">
+                <span class="option-text">alt</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 14 -->
+<div class="question" data-question="14">
+    <div class="question-header">
+        <span class="question-number">Question 14</span>
+        <span class="question-category">CSS Positioning</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS position value removes an element from the normal document flow?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q14" value="0">
+                <span class="option-text">static</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q14" value="1">
+                <span class="option-text">relative</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q14" value="2" data-correct="true">
+                <span class="option-text">absolute</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q14" value="3">
+                <span class="option-text">fixed</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 15 -->
+<div class="question" data-question="15">
+    <div class="question-header">
+        <span class="question-number">Question 15</span>
+        <span class="question-category">JavaScript Events</span>
+    </div>
+    <div class="question-content">
+        <h3>Which event is triggered when an HTML form is submitted?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q15" value="0">
+                <span class="option-text">onchange</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q15" value="1" data-correct="true">
+                <span class="option-text">onsubmit</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q15" value="2">
+                <span class="option-text">onclick</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q15" value="3">
+                <span class="option-text">onload</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 16 -->
+<div class="question" data-question="16">
+    <div class="question-header">
+        <span class="question-number">Question 16</span>
+        <span class="question-category">HTML5 APIs</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML5 API is used for storing data locally in the browser?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q16" value="0">
+                <span class="option-text">IndexedDB</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q16" value="1">
+                <span class="option-text">Web SQL</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q16" value="2" data-correct="true">
+                <span class="option-text">localStorage</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q16" value="3">
+                <span class="option-text">Cookies</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 17 -->
+<div class="question" data-question="17">
+    <div class="question-header">
+        <span class="question-number">Question 17</span>
+        <span class="question-category">CSS Grid</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS property is used to define the size of columns in a grid container?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q17" value="0">
+                <span class="option-text">grid-column-width</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q17" value="1" data-correct="true">
+                <span class="option-text">grid-template-columns</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q17" value="2">
+                <span class="option-text">grid-column-size</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q17" value="3">
+                <span class="option-text">column-template</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 18 -->
+<div class="question" data-question="18">
+    <div class="question-header">
+        <span class="question-number">Question 18</span>
+        <span class="question-category">JavaScript Promises</span>
+    </div>
+    <div class="question-content">
+        <h3>Which method is used to handle a successful result in a Promise?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q18" value="0">
+                <span class="option-text">catch()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q18" value="1" data-correct="true">
+                <span class="option-text">then()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q18" value="2">
+                <span class="option-text">finally()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q18" value="3">
+                <span class="option-text">resolve()</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 19 -->
+<div class="question" data-question="19">
+    <div class="question-header">
+        <span class="question-number">Question 19</span>
+        <span class="question-category">HTML5 Multimedia</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML5 element is used to embed video content?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q19" value="0">
+                <span class="option-text">&lt;media&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q19" value="1">
+                <span class="option-text">&lt;movie&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q19" value="2" data-correct="true">
+                <span class="option-text">&lt;video&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q19" value="3">
+                <span class="option-text">&lt;play&gt;</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 20 -->
+<div class="question" data-question="20">
+    <div class="question-header">
+        <span class="question-number">Question 20</span>
+        <span class="question-category">CSS Responsive Design</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS unit is relative to the font-size of the root element?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q20" value="0">
+                <span class="option-text">em</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q20" value="1" data-correct="true">
+                <span class="option-text">rem</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q20" value="2">
+                <span class="option-text">vh</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q20" value="3">
+                <span class="option-text">vw</span>
+            </label>
+        </div>
+    </div>
+</div>
+<!-- Question 21 -->
+<div class="question" data-question="21">
+    <div class="question-header">
+        <span class="question-number">Question 21</span>
+        <span class="question-category">JavaScript ES6 Features</span>
+    </div>
+    <div class="question-content">
+        <h3>Which ES6 feature allows you to destructure objects and arrays?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q21" value="0">
+                <span class="option-text">Spread operator</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q21" value="1" data-correct="true">
+                <span class="option-text">Destructuring assignment</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q21" value="2">
+                <span class="option-text">Arrow functions</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q21" value="3">
+                <span class="option-text">Template literals</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 22 -->
+<div class="question" data-question="22">
+    <div class="question-header">
+        <span class="question-number">Question 22</span>
+        <span class="question-category">CSS Animations</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS property is used to specify the animation name?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q22" value="0">
+                <span class="option-text">animation-duration</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q22" value="1">
+                <span class="option-text">animation-timing-function</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q22" value="2" data-correct="true">
+                <span class="option-text">animation-name</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q22" value="3">
+                <span class="option-text">animation-delay</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 23 -->
+<div class="question" data-question="23">
+    <div class="question-header">
+        <span class="question-number">Question 23</span>
+        <span class="question-category">HTML5 Form Validation</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML5 input type is used for email addresses?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q23" value="0">
+                <span class="option-text">text</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q23" value="1" data-correct="true">
+                <span class="option-text">email</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q23" value="2">
+                <span class="option-text">mail</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q23" value="3">
+                <span class="option-text">address</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 24 -->
+<div class="question" data-question="24">
+    <div class="question-header">
+        <span class="question-number">Question 24</span>
+        <span class="question-category">JavaScript Asynchronous Programming</span>
+    </div>
+    <div class="question-content">
+        <h3>Which keyword is used to define an asynchronous function in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q24" value="0">
+                <span class="option-text">sync</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q24" value="1">
+                <span class="option-text">await</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q24" value="2" data-correct="true">
+                <span class="option-text">async</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q24" value="3">
+                <span class="option-text">promise</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 25 -->
+<div class="question" data-question="25">
+    <div class="question-header">
+        <span class="question-number">Question 25</span>
+        <span class="question-category">CSS Preprocessors</span>
+    </div>
+    <div class="question-content">
+        <h3>Which of the following is NOT a CSS preprocessor?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q25" value="0">
+                <span class="option-text">Sass</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q25" value="1">
+                <span class="option-text">Less</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q25" value="2">
+                <span class="option-text">Stylus</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q25" value="3" data-correct="true">
+                <span class="option-text">Webpack</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 26 -->
+<div class="question" data-question="26">
+    <div class="question-header">
+        <span class="question-number">Question 26</span>
+        <span class="question-category">Web Accessibility</span>
+    </div>
+    <div class="question-content">
+        <h3>Which attribute is used to provide alternative text for images to improve accessibility?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q26" value="0">
+                <span class="option-text">title</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q26" value="1" data-correct="true">
+                <span class="option-text">alt</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q26" value="2">
+                <span class="option-text">description</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q26" value="3">
+                <span class="option-text">caption</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 27 -->
+<div class="question" data-question="27">
+    <div class="question-header">
+        <span class="question-number">Question 27</span>
+        <span class="question-category">JavaScript Modules</span>
+    </div>
+    <div class="question-content">
+        <h3>Which keyword is used to export a module in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q27" value="0">
+                <span class="option-text">module</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q27" value="1">
+                <span class="option-text">send</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q27" value="2" data-correct="true">
+                <span class="option-text">export</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q27" value="3">
+                <span class="option-text">publish</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 28 -->
+<div class="question" data-question="28">
+    <div class="question-header">
+        <span class="question-number">Question 28</span>
+        <span class="question-category">CSS Specificity</span>
+    </div>
+    <div class="question-content">
+        <h3>Which of the following has the highest specificity in CSS?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q28" value="0">
+                <span class="option-text">Element selector</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q28" value="1">
+                <span class="option-text">Class selector</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q28" value="2">
+                <span class="option-text">ID selector</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q28" value="3" data-correct="true">
+                <span class="option-text">Inline style</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 29 -->
+<div class="question" data-question="29">
+    <div class="question-header">
+        <span class="question-number">Question 29</span>
+        <span class="question-category">HTML5 Semantic Elements</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML5 semantic element is used to define a footer for a document or section?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q29" value="0">
+                <span class="option-text">&lt;bottom&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q29" value="1" data-correct="true">
+                <span class="option-text">&lt;footer&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q29" value="2">
+                <span class="option-text">&lt;end&gt;</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q29" value="3">
+                <span class="option-text">&lt;last&gt;</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 30 -->
+<div class="question" data-question="30">
+    <div class="question-header">
+        <span class="question-number">Question 30</span>
+        <span class="question-category">JavaScript Error Handling</span>
+    </div>
+    <div class="question-content">
+        <h3>Which statement is used to handle exceptions in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q30" value="0">
+                <span class="option-text">catch</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q30" value="1">
+                <span class="option-text">throw</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q30" value="2">
+                <span class="option-text">finally</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q30" value="3" data-correct="true">
+                <span class="option-text">try</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 31 -->
+<div class="question" data-question="31">
+    <div class="question-header">
+        <span class="question-number">Question 31</span>
+        <span class="question-category">CSS Pseudo-classes</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS pseudo-class is used to select an element when it's being hovered over?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q31" value="0">
+                <span class="option-text">:active</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q31" value="1" data-correct="true">
+                <span class="option-text">:hover</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q31" value="2">
+                <span class="option-text">:focus</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q31" value="3">
+                <span class="option-text">:visited</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 32 -->
+<div class="question" data-question="32">
+    <div class="question-header">
+        <span class="question-number">Question 32</span>
+        <span class="question-category">JavaScript DOM Traversal</span>
+    </div>
+    <div class="question-content">
+        <h3>Which property is used to access the parent node of an element in the DOM?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q32" value="0">
+                <span class="option-text">childNode</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q32" value="1">
+                <span class="option-text">sibling</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q32" value="2" data-correct="true">
+                <span class="option-text">parentNode</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q32" value="3">
+                <span class="option-text">ancestor</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 33 -->
+<div class="question" data-question="33">
+    <div class="question-header">
+        <span class="question-number">Question 33</span>
+        <span class="question-category">HTML5 Canvas</span>
+    </div>
+    <div class="question-content">
+        <h3>Which method is used to draw a line on an HTML5 canvas?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q33" value="0">
+                <span class="option-text">drawLine()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q33" value="1" data-correct="true">
+                <span class="option-text">stroke()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q33" value="2">
+                <span class="option-text">line()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q33" value="3">
+                <span class="option-text">paint()</span>
+            </I understand. I'll continue the text stream from the cut-off point, maintaining coherence and consistency. Here's the continuation:
+
+value="3">
+                <span class="option-text">paint()</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 34 -->
+<div class="question" data-question="34">
+    <div class="question-header">
+        <span class="question-number">Question 34</span>
+        <span class="question-category">CSS Flexbox</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS property is used to align flex items along the main axis?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q34" value="0">
+                <span class="option-text">align-items</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q34" value="1" data-correct="true">
+                <span class="option-text">justify-content</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q34" value="2">
+                <span class="option-text">flex-direction</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q34" value="3">
+                <span class="option-text">flex-wrap</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 35 -->
+<div class="question" data-question="35">
+    <div class="question-header">
+        <span class="question-number">Question 35</span>
+        <span class="question-category">JavaScript ES6 Features</span>
+    </div>
+    <div class="question-content">
+        <h3>Which ES6 feature allows you to define default parameter values for a function?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q35" value="0">
+                <span class="option-text">Rest parameters</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q35" value="1">
+                <span class="option-text">Spread operator</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q35" value="2" data-correct="true">
+                <span class="option-text">Default parameters</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q35" value="3">
+                <span class="option-text">Destructuring assignment</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 36 -->
+<div class="question" data-question="36">
+    <div class="question-header">
+        <span class="question-number">Question 36</span>
+        <span class="question-category">Web Performance</span>
+    </div>
+    <div class="question-content">
+        <h3>Which of the following is NOT a technique for improving web page loading speed?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q36" value="0">
+                <span class="option-text">Minifying CSS and JavaScript</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q36" value="1">
+                <span class="option-text">Using a Content Delivery Network (CDN)</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q36" value="2">
+                <span class="option-text">Optimizing images</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q36" value="3" data-correct="true">
+                <span class="option-text">Using multiple external stylesheets</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 37 -->
+<div class="question" data-question="37">
+    <div class="question-header">
+        <span class="question-number">Question 37</span>
+        <span class="question-category">HTML5 APIs</span>
+    </div>
+    <div class="question-content">
+        <h3>Which HTML5 API is used for drag and drop functionality?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q37" value="0" data-correct="true">
+                <span class="option-text">Drag and Drop API</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q37" value="1">
+                <span class="option-text">Geolocation API</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q37" value="2">
+                <span class="option-text">Web Storage API</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q37" value="3">
+                <span class="option-text">Canvas API</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 38 -->
+<div class="question" data-question="38">
+    <div class="question-header">
+        <span class="question-number">Question 38</span>
+        <span class="question-category">CSS Transitions</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS property is used to specify the duration of a transition effect?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q38" value="0">
+                <span class="option-text">transition-speed</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q38" value="1" data-correct="true">
+                <span class="option-text">transition-duration</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q38" value="2">
+                <span class="option-text">transition-time</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q38" value="3">
+                <span class="option-text">transition-length</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 39 -->
+<div class="question" data-question="39">
+    <div class="question-header">
+        <span class="question-number">Question 39</span>
+        <span class="question-category">JavaScript Event Loop</span>
+    </div>
+    <div class="question-content">
+        <h3>What is the purpose of the JavaScript event loop?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q39" value="0">
+                <span class="option-text">To create new events</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q39" value="1">
+                <span class="option-text">To handle user interactions</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q39" value="2" data-correct="true">
+                <span class="option-text">To manage asynchronous operations</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q39" value="3">
+                <span class="option-text">To optimize code execution</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 40 -->
+<div class="question" data-question="40">
+    <div class="question-header">
+        <span class="question-number">Question 40</span>
+        <span class="question-category">Web Security</span>
+    </div>
+    <div class="question-content">
+        <h3>Which of the following is NOT a common web security vulnerability?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q40" value="0">
+                <span class="option-text">Cross-Site Scripting (XSS)</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q40" value="1">
+                <span class="option-text">SQL Injection</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q40" value="2">
+                <span class="option-text">Cross-Site Request Forgery (CSRF)</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q40" value="3" data-correct="true">
+                <span class="option-text">Cascading Style Sheets Injection (CSSI)</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 41 -->
+<div class="question" data-question="41">
+    <div class="question-header">
+        <span class="question-number">Question 41</span>
+        <span class="question-category">Responsive Web Design</span>
+    </div>
+    <div class="question-content">
+        <h3>What is the purpose of the viewport meta tag in responsive web design?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q41" value="0">
+                <span class="option-text">To set the background color of the page</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q41" value="1" data-correct="true">
+                <span class="option-text">To control the page's dimensions and scaling on different devices</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q41" value="2">
+                <span class="option-text">To define the page's character encoding</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q41" value="3">
+                <span class="option-text">To specify the page's language</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 42 -->
+<div class="question" data-question="42">
+    <div class="question-header">
+        <span class="question-number">Question 42</span>
+        <span class="question-category">JavaScript Closures</span>
+    </div>
+    <div class="question-content">
+        <h3>What is a closure in JavaScript?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q42" value="0">
+                <span class="option-text">A way to close a browser window</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q42" value="1">
+                <span class="option-text">A method to end a function execution</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q42" value="2" data-correct="true">
+                <span class="option-text">A function that has access to variables in its outer lexical scope</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q42" value="3">
+                <span class="option-text">A technique to prevent memory leaks</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 43 -->
+<div class="question" data-question="43">
+    <div class="question-header">
+        <span class="question-number">Question 43</span>
+        <span class="question-category">CSS Grid</span>
+    </div>
+    <div class="question-content">
+        <h3>Which CSS Grid property is used to define the size of grid tracks?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q43" value="0">
+                <span class="option-text">grid-area</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q43" value="1">
+                <span class="option-text">grid-gap</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q43" value="2" data-correct="true">
+                <span class="option-text">grid-template-columns</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q43" value="3">
+                <span class="option-text">grid-auto-flow</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 44 -->
+<div class="question" data-question="44">
+    <div class="question-header">
+        <span class="question-number">Question 44</span>
+        <span class="question-category">Web Accessibility</span>
+    </div>
+    <div class="question-content">
+        <h3>Which of the following is NOT a principle of the Web Content Accessibility Guidelines (WCAG)?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q44" value="0">
+                <span class="option-text">Perceivable</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q44" value="1">
+                <span class="option-text">Operable</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q44" value="2">
+                <span class="option-text">Understandable</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q44" value="3" data-correct="true">
+                <span class="option-text">Customizable</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 45 -->
+<div class="question" data-question="45">
+    <div class="question-header">
+        <span class="question-number">Question 45</span>
+        <span class="question-category">JavaScript Promises</span>
+    </div>
+    <div class="question-content">
+        <h3>Which method is used to handle errors in a Promise chain?</h3>
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q45" value="0" data-correct="true">
+                <span class="option-text">catch()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q45" value="1">
+                <span class="option-text">error()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q45" value="2">
+                <span class="option-text">try()</span>
+            </label>
+            <label class="option">
+                <input type="radio" name="q45" value="3">
+                <span class="option-text">handle()</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+
+                        <!-- Add more multiple choice questions here (up to 45) -->
+                    </section>
+
+                    <section id="coding" class="question-section">
+                        <!-- Coding Challenges -->
+                        <div class="question" data-question="46">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 1</span>
+                                <span class="question-category">JavaScript Basics</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that calculates the sum of two numbers.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function sum(a, b) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>sum(5, 3) should return 8</li>
+                                            <li>sum(-1, 1) should return 0</li>
+                                            <li>sum(10, 20) should return 30</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="47">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 2</span>
+                                <span class="question-category">JavaScript Arrays</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that finds the largest number in an array.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function findLargest(arr) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>findLargest([1, 5, 2, 9, 3]) should return 9</li>
+                                            <li>findLargest([-1, -5, -2]) should return -1</li>
+                                            <li>findLargest([100, 100, 100]) should return 100</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="48">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 3</span>
+                                <span class="question-category">JavaScript Strings</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that reverses a string.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function reverseString(str) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>reverseString("hello") should return "olleh"</li>
+                                            <li>reverseString("OpenAI") should return "IAnepO"</li>
+                                            <li>reverseString("racecar") should return "racecar"</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="49">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 4</span>
+                                <span class="question-category">JavaScript Loops</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that counts the number of vowels in a string.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function countVowels(str) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>countVowels("hello") should return 2</li>
+                                            <li>countVowels("OpenAI") should return 3</li>
+                                            <li>countVowels("JavaScript") should return 3</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="50">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 5</span>
+                                <span class="question-category">JavaScript Conditionals</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that checks if a number is even or odd.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function isEven(num) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>isEven(4) should return true</li>
+                                            <li>isEven(7) should return false</li>
+                                            <li>isEven(0) should return true</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="51">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 6</span>
+                                <span class="question-category">JavaScript Arrays</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that finds the average of numbers in an array.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function findAverage(arr) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>findAverage([1, 2, 3, 4, 5]) should return 3</li>
+                                            <li>findAverage([10, 20, 30]) should return 20</li>
+                                            <li>findAverage([]) should return 0</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="52">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 7</span>
+                                <span class="question-category">JavaScript Strings</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that capitalizes the first letter of each word in a sentence.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function capitalizeWords(sentence) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>capitalizeWords("hello world") should return "Hello World"</li>
+                                            <li>capitalizeWords("javascript is awesome") should return "Javascript Is Awesome"</li>
+                                            <li>capitalizeWords("openAI chatGPT") should return "OpenAI ChatGPT"</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="53">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 8</span>
+                                <span class="question-category">JavaScript Arrays</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that removes duplicate elements from an array.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function removeDuplicates(arr) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>removeDuplicates([1, 2, 2, 3, 4, 4, 5]) should return [1, 2, 3, 4, 5]</li>
+                                            <li>removeDuplicates(["a", "b", "a", "c", "b"]) should return ["a", "b", "c"]</li>
+                                            <li>removeDuplicates([1, 1, 1, 1]) should return [1]</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="54">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 9</span>
+                                <span class="question-category">JavaScript Objects</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that counts the occurrences of each element in an array.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function countOccurrences(arr) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>countOccurrences([1, 2, 2, 3, 3, 3]) should return {1: 1, 2: 2, 3: 3}</li>
+                                            <li>countOccurrences(["a", "b", "a", "c", "b"]) should return {"a": 2, "b": 2, "c": 1}</li>
+                                            <li>countOccurrences([]) should return {}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="55">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 10</span>
+                                <span class="question-category">JavaScript Math</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that calculates the factorial of a number.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function factorial(n) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>factorial(5) should return 120</li>
+                                            <li>factorial(0) should return 1</li>
+                                            <li>factorial(1) should return 1</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="56">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 11</span>
+                                <span class="question-category">JavaScript Strings</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that checks if a string is a palindrome.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function isPalindrome(str) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>isPalindrome("racecar") should return true</li>
+                                            <li>isPalindrome("hello") should return false</li>
+                                            <li>isPalindrome("A man a plan a canal Panama") should return true</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="57">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 12</span>
+                                <span class="question-category">JavaScript Arrays</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that finds the second largest number in an array.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function findSecondLargest(arr) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>findSecondLargest([1, 5, 2, 9, 3]) should return 5</li>
+                                            <li>findSecondLargest([10, 10, 9, 8, 8]) should return 9</li>
+                                            <li>findSecondLargest([1, 1, 1, 1]) should return null</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="58">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 13</span>
+                                <span class="question-category">JavaScript Strings</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that counts the number of words in a sentence.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function countWords(sentence) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>countWords("Hello world") should return 2</li>
+                                            <li>countWords("The quick brown fox") should return 4</li>
+                                            <li>countWords("OpenAI is awesome") should return 3</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="59">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 14</span>
+                                <span class="question-category">JavaScript Math</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that generates a random number between a given range.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function randomInRange(min, max) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>randomInRange(1, 10) should return a number between 1 and 10</li>
+                                            <li>randomInRange(-5, 5) should return a number between -5 and 5</li>
+                                            <li>randomInRange(0, 1) should return a number between 0 and 1</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="60">
+                            <div class="question-header">
+                                <span class="question-number">Coding Challenge 15</span>
+                                <span class="question-category">JavaScript Arrays</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Write a JavaScript function that merges two sorted arrays into a single sorted array.</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function mergeSortedArrays(arr1, arr2) {
+    // Your code here
+    
+}</code></pre>
+                                    <div class="test-cases">
+                                        <h4>Test Cases:</h4>
+                                        <ul>
+                                            <li>mergeSortedArrays([1, 3, 5], [2, 4, 6]) should return [1, 2, 3, 4, 5, 6]</li>
+                                            <li>mergeSortedArrays([1, 1, 3], [2, 2]) should return [1, 1, 2, 2, 3]</li>
+                                            <li>mergeSortedArrays([], [1, 2, 3]) should return [1, 2, 3]</li>
+                                        </ul>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-run">Run Tests</button>
+                                        <button class="btn btn-reset">Reset Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="debugging" class="question-section">
+                        <!-- Debugging Exercises -->
+                        <div class="question" data-question="61">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 1</span>
+                                <span class="question-category">HTML</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following HTML code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-html">&lt;div class="container"&gt;
+    &lt;h1&gt;Welcome&lt;/h2&gt;
+    &lt;p class="text&gt;This is a paragraph&lt;/p&gt;
+    &lt;button onclick="myFunction()&gt;Click me&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="62">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 2</span>
+                                <span class="question-category">CSS</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following CSS code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-css">.container {
+    display: flex;
+    justify-content center;
+    align-items: center
+}
+
+.box {
+    width: 100px;
+    height: 100px
+    background-color: #f0f0f0;
+    border: 1px solid #333;
+    border-radius: 5px
+}</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="63">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 3</span>
+                                <span class="question-category">JavaScript</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following JavaScript code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function calculateArea(radius) {
+    const pi = 3.14159;
+    let area = pi * radius * radius;
+    return area
+}
+
+console.log("The area of a circle with radius 5 is: " + calculatearea(5));</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="64">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 4</span>
+                                <span class="question-category">HTML</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following HTML code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-html">&lt;form action="/submit" method="post"&gt;
+    &lt;label for="username"&gt;Username:&lt;/label&gt;
+    &lt;input type="text" id="username" name="username"&gt;
+    
+    &lt;label for="password"&gt;Password:&lt;/label&gt;
+    &lt;input type="password" id="password" name="password"&gt;
+    
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="65">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 5</span>
+                                <span class="question-category">CSS</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following CSS code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-css">body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0
+    color: #333;
+}
+
+.header {
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+}
+
+.content {
+    margin: 20px;
+    padding: 20px
+    background-color: white;
+    border: 1px solid #ddd;
+}</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="66">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 6</span>
+                                <span class="question-category">JavaScript</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following JavaScript code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function greetUser(name) {
+    if (name = "") {
+        return "Hello, Guest!";
+    } else {
+        return "Hello, " + name + "!";
+    }
+}
+
+let result = greetUser("John");
+console.log(result);</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="67">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 7</span>
+                                <span class="question-category">HTML</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following HTML code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Age&lt;/th&gt;
+        &lt;th&gt;Country&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;John&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+        &lt;td&gt;USA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Emma&lt;/td&gt;
+        &lt;td&gt;28&lt;/td&gt;
+        &lt;td&gt;Canada&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="68">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 8</span>
+                                <span class="question-category">CSS</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following CSS code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-css">.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:active {
+    background-color: #004085;
+}</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="69">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 9</span>
+                                <span class="question-category">JavaScript</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following JavaScript code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function calculateDiscount(price, discountPercentage) {
+    const discount = price * (discountPercentage / 100);
+    const discountedPrice = price - discount;
+    return discountedPrice.toFixed(2);
+}
+
+const originalPrice = 100;
+const discount = 20;
+const finalPrice = calculateDiscount(originalPrice, discount);
+console.log("The discounted price is: $" + finalPrice);</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="70">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 10</span>
+                                <span class="question-category">HTML</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following HTML code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-html">&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="71">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 11</span>
+                                <span class="question-category">CSS</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following CSS code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-css">.card {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="72">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 12</span>
+                                <span class="question-category">JavaScript</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following JavaScript code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+const emails = ["user@example.com", "invalid-email", "another@user.com"];
+
+emails.forEach(function(email) {
+    if (validateEmail(email)) {
+        console.log(email + " is valid");
+    } else {
+        console.log(email + " is invalid");
+    }
+});</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="73">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 13</span>
+                                <span class="question-category">HTML</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following HTML code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to My Web Page&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;p&gt;This is the main content of my web page.&lt;/p&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2023 My Web Page. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="74">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 14</span>
+                                <span class="question-category">CSS</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following CSS code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-css">@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .header {
+        font-size: 24px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+}</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="question" data-question="75">
+                            <div class="question-header">
+                                <span class="question-number">Debug Challenge 15</span>
+                                <span class="question-category">JavaScript</span>
+                            </div>
+                            <div class="question-content">
+                                <h3>Find and fix the errors in the following JavaScript code:</h3>
+                                <div class="code-editor">
+                                    <pre><code class="language-javascript">class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    introduce() {
+        console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+    }
+}
+
+const john = new Person("John", 30);
+john.introduce();
+
+const jane = new Person("Jane", 25);
+jane.introduce();</code></pre>
+                                    <div class="editor-actions">
+                                        <button class="btn btn-check">Check Errors</button>
+                                        <button class="btn btn-hint">Get Hint</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Results Section -->
+                    <section id="results" class="question-section">
+                        <h2>Assessment Results</h2>
+                        <div class="results-summary">
+                            <div class="result-item">
+                                <span class="result-label">Score:</span>
+                                <span id="finalScore" class="result-value">0/75</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Percentage:</span>
+                                <span id="finalPercentage" class="result-value">0%</span>
+                            </div>
+                        </div>
+                        <div class="results-breakdown">
+                            <h3>Question Review</h3>
+                            <div id="questionReview" class="question-review-list">
+                                <!-- Question review items will be dynamically added here -->
+                            </div>
+                        </div>
+                        <button id="retakeBtn" class="btn btn-primary">Retake Assessment</button>
+                    </section>
+                </div>
+
+                <div class="question-navigation">
+                    <button id="prevBtn" class="nav-btn">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <div class="question-dots">
+                        <!-- Dots will be generated by JavaScript -->
+                    </div>
+                    <button id="nextBtn" class="nav-btn">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="assessment-footer">
+            <button id="saveBtn" class="btn btn-secondary">
+                <i class="fas fa-save"></i> Save Progress
+            </button>
+            <button id="submitBtn" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Assessment
+            </button>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="/static/js/post-assessment.js"></script>
+</body>
+</html>
