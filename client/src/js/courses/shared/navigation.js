@@ -50,12 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
           break;
         case "pre-assessment":
           contentSection.innerHTML = `
-            <iframe src="/courses/WMAD/beginner/pre-assessment.html" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            <iframe src="/wmad/WMAD/beginner/pre-assessment" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
           `;
           break;
         case "post-assessment":
           contentSection.innerHTML = `
-            <iframe src="/courses/WMAD/beginner/post-assessment.html" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            <iframe src="/wmad/WMAD/beginner/post-assessment" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
           `;
           break;
         default:

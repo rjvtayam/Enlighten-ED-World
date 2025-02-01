@@ -121,6 +121,8 @@ def create_app(config_name='default'):
     from app.routes.assessment import assessment
     from app.routes.faq import faq
     from app.routes.testimonials import testimonials
+
+    from app.routes.wmad import wmad
     
     app.register_blueprint(auth)
     app.register_blueprint(main)
@@ -128,6 +130,9 @@ def create_app(config_name='default'):
     app.register_blueprint(assessment, url_prefix='/assessment')
     app.register_blueprint(faq)
     app.register_blueprint(testimonials)
+
+    app.register_blueprint(wmad)
+
     
     # Context processors
     @app.context_processor
