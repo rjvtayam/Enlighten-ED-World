@@ -42,16 +42,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     function updateContent(contentId) {
-      if (contentId === "welcome") {
-        contentSection.innerHTML = initialContent;
-        // Reinitialize accordion and radio buttons after content update
-        initializeAccordions();
-        initializeRadioButtons();
-      } else {
-        contentSection.innerHTML = `
-          <h2>Loading Content...</h2>
-          <p>Content for <strong>${contentId}</strong> will be loaded here.</p>
-        `;
+      switch(contentId) {
+        case "welcome":
+          contentSection.innerHTML = initialContent;
+          initializeAccordions();
+          initializeRadioButtons();
+          break;
+        case "pre-assessment":
+          contentSection.innerHTML = `
+            <iframe src="/courses/WMAD/beginner/pre-assessment.html" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
+          `;
+          break;
+        case "post-assessment":
+          contentSection.innerHTML = `
+            <iframe src="/courses/WMAD/beginner/post-assessment.html" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
+          `;
+          break;
+        default:
+          contentSection.innerHTML = `
+            <h2>Loading Content...</h2>
+            <p>Content for <strong>${contentId}</strong> will be loaded here.</p>
+          `;
       }
     }
   
