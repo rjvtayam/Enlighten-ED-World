@@ -591,3 +591,94 @@
     }
   }
   
+  .results-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 100;
+    display: none;
+    overflow-y: auto;
+  }
+  
+  .results-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .overall-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .score-percentage {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #2575fc;
+  }
+  
+  .score-level {
+    font-size: 1.5rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .question-review {
+    margin-top: 2rem;
+  }
+  
+  .review-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .review-status {
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .review-status.correct {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+  }
+  
+  .review-status.incorrect {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+  }
+  
+  .review-status.viewed {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
+  }
+  
+  .review-status.not-viewed {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: #6b7280;
+  }
+  
+  .results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .results-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
