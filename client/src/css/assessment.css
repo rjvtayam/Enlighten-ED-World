@@ -391,48 +391,88 @@
     }
 }
 
-.category-scores {
+.category-results {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
-.category-card {
+.category-score-card {
     background: white;
-    border: 1px solid #eee;
     border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
 }
 
-.category-name {
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #333;
+.category-score-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.skill-score {
+.category-score-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
 }
 
-.skill-score-bar {
+.category-score-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.category-score-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2575fc;
+}
+
+.category-score-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.category-skill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.category-skill-name {
+    color: #555;
+    font-weight: 500;
+}
+
+.category-skill-score {
+    color: #888;
+    font-weight: 600;
+}
+
+.category-score-progress {
     width: 100%;
     height: 6px;
-    background: #eee;
+    background-color: #e9ecef;
     border-radius: 3px;
-    margin-top: 0.25rem;
+    overflow: hidden;
+    margin-top: 0.5rem;
 }
 
-.skill-score-fill {
+.category-score-progress-bar {
     height: 100%;
-    background: #4f46e5;
-    border-radius: 3px;
-    transition: width 0.3s ease;
+    background-color: #2575fc;
+    transition: width 0.5s ease-in-out;
 }
 
 .modal-footer {
@@ -463,7 +503,7 @@
         padding: 1.5rem;
     }
 
-    .category-scores {
+    .category-results {
         grid-template-columns: 1fr;
     }
 }
