@@ -206,13 +206,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Setup Recommended Courses Button
                 const viewRecommendationsBtn = document.getElementById('viewRecommendationsBtn');
+                const recommendationsSection = document.getElementById('recommendationsSection');
+                const recommendedCoursesContainer = document.getElementById('recommendedCourses');
+                
                 viewRecommendationsBtn.addEventListener('click', () => {
-                    // Navigate to courses based on program, major, and skill level
-                    const program = data.program || 'default';
-                    const major = data.major || 'default';
-                    const skillLevel = data.skill_level.toLowerCase();
-                    
-                    window.location.href = `/courses/${program.toLowerCase()}/${major.toLowerCase()}/${skillLevel}`;
+                    // Fetch recommended courses
+                    fetch('/assessment/get_recommended_courses', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfTokenElement.value
+                        },
+                        body: JSON.stringify({
+                            program: data.program,
+                            major: data.major,
+                            overall_score: data.overall_score
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(recommendationsData => {
+                        // Clear previous recommendations
+                        recommendedCoursesContainer.innerHTML = '';
+                        
+                        // Show recommendations section
+                        recommendationsSection.style.display = 'block';
+                        
+                        // Update recommendation intro text
+                        const recommendationIntro = document.querySelector('.recommendation-intro');
+                        recommendationIntro.textContent = `Based on your ${recommendationsData.major} assessment at ${recommendationsData.level} level, here are recommended courses:`;
+                        
+                        // Populate recommended courses
+                        if (recommendationsData.courses && recommendationsData.courses.length > 0) {
+                            recommendationsData.courses.forEach(course => {
+                                const courseCard = document.createElement('div');
+                                courseCard.classList.add('course-card');
+                                courseCard.innerHTML = `
+                                    <h3>${course.name}</h3>
+                                    <p>Level: ${course.level}</p>
+                                    <a href="${course.url}" class="btn btn-primary">View Course Details</a>
+                                `;
+                                recommendedCoursesContainer.appendChild(courseCard);
+                            });
+                        } else {
+                            recommendedCoursesContainer.innerHTML = '<p>No recommended courses found.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching recommendations:', error);
+                        recommendedCoursesContainer.innerHTML = '<p>Error loading recommendations. Please try again later.</p>';
+                    });
                 });
                 
                 console.log('Assessment Results:', data);

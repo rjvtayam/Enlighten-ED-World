@@ -530,3 +530,71 @@ def get_programs_and_majors():
             'status': 'error',
             'message': 'Unable to retrieve programs and majors'
         }), 500
+
+@assessment.route('/get_recommended_courses', methods=['POST'])
+@login_required
+def get_recommended_courses():
+    """Fetch recommended courses based on assessment results"""
+    try:
+        # Get data from the request or session
+        data = request.get_json() or session.get('assessment_results', {})
+        
+        if not data:
+            return jsonify({
+                'success': False,
+                'message': 'No assessment results found'
+            }), 400
+        
+        # Extract necessary information
+        program = data.get('program', '').upper()
+        major = data.get('major', '').upper()
+        overall_score = data.get('overall_score', 0)
+        
+        # Determine skill level
+        if overall_score < 40:
+            level = 'beginner'
+        elif overall_score < 70:
+            level = 'intermediate'
+        else:
+            level = 'advanced'
+        
+        # Path to course templates
+        courses_base_path = Path(current_app.root_path).parent.parent / 'client' / 'src' / 'pages' / 'courses' / major
+        
+        # Find course files
+        recommended_courses = []
+        if courses_base_path.exists() and courses_base_path.is_dir():
+            level_path = courses_base_path / level
+            
+            if level_path.exists():
+                # Get all HTML files in the level directory
+                course_files = list(level_path.glob('*.html'))
+                
+                for course_file in course_files:
+                    # Extract course details from filename or content
+                    course_name = course_file.stem
+                    recommended_courses.append({
+                        'code': course_name.upper(),
+                        'name': course_name.replace('_', ' ').title(),
+                        'level': level.capitalize(),
+                        'url': f'/courses/{program.lower()}/{major.lower()}/{level}/{course_name}'
+                    })
+        
+        # Log and return results
+        current_app.logger.info(f"Recommended Courses for {major} at {level} level: {recommended_courses}")
+        
+        return jsonify({
+            'success': True,
+            'program': program,
+            'major': major,
+            'level': level.capitalize(),
+            'courses': recommended_courses
+        })
+    
+    except Exception as e:
+        current_app.logger.error(f"Error fetching recommended courses: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'Error fetching recommended courses',
+            'error': str(e)
+        }), 500
