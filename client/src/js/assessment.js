@@ -169,11 +169,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 assessmentFormSection.style.display = 'none';
                 resultsSection.style.display = 'block';
                 
-                // Populate results
-                document.getElementById('overallScore').textContent = data.overall_score || 'N/A';
-                document.getElementById('overallLevel').textContent = data.skill_level || 'N/A';
+                // Populate overall score
+                const overallScoreElement = document.getElementById('overallScore');
+                const overallLevelElement = document.getElementById('overallLevel');
+                const overallLevelTextElement = document.getElementById('overallLevelText');
                 
-                // Optional: Populate more detailed results if available
+                overallScoreElement.textContent = data.overall_score || 'N/A';
+                overallLevelElement.textContent = data.skill_level || 'N/A';
+                overallLevelTextElement.textContent = data.skill_level || 'N/A';
+                
+                // Create Radar Chart
+                if (data.skills_radar_data) {
+                    createRadarChart(
+                        data.skills_radar_data.labels, 
+                        data.skills_radar_data.scores
+                    );
+                }
+                
+                // Populate Category Results
+                const categoryResultsContainer = document.getElementById('categoryResults');
+                categoryResultsContainer.innerHTML = ''; // Clear previous content
+                
+                data.category_results.forEach(category => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.classList.add('category-result');
+                    categoryDiv.innerHTML = `
+                        <h3>${category.name}</h3>
+                        <div class="category-score-bar">
+                            <div class="score-bar" style="width: ${category.score}%"></div>
+                        </div>
+                        <p class="category-score-text">${category.score.toFixed(2)}/100</p>
+                        <p class="category-description">${category.description}</p>
+                    `;
+                    categoryResultsContainer.appendChild(categoryDiv);
+                });
+                
+                // Setup Recommended Courses Button
+                const viewRecommendationsBtn = document.getElementById('viewRecommendationsBtn');
+                viewRecommendationsBtn.addEventListener('click', () => {
+                    // Navigate to courses based on program, major, and skill level
+                    const program = data.program || 'default';
+                    const major = data.major || 'default';
+                    const skillLevel = data.skill_level.toLowerCase();
+                    
+                    window.location.href = `/courses/${program.toLowerCase()}/${major.toLowerCase()}/${skillLevel}`;
+                });
+                
                 console.log('Assessment Results:', data);
             })
             .catch(error => {
@@ -189,6 +230,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Initialize first category
         showCategory(0);
+    }
+
+    // Radar Chart Creation Function
+    function createRadarChart(labels, scores) {
+        const ctx = document.getElementById('skillsRadarChart').getContext('2d');
+        
+        // Destroy existing chart if it exists
+        if (window.radarChartInstance) {
+            window.radarChartInstance.destroy();
+        }
+        
+        // Create new chart
+        window.radarChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Skill Proficiency',
+                    data: scores,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
     }
 
     // Program and Major Selection Logic

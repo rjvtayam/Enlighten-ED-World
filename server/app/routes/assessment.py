@@ -117,7 +117,7 @@ def submit_assessment():
         category_results = [
             {
                 'name': category.capitalize() + ' Skills', 
-                'score': score,
+                'score': round(score, 2),  # Round to 2 decimal places
                 'description': f'Proficiency in {category} skills'
             } for category, score in category_scores.items()
         ]
@@ -125,7 +125,7 @@ def submit_assessment():
         # Prepare radar chart data
         skills_radar_data = {
             'labels': list(category_scores.keys()),
-            'scores': list(category_scores.values())
+            'scores': [round(score, 2) for score in category_scores.values()]  # Round scores
         }
         
         # Create assessment record
@@ -151,7 +151,9 @@ def submit_assessment():
             'recommended_courses': recommendations.get('courses', []),
             'skills_radar_data': skills_radar_data,
             'category_scores': category_scores,
-            'assessment_id': assessment.id
+            'assessment_id': assessment.id,
+            'program': program,  
+            'major': major      
         }
         session['assessment_results'] = assessment_results_data
         
