@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Centralized navigation and progress tracking
     function initNavigation() {
-        const categories = document.querySelectorAll('.skill-category');
         const progressBar = document.querySelector('.progress-bar');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -121,47 +120,68 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call initialization when DOM is loaded
     initNavigation();
 
-    // Handle program selection directly
+    // Program and Major Selection Logic
+    function updateMajorOptions(program) {
+        // Clear existing options
+        majorSelect.innerHTML = '<option value="">Select your major</option>';
+        
+        // Populate majors for selected program
+        if (programMajors[program]) {
+            programMajors[program].forEach(major => {
+                const option = document.createElement('option');
+                option.value = major.value;
+                option.textContent = major.label;
+                majorSelect.appendChild(option);
+            });
+
+            // Show major selection group
+            majorGroup.style.display = 'block';
+        } else {
+            // Hide major selection if no majors for program
+            majorGroup.style.display = 'none';
+        }
+
+        // Reset major selection
+        majorSelect.value = '';
+        document.getElementById('selectedMajor').value = '';
+    }
+
+    // Predefined major mappings matching backend validation
+    const programMajors = {
+        'BSIT': [
+            { value: 'WMAD', label: 'Web and Mobile Application Development' },
+            { value: 'AMG', label: 'Animation and Motion Graphics' },
+            { value: 'NETWORKING', label: 'Networking' },
+            { value: 'SMP', label: 'Service Management Program' }
+        ],
+        'BSCS': [
+            { value: 'GRAPHICS', label: 'Graphics and Visualizations' },
+            { value: 'INTELLIGENT_SYSTEMS', label: 'Intelligent Systems' }
+        ],
+        'BSIS': [
+            { value: 'BUSINESS_ANALYTICS', label: 'Business Analytics' },
+            { value: 'ENTERPRISE_SYSTEMS', label: 'Enterprise Systems' },
+            { value: 'IS_SECURITY', label: 'Information Systems Security' },
+            { value: 'DATA_MANAGEMENT', label: 'Data Management' }
+        ]
+    };
+
+    // Program selection event listener
     programSelect.addEventListener('change', function() {
         const selectedProgram = this.value.toUpperCase(); // Convert to uppercase
-        selectedProgramInput.value = selectedProgram;
         
-        // Reset major selection
-        const majorSelect = document.getElementById('major');
-        majorSelect.selectedIndex = 0;
+        // Update hidden program input
+        document.getElementById('selectedProgram').value = selectedProgram;
         
-        // Hide all major groups first
-        const bsitMajors = document.querySelector('.bsit-majors');
-        const bcsMajors = document.querySelector('.bscs-majors');
-        const bsisMajors = document.querySelector('.bsis-majors');
-        const majorGroup = document.getElementById('majorGroup');
-
-        if (bsitMajors) bsitMajors.style.display = 'none';
-        if (bcsMajors) bcsMajors.style.display = 'none';
-        if (bsisMajors) bsisMajors.style.display = 'none';
-
-        // Show appropriate major group
-        switch(selectedProgram) {
-            case 'BSIT':
-                if (bsitMajors) bsitMajors.style.display = 'block';
-                majorGroup.style.display = 'block';
-                break;
-            case 'BSCS':
-                if (bcsMajors) bcsMajors.style.display = 'block';
-                majorGroup.style.display = 'block';
-                break;
-            case 'BSIS':
-                if (bsisMajors) bsisMajors.style.display = 'block';
-                majorGroup.style.display = 'block';
-                break;
-            default:
-                majorGroup.style.display = 'none';
-        }
+        // Update major options
+        updateMajorOptions(selectedProgram);
     });
 
-    // Handle major selection
-    document.getElementById('major').addEventListener('change', function() {
+    // Major selection event listener
+    majorSelect.addEventListener('change', function() {
         const selectedMajor = this.value;
+        
+        // Update hidden major input
         document.getElementById('selectedMajor').value = selectedMajor;
     });
 
