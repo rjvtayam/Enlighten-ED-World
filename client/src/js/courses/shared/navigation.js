@@ -6,39 +6,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mapping of content IDs to their corresponding HTML file paths
     const contentRoutes = {
-        // Beginner Course Content
-        "welcome": "/courses/WMAD/beginner/index.html",
-        "landing": "/courses/WMAD/beginner/landingpage.html",
-        "setup": "/courses/WMAD/beginner/development_setup.html",
-        "web-basics": "/courses/WMAD/beginner/web_basics.html",
-        "basic-elements": "/courses/WMAD/beginner/basic_elements.html",
-        "form-input": "/courses/WMAD/beginner/form_input.html",
-        "form-project": "/courses/WMAD/beginner/form_project.html",
-        "responsive-design": "/courses/WMAD/beginner/responsive_design.html",
-        
-        // HTML Content
-        "intro-html": "/courses/WMAD/beginner/intro_html.html",
-        
-        // CSS Content
-        "intro-css": "/courses/WMAD/beginner/intro_css.html",
-        "layout-box": "/courses/WMAD/beginner/layout_box.html",
-        "select-properties": "/courses/WMAD/beginner/select_properties.html",
-        "media": "/courses/WMAD/beginner/media.html",
-        
-        // JavaScript Content
-        "intro-js": "/courses/WMAD/beginner/intro_js.html",
-        "variables": "/courses/WMAD/beginner/variable.html",
-        "control-flow": "/courses/WMAD/beginner/control_flow.html",
-        "functions": "/courses/WMAD/beginner/function.html",
-        "dom": "/courses/WMAD/beginner/dom.html",
-        "events": "/courses/WMAD/beginner/events.html",
-        
-        // Projects and Reviews
-        "project-review": "/courses/WMAD/beginner/project_review.html",
-        
-        // Assessments
-        "pre-assessment": "/courses/WMAD/beginner/pre-assessment.html",
-        "post-assessment": "/courses/WMAD/beginner/post-assessment.html"
+        // Pre and Post Assessments
+        "pre-assessment": "pre-assessment.html",
+        "post-assessment": "post-assessment.html",
+
+        // Course Introduction
+        "welcome": "index.html",
+        "setup": "development_setup.html",
+        "web-basics": "web_basics.html",
+
+        // HTML Fundamentals
+        "html-intro": "intro_html.html",
+        "html-elements": "basic_elements.html",
+        "html-forms": "forms_input.html",
+        "html-media": "media_elements.html",
+        "html-quiz": "#", // No actual file for quiz
+
+        // CSS Section
+        "css-intro": "intro_css.html",
+        "css-selectors": "selectors_properties.html",
+        "css-layout": "layout_box_model.html",
+        "css-responsive": "responsive_design.html",
+        "css-quiz": "css_quiz.html",
+
+        // JavaScript Section
+        "js-intro": "intro_js.html",
+        "js-variables": "variable.html",
+        "js-control": "control_flow.html",
+        "js-functions": "functions.html",
+        "js-dom": "dom_manipulation.html",
+        "js-events": "events.html",
+        "js-quiz": "quiz_js.html",
+
+        // Projects
+        "project-1": "landingpage.html",
+        "project-2": "interactiveform.html",
+        "project-3": "todoapp.html",
+        "project-review": "projectreview.html"
     };
 
     // Accordion Functionality
