@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, current_app, render_template, redirect, url_for, flash
+from flask import Blueprint, jsonify, request, current_app, render_template, redirect, url_for, flash, session
 from flask_login import login_required, current_user
 from app.extensions import db, csrf
 from app.models.assessment import (
@@ -52,7 +52,7 @@ def initial_assessment():
     form = AssessmentForm()
     return render_template('assessment/initial_assessment.html', form=form)
 
-@assessment.route('/submit', methods=['POST'])
+@assessment.route('/submit_assessment', methods=['POST'])
 @login_required
 def submit_assessment():
     try:
@@ -68,17 +68,13 @@ def submit_assessment():
         # Validate program and major
         if not program or not validate_major(program):
             current_app.logger.error(f"Invalid program: {program}")
-            return jsonify({
-                'success': False, 
-                'message': 'Invalid program selection'
-            }), HTTPStatus.BAD_REQUEST
+            flash('Invalid program selection', 'error')
+            return redirect(url_for('assessment.initial_assessment'))
         
         if not major or not validate_major(major):
             current_app.logger.error(f"Invalid major: {major}")
-            return jsonify({
-                'success': False, 
-                'message': 'Invalid major selection'
-            }), HTTPStatus.BAD_REQUEST
+            flash('Invalid major selection', 'error')
+            return redirect(url_for('assessment.initial_assessment'))
         
         # Collect skill scores
         skill_categories = ['technical', 'communication', 'soft', 'creativity']
@@ -147,18 +143,19 @@ def submit_assessment():
         # Log successful submission
         current_app.logger.info(f"Assessment submitted successfully for user {current_user.id}")
         
-        # Return comprehensive results
-        return jsonify({
-            'success': True,
+        # Store results in session for results page
+        session['assessment_results'] = {
             'overall_score': round(overall_score, 2),
             'skill_level': skill_level,
             'category_results': category_results,
             'recommended_courses': recommendations.get('courses', []),
             'skills_radar_data': skills_radar_data,
-            'recommendations': recommendations,
             'category_scores': category_scores,
             'assessment_id': assessment.id
-        })
+        }
+        
+        # Redirect to results page
+        return redirect(url_for('assessment.assessment_results'))
     
     except Exception as e:
         # Comprehensive error handling

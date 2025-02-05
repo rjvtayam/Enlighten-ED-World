@@ -14,6 +14,35 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentCategory = 0;
     
+    // Logging function to help with debugging
+    function logElementStatus(elementId) {
+        const element = document.getElementById(elementId);
+        console.log(`Element '${elementId}':`, element ? 'FOUND ✓' : 'MISSING ✗');
+        return element;
+    }
+
+    // Check critical form elements
+    logElementStatus('skillsAssessmentForm');
+    logElementStatus('programSelect');
+    logElementStatus('major');
+    logElementStatus('selectedProgram');
+    logElementStatus('selectedMajor');
+    logElementStatus('submitBtn');
+    logElementStatus('majorGroup');
+    logElementStatus('assessmentFormSection');
+    logElementStatus('resultsSection');
+
+    // Validate CSRF token
+    const csrfTokenElement = document.querySelector('input[name="csrf_token"]');
+    console.log('CSRF Token Element:', csrfTokenElement ? 'FOUND ✓' : 'MISSING ✗');
+
+    // Exit if critical elements are missing
+    if (!form || !programSelect || !majorSelect || !selectedProgramInput || 
+        !selectedMajorInput || !submitBtn || !csrfTokenElement) {
+        console.error('One or more critical form elements are missing. Cannot proceed.');
+        return;
+    }
+
     // Initialize the first category
     showCategory(0);
     
@@ -90,6 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (input.checked) groups[name] = true;
         });
         
+        console.log('Input Validation Groups:', groups);
+        
         if (Object.values(groups).includes(false)) {
             alert('Please rate all visible skills in this category before proceeding.');
             return;
@@ -108,202 +139,70 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Form submission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validate all inputs one last time
-        if (!selectedProgramInput.value || !selectedMajorInput.value) {
-            alert('Please select your program and major');
+    // Submit button event listener
+    submitBtn.addEventListener('click', function(event) {
+        // Prevent default form submission
+        event.preventDefault();
+
+        // Validate program selection
+        if (!programSelect.value) {
+            alert('Please select a program.');
             programSelect.focus();
             return;
         }
 
-        // Validate all visible inputs across all categories
-        const visibleInputs = form.querySelectorAll('.skill-item:not(.hidden) input[type="radio"]');
-        const groups = {};
-        visibleInputs.forEach(input => {
-            const name = input.getAttribute('name');
-            groups[name] = groups[name] || false;
-            if (input.checked) groups[name] = true;
-        });
-        
-        if (Object.values(groups).includes(false)) {
-            alert('Please rate all skills before submitting.');
+        // Validate major selection
+        if (!majorSelect.value) {
+            alert('Please select a major.');
+            majorSelect.focus();
             return;
         }
 
-        // Prepare form data
-        const formData = new FormData(form);
-        
-        // Disable submit button and show loading
-        submitBtn.disabled = true;
-        const loadingText = submitBtn.querySelector('.loading-text');
-        if (loadingText) loadingText.style.display = 'inline-block';
-        
-        // Log submission details
-        console.log('Submitting assessment with program:', selectedProgramInput.value, 'and major:', selectedMajorInput.value);
+        // Validate all skill categories
+        let allCategoriesValid = true;
+        categories.forEach((category) => {
+            const categoryName = category.getAttribute('data-category-name');
+            const currentInputs = category.querySelectorAll('input[type="radio"]');
+            
+            // Group inputs by their name (skill)
+            const skillGroups = {};
+            currentInputs.forEach(input => {
+                const skillName = input.getAttribute('name');
+                if (!skillGroups[skillName]) {
+                    skillGroups[skillName] = [];
+                }
+                skillGroups[skillName].push(input);
+            });
 
-        // Submit assessment
-        submitAssessment(formData);
-    });
+            // Check if each skill group has a selection
+            Object.keys(skillGroups).forEach(skillName => {
+                const skillInputs = skillGroups[skillName];
+                const isSkillRated = skillInputs.some(input => input.checked);
+                
+                if (!isSkillRated) {
+                    allCategoriesValid = false;
+                    category.classList.add('error-category');
+                    alert(`Please rate all skills in the ${categoryName} category.`);
+                }
+            });
+        });
 
-    function submitAssessment(formData) {
-        // Get references to key elements
-        const assessmentFormSection = document.getElementById('assessmentFormSection');
-        const resultsSection = document.getElementById('resultsSection');
-        const overallScoreElement = document.getElementById('overallScore');
-        const overallLevelElement = document.getElementById('overallLevel');
-        const overallLevelTextElement = document.getElementById('overallLevelText');
-        const categoryResultsElement = document.getElementById('categoryResults');
-        const recommendedCoursesElement = document.getElementById('recommendedCourses');
-        const skillsRadarChartElement = document.getElementById('skillsRadarChart');
-        const submitBtn = document.getElementById('submitBtn');
-
-        // Log all form data for debugging
-        for (let [key, value] of formData.entries()) {
-            console.log(`Form Data - ${key}: ${value}`);
+        // If validation fails, stop submission
+        if (!allCategoriesValid) {
+            return;
         }
 
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRFToken': document.querySelector('input[name="csrf_token"]').value,
-                'Accept': 'application/json'
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => {
-            console.log('Response status:', response.status);
-            
-            // Re-enable submit button
-            submitBtn.disabled = false;
-            const loadingText = submitBtn.querySelector('.loading-text');
-            if (loadingText) loadingText.style.display = 'none';
+        // Set hidden input values
+        selectedProgramInput.value = programSelect.value;
+        selectedMajorInput.value = majorSelect.value;
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Full response data:', data);
+        // Disable submit button to prevent multiple submissions
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
 
-            // Validate response data
-            if (!data.success) {
-                throw new Error(data.message || 'Submission failed');
-            }
-
-            // Forcibly show results section
-            if (assessmentFormSection) {
-                assessmentFormSection.style.display = 'none';
-            }
-            
-            if (resultsSection) {
-                resultsSection.style.display = 'block';
-            } else {
-                console.error('Results section element not found');
-            }
-            
-            // Populate overall score and level
-            if (overallScoreElement) {
-                overallScoreElement.textContent = data.overall_score + '%';
-            } else {
-                console.error('Overall score element not found');
-            }
-            
-            if (overallLevelElement) {
-                overallLevelElement.textContent = data.skill_level;
-            } else {
-                console.error('Overall level element not found');
-            }
-            
-            if (overallLevelTextElement) {
-                overallLevelTextElement.textContent = data.skill_level;
-            } else {
-                console.error('Overall level text element not found');
-            }
-            
-            // Populate category results
-            if (categoryResultsElement && data.category_results) {
-                categoryResultsElement.innerHTML = data.category_results.map(category => `
-                    <div class="category-result">
-                        <h3>${category.name}</h3>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: ${category.score}%">${category.score}%</div>
-                        </div>
-                        <p>${category.description}</p>
-                    </div>
-                `).join('');
-            } else {
-                console.error('Category results element not found or no data');
-            }
-            
-            // Populate recommended courses
-            if (recommendedCoursesElement && data.recommended_courses) {
-                recommendedCoursesElement.innerHTML = data.recommended_courses.map(course => `
-                    <div class="course-card">
-                        <h4>${course.title}</h4>
-                        <p>${course.description}</p>
-                        <a href="${course.link}" class="btn btn-sm btn-outline-primary">Enroll Now</a>
-                    </div>
-                `).join('');
-            } else {
-                console.error('Recommended courses element not found or no data');
-            }
-            
-            // Mandatory Radar Chart
-            if (!data.skills_radar_data) {
-                throw new Error('Skills radar data is required but missing');
-            }
-
-            // Create radar chart using Chart.js
-            if (skillsRadarChartElement) {
-                const ctx = skillsRadarChartElement.getContext('2d');
-                new Chart(ctx, {
-                    type: 'radar',
-                    data: {
-                        labels: data.skills_radar_data.labels,
-                        datasets: [{
-                            label: 'Skills Assessment',
-                            data: data.skills_radar_data.scores,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scale: {
-                            ticks: {
-                                beginAtZero: true,
-                                max: 100
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Skills Radar'
-                        }
-                    }
-                });
-            } else {
-                console.error('Skills radar chart element not found');
-            }
-            
-            console.log('Assessment submitted successfully:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            
-            // Re-enable submit button
-            submitBtn.disabled = false;
-            const loadingText = submitBtn.querySelector('.loading-text');
-            if (loadingText) loadingText.style.display = 'none';
-
-            alert('Error submitting assessment: ' + error.message);
-        });
-    }
+        // Submit the form
+        form.submit();
+    });
 
     function updateRequiredSkills(program) {
         const programSkills = {
