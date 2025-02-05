@@ -112,14 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Program and major validation
+        // Validate all inputs one last time
         if (!selectedProgramInput.value || !selectedMajorInput.value) {
             alert('Please select your program and major');
             programSelect.focus();
             return;
         }
 
-        // Validate all visible inputs
+        // Validate all visible inputs across all categories
         const visibleInputs = form.querySelectorAll('.skill-item:not(.hidden) input[type="radio"]');
         const groups = {};
         visibleInputs.forEach(input => {
@@ -133,88 +133,20 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Prepare form data
         const formData = new FormData(form);
         
-        // Log form submission for debugging
+        // Disable submit button and show loading
+        submitBtn.disabled = true;
+        const loadingText = submitBtn.querySelector('.loading-text');
+        if (loadingText) loadingText.style.display = 'inline-block';
+        
+        // Log submission details
         console.log('Submitting assessment with program:', selectedProgramInput.value, 'and major:', selectedMajorInput.value);
 
+        // Submit assessment
         submitAssessment(formData);
     });
-
-    function updateRequiredSkills(program) {
-        const programSkills = {
-            'BSIT': ['technical_problem_solving', 'technical_architecture', 'technical_database'],
-            'BSCS': ['technical_problem_solving', 'technical_algorithm', 'technical_data_structures'],
-            'BSIS': ['technical_problem_solving', 'technical_architecture', 'technical_database']
-        };
-
-        // First, remove required from all technical skills
-        document.querySelectorAll('input[name^="technical_"]').forEach(input => {
-            input.required = false;
-        });
-
-        // Then set required for program-specific skills
-        if (programSkills[program]) {
-            programSkills[program].forEach(skillName => {
-                document.querySelectorAll(`input[name="${skillName}"]`).forEach(input => {
-                    input.required = true;
-                });
-            });
-        }
-    }
-
-    function initNavigation() {
-        const categories = document.querySelectorAll('.skill-category');
-        const progress = document.querySelector('.progress');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        let currentCategory = 0;
-
-        function showCategory(index) {
-            categories.forEach(cat => cat.classList.remove('active'));
-            categories[index].classList.add('active');
-            
-            progress.style.width = `${((index + 1) / categories.length) * 100}%`;
-            
-            prevBtn.style.display = index === 0 ? 'none' : 'block';
-            nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
-            submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
-        }
-
-        // Navigation button handlers
-        nextBtn.addEventListener('click', () => {
-            if (validateCurrentCategory()) {
-                currentCategory++;
-                showCategory(currentCategory);
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentCategory--;
-            showCategory(currentCategory);
-        });
-
-        function validateCurrentCategory() {
-            const currentInputs = categories[currentCategory].querySelectorAll('input[type="radio"]:required');
-            let isValid = true;
-            
-            currentInputs.forEach(input => {
-                const name = input.getAttribute('name');
-                const checked = document.querySelector(`input[name="${name}"]:checked`);
-                if (!checked) {
-                    isValid = false;
-                    alert(`Please rate your ${name.replace(/_/g, ' ')} skill.`);
-                }
-            });
-            
-            return isValid;
-        }
-
-        // Show initial category
-        showCategory(0);
-    }
 
     function submitAssessment(formData) {
         // Get references to key elements
@@ -226,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const categoryResultsElement = document.getElementById('categoryResults');
         const recommendedCoursesElement = document.getElementById('recommendedCourses');
         const skillsRadarChartElement = document.getElementById('skillsRadarChart');
+        const submitBtn = document.getElementById('submitBtn');
 
         // Log all form data for debugging
         for (let [key, value] of formData.entries()) {
@@ -243,6 +176,12 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             console.log('Response status:', response.status);
+            
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            const loadingText = submitBtn.querySelector('.loading-text');
+            if (loadingText) loadingText.style.display = 'none';
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -255,13 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!data.success) {
                 throw new Error(data.message || 'Submission failed');
             }
-
-            // Detailed logging of key data points
-            console.log('Overall Score:', data.overall_score);
-            console.log('Skill Level:', data.skill_level);
-            console.log('Category Results:', data.category_results);
-            console.log('Recommended Courses:', data.recommended_courses);
-            console.log('Skills Radar Data:', data.skills_radar_data);
 
             // Forcibly show results section
             if (assessmentFormSection) {
@@ -363,7 +295,88 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
+            
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            const loadingText = submitBtn.querySelector('.loading-text');
+            if (loadingText) loadingText.style.display = 'none';
+
             alert('Error submitting assessment: ' + error.message);
         });
+    }
+
+    function updateRequiredSkills(program) {
+        const programSkills = {
+            'BSIT': ['technical_problem_solving', 'technical_architecture', 'technical_database'],
+            'BSCS': ['technical_problem_solving', 'technical_algorithm', 'technical_data_structures'],
+            'BSIS': ['technical_problem_solving', 'technical_architecture', 'technical_database']
+        };
+
+        // First, remove required from all technical skills
+        document.querySelectorAll('input[name^="technical_"]').forEach(input => {
+            input.required = false;
+        });
+
+        // Then set required for program-specific skills
+        if (programSkills[program]) {
+            programSkills[program].forEach(skillName => {
+                document.querySelectorAll(`input[name="${skillName}"]`).forEach(input => {
+                    input.required = true;
+                });
+            });
+        }
+    }
+
+    function initNavigation() {
+        const categories = document.querySelectorAll('.skill-category');
+        const progress = document.querySelector('.progress');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        let currentCategory = 0;
+
+        function showCategory(index) {
+            categories.forEach(cat => cat.classList.remove('active'));
+            categories[index].classList.add('active');
+            
+            progress.style.width = `${((index + 1) / categories.length) * 100}%`;
+            
+            prevBtn.style.display = index === 0 ? 'none' : 'block';
+            nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
+            submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
+        }
+
+        // Navigation button handlers
+        nextBtn.addEventListener('click', () => {
+            if (validateCurrentCategory()) {
+                currentCategory++;
+                showCategory(currentCategory);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentCategory--;
+            showCategory(currentCategory);
+        });
+
+        function validateCurrentCategory() {
+            const currentInputs = categories[currentCategory].querySelectorAll('input[type="radio"]:required');
+            let isValid = true;
+            
+            currentInputs.forEach(input => {
+                const name = input.getAttribute('name');
+                const checked = document.querySelector(`input[name="${name}"]:checked`);
+                if (!checked) {
+                    isValid = false;
+                    alert(`Please rate your ${name.replace(/_/g, ' ')} skill.`);
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Show initial category
+        showCategory(0);
     }
 });
