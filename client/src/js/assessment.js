@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Program selection event listener
     programSelect.addEventListener('change', function() {
-        const selectedProgram = this.value.toUpperCase(); // Convert to uppercase
+        const selectedProgram = this.value; // Now it's already in the correct format (BSIT, BSCS, BSIS)
         
         // Update hidden program input
         document.getElementById('selectedProgram').value = selectedProgram;
