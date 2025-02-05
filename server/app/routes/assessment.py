@@ -583,7 +583,7 @@ def get_recommended_courses():
                             'description': course_details.get('description', 'No description available'),
                             'duration': course_details.get('duration', 'Varies'),
                             'difficulty': level.capitalize(),
-                            'url': f'/courses/{program.lower()}/{major.lower()}/{level}',
+                            'url': f'/courses/{major.lower()}/{level}',
                             'icon': course_details.get('icon', '/static/icons/default-course.svg')
                         })
                 else:
@@ -593,7 +593,7 @@ def get_recommended_courses():
                         'name': f'{major} Courses',
                         'description': f'Comprehensive {level.capitalize()} level courses for {major}',
                         'difficulty': level.capitalize(),
-                        'url': f'/courses/{program.lower()}/{major.lower()}/{level}',
+                        'url': f'/courses/{major.lower()}/{level}',
                         'icon': '/static/icons/default-course-catalog.svg'
                     })
         
