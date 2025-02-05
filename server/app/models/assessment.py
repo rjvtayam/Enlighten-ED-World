@@ -44,6 +44,7 @@ class Assessment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     program = db.Column(db.String(100))
+    major = db.Column(db.String(100))
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     overall_score = db.Column(db.Float)
     overall_level = db.Column(db.String(20))
