@@ -18,31 +18,31 @@ document.addEventListener("DOMContentLoaded", function () {
         // HTML Fundamentals
         "html-intro": "/WMAD/beginner/intro_html",
         "html-elements": "/WMAD/beginner/basic_elements",
-        "html-forms": "/WMAD/beginner/forms_input",
-        "html-media": "/WMAD/beginner/media_elements",
-        "html-quiz": "#", // No actual file for quiz
+        "html-forms": "/WMAD/beginner/form_input",
+        "html-media": "/WMAD/beginner/media",
+        "html-quiz": "/WMAD/beginner/html_knowledge", // No actual file for quiz
 
         // CSS Section
         "css-intro": "/WMAD/beginner/intro_css",
-        "css-selectors": "/WMAD/beginner/selectors_properties",
-        "css-layout": "/WMAD/beginner/layout_box_model",
+        "css-selectors": "/WMAD/beginner/select_properties",
+        "css-layout": "/WMAD/beginner/layout_box",
         "css-responsive": "/WMAD/beginner/responsive_design",
-        "css-quiz": "/WMAD/beginner/css_quiz",
+        "css-quiz": "/WMAD/beginner/css_knowledge",
 
         // JavaScript Section
         "js-intro": "/WMAD/beginner/intro_js",
         "js-variables": "/WMAD/beginner/variable",
         "js-control": "/WMAD/beginner/control_flow",
-        "js-functions": "/WMAD/beginner/functions",
-        "js-dom": "/WMAD/beginner/dom_manipulation",
+        "js-functions": "/WMAD/beginner/function",
+        "js-dom": "/WMAD/beginner/dom",
         "js-events": "/WMAD/beginner/events",
-        "js-quiz": "/WMAD/beginner/quiz_js",
+        "js-quiz": "/WMAD/beginner/js_knowledge",
 
         // Projects
         "project-1": "/WMAD/beginner/landingpage",
         "project-2": "/WMAD/beginner/interactiveform",
         "project-3": "/WMAD/beginner/todoapp",
-        "project-review": "/WMAD/beginner/projectreview"
+        "project-review": "/WMAD/beginner/project_review"
     };
 
     // Accordion Functionality
