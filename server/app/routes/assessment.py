@@ -56,145 +56,31 @@ def initial_assessment():
 @login_required
 def submit_assessment():
     try:
-        # Log request info for debugging
+        # Logging and debugging
         current_app.logger.info("=== Assessment Submission Start ===")
         current_app.logger.info(f"User ID: {current_user.id}")
-        current_app.logger.info(f"Content Type: {request.content_type}")
-        current_app.logger.info(f"Headers: {dict(request.headers)}")
+        current_app.logger.info(f"Form Data: {dict(request.form)}")
         
-        # Validate CSRF token
-        csrf_token = request.headers.get('X-CSRFToken')
-        if not csrf_token:
-            current_app.logger.error("Missing CSRF token")
-            return jsonify({'error': 'Missing CSRF token'}), HTTPStatus.UNAUTHORIZED
-        
-        # Get form data
+        # Get and validate program and major
         program = request.form.get('program', '').upper()
         major = request.form.get('major', '').upper()
         
-        current_app.logger.info(f"Form data: {request.form.to_dict()}")
-        current_app.logger.info(f"Program: {program}")
-        current_app.logger.info(f"Major: {major}")
-        
-        # Validate required fields
+        # Validate program and major
         if not program or not validate_major(program):
-            current_app.logger.error(f"Missing required fields - Program: {program}, Major: {major}")
-            return jsonify({'error': 'Program and major are required'}), HTTPStatus.BAD_REQUEST
-            
-        # Validate major has available courses
-        if not validate_major(major):
-            current_app.logger.error(f"Invalid major or no course templates available: {major}")
-            return jsonify({'error': f'No course templates available for major: {major}'}), HTTPStatus.BAD_REQUEST
-        
-        # Validate program type
-        try:
-            program_type = ProgramType[program.upper()]
-            program = program_type.value
-        except KeyError:
-            current_app.logger.warning(f"Program type {program.upper()} not found in enum, using as is")
-            # Continue with the program value as provided
-            
-        current_app.logger.info(f"Program validated: {program}")
-            
-        # Validate major has available courses
-        if not validate_major(major):
-            current_app.logger.error(f"Invalid major or no course templates available: {major}")
-            return jsonify({'error': f'No course templates available for major: {major}'}), HTTPStatus.BAD_REQUEST
-        
-        # Collect skill scores
-        scores = {}
-        for category in ['technical', 'communication', 'soft', 'creativity']:
-            category_scores = []
-            for i in range(1, 4):
-                score = request.form.get(f'skill_{category}_{i}')
-                if not score:
-                    raise ValueError(f"Missing score for {category} skill {i}")
-                score = int(score)
-                if score < 1 or score > 3:
-                    raise ValueError(f"Score {score} out of range (1-3)")
-                category_scores.append(score)
-            scores[category] = category_scores
-
-        # Initialize skill assessment and analyze
-        skill_assessment = SkillAssessment()
-        analysis_results = skill_assessment.analyze_skills(scores)
-
-        # Create assessment
-        assessment = Assessment(
-            user_id=current_user.id,
-            program=program,
-            major=major,
-            is_completed=True
-        )
-        db.session.add(assessment)
-        db.session.flush()  # Get the assessment ID
-        
-        # Create categories and skills
-        for category_name, category_scores in scores.items():
-            category = AssessmentCategory(
-                assessment_id=assessment.id,
-                category_name=category_name,
-                score=sum(category_scores) / len(category_scores)  # Average score
-            )
-            db.session.add(category)
-            db.session.flush()
-            
-            # Add individual skills
-            for i, score in enumerate(category_scores, 1):
-                skill = AssessmentSkill(
-                    category_id=category.id,
-                    skill_name=f"{category_name}_{i}",
-                    score=score
-                )
-                db.session.add(skill)
-        
-        # Calculate overall score and get recommendations
-        all_scores = [score for scores_list in scores.values() for score in scores_list]
-        overall_score = sum(all_scores) / len(all_scores)
-        score_percentage = (overall_score / 3) * 100  # Convert to percentage
-        
-        # Get recommendations with score percentage
-        recommendations = get_course_recommendations(score_percentage, major)
-        
-        # Calculate category scores (as percentages)
-        category_scores = {}
-        for category, scores_list in scores.items():
-            category_scores[category] = (sum(scores_list) / len(scores_list)) / 3 * 100
-        
-        # Update user's assessment completion status
-        current_user.has_completed_assessment = True
-        
-        # Save to database
-        db.session.commit()
-        current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
-        
-        # New functionality
-        program = request.form.get('program', '').upper()
-        major = request.form.get('major', '').upper()
-        
-        # Validate program and major (existing validation)
-        if not program or not validate_major(program):
+            current_app.logger.error(f"Invalid program: {program}")
             return jsonify({
-                'success': False,
+                'success': False, 
                 'message': 'Invalid program selection'
             }), HTTPStatus.BAD_REQUEST
         
         if not major or not validate_major(major):
+            current_app.logger.error(f"Invalid major: {major}")
             return jsonify({
-                'success': False,
+                'success': False, 
                 'message': 'Invalid major selection'
             }), HTTPStatus.BAD_REQUEST
         
-        # Create Assessment instance (existing logic)
-        assessment = Assessment(
-            user_id=current_user.id,
-            program=program,
-            major=major,
-            assessment_date=datetime.utcnow().date()
-        )
-        db.session.add(assessment)
-        
-        # Process skill categories (existing logic)
+        # Collect skill scores
         skill_categories = ['technical', 'communication', 'soft', 'creativity']
         category_scores = {}
         
@@ -246,8 +132,20 @@ def submit_assessment():
             'scores': list(category_scores.values())
         }
         
-        # Commit assessment to database
+        # Create assessment record
+        assessment = Assessment(
+            user_id=current_user.id,
+            program=program,
+            major=major,
+            assessment_date=datetime.utcnow().date()
+        )
+        db.session.add(assessment)
+        
+        # Commit to database
         db.session.commit()
+        
+        # Log successful submission
+        current_app.logger.info(f"Assessment submitted successfully for user {current_user.id}")
         
         # Return comprehensive results
         return jsonify({
@@ -255,35 +153,25 @@ def submit_assessment():
             'overall_score': round(overall_score, 2),
             'skill_level': skill_level,
             'category_results': category_results,
-            'recommended_courses': recommendations['courses'],
+            'recommended_courses': recommendations.get('courses', []),
             'skills_radar_data': skills_radar_data,
             'recommendations': recommendations,
             'category_scores': category_scores,
             'assessment_id': assessment.id
         })
     
-    except ValueError as e:
-        db.session.rollback()
-        current_app.logger.error(f"Validation error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), HTTPStatus.BAD_REQUEST
-        
-    except SQLAlchemyError as e:
-        db.session.rollback()
-        current_app.logger.error(f"Database error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'error': 'Database error occurred'
-        }), HTTPStatus.INTERNAL_SERVER_ERROR
-        
     except Exception as e:
+        # Comprehensive error handling
         current_app.logger.error(f"Error in submit_assessment: {str(e)}")
         current_app.logger.exception("Full traceback:")
+        
+        # Rollback any database changes
+        db.session.rollback()
+        
         return jsonify({
             'success': False,
-            'error': 'An unexpected error occurred'
+            'message': 'An unexpected error occurred during assessment submission',
+            'error': str(e)
         }), HTTPStatus.INTERNAL_SERVER_ERROR
 
 def validate_major(major):

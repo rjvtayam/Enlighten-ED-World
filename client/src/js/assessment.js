@@ -17,70 +17,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the first category
     showCategory(0);
     
-    // Fetch programs and majors dynamically
-    function fetchProgramsAndMajors() {
-        fetch('/assessment/get_programs_and_majors')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch programs and majors');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Populate program select
-                Object.keys(data.programs_and_majors).forEach(program => {
-                    const option = document.createElement('option');
-                    option.value = program;
-                    option.textContent = program.replace(/BS/, 'Bachelor of Science in ');
-                    programSelect.appendChild(option);
-                });
+    // Handle program selection directly
+    programSelect.addEventListener('change', function() {
+        const selectedProgram = this.value.toUpperCase(); // Convert to uppercase
+        selectedProgramInput.value = selectedProgram;
+        
+        // Reset major selection
+        const majorSelect = document.getElementById('major');
+        majorSelect.selectedIndex = 0;
+        
+        // Hide all major groups first
+        const bsitMajors = document.querySelector('.bsit-majors');
+        const bcsMajors = document.querySelector('.bscs-majors');
+        const bsisMajors = document.querySelector('.bsis-majors');
+        const majorGroup = document.getElementById('majorGroup');
 
-                // Add event listener for dynamic major population
-                programSelect.addEventListener('change', function() {
-                    const selectedProgram = this.value.toUpperCase(); // Convert to uppercase
-                    selectedProgramInput.value = selectedProgram;
-                    
-                    // Reset major selection
-                    const majorSelect = document.getElementById('major');
-                    majorSelect.selectedIndex = 0;
-                    
-                    // Hide all major groups first
-                    const bsitMajors = document.querySelector('.bsit-majors');
-                    const bcsMajors = document.querySelector('.bscs-majors');
-                    const bsisMajors = document.querySelector('.bsis-majors');
-                    const majorGroup = document.getElementById('majorGroup');
+        if (bsitMajors) bsitMajors.style.display = 'none';
+        if (bcsMajors) bcsMajors.style.display = 'none';
+        if (bsisMajors) bsisMajors.style.display = 'none';
 
-                    if (bsitMajors) bsitMajors.style.display = 'none';
-                    if (bcsMajors) bcsMajors.style.display = 'none';
-                    if (bsisMajors) bsisMajors.style.display = 'none';
-
-                    // Show appropriate major group
-                    switch(selectedProgram) {
-                        case 'BSIT':
-                            if (bsitMajors) bsitMajors.style.display = 'block';
-                            majorGroup.style.display = 'block';
-                            break;
-                        case 'BSCS':
-                            if (bcsMajors) bcsMajors.style.display = 'block';
-                            majorGroup.style.display = 'block';
-                            break;
-                        case 'BSIS':
-                            if (bsisMajors) bsisMajors.style.display = 'block';
-                            majorGroup.style.display = 'block';
-                            break;
-                        default:
-                            majorGroup.style.display = 'none';
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching programs and majors:', error);
-                alert('Unable to load programs. Please refresh the page.');
-            });
-    }
-
-    // Call the function to fetch and set up programs
-    fetchProgramsAndMajors();
+        // Show appropriate major group
+        switch(selectedProgram) {
+            case 'BSIT':
+                if (bsitMajors) bsitMajors.style.display = 'block';
+                majorGroup.style.display = 'block';
+                break;
+            case 'BSCS':
+                if (bcsMajors) bcsMajors.style.display = 'block';
+                majorGroup.style.display = 'block';
+                break;
+            case 'BSIS':
+                if (bsisMajors) bsisMajors.style.display = 'block';
+                majorGroup.style.display = 'block';
+                break;
+            default:
+                majorGroup.style.display = 'none';
+        }
+    });
 
     // Handle major selection
     document.getElementById('major').addEventListener('change', function() {
@@ -244,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function submitAssessment(formData) {
+        // Get references to key elements
         const assessmentFormSection = document.getElementById('assessmentFormSection');
         const resultsSection = document.getElementById('resultsSection');
         const overallScoreElement = document.getElementById('overallScore');
@@ -252,6 +226,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const categoryResultsElement = document.getElementById('categoryResults');
         const recommendedCoursesElement = document.getElementById('recommendedCourses');
         const skillsRadarChartElement = document.getElementById('skillsRadarChart');
+
+        // Log all form data for debugging
+        for (let [key, value] of formData.entries()) {
+            console.log(`Form Data - ${key}: ${value}`);
+        }
 
         fetch(form.action, {
             method: 'POST',
@@ -263,33 +242,55 @@ document.addEventListener('DOMContentLoaded', function() {
             credentials: 'same-origin'
         })
         .then(response => {
+            console.log('Response status:', response.status);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
+            console.log('Full response data:', data);
+
+            // Validate response data
             if (!data.success) {
                 throw new Error(data.message || 'Submission failed');
             }
 
-            // Hide assessment form
-            assessmentFormSection.style.display = 'none';
+            // Detailed logging of key data points
+            console.log('Overall Score:', data.overall_score);
+            console.log('Skill Level:', data.skill_level);
+            console.log('Category Results:', data.category_results);
+            console.log('Recommended Courses:', data.recommended_courses);
+            console.log('Skills Radar Data:', data.skills_radar_data);
+
+            // Forcibly show results section
+            if (assessmentFormSection) {
+                assessmentFormSection.style.display = 'none';
+            }
             
-            // Show results section
-            resultsSection.style.display = 'block';
+            if (resultsSection) {
+                resultsSection.style.display = 'block';
+            } else {
+                console.error('Results section element not found');
+            }
             
             // Populate overall score and level
             if (overallScoreElement) {
                 overallScoreElement.textContent = data.overall_score + '%';
+            } else {
+                console.error('Overall score element not found');
             }
             
             if (overallLevelElement) {
                 overallLevelElement.textContent = data.skill_level;
+            } else {
+                console.error('Overall level element not found');
             }
             
             if (overallLevelTextElement) {
                 overallLevelTextElement.textContent = data.skill_level;
+            } else {
+                console.error('Overall level text element not found');
             }
             
             // Populate category results
@@ -303,6 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>${category.description}</p>
                     </div>
                 `).join('');
+            } else {
+                console.error('Category results element not found or no data');
             }
             
             // Populate recommended courses
@@ -314,6 +317,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <a href="${course.link}" class="btn btn-sm btn-outline-primary">Enroll Now</a>
                     </div>
                 `).join('');
+            } else {
+                console.error('Recommended courses element not found or no data');
             }
             
             // Mandatory Radar Chart
@@ -322,33 +327,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Create radar chart using Chart.js
-            const ctx = skillsRadarChartElement.getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: data.skills_radar_data.labels,
-                    datasets: [{
-                        label: 'Skills Assessment',
-                        data: data.skills_radar_data.scores,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scale: {
-                        ticks: {
-                            beginAtZero: true,
-                            max: 100
-                        }
+            if (skillsRadarChartElement) {
+                const ctx = skillsRadarChartElement.getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: data.skills_radar_data.labels,
+                        datasets: [{
+                            label: 'Skills Assessment',
+                            data: data.skills_radar_data.scores,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
                     },
-                    title: {
-                        display: true,
-                        text: 'Skills Radar'
+                    options: {
+                        responsive: true,
+                        scale: {
+                            ticks: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Skills Radar'
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                console.error('Skills radar chart element not found');
+            }
             
             console.log('Assessment submitted successfully:', data);
         })
