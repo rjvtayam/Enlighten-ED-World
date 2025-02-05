@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('skillsAssessmentForm');
     const categories = document.querySelectorAll('.skill-category');
-    const progress = document.querySelector('.progress');
+    const progressBar = document.querySelector('.progress-bar');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
@@ -43,9 +43,84 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Initialize the first category
-    showCategory(0);
-    
+    // Centralized navigation and progress tracking
+    function initNavigation() {
+        const categories = document.querySelectorAll('.skill-category');
+        const progressBar = document.querySelector('.progress-bar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        let currentCategory = 0;
+
+        function updateProgressBar(index) {
+            if (progressBar) {
+                const progressPercentage = ((index + 1) / categories.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                progressBar.setAttribute('aria-valuenow', progressPercentage);
+            }
+        }
+
+        function showCategory(index) {
+            // Hide all categories
+            categories.forEach(cat => {
+                cat.classList.remove('active');
+                cat.style.display = 'none';
+            });
+
+            // Show current category
+            categories[index].classList.add('active');
+            categories[index].style.display = 'block';
+            
+            // Update navigation buttons
+            prevBtn.style.display = index === 0 ? 'none' : 'block';
+            nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
+            submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
+            
+            // Update progress bar
+            updateProgressBar(index);
+        }
+
+        function validateCurrentCategory() {
+            const currentCategory = categories[currentCategory];
+            const requiredInputs = currentCategory.querySelectorAll('input[type="radio"]:required');
+            let isValid = true;
+            
+            requiredInputs.forEach(input => {
+                const name = input.getAttribute('name');
+                const checked = currentCategory.querySelector(`input[name="${name}"]:checked`);
+                if (!checked) {
+                    isValid = false;
+                    alert(`Please rate your ${name.replace(/_/g, ' ')} skill.`);
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Next button handler
+        nextBtn.addEventListener('click', () => {
+            if (validateCurrentCategory()) {
+                currentCategory++;
+                showCategory(currentCategory);
+            }
+        });
+
+        // Previous button handler
+        prevBtn.addEventListener('click', () => {
+            if (currentCategory > 0) {
+                currentCategory--;
+                showCategory(currentCategory);
+            }
+        });
+
+        // Initialize first category
+        showCategory(0);
+    }
+
+    // Call initialization when DOM is loaded
+    initNavigation();
+
     // Handle program selection directly
     programSelect.addEventListener('change', function() {
         const selectedProgram = this.value.toUpperCase(); // Convert to uppercase
@@ -90,30 +165,23 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('selectedMajor').value = selectedMajor;
     });
 
-    function showCategory(index) {
-        categories.forEach(cat => cat.classList.remove('active'));
-        categories[index].classList.add('active');
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        // Update progress
-        progress.style.width = `${((index + 1) / categories.length) * 100}%`;
+        console.log('Form submission initiated');
         
-        // Update buttons
-        prevBtn.style.display = index === 0 ? 'none' : 'block';
-        nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
-        submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
-    }
-    
-    nextBtn.addEventListener('click', function() {
-        // Validate program and major selection first
-        if (!programSelect.value || !majorSelect.value) {
-            alert('Please select your program and major before proceeding.');
+        // Validate all inputs one last time
+        if (!selectedProgramInput.value || !selectedMajorInput.value) {
+            alert('Please select your program and major');
+            programSelect.focus();
             return;
         }
-        
-        // Validate current category (only visible skills)
-        const currentVisibleInputs = categories[currentCategory].querySelectorAll('.skill-item:not(.hidden) input[type="radio"]');
+
+        // Validate all visible inputs across all categories
+        const visibleInputs = form.querySelectorAll('.skill-item:not(.hidden) input[type="radio"]');
         const groups = {};
-        currentVisibleInputs.forEach(input => {
+        visibleInputs.forEach(input => {
             const name = input.getAttribute('name');
             groups[name] = groups[name] || false;
             if (input.checked) groups[name] = true;
@@ -122,86 +190,81 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Input Validation Groups:', groups);
         
         if (Object.values(groups).includes(false)) {
-            alert('Please rate all visible skills in this category before proceeding.');
+            alert('Please rate all skills before submitting.');
             return;
+        }
+
+        // Prepare form data
+        const formData = new FormData(form);
+        
+        // Log form data
+        for (let [key, value] of formData.entries()) {
+            console.log(`FormData - ${key}: ${value}`);
         }
         
-        if (currentCategory < categories.length - 1) {
-            currentCategory++;
-            showCategory(currentCategory);
+        // Disable submit button and show loading
+        submitBtn.disabled = true;
+        const loadingText = submitBtn.querySelector('.loading-text');
+        if (loadingText) {
+            loadingText.style.display = 'inline-block';
+        } else {
+            console.warn('Loading text element not found');
         }
-    });
-    
-    prevBtn.addEventListener('click', function() {
-        if (currentCategory > 0) {
-            currentCategory--;
-            showCategory(currentCategory);
-        }
-    });
-    
-    // Submit button event listener
-    submitBtn.addEventListener('click', function(event) {
-        // Prevent default form submission
-        event.preventDefault();
+        
+        // Log submission details
+        console.log('Submitting assessment with program:', selectedProgramInput.value, 'and major:', selectedMajorInput.value);
 
-        // Validate program selection
-        if (!programSelect.value) {
-            alert('Please select a program.');
-            programSelect.focus();
-            return;
-        }
-
-        // Validate major selection
-        if (!majorSelect.value) {
-            alert('Please select a major.');
-            majorSelect.focus();
-            return;
-        }
-
-        // Validate all skill categories
-        let allCategoriesValid = true;
-        categories.forEach((category) => {
-            const categoryName = category.getAttribute('data-category-name');
-            const currentInputs = category.querySelectorAll('input[type="radio"]');
+        // Submit assessment
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfTokenElement.value,
+                'Accept': 'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
             
-            // Group inputs by their name (skill)
-            const skillGroups = {};
-            currentInputs.forEach(input => {
-                const skillName = input.getAttribute('name');
-                if (!skillGroups[skillName]) {
-                    skillGroups[skillName] = [];
-                }
-                skillGroups[skillName].push(input);
-            });
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            if (loadingText) {
+                loadingText.style.display = 'none';
+            }
+            
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    console.error('Server error response:', errorData);
+                    throw new Error(errorData.message || 'Network response was not ok');
+                }).catch(() => {
+                    throw new Error('Unexpected server error');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Full response data:', data);
 
-            // Check if each skill group has a selection
-            Object.keys(skillGroups).forEach(skillName => {
-                const skillInputs = skillGroups[skillName];
-                const isSkillRated = skillInputs.some(input => input.checked);
-                
-                if (!isSkillRated) {
-                    allCategoriesValid = false;
-                    category.classList.add('error-category');
-                    alert(`Please rate all skills in the ${categoryName} category.`);
-                }
-            });
+            // Validate response data
+            if (!data.success) {
+                throw new Error(data.message || 'Assessment submission failed');
+            }
+            // Handle successful submission
+            alert('Assessment submitted successfully!');
+        })
+        .catch(error => {
+            console.error('Submission error:', error);
+            alert('Error submitting assessment: ' + error.message);
+        })
+        .finally(() => {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            if (loadingText) {
+                loadingText.style.display = 'none';
+            }
         });
 
-        // If validation fails, stop submission
-        if (!allCategoriesValid) {
-            return;
-        }
-
-        // Set hidden input values
-        selectedProgramInput.value = programSelect.value;
-        selectedMajorInput.value = majorSelect.value;
-
-        // Disable submit button to prevent multiple submissions
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-
-        // Submit the form
-        form.submit();
     });
 
     function updateRequiredSkills(program) {
@@ -224,58 +287,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
-    }
-
-    function initNavigation() {
-        const categories = document.querySelectorAll('.skill-category');
-        const progress = document.querySelector('.progress');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        let currentCategory = 0;
-
-        function showCategory(index) {
-            categories.forEach(cat => cat.classList.remove('active'));
-            categories[index].classList.add('active');
-            
-            progress.style.width = `${((index + 1) / categories.length) * 100}%`;
-            
-            prevBtn.style.display = index === 0 ? 'none' : 'block';
-            nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
-            submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
-        }
-
-        // Navigation button handlers
-        nextBtn.addEventListener('click', () => {
-            if (validateCurrentCategory()) {
-                currentCategory++;
-                showCategory(currentCategory);
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentCategory--;
-            showCategory(currentCategory);
-        });
-
-        function validateCurrentCategory() {
-            const currentInputs = categories[currentCategory].querySelectorAll('input[type="radio"]:required');
-            let isValid = true;
-            
-            currentInputs.forEach(input => {
-                const name = input.getAttribute('name');
-                const checked = document.querySelector(`input[name="${name}"]:checked`);
-                if (!checked) {
-                    isValid = false;
-                    alert(`Please rate your ${name.replace(/_/g, ' ')} skill.`);
-                }
-            });
-            
-            return isValid;
-        }
-
-        // Show initial category
-        showCategory(0);
     }
 });
