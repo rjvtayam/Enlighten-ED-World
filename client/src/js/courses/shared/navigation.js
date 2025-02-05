@@ -98,42 +98,29 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Fetch the content dynamically
-        fetch(route)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(html => {
-                // Create a temporary div to parse the HTML
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
+        // Create an iframe to load the content
+        const iframe = document.createElement('iframe');
+        iframe.src = route;
+        iframe.style.width = '100%';
+        iframe.style.border = 'none';
+        iframe.onload = () => {
+            // Adjust iframe height to content
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        };
+        iframe.onerror = (error) => {
+            console.error('Error loading content:', error);
+            contentSection.innerHTML = `
+                <div class="error-message">
+                    <h2>Content Loading Error</h2>
+                    <p>Unable to load the requested content. Please try again later.</p>
+                    <p>Error details: ${error}</p>
+                </div>
+            `;
+        };
 
-                // Extract the main content (adjust selector as needed)
-                const mainContent = tempDiv.querySelector('.course-content') || 
-                                    tempDiv.querySelector('main') || 
-                                    tempDiv.querySelector('.content-section') || 
-                                    tempDiv;
-
-                // Update the content section
-                contentSection.innerHTML = mainContent.innerHTML;
-
-                // Re-initialize any interactive elements
-                initializeAccordions();
-                initializeRadioButtons();
-            })
-            .catch(error => {
-                console.error('Error loading content:', error);
-                contentSection.innerHTML = `
-                    <div class="error-message">
-                        <h2>Content Loading Error</h2>
-                        <p>Unable to load the requested content. Please try again later.</p>
-                        <p>Error details: ${error.message}</p>
-                    </div>
-                `;
-            });
+        // Clear existing content and add iframe
+        contentSection.innerHTML = '';
+        contentSection.appendChild(iframe);
     }
 
     function handleNavLinkClick(event) {
