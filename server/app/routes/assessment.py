@@ -1,7 +1,14 @@
 from flask import Blueprint, jsonify, request, current_app, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from app.extensions import db, csrf
-from app.models.assessment import Assessment, AssessmentCategory, AssessmentSkill, CategoryType, SkillLevel, ProgramType
+from app.models.assessment import (
+    Assessment, 
+    AssessmentCategory, 
+    AssessmentSkill, 
+    CategoryType, 
+    SkillLevel, 
+    ProgramType
+)
 from app.utils.skill_assessment import SkillAssessment
 from datetime import datetime
 from sqlalchemy.exc import SQLAlchemyError

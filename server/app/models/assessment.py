@@ -1,5 +1,26 @@
 from app.extensions import db
 from datetime import datetime
+from enum import Enum, auto
+
+class CategoryType(Enum):
+    """Enumeration of assessment category types"""
+    TECHNICAL = auto()
+    COMMUNICATION = auto()
+    SOFT = auto()
+    CREATIVITY = auto()
+
+class SkillLevel(Enum):
+    """Enumeration of skill levels"""
+    BEGINNER = 'beginner'
+    INTERMEDIATE = 'intermediate'
+    ADVANCED = 'advanced'
+
+class ProgramType(Enum):
+    """Enumeration of program types"""
+    WMAD = 'Web and Mobile Animation Development'
+    AMG = 'Animation And Motion Graphics'
+    NETAD = 'Network Administration'
+    SMP = 'Service Mangement Program'
 
 class Assessment(db.Model):
     __tablename__ = 'assessments'
