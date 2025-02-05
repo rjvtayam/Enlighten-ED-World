@@ -4,46 +4,83 @@ document.addEventListener("DOMContentLoaded", function () {
     const contentSection = document.querySelector(".content-section");
     const initialContent = contentSection.innerHTML; // Store the initial content
 
-    // Mapping of content IDs to their corresponding HTML file paths with full routes
+    // Mapping of content IDs to their corresponding HTML file paths
     const contentRoutes = {
         // Pre and Post Assessments
         "pre-assessment": "/WMAD/beginner/pre-assessment",
         "post-assessment": "/WMAD/beginner/post-assessment",
 
         // Course Introduction
-        "welcome": "/courses/WMAD/beginner", // Points to index page
+        "welcome": "/WMAD/beginner",
         "setup": "/WMAD/beginner/development_setup",
         "web-basics": "/WMAD/beginner/web_basics",
 
         // HTML Fundamentals
         "html-intro": "/WMAD/beginner/intro_html",
         "html-elements": "/WMAD/beginner/basic_elements",
-        "html-forms": "/WMAD/beginner/form_input",
-        "html-media": "/WMAD/beginner/media",
+        "html-forms": "/WMAD/beginner/forms_input",
+        "html-media": "/WMAD/beginner/media_elements",
         "html-quiz": "#", // No actual file for quiz
 
         // CSS Section
         "css-intro": "/WMAD/beginner/intro_css",
-        "css-selectors": "/WMAD/beginner/select_properties",
-        "css-layout": "/WMAD/beginner/layout_box",
+        "css-selectors": "/WMAD/beginner/selectors_properties",
+        "css-layout": "/WMAD/beginner/layout_box_model",
         "css-responsive": "/WMAD/beginner/responsive_design",
-        "css-quiz": "#",
+        "css-quiz": "/WMAD/beginner/css_quiz",
 
         // JavaScript Section
         "js-intro": "/WMAD/beginner/intro_js",
         "js-variables": "/WMAD/beginner/variable",
         "js-control": "/WMAD/beginner/control_flow",
-        "js-functions": "/WMAD/beginner/function",
-        "js-dom": "/WMAD/beginner/dom",
+        "js-functions": "/WMAD/beginner/functions",
+        "js-dom": "/WMAD/beginner/dom_manipulation",
         "js-events": "/WMAD/beginner/events",
-        "js-quiz": "#",
+        "js-quiz": "/WMAD/beginner/quiz_js",
 
         // Projects
         "project-1": "/WMAD/beginner/landingpage",
-        "project-2": "/WMAD/beginner/form_project",
-        "project-3": "/WMAD/beginner/project_review",
-        "project-review": "/WMAD/beginner/project_review"
+        "project-2": "/WMAD/beginner/interactiveform",
+        "project-3": "/WMAD/beginner/todoapp",
+        "project-review": "/WMAD/beginner/projectreview"
     };
+
+    // Accordion Functionality
+    function initializeAccordions() {
+      const accordions = document.querySelectorAll('.accordion');
+      accordions.forEach(accordion => {
+        const header = accordion.querySelector('.accordion-header');
+        const content = accordion.querySelector('.accordion-content');
+        
+        // Set initial state - show prerequisites content
+        content.style.maxHeight = content.scrollHeight + "px";
+        header.classList.add('active');
+        
+        header.addEventListener('click', () => {
+          header.classList.toggle('active');
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          }
+        });
+      });
+    }
+
+    // Radio Button Functionality
+    function initializeRadioButtons() {
+      const radioButtons = document.querySelectorAll('.prerequisite-item input[type="radio"]');
+      radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+          const label = this.closest('.prerequisite-item');
+          if (this.checked) {
+            label.classList.add('checked');
+          } else {
+            label.classList.remove('checked');
+          }
+        });
+      });
+    }
 
     function updateContent(contentId) {
         // If it's the welcome content, use the initial content
@@ -61,35 +98,29 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // If route is a hash or empty, do nothing
-        if (route === '#') {
-            return;
-        }
+        // Create an iframe to load the content
+        const iframe = document.createElement('iframe');
+        iframe.src = route;
+        iframe.style.width = '100%';
+        iframe.style.border = 'none';
+        iframe.onload = () => {
+            // Adjust iframe height to content
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        };
+        iframe.onerror = (error) => {
+            console.error('Error loading content:', error);
+            contentSection.innerHTML = `
+                <div class="error-message">
+                    <h2>Content Loading Error</h2>
+                    <p>Unable to load the requested content. Please try again later.</p>
+                    <p>Error details: ${error}</p>
+                </div>
+            `;
+        };
 
-        // Fetch the content
-        fetch(route)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(html => {
-                contentSection.innerHTML = html;
-                // Re-run any necessary setup for the new content
-                initializeAccordions();
-                initializeRadioButtons();
-            })
-            .catch(error => {
-                console.error('Error loading content:', error);
-                contentSection.innerHTML = `
-                    <div class="error-message">
-                        <h2>Content Loading Error</h2>
-                        <p>Unable to load the requested content. Please try again later.</p>
-                        <p>Error details: ${error}</p>
-                    </div>
-                `;
-            });
+        // Clear existing content and add iframe
+        contentSection.innerHTML = '';
+        contentSection.appendChild(iframe);
     }
 
     function handleNavLinkClick(event) {
@@ -102,66 +133,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleNavGroupHeaderClick(event) {
-        const group = event.target.closest('.nav-group');
-        group.classList.toggle('active');
-    }
-
-    // Accordion Functionality
-    function initializeAccordions() {
-        const accordions = document.querySelectorAll('.accordion');
-        accordions.forEach(accordion => {
-            const header = accordion.querySelector('.accordion-header');
-            const content = accordion.querySelector('.accordion-content');
-            
-            header.addEventListener('click', () => {
-                accordion.classList.toggle('active');
-                
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
+        const header = event.currentTarget;
+        const group = header.parentElement;
+        group.classList.toggle("expanded");
+        navGroups.forEach((otherGroup) => {
+            if (otherGroup !== group && otherGroup.classList.contains("expanded")) {
+                otherGroup.classList.remove("expanded");
+            }
         });
     }
-
-    // Radio Button Functionality
-    function initializeRadioButtons() {
-        const radioGroups = document.querySelectorAll('.radio-group');
-        radioGroups.forEach(group => {
-            const radios = group.querySelectorAll('input[type="radio"]');
-            radios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    radios.forEach(r => r.closest('.radio-option').classList.remove('selected'));
-                    radio.closest('.radio-option').classList.add('selected');
-                });
-            });
-        });
-    }
-
-    // Initialize functionality
-    initializeAccordions();
-    initializeRadioButtons();
 
     // Add event listeners
     navLinks.forEach((link) => {
         link.addEventListener("click", handleNavLinkClick);
     });
 
-    navGroups.forEach((group) => {
-        const header = group.querySelector('.nav-group-header');
-        if (header) {
-            header.addEventListener('click', handleNavGroupHeaderClick);
-        }
+    const navGroupHeaders = document.querySelectorAll(".nav-group-header");
+    navGroupHeaders.forEach((header) => {
+        header.addEventListener("click", handleNavGroupHeaderClick);
     });
 
     // Initialize first link, accordion, and radio buttons
-    if (navLinks.length > 0) {
-        navLinks.forEach((link) => link.classList.remove("active"));
+    function initializeFirstLink() {
         const firstLink = document.querySelector(".nav-link[data-content='welcome']");
         if (firstLink) {
-            firstLink.classList.add("active");
             updateContent("welcome");
         }
     }
+
+    // Initialize accordions and radio buttons on page load
+    initializeAccordions();
+    initializeRadioButtons();
+    initializeFirstLink();
 });
