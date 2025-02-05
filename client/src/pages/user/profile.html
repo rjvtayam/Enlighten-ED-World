@@ -2,6 +2,10 @@
 
 {% block title %}{{ user_profile.full_name|default(user_data.username) }} - Profile{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/profile.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="notification-container" id="notificationContainer"></div>
 
@@ -544,12 +548,6 @@
     <!-- Edit Modals -->
     {% include 'user/account_modal.html' %}
     {% include 'user/user_modal.html' %}
-
-    <!-- Add loading placeholder -->
-    <div class="loading-placeholder" id="contentLoading">
-        <div class="loading-spinner"></div>
-        <p>Loading your profile...</p>
-    </div>
 {% else %}
     <div class="error-message">
         <h2>Error Loading Profile</h2>
@@ -557,9 +555,6 @@
         <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Return to Dashboard</a>
     </div>
 {% endif %}
-
-{% block extra_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/profile.css') }}">
 {% endblock %}
 
 {% block scripts %}
