@@ -4,19 +4,19 @@ from app.models.assessment import SkillLevel, Assessment
 
 wmad = Blueprint('wmad', __name__)
 
-@wmad.route('/courses/wmad/beginner')
+@wmad.route('/courses/WMAD/beginner')
 @login_required
 def wmad_beginner():
     """Render WMAD beginner course index and templates"""
     return render_template('courses/WMAD/beginner/index.html')
 
-@wmad.route('/courses/wmad/intermediate')
+@wmad.route('/courses/WMAD/intermediate')
 @login_required
 def wmad_intermediate():
     """Render WMAD intermediate course index and templates"""
     return render_template('courses/WMAD/intermediate/index.html')
 
-@wmad.route('/courses/wmad/advanced')
+@wmad.route('/courses/WMAD/advanced')
 @login_required
 def wmad_advanced():
     """Render WMAD advanced course index and templates"""

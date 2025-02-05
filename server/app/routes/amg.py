@@ -3,19 +3,19 @@ from flask_login import login_required
 
 amg = Blueprint('amg', __name__)
 
-@amg.route('/courses/amg/beginner')
+@amg.route('/courses/AMG/beginner')
 @login_required
 def amg_beginner():
     """Render AMG beginner course index and templates"""
     return render_template('courses/AMG/beginner/index.html')
 
-@amg.route('/courses/amg/intermediate')
+@amg.route('/courses/AMG/intermediate')
 @login_required
 def amg_intermediate():
     """Render AMG intermediate course index and templates"""
     return render_template('courses/AMG/intermediate/index.html')
 
-@amg.route('/courses/amg/advanced')
+@amg.route('/courses/AMG/advanced')
 @login_required
 def amg_advanced():
     """Render AMG advanced course index and templates"""
