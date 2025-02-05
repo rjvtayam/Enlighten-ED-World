@@ -246,9 +246,24 @@ document.addEventListener('DOMContentLoaded', function() {
                                 const courseCard = document.createElement('div');
                                 courseCard.classList.add('course-card');
                                 courseCard.innerHTML = `
-                                    <h3>${course.name}</h3>
-                                    <p>Level: ${course.level}</p>
-                                    <a href="${course.url}" class="btn btn-primary">View Course Details</a>
+                                    <div class="course-card-header">
+                                        <img src="${course.icon}" alt="${course.name} icon" class="course-icon">
+                                        <h3>${course.name}</h3>
+                                    </div>
+                                    <div class="course-card-body">
+                                        <p class="course-description">${course.description}</p>
+                                        <div class="course-meta">
+                                            <span class="course-code">Code: ${course.code}</span>
+                                            <span class="course-difficulty">Difficulty: ${course.difficulty}</span>
+                                            ${course.duration ? `<span class="course-duration">Duration: ${course.duration}</span>` : ''}
+                                        </div>
+                                    </div>
+                                    <div class="course-card-footer">
+                                        <a href="${course.url}" class="btn btn-primary">
+                                            View Course Catalog
+                                            <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                    </div>
                                 `;
                                 recommendedCoursesContainer.appendChild(courseCard);
                             });

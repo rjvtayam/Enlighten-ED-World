@@ -20,6 +20,7 @@ from datetime import date
 import os
 from functools import lru_cache
 from pathlib import Path
+import json
 
 assessment = Blueprint('assessment', __name__, url_prefix='/assessment')
 skill_assessor = SkillAssessment()
@@ -567,17 +568,33 @@ def get_recommended_courses():
             level_path = courses_base_path / level
             
             if level_path.exists():
-                # Get all HTML files in the level directory
-                course_files = list(level_path.glob('*.html'))
+                # Look for a metadata file or use directory structure
+                metadata_file = level_path / 'course_metadata.json'
                 
-                for course_file in course_files:
-                    # Extract course details from filename or content
-                    course_name = course_file.stem
+                if metadata_file.exists():
+                    # If a metadata file exists, use it
+                    with open(metadata_file, 'r') as f:
+                        course_metadata = json.load(f)
+                    
+                    for course_name, course_details in course_metadata.items():
+                        recommended_courses.append({
+                            'code': course_name.upper(),
+                            'name': course_details.get('name', course_name.replace('_', ' ').title()),
+                            'description': course_details.get('description', 'No description available'),
+                            'duration': course_details.get('duration', 'Varies'),
+                            'difficulty': level.capitalize(),
+                            'url': f'/courses/{program.lower()}/{major.lower()}/{level}',
+                            'icon': course_details.get('icon', '/static/icons/default-course.svg')
+                        })
+                else:
+                    # Fallback to simple course listing
                     recommended_courses.append({
-                        'code': course_name.upper(),
-                        'name': course_name.replace('_', ' ').title(),
-                        'level': level.capitalize(),
-                        'url': f'/courses/{program.lower()}/{major.lower()}/{level}/{course_name}'
+                        'code': major,
+                        'name': f'{major} Courses',
+                        'description': f'Comprehensive {level.capitalize()} level courses for {major}',
+                        'difficulty': level.capitalize(),
+                        'url': f'/courses/{program.lower()}/{major.lower()}/{level}',
+                        'icon': '/static/icons/default-course-catalog.svg'
                     })
         
         # Log and return results
