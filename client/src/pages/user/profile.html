@@ -1,0 +1,567 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user_profile.full_name|default(user_data.username) }} - Profile{% endblock %}
+
+{% block content %}
+<div class="notification-container" id="notificationContainer"></div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+{% if user_profile %}
+    <div class="profile-container">
+        <!-- Cover Photo Section -->
+        <div class="profile-header">
+            <div class="cover-photo" {% if user_profile.cover_image_url %}style="background-image: url('{{ url_for('static', filename='uploads/' + user_profile.cover_image_url) }}')"{% endif %}>
+                <div class="cover-photo-overlay"></div>
+                <button class="edit-cover-btn" onclick="document.getElementById('coverInput').click()">
+                    <i class="fas fa-camera"></i> Change Cover
+                </button>
+                <form id="coverForm" style="display: none;">
+                    <input type="file" id="coverInput" name="cover" accept="image/jpeg,image/png,image/gif">
+                </form>
+            </div>
+
+            <!-- Profile Info Section -->
+            <div class="profile-info-container">
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar">
+                        {% if user_profile.profile_avatar %}
+                            <img src="{{ url_for('static', filename='uploads/' + user_profile.profile_avatar) }}" alt="Profile Picture">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='images/default-avatar.png') }}" alt="Default Avatar">
+                        {% endif %}
+                        <button class="edit-avatar-btn" onclick="document.getElementById('avatarInput').click()">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <form id="avatarForm" style="display: none;">
+                            <input type="file" id="avatarInput" name="avatar" accept="image/jpeg,image/png,image/gif">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Basic Profile Information Form -->
+                <form id="basicProfileForm" action="{{ url_for('update_profile') }}" method="POST" class="profile-info-form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="full_name" 
+                               value="{{ user_profile.full_name }}" 
+                               required 
+                               placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" 
+                               value="{{ user_data.email }}" 
+                               required 
+                               placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" name="bio" 
+                                  placeholder="Tell us about yourself"
+                                  maxlength="500">{{ user_profile.bio }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+
+                <div class="profile-info">
+                    <div class="profile-name-section">
+                        <div class="name-and-role">
+                            <h1>
+                                {{ user_data.full_name|default(user_data.username) }}
+                                <span class="user-role {{ user_data.user_type }}">
+                                    <i class="fas {{ 'fa-user-graduate' if user_data.user_type == 'student' else 'fa-chalkboard-teacher' }}"></i>
+                                    {{ user_data.role }}
+                                </span>
+                            </h1>
+                            <p class="email">{{ user_data.email }}</p>
+                        </div>
+                        <p class="headline">{{ user_profile.headline|default('Learning Enthusiast') }}</p>
+                        {% if user_profile.location %}
+                            <p class="location">
+                                <i class="fas fa-map-marker-alt"></i> {{ user_profile.location }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">{{ enrolled_courses|length }}</span>
+                            <span class="stat-label">Courses</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ completed_courses|length }}</span>
+                            <span class="stat-label">Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ certificates|length }}</span>
+                            <span class="stat-label">Certificates</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ user_profile.total_study_hours|default(0) }}</span>
+                            <span class="stat-label">Study Hours</span>
+                        </div>
+                    </div>
+
+                    <!-- Add Bio Section -->
+                    <div class="bio-section">
+                        <div class="bio-header">
+                            <h3>Bio</h3>
+                            <button class="edit-bio-btn" onclick="toggleBioEdit()">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="bio-content" id="bioDisplay">
+                            {{ user_profile.bio|default('No bio added yet.')|safe }}
+                        </div>
+                        <div class="bio-edit" id="bioEdit" style="display: none;">
+                            <textarea id="bioText" class="bio-textarea">{{ user_profile.bio|default('') }}</textarea>
+                            <div class="bio-actions">
+                                <button class="btn btn-primary" onclick="saveBio()">Save</button>
+                                <button class="btn btn-outline" onclick="cancelBioEdit()">Cancel</button>
+                                {% if user_profile.bio %}
+                                <button class="btn btn-danger" onclick="deleteBio()">Delete</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        {% if user_profile.github_url %}
+                            <a href="{{ user_profile.github_url }}" target="_blank" class="social-link github">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        {% endif %}
+                        {% if user_profile.linkedin_url %}
+                            <a href="{{ user_profile.linkedin_url }}" target="_blank" class="social-link linkedin">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        {% endif %}
+                        {% if user_profile.twitter_url %}
+                            <a href="{{ user_profile.twitter_url }}" target="_blank" class="social-link twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        {% endif %}
+                        {% if user_profile.website %}
+                            <a href="{{ user_profile.website }}" target="_blank" class="social-link website">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="edit-profile-btn" onclick="openEditModal('basic')">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Tabs -->
+        <div class="profile-content">
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="courses">Courses</button>
+                <button class="tab-btn" data-tab="achievements">Achievements</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-content-container">
+                <!-- Overview Tab -->
+                <div class="tab-content active" id="overview">
+                    <!-- About Section -->
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h2>About</h2>
+                            <button class="edit-btn" onclick="openEditModal('about')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="section-content">
+                            {{ user_profile.bio|default('No bio added yet.')|safe }}
+                        </div>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h2>Skills</h2>
+                            <button class="edit-btn" onclick="openEditModal('skills')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="skills-grid">
+                            {% if user_profile.skills %}
+                                {% for skill in user_profile.skills|json_loads %}
+                                    <div class="skill-tag" data-tooltip="Click to view details">
+                                        <span>{{ skill.name }}</span>
+                                        {% if skill.level %}
+                                            <span class="skill-level {{ skill.level|lower }}">{{ skill.level }}</span>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="no-content">No skills added yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Education Section -->
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h2>Education</h2>
+                            <button class="edit-btn" onclick="openEditModal('education')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="education-list">
+                            {% if user_profile.education %}
+                                {% for edu in user_profile.education|json_loads %}
+                                    <div class="education-item">
+                                        <div class="edu-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <div class="edu-details">
+                                            <h3>{{ edu.school }}</h3>
+                                            <p class="degree">{{ edu.degree }} in {{ edu.field }}</p>
+                                            <p class="date">{{ edu.start_date }} - {{ edu.end_date|default('Present') }}</p>
+                                            {% if edu.grade %}
+                                                <p class="grade">Grade: {{ edu.grade }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="no-content">No education history added yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Experience Section -->
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h2>Experience</h2>
+                            <button class="edit-btn" onclick="openEditModal('experience')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="experience-list">
+                            {% if user_profile.experience %}
+                                {% for exp in user_profile.experience|json_loads %}
+                                    <div class="experience-item">
+                                        <div class="exp-icon">
+                                            <i class="fas fa-briefcase"></i>
+                                        </div>
+                                        <div class="exp-details">
+                                            <h3>{{ exp.title }}</h3>
+                                            <p class="company">{{ exp.company }}</p>
+                                            <p class="date">{{ exp.start_date }} - {{ exp.end_date|default('Present') }}</p>
+                                            <p class="description">{{ exp.description }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="no-content">No experience added yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Courses Tab -->
+                <div class="tab-content" id="courses">
+                    <div class="courses-grid">
+                        <!-- Active Courses -->
+                        <div class="content-section">
+                            <h2>Active Courses</h2>
+                            <div class="course-cards">
+                                {% for course in enrolled_courses %}
+                                {% if course.status == 'active' %}
+                                <div class="course-card">
+                                    <div class="course-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress"></div>
+                                        </div>
+                                        <span class="progress-text">course Complete</span>
+                                    </div>
+                                    <h3>{{ course.title }}</h3>
+                                    <p>{{ course.description }}</p>
+                                    <div class="course-meta">
+                                        <span><i class="fas fa-clock"></i>course.duration</span>
+                                        <span><i class="fas fa-calendar"></i>course.start_date</span>
+                                    </div>
+                                    <div class="course-actions">
+                                        <a href="{{ url_for('course_details', course_id=course.id) }}" class="btn btn-primary">Continue Learning</a>
+                                        <button class="btn btn-outline" onclick="course">Update Progress</button>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Completed Courses -->
+                        <div class="content-section">
+                            <h2>Completed Courses</h2>
+                            <div class="course-cards">
+                                {% for course in completed_courses %}
+                                <div class="course-card completed">
+                                    <div class="completion-badge">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <h3>{{ course.title }}</h3>
+                                    <p>{{ course.description }}</p>
+                                    <div class="course-meta">
+                                        <span><i class="fas fa-trophy"></i> Completed</span>
+                                        <span><i class="fas fa-star"></i> {{ course.grade|default('Pass') }}</span>
+                                    </div>
+                                    <div class="course-actions">
+                                        <a href="{{ url_for('course_details', course_id=course.id) }}" class="btn btn-outline">Review Course</a>
+                                        {% if course.has_certificate %}
+                                        <a href="{{ url_for('download_certificate', course_id=course.id) }}" class="btn btn-primary">
+                                            <i class="fas fa-certificate"></i> View Certificate
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Tab -->
+                <div class="tab-content" id="achievements">
+                    <div class="achievements-container">
+                        <!-- Certificates Section -->
+                        <div class="content-section">
+                            <h2>Certificates</h2>
+                            <div class="certificates-grid">
+                                {% for cert in certificates %}
+                                <div class="certificate-card">
+                                    <div class="certificate-icon">
+                                        <i class="fas fa-certificate"></i>
+                                    </div>
+                                    <div class="certificate-info">
+                                        <h3>{{ cert.title }}</h3>
+                                        <p>{{ cert.description }}</p>
+                                        <span class="cert-date">Awarded: {{ cert.date_awarded }}</span>
+                                    </div>
+                                    <div class="certificate-actions">
+                                        <a href="{{ cert.certificate_url }}" class="btn btn-outline" target="_blank">
+                                            <i class="fas fa-download"></i> Download
+                                        </a>
+                                        <a href="{{ cert.verify_url }}" class="btn btn-outline" target="_blank">
+                                            <i class="fas fa-check-circle"></i> Verify
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Badges Section -->
+                        <div class="content-section">
+                            <h2>Badges & Achievements</h2>
+                            <div class="badges-grid">
+                                {% if user_profile.achievements %}
+                                    {% for achievement in user_profile.achievements|json_loads %}
+                                    <div class="badge-card {{ 'unlocked' if achievement.unlocked }}">
+                                        <div class="badge-icon">
+                                            <i class="fas {{ achievement.icon }}"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <h3>{{ achievement.title }}</h3>
+                                            <p>{{ achievement.description }}</p>
+                                            {% if achievement.unlocked %}
+                                            <span class="unlock-date">Unlocked {{ achievement.unlock_date }}</span>
+                                            {% else %}
+                                            <div class="progress-bar">
+                                                <div class="progress achievement"></div>
+                                            </div>
+                                            <span class="progress-text">achievement progressComplete</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="no-content">No achievements yet. Keep learning to earn badges!</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings">
+                    <div class="settings-container">
+                        <!-- Account Settings -->
+                        <div class="content-section">
+                            <h2>Account Settings</h2>
+                            <form class="settings-form" id="accountSettingsForm">
+                                <input type="hidden" name="update_type" value="account">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" value="{{ user_data.email }}" disabled>
+                                    <button type="button" class="btn btn-outline" onclick="openEditModal('changeEmail')">
+                                        Change Email
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" value="********" disabled>
+                                    <button type="button" class="btn btn-outline" onclick="openEditModal('changePassword')">
+                                        Change Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Notification Preferences -->
+                        <div class="content-section">
+                            <h2>Notification Settings</h2>
+                            <form class="settings-form" id="notificationSettingsForm">
+                                <input type="hidden" name="update_type" value="preferences">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                
+                                {% set preferences = user_profile.preferences|json_loads %}
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="email_notifications" 
+                                               {% if preferences.email_notifications %}checked{% endif %}>
+                                        Email Notifications
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="course_updates" 
+                                               {% if preferences.course_updates %}checked{% endif %}>
+                                        Course Updates
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="achievement_alerts" 
+                                               {% if preferences.achievement_alerts %}checked{% endif %}>
+                                        Achievement Alerts
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Save Preferences</button>
+                            </form>
+                        </div>
+
+                        <!-- Privacy Settings -->
+                        <div class="content-section">
+                            <h2>Privacy Settings</h2>
+                            <form class="settings-form" id="privacySettingsForm">
+                                <input type="hidden" name="update_type" value="privacy">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                
+                                {% set visibility = user_profile.visibility_settings|json_loads %}
+                                <div class="form-group">
+                                    <label>Profile Visibility</label>
+                                    <select name="profile_visibility">
+                                        <option value="public" {% if visibility.profile == 'public' %}selected{% endif %}>Public</option>
+                                        <option value="private" {% if visibility.profile == 'private' %}selected{% endif %}>Private</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Show Email</label>
+                                    <select name="email_visibility">
+                                        <option value="public" {% if visibility.email == 'public' %}selected{% endif %}>Public</option>
+                                        <option value="private" {% if visibility.email == 'private' %}selected{% endif %}>Private</option>
+                                    </select>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Save Privacy Settings</button>
+                            </form>
+                        </div>
+
+                        <!-- Danger Zone -->
+                        <div class="content-section danger-zone">
+                            <h2>Danger Zone</h2>
+                            <div class="danger-actions">
+                                <div class="danger-action">
+                                    <div class="action-info">
+                                        <h3>Export Your Data</h3>
+                                        <p>Download a copy of all your data</p>
+                                    </div>
+                                    <button class="btn btn-outline" onclick="exportUserData()">
+                                        Export Data
+                                    </button>
+                                </div>
+                                
+                                <div class="danger-action">
+                                    <div class="action-info">
+                                        <h3>Deactivate Account</h3>
+                                        <p>Temporarily disable your account</p>
+                                    </div>
+                                    <button class="btn btn-warning" onclick="deactivateAccount()">
+                                        Deactivate
+                                    </button>
+                                </div>
+                                
+                                <div class="danger-action">
+                                    <div class="action-info">
+                                        <h3>Delete Account</h3>
+                                        <p>Permanently delete your account and all data</p>
+                                    </div>
+                                    <button class="btn btn-danger" onclick="deleteAccount()">
+                                        Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modals -->
+    {% include 'user/account_modal.html' %}
+    {% include 'user/user_modal.html' %}
+
+    <!-- Add loading placeholder -->
+    <div class="loading-placeholder" id="contentLoading">
+        <div class="loading-spinner"></div>
+        <p>Loading your profile...</p>
+    </div>
+{% else %}
+    <div class="error-message">
+        <h2>Error Loading Profile</h2>
+        <p>There was an error loading your profile. Please try refreshing the page or contact support if the problem persists.</p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Return to Dashboard</a>
+    </div>
+{% endif %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/profile.css') }}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/user/profile.js') }}"></script>
+{% endblock %}

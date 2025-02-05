@@ -21,7 +21,7 @@ def profile():
         'user_type': 'student',  # You can modify this based on your user model
         'role': 'Student'  # You can modify this based on your user model
     }
-    return render_template('profile.html', 
+    return render_template('user/profile.html', 
                          user_data=user_data,
                          user_profile={},
                          enrolled_courses=[],

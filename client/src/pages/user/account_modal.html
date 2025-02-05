@@ -1,0 +1,141 @@
+<!-- Change Email Modal -->
+<div id="changeEmailModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Change Email Address</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="changeEmailForm" action="{{ url_for('change_email') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="update_type" value="email">
+            
+            <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" name="current_password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>New Email Address</label>
+                <input type="email" name="new_email" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Confirm New Email Address</label>
+                <input type="email" name="confirm_email" required>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('changeEmail')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Update Email</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Change Password</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="changePasswordForm" action="{{ url_for('change_password') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="update_type" value="password">
+            
+            <div class="form-group">
+                <label>Current Password</label>
+                <div class="password-input">
+                    <input type="password" name="current_password" required>
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>New Password</label>
+                <div class="password-input">
+                    <input type="password" name="new_password" required 
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                           title="Password must be at least 8 characters long and include both letters and numbers">
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="password-strength">
+                    <div class="strength-bar"></div>
+                    <span class="strength-text"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <div class="password-input">
+                    <input type="password" name="confirm_password" required>
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('changePassword')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Update Password</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Two-Factor Authentication Modal -->
+<div id="setup2FAModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Setup Two-Factor Authentication</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="setup-steps">
+                <div class="step active" id="step1">
+                    <h4>1. Scan QR Code</h4>
+                    <div class="qr-container">
+                        <img id="qrCode" src="" alt="QR Code">
+                    </div>
+                    <p>Scan this QR code with your authenticator app</p>
+                    <div class="manual-code">
+                        <label>Or enter this code manually:</label>
+                        <code id="secretKey"></code>
+                        <button class="btn btn-outline btn-sm" onclick="copySecretKey()">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="step" id="step2">
+                    <h4>2. Verify Code</h4>
+                    <form id="verify2FAForm" action="{{ url_for('verify_2fa') }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="form-group">
+                            <label>Enter the 6-digit code from your authenticator app</label>
+                            <input type="text" name="verification_code" 
+                                   pattern="[0-9]{6}" maxlength="6" required
+                                   placeholder="000000">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Verify & Enable 2FA</button>
+                    </form>
+                </div>
+                
+                <div class="step" id="step3">
+                    <h4>3. Save Recovery Codes</h4>
+                    <div class="recovery-codes">
+                        <p>Save these recovery codes in a secure place. You can use them to access your account if you lose your authenticator device.</p>
+                        <div class="codes-container" id="recoveryCodes"></div>
+                        <button class="btn btn-outline" onclick="downloadRecoveryCodes()">
+                            <i class="fas fa-download"></i> Download Codes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

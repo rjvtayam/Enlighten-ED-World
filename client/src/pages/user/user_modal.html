@@ -1,0 +1,237 @@
+<!-- Basic Info Modal -->
+<div class="modal" id="basicInfoModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Basic Information</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="basicInfoForm">
+            <input type="hidden" name="update_type" value="basic">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" value="{{ user_profile.full_name }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Headline</label>
+                <input type="text" name="headline" value="{{ user_profile.headline }}">
+            </div>
+            
+            <div class="form-group">
+                <label>Bio</label>
+                <textarea name="bio" rows="4">{{ user_profile.bio }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" value="{{ user_profile.location }}">
+            </div>
+            
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" name="phone" value="{{ user_profile.phone }}">
+            </div>
+            
+            <div class="form-group">
+                <label>Website</label>
+                <input type="url" name="website" value="{{ user_profile.website }}">
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('basicInfo')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Social Links Modal -->
+<div class="modal" id="socialLinksModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Social Links</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="socialLinksForm">
+            <input type="hidden" name="update_type" value="social">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="form-group">
+                <label><i class="fab fa-github"></i> GitHub</label>
+                <input type="url" name="github_url" value="{{ user_profile.github_url }}">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fab fa-linkedin"></i> LinkedIn</label>
+                <input type="url" name="linkedin_url" value="{{ user_profile.linkedin_url }}">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fab fa-twitter"></i> Twitter</label>
+                <input type="url" name="twitter_url" value="{{ user_profile.twitter_url }}">
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('socialLinks')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Skills Modal -->
+<div class="modal" id="skillsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Skills</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="skillsForm">
+            <input type="hidden" name="update_type" value="skills">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="skills-editor">
+                <div class="skills-input">
+                    <input type="text" id="skillInput" placeholder="Add a skill...">
+                    <select id="skillLevel">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                    <button type="button" class="btn btn-outline" onclick="addSkill()">Add</button>
+                </div>
+                <div class="skills-list" id="skillsList">
+                    {% if user_profile.skills %}
+                        {% for skill in user_profile.skills|json_loads %}
+                            <div class="skill-item" data-name="{{ skill.name }}" data-level="{{ skill.level }}">
+                                <span>{{ skill.name }} - {{ skill.level }}</span>
+                                <button type="button" class="remove-skill" onclick="removeSkill(this)">&times;</button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('skills')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Education Modal -->
+<div class="modal" id="educationModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Education</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="educationForm">
+            <input type="hidden" name="update_type" value="education">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div id="educationList">
+                {% if user_profile.education %}
+                    {% for edu in user_profile.education|json_loads %}
+                        <div class="education-entry">
+                            <div class="form-group">
+                                <label>School</label>
+                                <input type="text" name="school[]" value="{{ edu.school }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Degree</label>
+                                <input type="text" name="degree[]" value="{{ edu.degree }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Field of Study</label>
+                                <input type="text" name="field[]" value="{{ edu.field }}" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" name="start_date[]" value="{{ edu.start_date }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date" name="end_date[]" value="{{ edu.end_date }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Grade</label>
+                                <input type="text" name="grade[]" value="{{ edu.grade }}">
+                            </div>
+                            <button type="button" class="remove-entry" onclick="removeEducation(this)">&times;</button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <button type="button" class="btn btn-outline" onclick="addEducation()">Add Education</button>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('education')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Experience Modal -->
+<div class="modal" id="experienceModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Experience</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form class="modal-form" id="experienceForm">
+            <input type="hidden" name="update_type" value="experience">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div id="experienceList">
+                {% if user_profile.experience %}
+                    {% for exp in user_profile.experience|json_loads %}
+                        <div class="experience-entry">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" name="title[]" value="{{ exp.title }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" name="company[]" value="{{ exp.company }}" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" name="start_date[]" value="{{ exp.start_date }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date" name="end_date[]" value="{{ exp.end_date }}">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="current[]" {% if exp.current %}checked{% endif %}>
+                                        Current Position
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description[]" rows="3">{{ exp.description }}</textarea>
+                            </div>
+                            <button type="button" class="remove-entry" onclick="removeExperience(this)">&times;</button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <button type="button" class="btn btn-outline" onclick="addExperience()">Add Experience</button>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('experience')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div> 
