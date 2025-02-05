@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction to HTML</title>
-    <link rel="stylesheet" href="intro_html.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/intro_html.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -146,6 +146,6 @@ Examples:
         </section>
     </div>
 
-    <script src="intro_html.js"></script>
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/intro_html.js') }}"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction to JavaScript</title>
-    <link rel="stylesheet" href="intro_js.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/intro_js.css') }}">
 </head>
 <body>
     <div class="container">
@@ -368,6 +368,6 @@ function addTask() {
                 </div>
             </div>
         </section>
-    <script src="intro_js.js"></script>
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/intro_js.js') }}"></script>
 </body>
 </html>

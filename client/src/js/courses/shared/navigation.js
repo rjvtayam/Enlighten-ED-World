@@ -3,7 +3,48 @@ document.addEventListener("DOMContentLoaded", function () {
     const navGroups = document.querySelectorAll(".nav-group");
     const contentSection = document.querySelector(".content-section");
     const initialContent = contentSection.innerHTML; // Store the initial content
-  
+
+    // Mapping of content IDs to their corresponding routes
+    const contentRoutes = {
+        // Pre and Post Assessments
+        "pre-assessment": "/WMAD/beginner/pre-assessment",
+        "post-assessment": "/WMAD/beginner/post-assessment",
+
+        // Course Introduction
+        "welcome": "/courses/wmad/beginner",
+        "setup": "/courses/wmad/beginner/development-setup",
+        "web-basics": "/courses/wmad/beginner/web-basics",
+
+        // HTML Fundamentals
+        "html-intro": "/courses/wmad/beginner/intro-html",
+        "html-elements": "/courses/wmad/beginner/basic-elements",
+        "html-forms": "/courses/wmad/beginner/form-input",
+        "html-media": "/courses/wmad/beginner/media",
+        "html-quiz": "/courses/wmad/beginner/html-quiz",
+
+        // CSS Section
+        "css-intro": "/courses/wmad/beginner/intro-css",
+        "css-selectors": "/courses/wmad/beginner/select-properties",
+        "css-layout": "/courses/wmad/beginner/layout-box",
+        "css-responsive": "/courses/wmad/beginner/responsive-design",
+        "css-quiz": "/courses/wmad/beginner/css-quiz",
+
+        // JavaScript Section
+        "js-intro": "/courses/wmad/beginner/intro-js",
+        "js-variables": "/courses/wmad/beginner/variable",
+        "js-control": "/courses/wmad/beginner/control-flow",
+        "js-functions": "/courses/wmad/beginner/function",
+        "js-dom": "/courses/wmad/beginner/dom",
+        "js-events": "/courses/wmad/beginner/events",
+        "js-quiz": "/courses/wmad/beginner/js-quiz",
+
+        // Projects
+        "project-1": "/courses/wmad/beginner/landingpage",
+        "project-2": "/courses/wmad/beginner/form-project",
+        "project-3": "/courses/wmad/beginner/todoapp",
+        "project-review": "/courses/wmad/beginner/project-review"
+    };
+
     // Accordion Functionality
     function initializeAccordions() {
       const accordions = document.querySelectorAll('.accordion');
@@ -25,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     }
-  
+
     // Radio Button Functionality
     function initializeRadioButtons() {
       const radioButtons = document.querySelectorAll('.prerequisite-item input[type="radio"]');
@@ -40,9 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     }
-  
+
     function updateContent(contentId) {
-        // Preserve the existing welcome content logic
+        // If it's the welcome content, use the initial content
         if (contentId === "welcome") {
             contentSection.innerHTML = initialContent;
             initializeAccordions();
@@ -50,175 +91,92 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Mapping of content IDs to their corresponding HTML file paths
-        const contentMap = {
-            // Pre and Post Assessments
-            "pre-assessment": `
-                <iframe src="/wmad/WMAD/beginner/pre-assessment" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "post-assessment": `
-                <iframe src="/wmad/WMAD/beginner/post-assessment" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-
-            // Course Introduction
-            "welcome": `
-                <iframe src="/pages/courses/WMAD/beginner/index.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "setup": `
-                <iframe src="/pages/courses/WMAD/beginner/development_setup.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "web-basics": `
-                <iframe src="/pages/courses/WMAD/beginner/web_basics.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-
-            // HTML Fundamentals
-            "html-intro": `
-                <iframe src="/pages/courses/WMAD/beginner/intro_html.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "html-elements": `
-                <iframe src="/pages/courses/WMAD/beginner/basic_elements.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "html-forms": `
-                <iframe src="/pages/courses/WMAD/beginner/form_input.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "html-media": `
-                <iframe src="/pages/courses/WMAD/beginner/media.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "html-quiz": `
-                <iframe src="/pages/courses/WMAD/beginner/html_quiz.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-
-            // CSS Section
-            "css-intro": `
-                <iframe src="/pages/courses/WMAD/beginner/intro_css.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "css-selectors": `
-                <iframe src="/pages/courses/WMAD/beginner/select_properties.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "css-layout": `
-                <iframe src="/pages/courses/WMAD/beginner/layout_box.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "css-responsive": `
-                <iframe src="/pages/courses/WMAD/beginner/responsive_design.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "css-quiz": `
-                <iframe src="/pages/courses/WMAD/beginner/css_quiz.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-
-            // JavaScript Section
-            "js-intro": `
-                <iframe src="/pages/courses/WMAD/beginner/intro_js.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "js-variables": `
-                <iframe src="/pages/courses/WMAD/beginner/variable.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "js-control": `
-                <iframe src="/pages/courses/WMAD/beginner/control_flow.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "js-functions": `
-                <iframe src="/pages/courses/WMAD/beginner/function.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "js-dom": `
-                <iframe src="/pages/courses/WMAD/beginner/dom.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "js-events": `
-                <iframe src="/pages/courses/WMAD/beginner/events.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "js-quiz": `
-                <iframe src="/pages/courses/WMAD/beginner/js_quiz.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-
-            // Projects
-            "project-1": `
-                <iframe src="/pages/courses/WMAD/beginner/landingpage.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "project-2": `
-                <iframe src="/pages/courses/WMAD/beginner/form_project.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "project-3": `
-                <iframe src="/pages/courses/WMAD/beginner/todoapp.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `,
-            "project-review": `
-                <iframe src="/pages/courses/WMAD/beginner/project_review.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
-            `
-        };
-
-        // Fetch and load content dynamically
-        if (contentMap[contentId]) {
-            if (contentMap[contentId].startsWith('<')) {
-                // Direct HTML content (for assessments)
-                contentSection.innerHTML = contentMap[contentId];
-            } else {
-                // Fetch HTML template
-                fetch(contentMap[contentId])
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Content not found');
-                        }
-                        return response.text();
-                    })
-                    .then(html => {
-                        contentSection.innerHTML = html;
-                        // Re-initialize any necessary components
-                        initializeAccordions();
-                        initializeRadioButtons();
-                    })
-                    .catch(error => {
-                        console.error('Error loading content:', error);
-                        contentSection.innerHTML = `
-                            <h2>Content Not Found</h2>
-                            <p>Unable to load content for ${contentId}</p>
-                        `;
-                    });
-            }
-        } else {
-            // Fallback for unknown content
-            contentSection.innerHTML = `
-                <h2>Content Not Found</h2>
-                <p>No content available for ${contentId}</p>
-            `;
+        // Get the corresponding route
+        const route = contentRoutes[contentId];
+        if (!route) {
+            console.error(`No route found for content: ${contentId}`);
+            return;
         }
+
+        // Fetch the content dynamically
+        fetch(route)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                // Create a temporary div to parse the HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+
+                // Extract the main content (adjust selector as needed)
+                const mainContent = tempDiv.querySelector('.course-content') || 
+                                    tempDiv.querySelector('main') || 
+                                    tempDiv.querySelector('.content-section') || 
+                                    tempDiv;
+
+                // Update the content section
+                contentSection.innerHTML = mainContent.innerHTML;
+
+                // Re-initialize any interactive elements
+                initializeAccordions();
+                initializeRadioButtons();
+            })
+            .catch(error => {
+                console.error('Error loading content:', error);
+                contentSection.innerHTML = `
+                    <div class="error-message">
+                        <h2>Content Loading Error</h2>
+                        <p>Unable to load the requested content. Please try again later.</p>
+                        <p>Error details: ${error.message}</p>
+                    </div>
+                `;
+            });
     }
-  
+
     function handleNavLinkClick(event) {
-      event.preventDefault();
-      navLinks.forEach((link) => link.classList.remove("active"));
-      const clickedLink = event.currentTarget;
-      clickedLink.classList.add("active");
-      const contentId = clickedLink.getAttribute("data-content");
-      updateContent(contentId);
+        event.preventDefault();
+        navLinks.forEach((link) => link.classList.remove("active"));
+        const clickedLink = event.currentTarget;
+        clickedLink.classList.add("active");
+        const contentId = clickedLink.getAttribute("data-content");
+        updateContent(contentId);
     }
-  
+
     function handleNavGroupHeaderClick(event) {
-      const header = event.currentTarget;
-      const group = header.parentElement;
-      group.classList.toggle("expanded");
-      navGroups.forEach((otherGroup) => {
-        if (otherGroup !== group && otherGroup.classList.contains("expanded")) {
-          otherGroup.classList.remove("expanded");
-        }
-      });
+        const header = event.currentTarget;
+        const group = header.parentElement;
+        group.classList.toggle("expanded");
+        navGroups.forEach((otherGroup) => {
+            if (otherGroup !== group && otherGroup.classList.contains("expanded")) {
+                otherGroup.classList.remove("expanded");
+            }
+        });
     }
-  
+
     // Add event listeners
     navLinks.forEach((link) => {
-      link.addEventListener("click", handleNavLinkClick);
+        link.addEventListener("click", handleNavLinkClick);
     });
-  
+
     const navGroupHeaders = document.querySelectorAll(".nav-group-header");
     navGroupHeaders.forEach((header) => {
-      header.addEventListener("click", handleNavGroupHeaderClick);
+        header.addEventListener("click", handleNavGroupHeaderClick);
     });
-  
+
     // Initialize first link, accordion, and radio buttons
     if (navLinks.length > 0) {
-      navLinks.forEach((link) => link.classList.remove("active"));
-      const firstLink = document.querySelector(".nav-link[data-content='welcome']");
-      firstLink.classList.add("active");
-      updateContent("welcome");
+        navLinks.forEach((link) => link.classList.remove("active"));
+        const firstLink = document.querySelector(".nav-link[data-content='welcome']");
+        if (firstLink) {
+            firstLink.classList.add("active");
+            updateContent("welcome");
+        }
     }
-  
+
     // Initialize accordions and radio buttons on page load
     initializeAccordions();
     initializeRadioButtons();
-  });
+});
