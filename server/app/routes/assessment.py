@@ -234,9 +234,25 @@ def validate_major(major):
     try:
         # Convert to uppercase to match folder names
         major = major.upper()
-        # Check if the major's course folder exists
-        valid_majors = ['WMAD', 'SMP', 'NETAD', 'AMG']
-        return major in valid_majors
+        
+        # BSIT Majors
+        bsit_majors = ['WMAD', 'SMP', 'AMG', 'NETAD']
+        
+        # BSCS Majors
+        bscs_majors = ['GRAPHICS', 'INTELLIGENT_SYSTEMS']
+        
+        # BSIS Majors
+        bsis_majors = ['BUSINESS_ANALYTICS', 'ENTERPRISE_SYSTEMS', 
+                       'DIGITAL_TRANSFORMATION', 'IT_GOVERNANCE']
+        
+        # Program Types
+        program_types = ['BSIT', 'BSCS', 'BSIS']
+        
+        # Check if the major is valid
+        return (major in bsit_majors or 
+                major in bscs_majors or 
+                major in bsis_majors or 
+                major in program_types)
     except Exception as e:
         current_app.logger.error(f"Error validating major: {str(e)}")
         return False

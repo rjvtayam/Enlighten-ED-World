@@ -16,11 +16,27 @@ class SkillLevel(Enum):
     ADVANCED = 'advanced'
 
 class ProgramType(Enum):
-    """Enumeration of program types"""
-    WMAD = 'Web and Mobile Animation Development'
-    AMG = 'Animation And Motion Graphics'
+    """Enumeration of program types and majors"""
+    # Bachelor of Science Programs
+    BSIT = 'Bachelor of Science in Information Technology'
+    BSCS = 'Bachelor of Science in Computer Science'
+    BSIS = 'Bachelor of Science in Information Systems'
+    
+    # BSIT Majors
+    WMAD = 'Web and Mobile App Development'
+    SMP = 'Service Management Program'
+    AMG = 'Animation and Motion Graphics'
     NETAD = 'Network Administration'
-    SMP = 'Service Mangement Program'
+    
+    # BSCS Majors
+    GRAPHICS = 'Graphics and Visualization'
+    INTELLIGENT_SYSTEMS = 'Intelligent Systems'
+    
+    # BSIS Majors
+    BUSINESS_ANALYTICS = 'Business Analytics'
+    ENTERPRISE_SYSTEMS = 'Enterprise Systems Management'
+    DIGITAL_TRANSFORMATION = 'Digital Transformation'
+    IT_GOVERNANCE = 'IT Governance'
 
 class Assessment(db.Model):
     __tablename__ = 'assessments'
