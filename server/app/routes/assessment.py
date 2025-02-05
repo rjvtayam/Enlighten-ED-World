@@ -52,7 +52,7 @@ def initial_assessment():
     form = AssessmentForm()
     return render_template('assessment/initial_assessment.html', form=form)
 
-@assessment.route('/submit_assessment', methods=['POST'])
+@assessment.route('/submit', methods=['POST'])
 @login_required
 def submit_assessment():
     try:
@@ -69,15 +69,15 @@ def submit_assessment():
             return jsonify({'error': 'Missing CSRF token'}), HTTPStatus.UNAUTHORIZED
         
         # Get form data
-        program = request.form.get('program')
-        major = request.form.get('major')
+        program = request.form.get('program', '').upper()
+        major = request.form.get('major', '').upper()
         
         current_app.logger.info(f"Form data: {request.form.to_dict()}")
         current_app.logger.info(f"Program: {program}")
         current_app.logger.info(f"Major: {major}")
         
         # Validate required fields
-        if not program or not major:
+        if not program or not validate_major(program):
             current_app.logger.error(f"Missing required fields - Program: {program}, Major: {major}")
             return jsonify({'error': 'Program and major are required'}), HTTPStatus.BAD_REQUEST
             
@@ -88,48 +88,18 @@ def submit_assessment():
         
         # Validate program type
         try:
-            program = program.lower() if program else None
-            if not program:
-                raise ValueError("Program is required")
+            program_type = ProgramType[program.upper()]
+            program = program_type.value
+        except KeyError:
+            current_app.logger.warning(f"Program type {program.upper()} not found in enum, using as is")
+            # Continue with the program value as provided
             
-            # Try to get program type, if not found, just store the program as is
-            try:
-                program_type = ProgramType[program.upper()]
-                program = program_type.value
-            except KeyError:
-                current_app.logger.warning(f"Program type {program.upper()} not found in enum, using as is")
-                # Continue with the program value as provided
+        current_app.logger.info(f"Program validated: {program}")
             
-            current_app.logger.info(f"Program validated: {program}")
-            
-            # Validate major has available courses
-            if not validate_major(major):
-                current_app.logger.error(f"Invalid major or no course templates available: {major}")
-                return jsonify({'error': f'No course templates available for major: {major}'}), HTTPStatus.BAD_REQUEST
-        
-        except ValueError as e:
-            db.session.rollback()
-            current_app.logger.error(f"Validation error: {str(e)}")
-            return jsonify({
-                'success': False,
-                'error': str(e)
-            }), HTTPStatus.BAD_REQUEST
-            
-        except SQLAlchemyError as e:
-            db.session.rollback()
-            current_app.logger.error(f"Database error: {str(e)}")
-            return jsonify({
-                'success': False,
-                'error': 'Database error occurred'
-            }), HTTPStatus.INTERNAL_SERVER_ERROR
-            
-        except Exception as e:
-            current_app.logger.error(f"Error in submit_assessment: {str(e)}")
-            current_app.logger.exception("Full traceback:")
-            return jsonify({
-                'success': False,
-                'error': 'An unexpected error occurred'
-            }), HTTPStatus.INTERNAL_SERVER_ERROR
+        # Validate major has available courses
+        if not validate_major(major):
+            current_app.logger.error(f"Invalid major or no course templates available: {major}")
+            return jsonify({'error': f'No course templates available for major: {major}'}), HTTPStatus.BAD_REQUEST
         
         # Collect skill scores
         scores = {}
@@ -198,13 +168,100 @@ def submit_assessment():
         db.session.commit()
         current_app.logger.info(f"Assessment saved successfully with ID: {assessment.id}")
         
+        # New functionality
+        program = request.form.get('program', '').upper()
+        major = request.form.get('major', '').upper()
+        
+        # Validate program and major (existing validation)
+        if not program or not validate_major(program):
+            return jsonify({
+                'success': False,
+                'message': 'Invalid program selection'
+            }), HTTPStatus.BAD_REQUEST
+        
+        if not major or not validate_major(major):
+            return jsonify({
+                'success': False,
+                'message': 'Invalid major selection'
+            }), HTTPStatus.BAD_REQUEST
+        
+        # Create Assessment instance (existing logic)
+        assessment = Assessment(
+            user_id=current_user.id,
+            program=program,
+            major=major,
+            assessment_date=datetime.utcnow().date()
+        )
+        db.session.add(assessment)
+        
+        # Process skill categories (existing logic)
+        skill_categories = ['technical', 'communication', 'soft', 'creativity']
+        category_scores = {}
+        
+        for category in skill_categories:
+            category_skills = [
+                key for key in request.form.keys() 
+                if key.startswith(f'skill_{category}_')
+            ]
+            
+            if category_skills:
+                skill_scores = []
+                for skill in category_skills:
+                    value = request.form.get(skill)
+                    try:
+                        skill_scores.append(int(value))
+                    except (ValueError, TypeError):
+                        current_app.logger.warning(f"Invalid score for {skill}")
+                
+                # Calculate category score
+                avg_score = sum(skill_scores) / len(skill_scores) if skill_scores else 0
+                category_scores[category] = round(avg_score * 33.33, 2)  # Convert to percentage
+        
+        # Determine overall score and skill level
+        overall_score = sum(category_scores.values()) / len(category_scores)
+        
+        # Determine skill level
+        if overall_score < 40:
+            skill_level = 'Beginner'
+        elif overall_score < 70:
+            skill_level = 'Intermediate'
+        else:
+            skill_level = 'Advanced'
+        
+        # Get course recommendations
+        recommendations = get_course_recommendations(overall_score, major)
+        
+        # Prepare detailed results
+        category_results = [
+            {
+                'name': category.capitalize() + ' Skills', 
+                'score': score,
+                'description': f'Proficiency in {category} skills'
+            } for category, score in category_scores.items()
+        ]
+        
+        # Prepare radar chart data
+        skills_radar_data = {
+            'labels': list(category_scores.keys()),
+            'scores': list(category_scores.values())
+        }
+        
+        # Commit assessment to database
+        db.session.commit()
+        
+        # Return comprehensive results
         return jsonify({
             'success': True,
+            'overall_score': round(overall_score, 2),
+            'skill_level': skill_level,
+            'category_results': category_results,
+            'recommended_courses': recommendations['courses'],
+            'skills_radar_data': skills_radar_data,
             'recommendations': recommendations,
             'category_scores': category_scores,
             'assessment_id': assessment.id
         })
-        
+    
     except ValueError as e:
         db.session.rollback()
         current_app.logger.error(f"Validation error: {str(e)}")
@@ -230,20 +287,20 @@ def submit_assessment():
         }), HTTPStatus.INTERNAL_SERVER_ERROR
 
 def validate_major(major):
-    """Validate if major has available course templates"""
+    """Validate if major is valid for the selected program"""
     try:
-        # Convert to uppercase to match folder names
+        # Convert to uppercase to match option values
         major = major.upper()
         
         # BSIT Majors
-        bsit_majors = ['WMAD', 'SMP', 'AMG', 'NETAD']
+        bsit_majors = ['WMAD', 'AMG', 'NETWORKING', 'SMP']
         
         # BSCS Majors
         bscs_majors = ['GRAPHICS', 'INTELLIGENT_SYSTEMS']
         
         # BSIS Majors
         bsis_majors = ['BUSINESS_ANALYTICS', 'ENTERPRISE_SYSTEMS', 
-                       'DIGITAL_TRANSFORMATION', 'IT_GOVERNANCE']
+                       'IS_SECURITY', 'DATA_MANAGEMENT']
         
         # Program Types
         program_types = ['BSIT', 'BSCS', 'BSIS']
@@ -547,3 +604,38 @@ def get_user_assessments(user_id: int):
     except Exception as e:
         current_app.logger.error(f"Error retrieving user assessments: {str(e)}")
         return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+@assessment.route('/get_programs_and_majors', methods=['GET'])
+def get_programs_and_majors():
+    """Retrieve available programs and their majors"""
+    try:
+        # Use the ProgramType enum to dynamically generate programs and majors
+        programs_and_majors = {
+            'BSIT': [
+                {'value': 'WMAD', 'label': 'Web and Mobile App Development'},
+                {'value': 'SMP', 'label': 'Service Management Program'},
+                {'value': 'AMG', 'label': 'Animation and Motion Graphics'},
+                {'value': 'NETAD', 'label': 'Network Administration'}
+            ],
+            'BSCS': [
+                {'value': 'GRAPHICS', 'label': 'Graphics and Visualization'},
+                {'value': 'INTELLIGENT_SYSTEMS', 'label': 'Intelligent Systems'}
+            ],
+            'BSIS': [
+                {'value': 'BUSINESS_ANALYTICS', 'label': 'Business Analytics'},
+                {'value': 'ENTERPRISE_SYSTEMS', 'label': 'Enterprise Systems Management'},
+                {'value': 'DIGITAL_TRANSFORMATION', 'label': 'Digital Transformation'},
+                {'value': 'IT_GOVERNANCE', 'label': 'IT Governance'}
+            ]
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'programs_and_majors': programs_and_majors
+        }), 200
+    except Exception as e:
+        current_app.logger.error(f"Error retrieving programs and majors: {str(e)}")
+        return jsonify({
+            'status': 'error',
+            'message': 'Unable to retrieve programs and majors'
+        }), 500
