@@ -4,45 +4,41 @@ document.addEventListener("DOMContentLoaded", function () {
     const contentSection = document.querySelector(".content-section");
     const initialContent = contentSection.innerHTML; // Store the initial content
 
-    // Mapping of content IDs to their corresponding routes
+    // Mapping of content IDs to their corresponding HTML file paths
     const contentRoutes = {
-        // Pre and Post Assessments
-        "pre-assessment": "/WMAD/beginner/pre-assessment",
-        "post-assessment": "/WMAD/beginner/post-assessment",
-
-        // Course Introduction
-        "welcome": "/courses/wmad/beginner",
-        "setup": "/courses/wmad/beginner/development-setup",
-        "web-basics": "/courses/wmad/beginner/web-basics",
-
-        // HTML Fundamentals
-        "html-intro": "/courses/wmad/beginner/intro-html",
-        "html-elements": "/courses/wmad/beginner/basic-elements",
-        "html-forms": "/courses/wmad/beginner/form-input",
-        "html-media": "/courses/wmad/beginner/media",
-        "html-quiz": "/courses/wmad/beginner/html-quiz",
-
-        // CSS Section
-        "css-intro": "/courses/wmad/beginner/intro-css",
-        "css-selectors": "/courses/wmad/beginner/select-properties",
-        "css-layout": "/courses/wmad/beginner/layout-box",
-        "css-responsive": "/courses/wmad/beginner/responsive-design",
-        "css-quiz": "/courses/wmad/beginner/css-quiz",
-
-        // JavaScript Section
-        "js-intro": "/courses/wmad/beginner/intro-js",
-        "js-variables": "/courses/wmad/beginner/variable",
-        "js-control": "/courses/wmad/beginner/control-flow",
-        "js-functions": "/courses/wmad/beginner/function",
-        "js-dom": "/courses/wmad/beginner/dom",
-        "js-events": "/courses/wmad/beginner/events",
-        "js-quiz": "/courses/wmad/beginner/js-quiz",
-
-        // Projects
-        "project-1": "/courses/wmad/beginner/landingpage",
-        "project-2": "/courses/wmad/beginner/form-project",
-        "project-3": "/courses/wmad/beginner/todoapp",
-        "project-review": "/courses/wmad/beginner/project-review"
+        // Beginner Course Content
+        "welcome": "/courses/WMAD/beginner/index.html",
+        "landing": "/courses/WMAD/beginner/landingpage.html",
+        "setup": "/courses/WMAD/beginner/development_setup.html",
+        "web-basics": "/courses/WMAD/beginner/web_basics.html",
+        "basic-elements": "/courses/WMAD/beginner/basic_elements.html",
+        "form-input": "/courses/WMAD/beginner/form_input.html",
+        "form-project": "/courses/WMAD/beginner/form_project.html",
+        "responsive-design": "/courses/WMAD/beginner/responsive_design.html",
+        
+        // HTML Content
+        "intro-html": "/courses/WMAD/beginner/intro_html.html",
+        
+        // CSS Content
+        "intro-css": "/courses/WMAD/beginner/intro_css.html",
+        "layout-box": "/courses/WMAD/beginner/layout_box.html",
+        "select-properties": "/courses/WMAD/beginner/select_properties.html",
+        "media": "/courses/WMAD/beginner/media.html",
+        
+        // JavaScript Content
+        "intro-js": "/courses/WMAD/beginner/intro_js.html",
+        "variables": "/courses/WMAD/beginner/variable.html",
+        "control-flow": "/courses/WMAD/beginner/control_flow.html",
+        "functions": "/courses/WMAD/beginner/function.html",
+        "dom": "/courses/WMAD/beginner/dom.html",
+        "events": "/courses/WMAD/beginner/events.html",
+        
+        // Projects and Reviews
+        "project-review": "/courses/WMAD/beginner/project_review.html",
+        
+        // Assessments
+        "pre-assessment": "/courses/WMAD/beginner/pre-assessment.html",
+        "post-assessment": "/courses/WMAD/beginner/post-assessment.html"
     };
 
     // Accordion Functionality
