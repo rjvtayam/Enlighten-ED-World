@@ -145,9 +145,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     'X-CSRFToken': csrfTokenElement.value,
                     'Accept': 'application/json'
                 },
-                credentials: 'same-origin'
+                credentials: 'same-origin',
+                redirect: 'follow'  // Important for handling redirects
             })
             .then(response => {
+                // If response is a redirect, fetch the results page
+                if (response.type === 'opaqueredirect') {
+                    return fetch(url_for('assessment.assessment_results'), {
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                }
+                
+                // If not a redirect, parse as JSON
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -158,9 +169,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 assessmentFormSection.style.display = 'none';
                 resultsSection.style.display = 'block';
                 
-                // Populate results (you might want to add more detailed result handling)
+                // Populate results
                 document.getElementById('overallScore').textContent = data.overall_score || 'N/A';
-                document.getElementById('overallLevel').textContent = data.overall_level || 'N/A';
+                document.getElementById('overallLevel').textContent = data.skill_level || 'N/A';
+                
+                // Optional: Populate more detailed results if available
+                console.log('Assessment Results:', data);
             })
             .catch(error => {
                 console.error('Submission error:', error);

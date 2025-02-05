@@ -144,7 +144,7 @@ def submit_assessment():
         current_app.logger.info(f"Assessment submitted successfully for user {current_user.id}")
         
         # Store results in session for results page
-        session['assessment_results'] = {
+        assessment_results_data = {
             'overall_score': round(overall_score, 2),
             'skill_level': skill_level,
             'category_results': category_results,
@@ -153,9 +153,13 @@ def submit_assessment():
             'category_scores': category_scores,
             'assessment_id': assessment.id
         }
+        session['assessment_results'] = assessment_results_data
         
-        # Redirect to results page
-        return redirect(url_for('assessment.assessment_results'))
+        # Return JSON response instead of redirecting
+        return jsonify({
+            'success': True,
+            **assessment_results_data
+        })
     
     except Exception as e:
         # Comprehensive error handling
