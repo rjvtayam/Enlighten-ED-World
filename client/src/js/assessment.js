@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const majorSelect = document.getElementById('major');
     const majorGroup = document.getElementById('majorGroup');
     const selectedProgramInput = document.getElementById('selectedProgram');
+    const assessmentFormSection = document.getElementById('assessmentFormSection');
+    const resultsSection = document.getElementById('resultsSection');
     
     // Create selectedMajorInput if it doesn't exist
     let selectedMajorInput = document.getElementById('selectedMajor');
@@ -53,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Centralized navigation and progress tracking
     function initNavigation() {
-        const categories = document.querySelectorAll('.skill-category');
         const progressBar = document.querySelector('.progress-bar');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
 
         function updateProgress() {
             const progressPercentage = ((currentCategory + 1) / categories.length) * 100;
@@ -67,6 +69,12 @@ document.addEventListener('DOMContentLoaded', function() {
             categories.forEach((category, i) => {
                 category.classList.toggle('active', i === index);
             });
+            
+            // Toggle buttons based on current category
+            prevBtn.style.display = index === 0 ? 'none' : 'block';
+            nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
+            submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
+            
             updateProgress();
         }
 
@@ -91,6 +99,78 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentCategory--;
                 showCategory(currentCategory);
             }
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate all inputs one last time
+            if (!selectedProgramInput.value || !selectedMajorInput.value) {
+                alert('Please select your program and major');
+                programSelect.focus();
+                return;
+            }
+
+            // Validate all visible inputs across all categories
+            const visibleInputs = form.querySelectorAll('.skill-category input[type="radio"]');
+            const groups = {};
+            visibleInputs.forEach(input => {
+                const name = input.getAttribute('name');
+                groups[name] = groups[name] || false;
+                if (input.checked) groups[name] = true;
+            });
+            
+            if (Object.values(groups).includes(false)) {
+                alert('Please rate all skills before submitting.');
+                return;
+            }
+
+            // Show loading state
+            const btnText = submitBtn.querySelector('.btn-text');
+            const loadingText = submitBtn.querySelector('.loading-text');
+            
+            if (btnText) btnText.style.display = 'none';
+            if (loadingText) loadingText.style.display = 'inline-block';
+            submitBtn.disabled = true;
+
+            // Prepare form data
+            const formData = new FormData(form);
+
+            // Submit assessment
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrfTokenElement.value,
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Hide form section, show results section
+                assessmentFormSection.style.display = 'none';
+                resultsSection.style.display = 'block';
+                
+                // Populate results (you might want to add more detailed result handling)
+                document.getElementById('overallScore').textContent = data.overall_score || 'N/A';
+                document.getElementById('overallLevel').textContent = data.overall_level || 'N/A';
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                alert('Error submitting assessment. Please try again.');
+                
+                // Restore submit button
+                if (btnText) btnText.style.display = 'inline-block';
+                if (loadingText) loadingText.style.display = 'none';
+                submitBtn.disabled = false;
+            });
         });
 
         // Initialize first category
