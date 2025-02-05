@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOM Manipulation Comprehensive Guide</title>
-    <link rel="stylesheet" href="dom.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/dom.css') }}">
 </head>
 <body>
     <div class="container">
@@ -187,6 +187,6 @@ let children = parent.children;  // Gets all children of the parent element</cod
         </section>
     </div>
 
-    <script src="dom.js"></script>
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/dom.js') }}"></script>
 </body>
 </html>

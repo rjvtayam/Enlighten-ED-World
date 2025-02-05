@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Functions - Interactive Learning</title>
-    <link rel="stylesheet" href="function.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/function.css') }}">
 </head>
 <body>
     <div class="container">
@@ -172,6 +172,6 @@ function solveChallenge(a, b) {
 </section>
     </div>
 
-    <script src="function.js"></script>
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/function.js') }}"></script>
 </body>
 </html>

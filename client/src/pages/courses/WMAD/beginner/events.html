@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Events Tutorial</title>
-    <link rel="stylesheet" href="../../../css/courses/WMAD/beginner/events.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/events.css') }}">
 </head>
 <body>
     <div class="container">
@@ -439,6 +439,6 @@ eventForm.addEventListener('submit', (event) => {
 </section>
     </div>
     
-    <script src="../../../js/courses/WMAD/beginner/events.js"></script>
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/events.js') }}"></script>
 </body>
 </html>
