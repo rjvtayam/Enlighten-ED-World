@@ -46,6 +46,7 @@ class Assessment(db.Model):
     program = db.Column(db.String(100))
     major = db.Column(db.String(100))
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+    assessment_date = db.Column(db.Date, default=datetime.utcnow().date)
     overall_score = db.Column(db.Float)
     overall_level = db.Column(db.String(20))
     is_completed = db.Column(db.Boolean, default=False)  # Ensure this matches database column
