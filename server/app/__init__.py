@@ -121,8 +121,6 @@ def create_app(config_name='default'):
     from app.routes.assessment import assessment
     from app.routes.faq import faq
     from app.routes.testimonials import testimonials
-
-    from app.routes.wmad import wmad
     
     app.register_blueprint(auth)
     app.register_blueprint(main)
@@ -131,7 +129,16 @@ def create_app(config_name='default'):
     app.register_blueprint(faq)
     app.register_blueprint(testimonials)
 
-    app.register_blueprint(wmad, url_prefix='/wmad')
+    # COURSES BLUEPRINTS
+    from app.routes.wmad import wmad
+    from app.routes.smp import smp
+    from app.routes.netad import netad
+    from app.routes.amg import amg
+    
+    app.register_blueprint(wmad)
+    app.register_blueprint(smp)
+    app.register_blueprint(netad)
+    app.register_blueprint(amg)
 
     
     # Context processors

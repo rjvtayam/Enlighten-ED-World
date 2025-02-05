@@ -54,40 +54,93 @@ document.addEventListener("DOMContentLoaded", function () {
         const contentMap = {
             // Pre and Post Assessments
             "pre-assessment": `
-                <iframe src="/wmad/WMAD/beginner/pre-assessment" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
+                <iframe src="/wmad/WMAD/beginner/pre-assessment" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
             `,
             "post-assessment": `
-                <iframe src="/wmad/WMAD/beginner/post-assessment" class="assessment-iframe" width="100%" height="800px" frameborder="0"></iframe>
+                <iframe src="/wmad/WMAD/beginner/post-assessment" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
             `,
 
-            // Dynamic content mapping
-            "html-intro": "/pages/courses/WMAD/beginner/intro_html.html",
-            "html-elements": "/pages/courses/WMAD/beginner/basic_elements.html",
-            "html-forms": "/pages/courses/WMAD/beginner/form_input.html",
-            "html-media": "/pages/courses/WMAD/beginner/media.html",
-            "html-quiz": "/pages/courses/WMAD/beginner/html_quiz.html",
+            // Course Introduction
+            "welcome": `
+                <iframe src="/pages/courses/WMAD/beginner/index.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "setup": `
+                <iframe src="/pages/courses/WMAD/beginner/development_setup.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "web-basics": `
+                <iframe src="/pages/courses/WMAD/beginner/web_basics.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+
+            // HTML Fundamentals
+            "html-intro": `
+                <iframe src="/pages/courses/WMAD/beginner/intro_html.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "html-elements": `
+                <iframe src="/pages/courses/WMAD/beginner/basic_elements.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "html-forms": `
+                <iframe src="/pages/courses/WMAD/beginner/form_input.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "html-media": `
+                <iframe src="/pages/courses/WMAD/beginner/media.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "html-quiz": `
+                <iframe src="/pages/courses/WMAD/beginner/html_quiz.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
 
             // CSS Section
-            "css-intro": "/pages/courses/WMAD/beginner/intro_css.html",
-            "css-selectors": "/pages/courses/WMAD/beginner/select_properties.html",
-            "css-layout": "/pages/courses/WMAD/beginner/layout_box.html",
-            "css-responsive": "/pages/courses/WMAD/beginner/responsive_design.html",
-            "css-quiz": "/pages/courses/WMAD/beginner/css_quiz.html",
+            "css-intro": `
+                <iframe src="/pages/courses/WMAD/beginner/intro_css.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "css-selectors": `
+                <iframe src="/pages/courses/WMAD/beginner/select_properties.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "css-layout": `
+                <iframe src="/pages/courses/WMAD/beginner/layout_box.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "css-responsive": `
+                <iframe src="/pages/courses/WMAD/beginner/responsive_design.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "css-quiz": `
+                <iframe src="/pages/courses/WMAD/beginner/css_quiz.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
 
             // JavaScript Section
-            "js-intro": "/pages/courses/WMAD/beginner/intro_js.html",
-            "js-variables": "/pages/courses/WMAD/beginner/variables.html",
-            "js-control": "/pages/courses/WMAD/beginner/control_flow.html",
-            "js-functions": "/pages/courses/WMAD/beginner/function.html",
-            "js-dom": "/pages/courses/WMAD/beginner/dom.html",
-            "js-events": "/pages/courses/WMAD/beginner/events.html",
-            "js-quiz": "/pages/courses/WMAD/beginner/js_quiz.html",
+            "js-intro": `
+                <iframe src="/pages/courses/WMAD/beginner/intro_js.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "js-variables": `
+                <iframe src="/pages/courses/WMAD/beginner/variable.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "js-control": `
+                <iframe src="/pages/courses/WMAD/beginner/control_flow.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "js-functions": `
+                <iframe src="/pages/courses/WMAD/beginner/function.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "js-dom": `
+                <iframe src="/pages/courses/WMAD/beginner/dom.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "js-events": `
+                <iframe src="/pages/courses/WMAD/beginner/events.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "js-quiz": `
+                <iframe src="/pages/courses/WMAD/beginner/js_quiz.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
 
             // Projects
-            "project-1": "/pages/courses/WMAD/beginner/landingpage.html",
-            "project-2": "/pages/courses/WMAD/beginner/form_project.html",
-            "project-3": "/pages/courses/WMAD/beginner/todo_app.html",
-            "project-review": "/pages/courses/WMAD/beginner/project_review.html"
+            "project-1": `
+                <iframe src="/pages/courses/WMAD/beginner/landingpage.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "project-2": `
+                <iframe src="/pages/courses/WMAD/beginner/form_project.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "project-3": `
+                <iframe src="/pages/courses/WMAD/beginner/todoapp.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `,
+            "project-review": `
+                <iframe src="/pages/courses/WMAD/beginner/project_review.html" class="content-iframe" width="100%" height="800px" frameborder="0"></iframe>
+            `
         };
 
         // Fetch and load content dynamically
