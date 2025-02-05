@@ -1,0 +1,214 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #2980b9;
+    border-left: 5px solid #3498db;
+    padding-left: 15px;
+    margin-top: 30px;
+}
+
+h3 {
+    color: #34495e;
+}
+
+.subsection {
+    background-color: #f9f9f9;
+    border-left: 4px solid #3498db;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+pre {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 15px;
+    overflow-x: auto;
+    font-size: 0.9em;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+ul {
+    padding-left: 30px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Add these styles to the existing CSS */
+.activity-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.activity-controls input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.result-display {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    min-height: 50px;
+}
+
+.result-display .error {
+    color: red;
+}
+
+.code-preview {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.preview-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.preview-content pre {
+    margin: 0;
+    padding: 10px;
+    background-color: #e9e9e9;
+    border-radius: 4px;
+}
+
+/* Video Tutorials Styling */
+#video-tutorials {
+    background-color: #f9f9f9;
+    padding: 30px 0;
+}
+
+.video-tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.video-tutorial-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.video-tutorial-card:hover {
+    transform: scale(1.05);
+}
+
+.video-tutorial-icon {
+    background-color: #3498db;
+    color: white;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.video-tutorial-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.video-tutorial-content h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.video-tutorial-content h4 {
+    color: #34495e;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.watch-video-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.watch-video-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Video Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: black;
+}

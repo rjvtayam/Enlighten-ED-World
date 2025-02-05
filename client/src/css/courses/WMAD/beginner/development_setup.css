@@ -1,0 +1,309 @@
+/* Root Variables for Consistent Theming */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #f4f6f7;
+    --text-color: #2c3e50;
+    --card-background: #ffffff;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+/* Container Styles */
+.development-setup-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--background-color);
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.section-header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.section-header p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+/* Video Tutorial Section */
+.video-tutorial {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.video-container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+    transform: scale(1.02);
+}
+
+/* Tools Overview */
+.tools-overview {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.tool-card {
+    flex: 1;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tool-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.tool-details {
+    margin-top: 1rem;
+}
+
+.tool-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.tool-details ul li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+}
+
+.tool-details ul li:hover {
+    background-color: #f9f9f9;
+}
+
+/* Resource Links */
+.resource-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.download-btn, .docs-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.download-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.docs-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* Installation Guide */
+.installation-guide {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 3rem;
+}
+
+.guide-steps {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.guide-step {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.guide-step:hover {
+    background-color: #f0f0f0;
+}
+
+.step-number {
+    background-color: var(--primary-color);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.step-content ol {
+    padding-left: 1.5rem;
+}
+
+/* Recommended Extensions */
+.recommended-extensions {
+    margin-bottom: 3rem;
+}
+
+.extensions-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.extension-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    width: 250px;
+    transition: transform 0.3s ease;
+}
+
+.extension-card:hover {
+    transform: scale(1.05);
+}
+
+.extension-card img {
+    max-width: 100px;
+    margin-bottom: 1rem;
+}
+
+.install-btn {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.install-btn:hover {
+    background-color: var(--primary-color);
+}
+
+/* Additional Resources */
+.additional-resources {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+}
+
+.resources-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.resource-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    flex: 1;
+    transition: transform 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-10px);
+}
+
+.resource-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.resource-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resource-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+.resource-card a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.resource-card a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tools-overview,
+    .extensions-grid,
+    .resources-grid {
+        flex-direction: column;
+    }
+
+    .tool-card,
+    .extension-card,
+    .resource-card {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}

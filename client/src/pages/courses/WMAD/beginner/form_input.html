@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Forms & Inputs - Enlighten ED</title>
+    <link rel="stylesheet" href="form_input.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>HTML Forms & Input Types</h1>
+            <p>Master Creating Interactive Web Forms</p>
+        </header>
+
+        <section class="forms-overview">
+            <h2>Understanding HTML Forms</h2>
+            <div class="forms-grid">
+                <!-- Text Input Types -->
+                <div class="form-card">
+                    <i class="fas fa-keyboard"></i>
+                    <h3>Text Input Types</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Basic Text Inputs --&gt;
+&lt;input type="text" placeholder="Name"&gt;
+&lt;input type="email" placeholder="Email"&gt;
+&lt;input type="password" placeholder="Password"&gt;
+
+&lt;!-- Advanced Text Inputs --&gt;
+&lt;input type="tel" placeholder="Phone Number"&gt;
+&lt;input type="url" placeholder="Website URL"&gt;
+&lt;input type="search" placeholder="Search"&gt;
+                        </code></pre>
+                    </div>
+                    <div class="input-demo">
+                        <input type="text" placeholder="Name">
+                        <input type="email" placeholder="Email">
+                        <input type="password" placeholder="Password">
+                    </div>
+                </div>
+
+                <!-- Number and Range Inputs -->
+                <div class="form-card">
+                    <i class="fas fa-sort-numeric-up"></i>
+                    <h3>Number & Range Inputs</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Number Input --&gt;
+&lt;input type="number" 
+       min="0" 
+       max="100" 
+       step="1"&gt;
+
+&lt;!-- Range Slider --&gt;
+&lt;input type="range" 
+       min="0" 
+       max="100" 
+       value="50"&gt;
+                        </code></pre>
+                    </div>
+                    <div class="input-demo">
+                        <label>Number Input:</label>
+                        <input type="number" min="0" max="100" step="1">
+                        <label>Range Slider:</label>
+                        <input type="range" min="0" max="100" value="50">
+                    </div>
+                </div>
+
+                <!-- Date and Time Inputs -->
+                <div class="form-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Date & Time Inputs</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Date Inputs --&gt;
+&lt;input type="date"&gt;
+&lt;input type="time"&gt;
+&lt;input type="datetime-local"&gt;
+&lt;input type="month"&gt;
+&lt;input type="week"&gt;
+                        </code></pre>
+                    </div>
+                    <div class="input-demo">
+                        <label>Date:</label>
+                        <input type="date">
+                        <label>Time:</label>
+                        <input type="time">
+                    </div>
+                </div>
+
+                <!-- Selection Inputs -->
+                <div class="form-card">
+                    <i class="fas fa-check-square"></i>
+                    <h3>Selection Inputs</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Checkboxes --&gt;
+&lt;input type="checkbox"&gt; Option 1
+&lt;input type="checkbox"&gt; Option 2
+
+&lt;!-- Radio Buttons --&gt;
+&lt;input type="radio" name="gender"&gt; Male
+&lt;input type="radio" name="gender"&gt; Female
+
+&lt;!-- Dropdown --&gt;
+&lt;select&gt;
+    &lt;option&gt;Choose Option&lt;/option&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;
+                        </code></pre>
+                    </div>
+                    <div class="input-demo">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="check1">
+                            <label for="check1">Option 1</label>
+                            <input type="checkbox" id="check2">
+                            <label for="check2">Option 2</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" name="gender" id="male">
+                            <label for="male">Male</label>
+                            <input type="radio" name="gender" id="female">
+                            <label for="female">Female</label>
+                        </div>
+                        <select>
+                            <option>Choose Option</option>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- File and Color Inputs -->
+                <div class="form-card">
+                    <i class="fas fa-upload"></i>
+                    <h3>File & Color Inputs</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- File Upload --&gt;
+&lt;input type="file" 
+       accept=".jpg,.png,.pdf"&gt;
+
+&lt;!-- Color Picker --&gt;
+&lt;input type="color"&gt;
+                        </code></pre>
+                    </div>
+                    <div class="input-demo">
+                        <label>File Upload:</label>
+                        <input type="file" accept=".jpg,.png,.pdf">
+                        <label>Color Picker:</label>
+                        <input type="color">
+                    </div>
+                </div>
+
+                <!-- Form Attributes -->
+                <div class="form-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Form Attributes</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;form 
+    action="/submit" 
+    method="post" 
+    autocomplete="on"&gt;
+    &lt;input required&gt;
+    &lt;input disabled&gt;
+    &lt;input readonly&gt;
+&lt;/form&gt;
+                        </code></pre>
+                    </div>
+                    <div class="input-demo">
+                        <form>
+                            <label>Required Field:</label>
+                            <input required placeholder="Must fill">
+                            <label>Disabled Field:</label>
+                            <input disabled placeholder="Cannot edit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-tutorial">
+            <h2>HTML Forms Video Tutorial</h2>
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe 
+                        id="formsVideo" 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/qz0aGYrrlhU" 
+                        title="HTML Forms Tutorial" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-controls">
+                    <div class="playlist-selector">
+                        <button class="playlist-btn active" data-video="qz0aGYrrlhU">HTML Forms Basics</button>
+                        <button class="playlist-btn" data-video="ysEN5RaKOlA">Advanced Form Validation</button>
+                        <button class="playlist-btn" data-video="3PHXvlpVIRk">Form Design Techniques</button>
+                    </div>
+                    <div class="video-info">
+                        <span id="currentVideoTitle">HTML Forms Basics</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-practice">
+            <h2>Interactive Form Builder</h2>
+            <div class="form-builder">
+                <div class="builder-controls">
+                    <select id="inputTypeSelector">
+                        <option>Select Input Type</option>
+                        <option value="text">Text Input</option>
+                        <option value="email">Email Input</option>
+                        <option value="number">Number Input</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="radio">Radio Button</option>
+                    </select>
+                    <button id="addInputBtn">Add Input</button>
+                </div>
+                <div class="dynamic-form-preview" id="dynamicFormPreview">
+                    <!-- Dynamically added inputs will appear here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="form_input.js"></script>
+</body>
+</html>

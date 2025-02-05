@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Development Environment Setup - Web Development Beginner Course</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/development_setup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+</head>
+<body>
+    <div class="development-setup-container">
+        <header class="section-header">
+            <h1>Complete Development Environment Setup</h1>
+            <p>A comprehensive guide to setting up your web development workspace</p>
+        </header>
+
+        <section class="video-tutorial">
+            <h2>Setup Tutorial Video</h2>
+            <div class="video-container">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="Web Development Environment Setup Tutorial" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section class="tools-overview">
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-code"></i></div>
+                <h2>Code Editor</h2>
+                <p>Visual Studio Code (Recommended)</p>
+                <div class="tool-details">
+                    <h3>Why VS Code?</h3>
+                    <ul>
+                        <li>Free and open-source</li>
+                        <li>Extensive plugin ecosystem</li>
+                        <li>Git integration</li>
+                        <li>Intelligent code completion</li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://code.visualstudio.com/download" target="_blank" class="download-btn">Download</a>
+                        <a href="https://code.visualstudio.com/docs/setup/setup-overview" target="_blank" class="docs-btn">Documentation</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-globe"></i></div>
+                <h2>Web Browsers</h2>
+                <p>Chrome & Firefox Developer Tools</p>
+                <div class="tool-details">
+                    <h3>Browser Recommendations</h3>
+                    <ul>
+                        <li>Google Chrome</li>
+                        <li>Mozilla Firefox</li>
+                        <li>Built-in Developer Tools</li>
+                        <li>Web Inspector</li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.google.com/chrome/" target="_blank" class="download-btn">Chrome</a>
+                        <a href="https://www.mozilla.org/firefox/new/" target="_blank" class="download-btn">Firefox</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-terminal"></i></div>
+                <h2>Command Line</h2>
+                <p>Git Bash & Windows Terminal</p>
+                <div class="tool-details">
+                    <h3>Command Line Essentials</h3>
+                    <ul>
+                        <li>Git version control</li>
+                        <li>Terminal commands</li>
+                        <li>Package management</li>
+                        <li>Script execution</li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://git-scm.com/downloads" target="_blank" class="download-btn">Git Bash</a>
+                        <a href="https://docs.microsoft.com/en-us/windows/terminal/" target="_blank" class="docs-btn">Windows Terminal</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="installation-guide">
+            <h2>Detailed Installation Steps</h2>
+            <div class="guide-steps">
+                <div class="guide-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Install Visual Studio Code</h3>
+                        <ol>
+                            <li>Download from official website</li>
+                            <li>Run the installer</li>
+                            <li>Select installation options</li>
+                            <li>Complete installation</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Git and Configure</h3>
+                        <ol>
+                            <li>Download Git installer</li>
+                            <li>Choose installation options</li>
+                            <li>Configure Git username and email</li>
+                            <li>Set up SSH keys (optional)</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Set Up Web Browsers</h3>
+                        <ol>
+                            <li>Install Chrome/Firefox</li>
+                            <li>Enable Developer Tools</li>
+                            <li>Install web development extensions</li>
+                            <li>Configure browser settings</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Configure Development Environment</h3>
+                        <ol>
+                            <li>Install Node.js and npm</li>
+                            <li>Set up VS Code extensions</li>
+                            <li>Configure workspace settings</li>
+                            <li>Create first project folder</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="recommended-extensions">
+            <h2>Must-Have VS Code Extensions</h2>
+            <div class="extensions-grid">
+                <div class="extension-card">
+                    <img src="{{ url_for('static', filename='images/vscode-extensions/live-server.png') }}" alt="Live Server">
+                    <h3>Live Server</h3>
+                    <p>Launch local development server</p>
+                    <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer" target="_blank" class="install-btn">Install</a>
+                </div>
+                <div class="extension-card">
+                    <img src="{{ url_for('static', filename='images/vscode-extensions/prettier.png') }}" alt="Prettier">
+                    <h3>Prettier</h3>
+                    <p>Code formatter</p>
+                    <a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode" target="_blank" class="install-btn">Install</a>
+                </div>
+                <div class="extension-card">
+                    <img src="{{ url_for('static', filename='images/vscode-extensions/eslint.png') }}" alt="ESLint">
+                    <h3>ESLint</h3>
+                    <p>JavaScript linter</p>
+                    <a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank" class="install-btn">Install</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="additional-resources">
+            <h2>Additional Learning Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Online Tutorials</h3>
+                    <ul>
+                        <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp</a></li>
+                        <li><a href="https://www.codecademy.com/" target="_blank">Codecademy</a></li>
+                        <li><a href="https://www.udemy.com/" target="_blank">Udemy Courses</a></li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Courses</h3>
+                    <ul>
+                        <li><a href="https://www.youtube.com/c/TraversyMedia" target="_blank">Traversy Media</a></li>
+                        <li><a href="https://www.youtube.com/c/WebDevSimplified" target="_blank">Web Dev Simplified</a></li>
+                        <li><a href="https://www.pluralsight.com/" target="_blank">Pluralsight</a></li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Support</h3>
+                    <ul>
+                        <li><a href="https://stackoverflow.com/" target="_blank">Stack Overflow</a></li>
+                        <li><a href="https://github.com/" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/webdev" target="_blank">Web Dev Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/development_setup.js') }}"></script>
+</body>
+</html>

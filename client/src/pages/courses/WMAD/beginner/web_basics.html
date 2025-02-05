@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Basics - Beginner Web Development Course</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/web_basics.css') }}">
+</head>
+<body>
+    <div class="web-basics-container">
+        <!-- Header Section -->
+        <header class="page-header">
+            <div class="header-content">
+                <h1>Web Basics: Your Journey Begins</h1>
+                <p>Discover the fundamental technologies that power the internet</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="learning-tabs">
+            <button class="tab-btn active" data-tab="fundamentals">Web Fundamentals</button>
+            <button class="tab-btn" data-tab="technologies">Core Technologies</button>
+            <button class="tab-btn" data-tab="communication">Web Communication</button>
+            <button class="tab-btn" data-tab="quiz">Interactive Quiz</button>
+        </nav>
+
+        <!-- Content Sections -->
+        <section id="fundamentals" class="content-section active">
+            <h2>Web Fundamentals</h2>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="card-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Internet Basics</h3>
+                    <p>Learn how devices communicate across the global network</p>
+                    <ul>
+                        <li>Client-Server Model</li>
+                        <li>IP Addresses</li>
+                        <li>Domain Names</li>
+                        <li>Networking Protocols</li>
+                    </ul>
+                </div>
+                <div class="concept-card">
+                    <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Web Architecture</h3>
+                    <p>Understand the structure of web applications</p>
+                    <ul>
+                        <li>Frontend vs Backend</li>
+                        <li>Web Servers</li>
+                        <li>APIs</li>
+                        <li>Database Interactions</li>
+                    </ul>
+                </div>
+                <div class="concept-card">
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Web Ecosystem</h3>
+                    <p>Explore the tools and technologies of web development</p>
+                    <ul>
+                        <li>Browsers</li>
+                        <li>Development Tools</li>
+                        <li>Version Control</li>
+                        <li>Deployment Platforms</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="technologies" class="content-section">
+            <h2>Core Web Technologies</h2>
+            <div class="tech-breakdown">
+                <div class="tech-card">
+                    <div class="tech-icon html-icon">HTML</div>
+                    <h3>HTML: Structure</h3>
+                    <p>Creates the skeleton of web pages</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon css-icon">CSS</div>
+                    <h3>CSS: Styling</h3>
+                    <p>Adds visual design and layout</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon js-icon">JS</div>
+                    <h3>JavaScript: Interactivity</h3>
+                    <p>Enables dynamic web experiences</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="communication" class="content-section">
+            <h2>How Web Communication Works</h2>
+            <div class="communication-diagram" id="webCommunicationFlow">
+                <!-- Diagram will be dynamically generated -->
+            </div>
+            <div class="communication-explanation">
+                <ol>
+                    <li>User enters a URL</li>
+                    <li>DNS resolves domain name</li>
+                    <li>Browser sends HTTP request</li>
+                    <li>Server processes request</li>
+                    <li>Server sends response</li>
+                    <li>Browser renders webpage</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="quiz" class="content-section">
+            <h2>Interactive Web Basics Quiz</h2>
+            <div class="quiz-container" id="webBasicsQuiz">
+                <!-- Quiz questions will be dynamically generated -->
+            </div>
+            <div class="quiz-results">
+                <h3>Your Quiz Performance</h3>
+                <div class="score-display">
+                    <span id="correct-count">0</span> / 
+                    <span id="total-questions">5</span> Correct
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Add this section before the learning-resources section -->
+<section class="video-tutorial-section">
+    <h2>Web Basics Video Tutorial</h2>
+    <div class="video-container">
+        <div class="video-player">
+            <iframe 
+                id="webBasicsVideo" 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/qz0aGYrrlhU" 
+                title="Web Basics Tutorial" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="video-controls">
+            <div class="playlist-selector">
+                <button class="playlist-btn active" data-tab="intro" data-video="qz0aGYrrlhU">Web Basics Intro</button>
+                <button class="playlist-btn" data-tab="html-css-js" data-video="ysEN5RaKOlA">HTML, CSS, JS Explained</button>
+                <button class="playlist-btn" data-tab="web-comm" data-video="3PHXvlpVIRk">Internet Communication</button>
+            </div>
+            <div class="video-info">
+                <span id="currentVideoTitle">Web Basics Intro</span>
+            </div>
+        </div>
+        <div class="video-lesson-tabs">
+            <div id="intro-content" class="video-lesson-content active">
+                <h3>Web Basics Introduction</h3>
+                <p>Learn the fundamental concepts of web development and how the internet works.</p>
+            </div>
+            <div id="html-css-js-content" class="video-lesson-content">
+                <h3>HTML, CSS, and JavaScript Explained</h3>
+                <p>Dive deep into the core technologies that power web development.</p>
+            </div>
+            <div id="web-comm-content" class="video-lesson-content">
+                <h3>Internet Communication Explained</h3>
+                <p>Understand how data travels across the internet and web protocols work.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Resources Section -->
+        <section class="learning-resources">
+            <h2>Further Learning Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Online Tutorials</h3>
+                    <ul>
+                        <li><a href="https://www.w3schools.com" target="_blank">W3Schools</a></li>
+                        <li><a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a></li>
+                        <li><a href="https://www.freecodecamp.org" target="_blank">FreeCodeCamp</a></li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Tutorials</h3>
+                    <ul>
+                        <li><a href="https://www.youtube.com/c/TraversyMedia" target="_blank">Traversy Media</a></li>
+                        <li><a href="https://www.youtube.com/c/WebDevSimplified" target="_blank">Web Dev Simplified</a></li>
+                        <li><a href="https://www.udemy.com" target="_blank">Udemy Courses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/web_basics.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering CSS Layout & Box Model</title>
+    <link rel="stylesheet" href="layout_box.css">
+</head>
+<body>
+    <div class="container">
+        <header class="course-header">
+            <h1>🎨 Comprehensive CSS Layout Mastery</h1>
+            <p class="subtitle">From Fundamentals to Advanced Techniques</p>
+        </header>
+
+        <!-- Detailed Lessons Sections -->
+        <section id="css-box-model-components" class="course-section">
+            <h2>📦 CSS Box Model Components</h2>
+            <div class="lesson-content">
+                <div class="theory-block">
+                    <h3>Understanding the Box Model</h3>
+                    <p>Every HTML element is treated as a box with four key layers that control its layout and spacing.</p>
+                </div>
+                
+                <div class="component-breakdown">
+                    <div class="component-item">
+                        <h4>1. Content</h4>
+                        <p>The actual content of the element (text, image, etc.)</p>
+                        <pre><code>
+.content-example {
+    width: 200px;   /* Controls content width */
+    height: 100px;  /* Controls content height */
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="component-item">
+                        <h4>2. Padding</h4>
+                        <p>Space between content and border</p>
+                        <pre><code>
+.padding-example {
+    padding: 20px;  /* Adds space inside the border */
+    padding-top: 10px;
+    padding-right: 15px;
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="component-item">
+                        <h4>3. Border</h4>
+                        <p>Decorative line around the padding</p>
+                        <pre><code>
+.border-example {
+    border: 2px solid #3498db;
+    border-radius: 5px;
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="component-item">
+                        <h4>4. Margin</h4>
+                        <p>Space outside the border, between elements</p>
+                        <pre><code>
+.margin-example {
+    margin: 20px;  /* Adds space outside the border */
+    margin-bottom: 10px;
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="element-sizing-spacing" class="course-section">
+            <h2>📏 Element Sizing and Spacing</h2>
+            <div class="lesson-content">
+                <div class="theory-block">
+                    <h3>Controlling Element Dimensions</h3>
+                    <p>Learn how to precisely control element sizes and spacing using CSS properties.</p>
+                </div>
+                
+                <div class="sizing-techniques">
+                    <div class="technique-item">
+                        <h4>Box Sizing</h4>
+                        <p>Determines how the total width and height of an element are calculated</p>
+                        <pre><code>
+/* Content Box (Default) */
+.content-box {
+    box-sizing: content-box;
+    width: 200px;  /* Does not include padding/border */
+}
+
+/* Border Box */
+.border-box {
+    box-sizing: border-box;
+    width: 200px;  /* Includes padding and border */
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="technique-item">
+                        <h4>Max and Min Dimensions</h4>
+                        <p>Set minimum and maximum sizes for responsive design</p>
+                        <pre><code>
+.responsive-element {
+    min-width: 200px;
+    max-width: 600px;
+    min-height: 100px;
+    max-height: 300px;
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="layout-techniques" class="course-section">
+            <h2>🏗️ Layout Techniques</h2>
+            <div class="lesson-content">
+                <div class="theory-block">
+                    <h3>Modern CSS Layout Methods</h3>
+                    <p>Explore powerful layout techniques to create complex web designs.</p>
+                </div>
+                
+                <div class="layout-methods">
+                    <div class="method-item">
+                        <h4>Flexbox Layout</h4>
+                        <p>One-dimensional layout method for flexible element arrangement</p>
+                        <pre><code>
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-item {
+    flex: 1;
+    margin: 10px;
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="method-item">
+                        <h4>CSS Grid</h4>
+                        <p>Two-dimensional layout system for complex grid-based designs</p>
+                        <pre><code>
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.grid-item {
+    background-color: #3498db;
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="responsive-design" class="course-section">
+            <h2>📱 Responsive Design Principles</h2>
+            <div class="lesson-content">
+                <div class="theory-block">
+                    <h3>Creating Adaptive Web Layouts</h3>
+                    <p>Techniques to ensure your website looks great on all device sizes.</p>
+                </div>
+                
+                <div class="responsive-techniques">
+                    <div class="technique-item">
+                        <h4>Media Queries</h4>
+                        <p>Apply different styles based on device characteristics</p>
+                        <pre><code>
+/* Mobile Devices */
+@media screen and (max-width: 600px) {
+    .responsive-element {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+/* Tablets */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .responsive-element {
+        width: 90%;
+        padding: 15px;
+    }
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="technique-item">
+                        <h4>Flexible Units</h4>
+                        <p>Use relative units for scalable designs</p>
+                        <pre><code>
+.responsive-container {
+    width: 90%;     /* Percentage width */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.flexible-text {
+    font-size: 1.5vw;  /* Viewport-relative sizing */
+    padding: 1em;      /* Relative to font size */
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add this section after the existing sections -->
+<section id="interactive-quiz" class="course-section">
+    <h2>🧠 Interactive CSS Learning</h2>
+
+    <!-- Code Challenge Section -->
+    <div id="code-challenge-section">
+        <h3 id="challenge-title">Code Challenge</h3>
+        <p id="challenge-description">Debug and improve the CSS code</p>
+        
+        <div class="code-editor">
+            <textarea id="code-input" placeholder="Write your CSS code here..."></textarea>
+            <div class="code-feedback" id="code-feedback"></div>
+        </div>
+        <button id="submit-code">Submit Solution</button>
+    </div>
+</section>
+    </div>
+
+    <script src="layout_box.js"></script>
+</body>
+</html>

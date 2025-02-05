@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events Tutorial</title>
+    <link rel="stylesheet" href="../../../css/courses/WMAD/beginner/events.css">
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Events: A Comprehensive Guide</h1>
+        
+        <section id="definition">
+            <h2>What are Events?</h2>
+            <p>Events are actions or occurrences that happen in the browser, such as clicks, keyboard presses, or page loading. They allow JavaScript to respond to user interactions, making webpages dynamic and interactive.</p>
+            <div class="example">
+                <h3>Example: Simple Click Event</h3>
+                <pre><code>
+// HTML
+&lt;button id="greetButton"&gt;Say Hello&lt;/button&gt;
+
+// JavaScript
+const greetButton = document.getElementById('greetButton');
+greetButton.addEventListener('click', function() {
+    alert('Hello, World!');
+});
+                </code></pre>
+            </div>
+        </section>
+        
+        <section id="event-types">
+            <h2>Event Types</h2>
+            
+            <div class="event-category">
+                <h3>1. Mouse Events</h3>
+                <p>Actions related to mouse interactions:</p>
+                <ul>
+                    <li><code>click</code>: When an element is clicked</li>
+                    <li><code>dblclick</code>: Double-click on an element</li>
+                    <li><code>mouseenter</code>: Mouse pointer enters an element</li>
+                    <li><code>mouseleave</code>: Mouse pointer leaves an element</li>
+                    <li><code>mousemove</code>: Mouse moves over an element</li>
+                </ul>
+                <div class="example">
+                    <h3>Mouse Events Example</h3>
+                    <pre><code>
+// HTML
+&lt;div id="colorBox"&gt;Hover and Click Me!&lt;/div&gt;
+
+// JavaScript
+const box = document.getElementById('colorBox');
+box.addEventListener('mouseenter', function() {
+    this.style.backgroundColor = 'lightblue';
+});
+box.addEventListener('mouseleave', function() {
+    this.style.backgroundColor = 'white';
+});
+box.addEventListener('click', function() {
+    alert('Box was clicked!');
+});
+                    </code></pre>
+                </div>
+            </div>
+            
+            <div class="event-category">
+                <h3>2. Keyboard Events</h3>
+                <p>Actions triggered by keyboard interactions:</p>
+                <ul>
+                    <li><code>keydown</code>: Key is pressed down</li>
+                    <li><code>keypress</code>: A character key is pressed</li>
+                    <li><code>keyup</code>: Key is released</li>
+                </ul>
+                <div class="example">
+                    <h3>Keyboard Events Example</h3>
+                    <pre><code>
+// HTML
+&lt;input type="text" id="nameInput"&gt;
+&lt;p id="keyDisplay"&gt;&lt;/p&gt;
+
+// JavaScript
+const nameInput = document.getElementById('nameInput');
+const keyDisplay = document.getElementById('keyDisplay');
+
+nameInput.addEventListener('keydown', function(event) {
+    keyDisplay.textContent = `Key pressed: ${event.key}`;
+});
+                    </code></pre>
+                </div>
+            </div>
+            
+            <div class="event-category">
+                <h3>3. Form Events</h3>
+                <p>Actions related to form interactions:</p>
+                <ul>
+                    <li><code>submit</code>: Form is submitted</li>
+                    <li><code>change</code>: Form element value changes</li>
+                    <li><code>input</code>: Input value is modified</li>
+                    <li><code>focus</code>: Element receives focus</li>
+                    <li><code>blur</code>: Element loses focus</li>
+                </ul>
+                <div class="example">
+                    <h3>Form Events Example</h3>
+                    <pre><code>
+// HTML
+&lt;form id="registrationForm"&gt;
+    &lt;input type="text" id="username" placeholder="Username"&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+&lt;p id="formStatus"&gt;&lt;/p&gt;
+
+// JavaScript
+const form = document.getElementById('registrationForm');
+const usernameInput = document.getElementById('username');
+const formStatus = document.getElementById('formStatus');
+
+usernameInput.addEventListener('focus', function() {
+    formStatus.textContent = 'Editing username...';
+});
+
+usernameInput.addEventListener('blur', function() {
+    formStatus.textContent = 'Username input complete.';
+});
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    formStatus.textContent = `Submitted username: ${usernameInput.value}`;
+});
+                    </code></pre>
+                </div>
+            </div>
+            
+            <div class="event-category">
+                <h3>4. Window Events</h3>
+                <p>Actions related to the browser window:</p>
+                <ul>
+                    <li><code>load</code>: Page or image finishes loading</li>
+                    <li><code>resize</code>: Window is resized</li>
+                    <li><code>scroll</code>: Page is scrolled</li>
+                    <li><code>unload</code>: Page is being unloaded</li>
+                </ul>
+                <div class="example">
+                    <h3>Window Events Example</h3>
+                    <pre><code>
+// JavaScript
+window.addEventListener('load', function() {
+    console.log('Page fully loaded');
+});
+
+window.addEventListener('resize', function() {
+    console.log(`Window resized to: ${window.innerWidth}x${window.innerHeight}`);
+});
+
+window.addEventListener('scroll', function() {
+    console.log(`Scrolled to: ${window.scrollY}px`);
+});
+                    </code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <section id="adding-event-listeners">
+            <h2>Adding Event Listeners</h2>
+            <div class="code-example">
+                <h3>addEventListener() Method</h3>
+                <pre><code>
+// Basic syntax
+element.addEventListener(eventType, callbackFunction);
+
+// Practical Example
+let button = document.getElementById("myButton");
+button.addEventListener("click", function() {
+    console.log("Button was clicked!");
+});
+
+// With an arrow function
+button.addEventListener("click", () => {
+    alert("Button clicked with arrow function!");
+});
+                </code></pre>
+                <p>The preferred method for handling events in modern JavaScript. It allows multiple listeners on the same event.</p>
+            </div>
+        </section>
+        
+        <!-- Rest of the content remains the same as in the previous submission -->
+        
+        <section id="event-delegation">
+            <h2>Event Delegation</h2>
+            <p>Using event listeners on parent elements to manage events for child elements dynamically.</p>
+            <div class="example">
+                <pre><code>
+// HTML
+&lt;ul id="todoList"&gt;
+    &lt;li&gt;Task 1&lt;/li&gt;
+    &lt;li&gt;Task 2&lt;/li&gt;
+    &lt;li&gt;Task 3&lt;/li&gt;
+&lt;/ul&gt;
+
+// JavaScript
+const todoList = document.getElementById('todoList');
+todoList.addEventListener('click', function(event) {
+    if (event.target.tagName === 'LI') {
+        console.log(`Clicked task: ${event.target.textContent}`);
+    }
+});
+                </code></pre>
+            </div>
+        </section>
+        <section id="interactive-playground">
+    <h2>Interactive Events Playground</h2>
+    
+    <div class="event-section">
+        <h3>Mouse Events</h3>
+        <button id="mouseButton">Hover and Click Me!</button>
+        <p id="mouseOutput">Interact with the button to see events</p>
+    </div>
+    
+    <div class="event-section">
+        <h3>Keyboard Events</h3>
+        <input type="text" id="keyboardInput" placeholder="Type something here">
+        <p id="keyboardOutput">Watch key interactions</p>
+    </div>
+    
+    <div class="event-section">
+        <h3>Form Events</h3>
+        <form id="eventForm">
+            <input type="text" id="formInput" placeholder="Enter your name">
+            <button type="submit">Submit</button>
+        </form>
+        <p id="formOutput"></p>
+    </div>
+
+    <div class="code-explanation">
+        <h3>How the Interactive Playground Works</h3>
+        <div class="code-block">
+            <h4>1. Mouse Events Code</h4>
+            <pre><code>
+// Select DOM elements
+const mouseButton = document.getElementById('mouseButton');
+const mouseOutput = document.getElementById('mouseOutput');
+
+// Mouse Enter Event
+mouseButton.addEventListener('mouseenter', () => {
+    mouseOutput.textContent = 'Mouse entered the button!';
+    mouseButton.style.backgroundColor = 'lightblue';
+});
+
+// Mouse Leave Event
+mouseButton.addEventListener('mouseout', () => {
+    mouseOutput.textContent = 'Mouse left the button!';
+    mouseButton.style.backgroundColor = '';
+});
+
+// Click Event
+mouseButton.addEventListener('click', () => {
+    mouseOutput.textContent = 'Button clicked!';
+});
+            </code></pre>
+            <p class="explanation">
+                This code demonstrates three mouse events:
+                - <code>mouseenter</code>: Triggered when the mouse pointer enters the button
+                - <code>mouseout</code>: Triggered when the mouse pointer leaves the button
+                - <code>click</code>: Triggered when the button is clicked
+                
+                Each event updates the output text and changes the button's appearance to provide visual feedback.
+            </p>
+        </div>
+
+        <div class="code-block">
+            <h4>2. Keyboard Events Code</h4>
+            <pre><code>
+// Select DOM elements
+const keyboardInput = document.getElementById('keyboardInput');
+const keyboardOutput = document.getElementById('keyboardOutput');
+
+// Keydown Event
+keyboardInput.addEventListener('keydown', (event) => {
+    keyboardOutput.textContent = `Key pressed: ${event.key}`;
+});
+
+// Input Event
+keyboardInput.addEventListener('input', () => {
+    keyboardOutput.textContent = `Current input: ${keyboardInput.value}`;
+});
+            </code></pre>
+            <p class="explanation">
+                This code showcases two keyboard events:
+                - <code>keydown</code>: Triggered when any key is pressed down
+                - <code>input</code>: Triggered when the input value changes
+                
+                The events provide real-time feedback about key presses and input changes.
+            </p>
+        </div>
+
+        <div class="code-block">
+            <h4>3. Form Events Code</h4>
+            <pre><code>
+// Select DOM elements
+const eventForm = document.getElementById('eventForm');
+const formInput = document.getElementById('formInput');
+const formOutput = document.getElementById('formOutput');
+
+// Form Submit Event
+eventForm.addEventListener('submit', (event) => {
+    // Prevent the default form submission
+    event.preventDefault();
+    
+    // Display submitted name
+    formOutput.textContent = `Form submitted! Hello, ${formInput.value}!`;
+});
+            </code></pre>
+            <p class="explanation">
+                This code demonstrates the form submit event:
+                - <code>submit</code>: Triggered when the form is submitted
+                - <code>event.preventDefault()</code>: Stops the default form submission
+                
+                Instead of sending the form to a server, it displays a greeting with the entered name.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="video-tutorial">
+    <h2>Video Tutorials</h2>
+    <div class="video-container">
+        <div class="video-item">
+            <h3>JavaScript Events Explained</h3>
+            <iframe width="560" height="315" 
+                    src="https://www.youtube.com/embed/jS4aFq5-91Q" 
+                    title="JavaScript Events Tutorial" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <div class="video-item">
+            <h3>Advanced Event Handling</h3>
+            <iframe width="560" height="315" 
+                    src="https://www.youtube.com/embed/XF1_MlZ7hXA" 
+                    title="Advanced JavaScript Events" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<section id="additional-resources">
+    <h2>Additional Resources</h2>
+    <div class="resources-container">
+        <div class="resource-category">
+            <h3>Documentation</h3>
+            <ul>
+                <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">
+                        MDN Web Docs: Event Reference
+                    </a>
+                </li>
+                <li>
+                    <a href="https://javascript.info/events-intro" target="_blank">
+                        JavaScript.info: Introduction to Events
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>Online Tutorials</h3>
+            <ul>
+                <li>
+                    <a href="https://www.w3schools.com/js/js_events.asp" target="_blank">
+                        W3Schools: JavaScript Events
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank">
+                        Codecademy: JavaScript Events Course
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>Practice Platforms</h3>
+            <ul>
+                <li>
+                    <a href="https://codepen.io/challenges/javascript-events" target="_blank">
+                        CodePen: JavaScript Events Challenges
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank">
+                        FreeCodeCamp: JavaScript Events Exercises
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>Recommended Books</h3>
+            <ul>
+                <li>
+                    <a href="https://eloquentjavascript.net/" target="_blank">
+                        Eloquent JavaScript by Marijn Haverbeke
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742" target="_blank">
+                        JavaScript: The Good Parts by Douglas Crockford
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="coding-challenges">
+    <h2>Coding Challenges</h2>
+    <div class="challenges-container">
+        <div class="challenge">
+            <h3>Event Listener Challenge</h3>
+            <p>Create a to-do list application where users can add, delete, and mark tasks as complete using event listeners.</p>
+            <ul>
+                <li>Implement an input field to add new tasks</li>
+                <li>Add a delete button for each task</li>
+                <li>Create a checkbox to mark tasks as complete</li>
+            </ul>
+        </div>
+        <div class="challenge">
+            <h3>Interactive Form Validation</h3>
+            <p>Build a registration form with real-time validation using various event types.</p>
+            <ul>
+                <li>Validate email format on input</li>
+                <li>Check password strength as user types</li>
+                <li>Prevent form submission if validation fails</li>
+            </ul>
+        </div>
+    </div>
+</section>
+    </div>
+    
+    <script src="../../../js/courses/WMAD/beginner/events.js"></script>
+</body>
+</html>

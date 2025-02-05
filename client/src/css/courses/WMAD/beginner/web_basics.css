@@ -1,0 +1,357 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #f4f6f7;
+    --text-color: #2c3e50;
+    --card-background: #ffffff;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.web-basics-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header Styles */
+.page-header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Navigation Tabs */
+.learning-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: all var(--transition-speed);
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Content Sections */
+.content-section {
+    display: none;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.content-section.active {
+    display: block;
+}
+
+.content-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+/* Concept Grid */
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.concept-card {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform var(--transition-speed);
+}
+
+.concept-card:hover {
+    transform: translateY(-10px);
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.concept-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.concept-card ul li {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* Technologies Section */
+.tech-breakdown {
+    display: flex;
+    justify-content: space-around;
+}
+
+.tech-card {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    width: 30%;
+}
+
+.tech-icon {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.html-icon { background-color: #e34c26; color: white; }
+.css-icon { background-color: #264de4; color: white; }
+.js-icon { background-color: #f0db4f; color: black; }
+
+/* Communication Flow */
+.communication-diagram {
+    background-color: #f1f1f1;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 1rem;
+}
+
+.communication-explanation ol {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+}
+
+/* Quiz Styles */
+.quiz-container {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+}
+
+.quiz-question {
+    margin-bottom: 1.5rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.quiz-option {
+    padding: 1rem;
+    background-color: #e9e9e9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.quiz-option:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.quiz-results {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--secondary-color);
+    width: 0;
+    transition: width var(--transition-speed);
+}
+
+/* Learning Resources */
+.learning-resources {
+    margin-top: 2rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.resource-card {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.resource-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.resource-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resource-card a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color var(--transition-speed);
+}
+
+.resource-card a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .concept-grid,
+    .tech-breakdown,
+    .resources-grid,
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+
+    .learning-tabs {
+        flex-direction: column;
+    }
+}
+/* Video Tutorial Section */
+.video-tutorial-section {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.video-container {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.video-player {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+}
+
+.video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f1f1f1;
+}
+
+.playlist-selector {
+    display: flex;
+    gap: 1rem;
+}
+
+.playlist-btn {
+    background-color: #e9e9e9;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.playlist-btn.active,
+.playlist-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.video-info {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.video-lesson-tabs {
+    padding: 1rem;
+    background-color: white;
+}
+
+.video-lesson-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-speed);
+}
+
+.video-lesson-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}

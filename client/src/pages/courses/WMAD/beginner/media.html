@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Media Elements - Enlighten ED</title>
+    <link rel="stylesheet" href="media.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>HTML Media Elements</h1>
+            <p>Master Embedding and Manipulating Multimedia Content</p>
+        </header>
+
+        <section class="media-overview">
+            <h2>Exploring Media Elements</h2>
+            <div class="media-grid">
+                <!-- Image Elements -->
+                <div class="media-card">
+                    <i class="fas fa-image"></i>
+                    <h3>Image Elements</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Basic Image --&gt;
+&lt;img src="image.jpg" 
+     alt="Description"&gt;
+
+&lt;!-- Responsive Image --&gt;
+&lt;img src="responsive.jpg" 
+     alt="Responsive" 
+     width="100%" 
+     height="auto"&gt;
+
+&lt;!-- Image with Caption --&gt;
+&lt;figure&gt;
+    &lt;img src="photo.jpg" alt="Photo"&gt;
+    &lt;figcaption&gt;Image Caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+                        </code></pre>
+                    </div>
+                    <div class="media-demo">
+                        <div class="image-demo">
+                            <h4>Basic Image</h4>
+                            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image">
+                            
+                            <h4>Responsive Image</h4>
+                            <img src="https://via.placeholder.com/600x400" 
+                                 alt="Responsive Placeholder" 
+                                 style="max-width: 100%; height: auto;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Elements -->
+                <div class="media-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Elements</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Basic Video --&gt;
+&lt;video controls&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    Your browser does not support video.
+&lt;/video&gt;
+
+&lt;!-- Advanced Video --&gt;
+&lt;video 
+    src="video.mp4" 
+    controls 
+    width="500" 
+    poster="thumbnail.jpg"&gt;
+    Your browser does not support video.
+&lt;/video&gt;
+                        </code></pre>
+                    </div>
+                    <div class="media-demo">
+                        <div class="video-demo">
+                            <h4>Basic Video</h4>
+                            <video controls>
+                                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audio Elements -->
+                <div class="media-card">
+                    <i class="fas fa-music"></i>
+                    <h3>Audio Elements</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Basic Audio --&gt;
+&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    Your browser does not support audio.
+&lt;/audio&gt;
+
+&lt;!-- Multiple Audio Sources --&gt;
+&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="audio.ogg" type="audio/ogg"&gt;
+    Your browser does not support audio.
+&lt;/audio&gt;
+                        </code></pre>
+                    </div>
+                    <div class="media-demo">
+                        <div class="audio-demo">
+                            <h4>Sample Audio</h4>
+                            <audio controls>
+                                <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SVG and Canvas -->
+                <div class="media-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>SVG and Canvas</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- Inline SVG --&gt;
+&lt;svg width="100" height="100"&gt;
+    &lt;circle cx="50" cy="50" r="40" 
+            fill="green" /&gt;
+&lt;/svg&gt;
+
+&lt;!-- Canvas Drawing --&gt;
+&lt;canvas id="myCanvas" 
+        width="200" 
+        height="100"&gt;
+    Canvas not supported.
+&lt;/canvas&gt;
+                        </code></pre>
+                    </div>
+                    <div class="media-demo">
+                        <div class="svg-canvas-demo">
+                            <h4>SVG Circle</h4>
+                            <svg width="100" height="100">
+                                <circle cx="50" cy="50" r="40" fill="green" />
+                            </svg>
+                            <h4>Canvas Example</h4>
+                            <canvas id="demoCanvas" width="200" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embedded Content -->
+                <div class="media-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Embedded Content</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;!-- YouTube Embed --&gt;
+&lt;iframe 
+    width="560" 
+    height="315" 
+    src="https://youtube.com/embed/VIDEO_ID"&gt;
+&lt;/iframe&gt;
+
+&lt;!-- Google Maps Embed --&gt;
+&lt;iframe 
+    src="https://maps.google.com/LOCATION"&gt;
+&lt;/iframe&gt;
+                        </code></pre>
+                    </div>
+                    <div class="media-demo">
+                        <div class="embed-demo">
+                            <h4>YouTube Embed</h4>
+                            <iframe 
+                                width="100%" 
+                                height="200" 
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                title="YouTube Video">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Picture Element -->
+                <div class="media-card">
+                    <i class="fas fa-images"></i>
+                    <h3>Responsive Images</h3>
+                    <div class="code-example">
+                        <pre><code>
+&lt;picture&gt;
+    &lt;source media="(min-width: 650px)" 
+            srcset="large-image.jpg"&gt;
+    &lt;source media="(min-width: 465px)" 
+            srcset="medium-image.jpg"&gt;
+    &lt;img src="small-image.jpg" 
+         alt="Responsive Image"&gt;
+&lt;/picture&gt;
+                        </code></pre>
+                    </div>
+                    <div class="media-demo">
+                        <div class="picture-demo">
+                            <h4>Responsive Image Example</h4>
+                            <picture>
+                                <source media="(min-width: 650px)" srcset="https://via.placeholder.com/650x300">
+                                <source media="(min-width: 465px)" srcset="https://via.placeholder.com/465x200">
+                                <img src="https://via.placeholder.com/300x150" alt="Responsive Placeholder">
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-tutorial">
+            <h2>HTML Media Elements Video Tutorial</h2>
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe 
+                        id="mediaElementsVideo" 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/qz0aGYrrlhU" 
+                        title="HTML Media Elements Tutorial" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-controls">
+                    <div class="playlist-selector">
+                        <button class="playlist-btn active" data-video="qz0aGYrrlhU">Media Elements Intro</button>
+                        <button class="playlist-btn" data-video="ysEN5RaKOlA">Advanced Media Techniques</button>
+                        <button class="playlist-btn" data-video="3PHXvlpVIRk">Responsive Media Design</button>
+                    </div>
+                    <div class="video-info">
+                        <span id="currentVideoTitle">Media Elements Intro</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-practice">
+            <h2>Interactive Media Playground</h2>
+            <div class="media-playground">
+                <div class="playground-controls">
+                    <select id="mediaTypeSelector">
+                        <option value="">Select Media Type</option>
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                        <option value="audio">Audio</option>
+                    </select>
+                    <input type="text" id="mediaSourceInput" placeholder="Enter media URL">
+                    <button id="addMediaBtn">Add Media</button>
+                </div>
+                <div id="mediaPreviewArea" class="media-preview-area"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="media.js"></script>
+</body>
+</html>

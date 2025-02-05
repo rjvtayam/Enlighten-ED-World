@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Variables & Data Types</title>
+    <link rel="stylesheet" href="/client/src/css/courses/WMAD/beginner/variables.css">
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Variables & Data Types</h1>
+
+        <section id="what-are-variables">
+            <h2>1. What are Variables?</h2>
+            <div class="content-box">
+                <p>Variables are containers for storing data values in JavaScript. They act like labeled boxes where you can store and manage different types of information.</p>
+                <div class="code-example">
+                    <pre><code>// Variable declaration examples
+let name = "John Doe";     // String variable
+let age = 25;              // Number variable
+let isStudent = true;      // Boolean variable</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="declaring-variables">
+            <h2>2. Declaring Variables</h2>
+            <div class="content-box">
+                <h3>Using let and const</h3>
+                <p>JavaScript provides two main ways to declare variables:</p>
+                <ul>
+                    <li><code>let</code>: Allows reassignment of values</li>
+                    <li><code>const</code>: Creates a constant that cannot be reassigned</li>
+                </ul>
+                <div class="code-example">
+                    <pre><code>// let allows reassignment
+let age = 25;
+age = 26;  // This is allowed
+
+// const prevents reassignment
+const birthYear = 1998;
+// birthYear = 1999;  // This would cause an error</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-types">
+            <h2>3. Data Types in JavaScript</h2>
+            <div class="content-box">
+                <h3>Primitive Data Types</h3>
+                <div class="data-type-grid">
+                    <div class="data-type-card">
+                        <h4>String</h4>
+                        <p>Represents text data</p>
+                        <code>let message = "Hello, World!";</code>
+                    </div>
+                    <div class="data-type-card">
+                        <h4>Number</h4>
+                        <p>Numeric values (integers and decimals)</p>
+                        <code>let price = 19.99;</code>
+                    </div>
+                    <div class="data-type-card">
+                        <h4>Boolean</h4>
+                        <p>True or false values</p>
+                        <code>let isLoggedIn = true;</code>
+                    </div>
+                    <div class="data-type-card">
+                        <h4>Undefined</h4>
+                        <p>Variable declared but not assigned</p>
+                        <code>let username;</code>
+                    </div>
+                    <div class="data-type-card">
+                        <h4>Null</h4>
+                        <p>Intentional absence of value</p>
+                        <code>let emptyValue = null;</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dynamic-typing">
+            <h2>4. Dynamic Typing</h2>
+            <div class="content-box">
+                <p>JavaScript automatically determines the type of a variable based on its value.</p>
+                <div class="code-example">
+                    <pre><code>let age = 25;        // age is a number
+age = "Twenty-five"; // Now age is a string
+console.log(typeof age);  // Outputs: "string"</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="type-coercion">
+            <h2>5. Type Coercion</h2>
+            <div class="content-box">
+                <p>JavaScript automatically converts data types when performing operations.</p>
+                <div class="code-example">
+                    <pre><code>// String and number combination
+let result = "5" + 10;  // Result is "510"
+console.log(result);    // Outputs: "510"
+
+// Numeric conversion
+let sum = "10" - 5;    // Result is 5
+console.log(sum);      // Outputs: 5</code></pre>
+                </div>
+            </div>
+        </section>
+         
+         <section id="quiz-section">
+            <h2>Interactive Quiz: Variables & Data Types</h2>
+            <div class="quiz-container">
+                <div id="quiz">
+                    <div class="quiz-header">
+                        <h3 id="quiz-title">Variables & Data Types Quiz</h3>
+                        <div id="timer">Time Left: <span id="time">05:00</span></div>
+                    </div>
+                    <div id="quiz-questions"></div>
+                    <div class="quiz-controls">
+                        <button id="prev-btn" class="nav-btn">Previous</button>
+                        <button id="next-btn" class="nav-btn">Next</button>
+                        <button id="submit-btn">Submit Quiz</button>
+                    </div>
+                </div>
+                <div id="results" class="hidden">
+                    <div class="result-header">
+                        <h3>Quiz Results</h3>
+                        <p id="result-message" class="result-message"></p>
+                    </div>
+                    <div class="score-container">
+                        <p>Your Score: <span id="score">0</span> out of <span id="total-questions">0</span></p>
+                    </div>
+                    <div id="detailed-results" class="detailed-results"></div>
+                    <div id="retake-container"></div>
+                </div>
+            </div>
+        </section>
+         
+        <section id="interactive-practice">
+            <h2>6. Interactive Practice</h2>
+            <div class="practice-container">
+                <div class="practice-exercise">
+                    <h3>Variable Type Checker</h3>
+                    <input type="text" id="variableInput" placeholder="Enter a value">
+                    <button id="checkTypeBtn">Check Type</button>
+                    <p id="typeResult"></p>
+                </div>
+
+                <div class="practice-exercise">
+                    <h3>Variable Manipulation</h3>
+                    <input type="number" id="numberInput" placeholder="Enter a number">
+                    <button id="multiplyBtn">Multiply by 2</button>
+                    <p id="multiplyResult"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning-resources">
+            <h2>7. Additional Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>MDN Web Docs</h3>
+                    <p>Comprehensive JavaScript variables guide</p>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" class="resource-link">Explore</a>
+                </div>
+                <div class="resource-card">
+                    <h3>JavaScript.info</h3>
+                    <p>Detailed variables tutorial</p>
+                    <a href="https://javascript.info/variables" target="_blank" class="resource-link">Read More</a>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+    <script src="/client/src/js/courses/WMAD/beginner/variables.js"></script>
+</body>
+</html>

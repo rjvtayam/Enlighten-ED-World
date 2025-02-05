@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Programming in JavaScript</title>
+    <link rel="stylesheet" href="../../../css/courses/WMAD/intermediate/async.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Async Programming in JavaScript</h1>
+            <p>Master the art of handling asynchronous tasks efficiently!</p>
+        </header>
+        
+        <section id="callbacks">
+            <h2>1️⃣ Callbacks</h2>
+            <div class="description">
+                <h3>What are Callbacks?</h3>
+                <p>A callback is a function that is passed as an argument to another function and is executed after the completion of that function.</p>
+                <p><strong>Common Issues:</strong> Callback hell, where nested callbacks become hard to read and maintain.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+function fetchData(callback) {
+  setTimeout(() => {
+    const data = "Data loaded";
+    callback(data);
+  }, 1000);
+}
+
+fetchData((data) => {
+  console.log(data); // Output: Data loaded
+});
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="promises">
+            <h2>2️⃣ Promises</h2>
+            <div class="description">
+                <h3>What are Promises?</h3>
+                <p>A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.</p>
+                <p><strong>Promise States:</strong> Pending, Resolved (fulfilled), or Rejected.</p>
+                <p><strong>Chaining:</strong> Allows chaining multiple .then() and .catch() calls to handle asynchronous tasks.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+const fetchData = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const data = "Data loaded";
+    resolve(data);
+  }, 1000);
+});
+
+fetchData.then((data) => {
+  console.log(data); // Output: Data loaded
+}).catch((error) => {
+  console.log(error);
+});
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="async-await">
+            <h2>3️⃣ Async/Await</h2>
+            <div class="description">
+                <h3>What is Async/Await?</h3>
+                <p>async is used to declare a function as asynchronous, and await pauses the execution of the function until a Promise is resolved.</p>
+                <p>This makes asynchronous code look and behave more like synchronous code.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+async function fetchData() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  console.log(data); // Process the fetched data
+}
+
+fetchData();
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="error-handling">
+            <h2>4️⃣ Error Handling with Async/Await</h2>
+            <div class="description">
+                <h3>Handling Errors</h3>
+                <p>You can use try...catch to handle errors when working with async/await, just like in synchronous code.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There was an error!', error);
+  }
+}
+
+fetchData();
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="parallel-operations">
+            <h2>5️⃣ Parallel and Concurrent Async Operations</h2>
+            <div class="description">
+                <h3>Promise.all()</h3>
+                <p>Used to run multiple promises concurrently and wait for all of them to resolve.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+const promise1 = fetch('https://api.example.com/data1');
+const promise2 = fetch('https://api.example.com/data2');
+
+Promise.all([promise1, promise2])
+  .then(([response1, response2]) => {
+    return Promise.all([response1.json(), response2.json()]);
+  })
+  .then(([data1, data2]) => {
+    console.log(data1, data2);
+  })
+  .catch(error => console.error('Error fetching data:', error));
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="async-iteration">
+            <h2>6️⃣ Async Iteration</h2>
+            <div class="description">
+                <h3>Async Generators</h3>
+                <p>Allows you to work with async data in a similar way to regular generators.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+async function* fetchDataGenerator() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  yield data;
+}
+
+(async () => {
+  for await (const data of fetchDataGenerator()) {
+    console.log(data);
+  }
+})();
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="fetch-api">
+            <h2>7️⃣ Fetch API</h2>
+            <div class="description">
+                <h3>Making Asynchronous HTTP Requests</h3>
+                <p>The fetch API is the modern way to make asynchronous HTTP requests in JavaScript.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log('Error:', error));
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="race-conditions">
+            <h2>8️⃣ Race Conditions and Handling Timeout</h2>
+            <div class="description">
+                <h3>Timeout Handling</h3>
+                <p>Use Promise.race() to set a timeout for async operations.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+const fetchDataWithTimeout = new Promise((resolve, reject) => {
+  const timer = setTimeout(() => reject('Timeout error'), 2000);
+  fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => {
+      clearTimeout(timer);
+      resolve(data);
+    })
+    .catch(reject);
+});
+
+fetchDataWithTimeout
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="debounce-throttle">
+            <h2>9️⃣ Debouncing and Throttling with Async</h2>
+            <div class="description">
+                <h3>Debouncing Example</h3>
+                <p>Ensures that a function is not called repeatedly in a short period.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+let timer;
+function search(query) {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    console.log(`Searching for ${query}`);
+  }, 300);
+}
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="web-workers">
+            <h2>🔟 Web Workers for Async Processing</h2>
+            <div class="description">
+                <h3>Web Workers</h3>
+                <p>Run JavaScript code in a separate thread to perform computationally heavy tasks without blocking the main thread.</p>
+            </div>
+            <div class="code-example">
+                <pre><code>
+const worker = new Worker('worker.js');
+worker.postMessage('Start processing');
+worker.onmessage = function(e) {
+  console.log('Worker said: ' + e.data);
+};
+                </code></pre>
+            </div>
+        </section>
+    </div>
+        <section class="why-async">
+            <h2>Why Async Programming Matters</h2>
+            <ul>
+                <li>Handles time-consuming tasks without blocking the main thread</li>
+                <li>Improves application performance and responsiveness</li>
+                <li>Enables non-blocking I/O operations</li>
+            </ul>
+        </section>
+
+        <section class="video-tutorials">
+            <h2>📺 Video Tutorials</h2>
+            <div class="video-grid">
+                <iframe src="https://www.youtube.com/embed/8aGhZQkoFbQ" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/DHvZLI7Db8E" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/PoRJizFvM7s" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/9kRgVxULbag" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="../../../js/courses/WMAD/intermediate/async.js"></script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+/* Modern, Comprehensive CSS for JavaScript Introduction Page */
+:root {
+    /* Color Palette */
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --background-light: #f4f6f7;
+    --text-dark: #2c3e50;
+    --text-light: #34495e;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    font-size: 16px;
+}
+
+/* Container Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.8rem;
+    position: relative;
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 15px;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--gradient-secondary);
+}
+
+h2 {
+    font-size: 2rem;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+p {
+    margin-bottom: 15px;
+    color: var(--text-light);
+}
+
+/* Interactive Practice Section */
+#interactive-practice {
+    background-color: #f8f9fa;
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.practice-exercise {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.practice-exercise:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-10px);
+}
+
+.exercise-content {
+    display: flex;
+    gap: 30px;
+}
+
+.exercise-description {
+    flex: 1;
+    background-color: #f1f3f5;
+    border-radius: 12px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise-description::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--gradient-primary);
+}
+
+.exercise-description ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.exercise-description ul li {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.exercise-description ul li::before {
+    content: '✓';
+    position: absolute;
+    left: -20px;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.exercise-description pre {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+    border-left: 5px solid var(--primary-color);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+
+.exercise-practice {
+    flex: 1;
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Input and Button Styles */
+input, button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+input:focus, button:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+}
+
+button {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Practice Challenges */
+.practice-challenges {
+    background-color: #f1f3f5;
+    border-radius: 15px;
+    padding: 40px;
+    margin-top: 30px;
+}
+
+.challenge-list {
+    display: flex;
+    gap: 25px;
+}
+
+.challenge {
+    flex: 1;
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.challenge:hover {
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.challenge h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.challenge ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.challenge ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.challenge ul li::before {
+    content: '🚀';
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* Video and Resources Sections */
+#video-resources, #learning-resources {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+}
+
+.video-container, .resources-grid {
+    display: flex;
+    gap: 25px;
+}
+
+.video-item, .resource-card {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.video-item:hover, .resource-card:hover {
+    transform: translateY(-10px);
+}
+
+.resource-link {
+    display: inline-block;
+    background: var(--gradient-secondary);
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: transform 0.3s ease;
+}
+
+.resource-link:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .exercise-content,
+    .challenge-list,
+    .video-container,
+    .resources-grid {
+        flex-direction: column;
+    }
+
+    .exercise-description,
+    .exercise-practice,
+    .challenge,
+    .video-item,
+    .resource-card {
+        flex: none;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;
+}

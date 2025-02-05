@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Form Mini Project</title>
+    <link rel="stylesheet" href="../../../../css/courses/WMAD/beginner/form_project.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interactive Form Mini Project</h1>
+        </header>
+
+        <main>
+            <section id="project-instructions">
+                <h2>Mini Project: Creating an Interactive Form</h2>
+                
+                <div class="instruction-content">
+                    <h3>Objective</h3>
+                    <p>Create an interactive form that validates user input, provides real-time feedback, and demonstrates basic form handling techniques.</p>
+                    
+                    <h3>Project Requirements</h3>
+                    <ol>
+                        <li>
+                            <strong>Form Structure</strong>
+                            <p>Create a form with the following fields:</p>
+                            <ul>
+                                <li>Full Name (text input)</li>
+                                <li>Email Address (email input)</li>
+                                <li>Age (number input)</li>
+                                <li>Password (password input)</li>
+                                <li>Confirm Password (password input)</li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <strong>Validation Requirements</strong>
+                            <ul>
+                                <li>Full Name: Required, minimum 2 characters</li>
+                                <li>Email: Must be a valid email format</li>
+                                <li>Age: Between 18 and 100</li>
+                                <li>Password: Minimum 8 characters, must contain at least one uppercase, one lowercase, and one number</li>
+                                <li>Confirm Password: Must match the password</li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <strong>Interactive Features</strong>
+                            <ul>
+                                <li>Real-time validation as user types</li>
+                                <li>Display error messages for invalid inputs</li>
+                                <li>Show success message when all fields are valid</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <h3>Bonus Challenges</h3>
+                    <ul>
+                        <li>Add a strength meter for the password</li>
+                        <li>Implement additional custom validations</li>
+                        <li>Add visual indicators for valid/invalid fields</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="playground">
+                <div id="code-editor">
+                    <textarea id="code-input" placeholder="Write your HTML, CSS, and JavaScript code here..."></textarea>
+                </div>
+                <div id="output-area">
+                    <h3>Output Preview</h3>
+                    <div id="output-display-container">
+                        <iframe id="output-display" sandbox="allow-scripts allow-same-origin"></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <section id="control-panel">
+                <button id="run-btn">Run Code</button>
+                <button id="reset-btn">Reset</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../../../js/courses/WMAD/beginner/form_project.js"></script>
+</body>
+</html>

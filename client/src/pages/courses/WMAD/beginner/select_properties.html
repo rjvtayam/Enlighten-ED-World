@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors & Properties</title>
+    <link rel="stylesheet" href="../../../css/courses/WMAD/beginner/select_properties.css">
+</head>
+
+<body>
+    <div class="course-container">
+        <h1>CSS Selectors & Properties</h1>
+        
+        <section id="lesson-overview">
+            <h2>Lesson Overview</h2>
+            <p>In this lesson, you'll learn about CSS selectors and how to apply styles to HTML elements.</p>
+        </section>
+        
+        <section id="css-selectors">
+            <h2>CSS Selectors</h2>
+            
+            <div class="selector-types">
+                <h3>Types of Selectors</h3>
+                
+                <div class="selector-detail">
+                    <h4>1. Element Selector</h4>
+                    <p>Selects all elements of a specific type.</p>
+                    <pre><code>
+/* Selects all paragraph elements */
+p {
+    color: navy;
+    font-size: 16px;
+}
+
+/* Selects all heading elements */
+h1 {
+    text-align: center;
+    color: darkgreen;
+}
+                    </code></pre>
+                    <p>Use Case: Apply styles to all elements of a specific type across your webpage.</p>
+                </div>
+                
+                <div class="selector-detail">
+                    <h4>2. Class Selector</h4>
+                    <p>Selects elements with a specific class attribute.</p>
+                    <pre><code>
+/* HTML */
+<div class="highlight">Highlighted Text</div>
+<p class="highlight">Another highlighted element</p>
+
+/* CSS */
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+                    </code></pre>
+                    <p>Use Case: Apply styles to multiple elements with the same class, regardless of their type.</p>
+                </div>
+                
+                <div class="selector-detail">
+                    <h4>3. ID Selector</h4>
+                    <p>Selects a single element with a specific ID attribute.</p>
+                    <pre><code>
+/* HTML */
+<div id="main-header">Primary Header</div>
+
+/* CSS */
+#main-header {
+    color: crimson;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+                    </code></pre>
+                    <p>Use Case: Style a unique element on the page. Each ID should be unique.</p>
+                </div>
+                
+                <div class="selector-detail">
+                    <h4>4. Attribute Selector</h4>
+                    <p>Selects elements based on their attributes or attribute values.</p>
+                    <pre><code>
+/* Selects all inputs with type "text" */
+input[type="text"] {
+    border: 2px solid gray;
+    padding: 5px;
+}
+
+/* Selects elements with a specific attribute */
+[data-category] {
+    background-color: lightblue;
+}
+
+/* Selects elements where attribute starts with a value */
+a[href^="https"] {
+    color: green;
+    text-decoration: underline;
+}
+                    </code></pre>
+                    <p>Use Case: Target elements with specific attributes or attribute patterns.</p>
+                </div>
+                
+                <div class="selector-detail">
+                    <h4>5. Pseudo-class Selector</h4>
+                    <p>Selects elements based on a specific state or condition.</p>
+                    <pre><code>
+/* Styles a link when hovered */
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+/* Styles the first child element */
+li:first-child {
+    font-weight: bold;
+}
+
+/* Styles every odd row in a table */
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+/* Styles an input when it's focused */
+input:focus {
+    outline: 2px solid blue;
+    border-color: lightblue;
+}
+                    </code></pre>
+                    <p>Use Case: Add interactive and dynamic styles based on element states.</p>
+                </div>
+            </div>
+            
+            <div class="selector-combinations">
+                <h3>Selector Combinations</h3>
+                <pre><code>
+/* Descendant Selector */
+div p {
+    color: purple;
+}
+
+/* Child Selector */
+ul > li {
+    list-style-type: square;
+}
+
+/* Adjacent Sibling Selector */
+h1 + p {
+    font-style: italic;
+}
+                </code></pre>
+            </div>
+        </section>
+        
+        <section id="css-properties">
+    <h2>CSS Properties</h2>
+    
+    <div class="property-types">
+        <h3>Common CSS Properties</h3>
+        
+        <div class="property-detail">
+            <h4>1. Color Property</h4>
+            <p>Defines the text color of an element.</p>
+            <pre><code>
+/* Named colors */
+p { color: blue; }
+
+/* Hexadecimal color */
+h1 { color: #FF0000; }
+
+/* RGB color */
+div { color: rgb(0, 128, 255); }
+
+/* RGBA with transparency */
+span { color: rgba(0, 0, 0, 0.7); }
+            </code></pre>
+            <div class="property-explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Can use named colors, hex, RGB, and RGBA</li>
+                    <li>Affects text color of the element</li>
+                    <li>RGBA allows for color transparency</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="property-detail">
+            <h4>2. Background Color</h4>
+            <p>Sets the background color of an element.</p>
+            <pre><code>
+/* Solid background color */
+.box { background-color: lightgreen; }
+
+/* Hexadecimal background */
+.header { background-color: #F0F0F0; }
+
+/* RGB background */
+.section { background-color: rgb(200, 220, 255); }
+
+/* Transparent background */
+.overlay { background-color: rgba(0, 0, 0, 0.5); }
+            </code></pre>
+            <div class="property-explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Fills the entire element with a specified color</li>
+                    <li>Can create transparent overlays with RGBA</li>
+                    <li>Useful for creating visual separation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="property-detail">
+            <h4>3. Font Size</h4>
+            <p>Determines the size of text within an element.</p>
+            <pre><code>
+/* Absolute sizes */
+body { font-size: 16px; }
+h1 { font-size: 32px; }
+
+/* Relative sizes */
+p { font-size: 1em; }  /* Relative to parent element */
+span { font-size: 1.5rem; }  /* Relative to root element */
+
+/* Percentage sizes */
+.small-text { font-size: 80%; }
+.large-text { font-size: 120%; }
+            </code></pre>
+            <div class="property-explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Supports pixels (px), em, rem, and percentage</li>
+                    <li>em is relative to parent element size</li>
+                    <li>rem is relative to root element size</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="property-detail">
+            <h4>4. Margin</h4>
+            <p>Creates space outside an element, between the element and other elements.</p>
+            <pre><code>
+/* Individual sides */
+.box {
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+
+/* Shorthand: top, right, bottom, left */
+.container {
+    margin: 10px 20px 10px 20px;
+}
+
+/* Shorthand: vertical horizontal */
+.element {
+    margin: 15px 30px;
+}
+
+/* Centering with auto */
+.center-block {
+    margin: 0 auto;
+    width: 50%;
+}
+            </code></pre>
+            <div class="property-explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Creates space outside the element</li>
+                    <li>Can set individual or multiple sides</li>
+                    <li>'auto' can center block elements horizontally</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="property-detail">
+            <h4>5. Padding</h4>
+            <p>Creates space inside an element, between content and border.</p>
+            <pre><code>
+/* Individual sides */
+.button {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
+/* Shorthand: top, right, bottom, left */
+.card {
+    padding: 10px 15px 10px 15px;
+}
+
+/* Shorthand: vertical horizontal */
+.container {
+    padding: 20px 30px;
+}
+            </code></pre>
+            <div class="property-explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Creates space inside the element</li>
+                    <li>Increases the element's total size</li>
+                    <li>Can set individual or multiple sides</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="property-detail">
+            <h4>6. Border</h4>
+            <p>Defines the border around an element.</p>
+            <pre><code>
+/* Full border specification */
+.box {
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+}
+
+/* Shorthand */
+.card {
+    border: 1px solid #cccccc;
+}
+
+/* Individual border sides */
+.element {
+    border-top: 3px dashed red;
+    border-bottom: 2px dotted blue;
+}
+
+/* Border radius for rounded corners */
+.rounded {
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+            </code></pre>
+            <div class="property-explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Combines width, style, and color</li>
+                    <li>Can set individual border sides</li>
+                    <li>border-radius creates rounded corners</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+     <section id="video-tutorial">
+            <h2>Video Tutorial</h2>
+            <div class="video-container">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                    title="CSS Selectors & Properties Tutorial" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+        
+        <section id="practice">
+            <h2>Practice Exercise</h2>
+            <div id="practice-area">
+                <!-- Interactive practice will be added via JavaScript -->
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../../js/courses/WMAD/beginner/select_properties.js"></script>
+</body>
+</html>

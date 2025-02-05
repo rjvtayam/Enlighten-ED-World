@@ -1,0 +1,334 @@
+/* Modern, Educational Design with Vibrant Colors and Clean Layout */
+:root {
+    /* Color Palette */
+    --primary-color: #3498db;      /* Bright Blue */
+    --secondary-color: #2ecc71;    /* Emerald Green */
+    --background-light: #f4f6f7;   /* Light Background */
+    --text-dark: #2c3e50;          /* Dark Blue-Gray */
+    --accent-color: #e74c3c;       /* Vibrant Red */
+    --code-background: #1e2a34;    /* Dark Code Background */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+/* Headings */
+h1, h2, h3 {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+h2 {
+    font-size: 1.8rem;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
+    margin-top: 2rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+}
+
+/* Sections */
+section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+section:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+/* Code Blocks */
+pre {
+    background-color: var(--code-background);
+    color: #f1f1f1;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Lists */
+ul, ol {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* Interactive Demo */
+.demo-container {
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid var(--secondary-color);
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #d1d8e0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+}
+
+/* Truthy and Falsy Section */
+#truthy-falsy .truthy-falsy-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#truthy-falsy .truthy-falsy-content > * {
+    width: 48%;
+}
+
+/* Importance Section */
+.importance {
+    background-color: #e8f4f8;
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.importance ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.importance li {
+    padding-left: 2rem;
+    position: relative;
+}
+
+.importance li::before {
+    content: '✓';
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Resources Section */
+#resources {
+    background-color: #f0f4f8;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.resource-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.resource-category {
+    flex-basis: calc(33.333% - 1rem);
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.resource-category:hover {
+    transform: translateY(-5px);
+}
+
+.resource-category h3 {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.resource-category ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resource-category li {
+    margin-bottom: 0.5rem;
+}
+
+.resource-category a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.resource-category a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.resource-tips {
+    margin-top: 2rem;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resource-tips h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.resource-tips ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resource-tips li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.resource-tips li::before {
+    content: '💡';
+    position: absolute;
+    left: 0;
+}
+
+/* Responsive Design for Resources */
+@media (max-width: 768px) {
+    .resource-categories {
+        flex-direction: column;
+    }
+
+    .resource-category {
+        flex-basis: 100%;
+    }
+}

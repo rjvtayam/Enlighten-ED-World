@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Flow in JavaScript</title>
+    <link rel="stylesheet" href="../../../css/courses/WMAD/beginner/control_flow.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Understanding Control Flow in JavaScript</h1>
+        
+        <section id="definition">
+            <h2>What is Control Flow?</h2>
+            <p>Control flow refers to the order in which statements are executed in a program. It allows developers to make decisions and control the execution path of their code.</p>
+            
+            <div class="importance">
+                <h3>Importance of Control Flow</h3>
+                <ul>
+                    <li>Enables decision-making in programs</li>
+                    <li>Allows conditional execution of code</li>
+                    <li>Helps create dynamic and responsive applications</li>
+                    <li>Provides flexibility in handling different scenarios</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="conditional-statements">
+            <h2>Conditional Statements</h2>
+            
+            <div class="statement-type">
+                <h3>1. if Statement</h3>
+                <pre><code>
+let age = 18;
+if (age >= 18) {
+    console.log("You are an adult.");
+}
+                </code></pre>
+                <p>Executes code only if a specified condition is true.</p>
+            </div>
+
+            <div class="statement-type">
+                <h3>2. else Statement</h3>
+                <pre><code>
+let age = 16;
+if (age >= 18) {
+    console.log("You are an adult.");
+} else {
+    console.log("You are a minor.");
+}
+                </code></pre>
+                <p>Provides an alternative block of code to execute when the if condition is false.</p>
+            </div>
+
+            <div class="statement-type">
+                <h3>3. else if Statement</h3>
+                <pre><code>
+let age = 20;
+if (age < 18) {
+    console.log("You are a minor.");
+} else if (age >= 18 && age < 60) {
+    console.log("You are an adult.");
+} else {
+    console.log("You are a senior.");
+}
+                </code></pre>
+                <p>Allows checking multiple conditions sequentially.</p>
+            </div>
+        </section>
+
+        <section id="comparison-operators">
+            <h2>Comparison Operators</h2>
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>==</td>
+                    <td>Equality (loose comparison)</td>
+                    <td>5 == "5" (true)</td>
+                </tr>
+                <tr>
+                    <td>===</td>
+                    <td>Strict Equality (type and value)</td>
+                    <td>5 === "5" (false)</td>
+                </tr>
+                <tr>
+                    <td>!=</td>
+                    <td>Inequality</td>
+                    <td>5 != 6 (true)</td>
+                </tr>
+                <tr>
+                    <td>></td>
+                    <td>Greater than</td>
+                    <td>10 > 5 (true)</td>
+                </tr>
+                <tr>
+                    <td><</td>
+                    <td>Less than</td>
+                    <td>5 < 10 (true)</td>
+                </tr>
+                <tr>
+                    <td>>=</td>
+                    <td>Greater than or equal to</td>
+                    <td>10 >= 10 (true)</td>
+                </tr>
+                <tr>
+                    <td><=</td>
+                    <td>Less than or equal to</td>
+                    <td>5 <= 10 (true)</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="logical-operators">
+            <h2>Logical Operators</h2>
+            <div class="operator-examples">
+                <h3>&&, ||, and ! Operators</h3>
+                <pre><code>
+let age = 25;
+let hasTicket = true;
+
+// AND (&&) operator
+if (age >= 18 && hasTicket) {
+    console.log("You can enter the event.");
+}
+
+// OR (||) operator
+let isWeekend = true;
+let isHoliday = false;
+if (isWeekend || isHoliday) {
+    console.log("Time to relax!");
+}
+
+// NOT (!) operator
+let isLoggedIn = false;
+if (!isLoggedIn) {
+    console.log("Please log in.");
+}
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="switch-statement">
+            <h2>Switch Statement</h2>
+            <pre><code>
+let day = 2;
+switch (day) {
+    case 1:
+        console.log("Monday");
+        break;
+    case 2:
+        console.log("Tuesday");
+        break;
+    case 3:
+        console.log("Wednesday");
+        break;
+    default:
+        console.log("Invalid day");
+}
+            </code></pre>
+            <p>Provides an alternative to multiple if...else conditions when checking one variable against different possible values.</p>
+        </section>
+
+        <section id="ternary-operator">
+            <h2>Ternary Operator</h2>
+            <pre><code>
+let age = 18;
+let result = age >= 18 ? "Adult" : "Minor";
+console.log(result);  // Output: "Adult"
+            </code></pre>
+            <p>A shorthand version of the if...else statement for simple conditional assignments.</p>
+        </section>
+
+        <section id="truthy-falsy">
+            <h2>Truthy and Falsy Values</h2>
+            <div class="truthy-falsy-content">
+                <h3>Falsy Values</h3>
+                <ul>
+                    <li>false</li>
+                    <li>0 (zero)</li>
+                    <li>"" (empty string)</li>
+                    <li>null</li>
+                    <li>undefined</li>
+                    <li>NaN</li>
+                </ul>
+                
+                <h3>Example</h3>
+                <pre><code>
+let name = "";
+if (name) {
+    console.log("Name exists.");
+} else {
+    console.log("Name is empty.");
+}
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="interactive-demo">
+    <h2>Interactive Control Flow Demo</h2>
+    
+    <div class="demo-container">
+        <h3>Age Verification</h3>
+        <input type="number" id="ageInput" placeholder="Enter your age">
+        <button onclick="checkAge()">Check Age</button>
+        <p id="ageResult"></p>
+        
+        <div class="how-it-works">
+            <h4>How This Works</h4>
+            <pre><code>
+function checkAge() {
+    // Get the age input value
+    const age = parseInt(ageInput.value);
+
+    // Control Flow using if-else statements
+    if (age < 0) {
+        // First condition: Check for invalid age
+        ageResult.textContent = "Invalid age! Age cannot be negative.";
+        ageResult.style.color = "red";
+    } else if (age < 18) {
+        // Second condition: Check if user is a minor
+        ageResult.textContent = "You are a minor.";
+        ageResult.style.color = "blue";
+    } else if (age >= 18 && age < 60) {
+        // Third condition: Check if user is an adult
+        // Using logical AND (&&) operator to combine conditions
+        ageResult.textContent = "You are an adult.";
+        ageResult.style.color = "green";
+    } else {
+        // Final condition: If none of the above conditions are true
+        ageResult.textContent = "You are a senior.";
+        ageResult.style.color = "purple";
+    }
+}
+            </code></pre>
+            <div class="explanation">
+                <p>This demo demonstrates several key control flow concepts:</p>
+                <ul>
+                    <li><strong>if-else Statements:</strong> Allows the program to execute different code blocks based on conditions</li>
+                    <li><strong>Logical Operators:</strong> Uses && (AND) to combine multiple conditions</li>
+                    <li><strong>Type Conversion:</strong> Uses parseInt() to convert input to a number</li>
+                    <li><strong>Conditional Branching:</strong> The code checks conditions in sequence and executes the first matching block</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <h3>Day of Week</h3>
+        <select id="daySelect">
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+            <option value="7">Sunday</option>
+        </select>
+        <button onclick="checkDay()">Check Day</button>
+        <p id="dayResult"></p>
+        
+        <div class="how-it-works">
+            <h4>How This Works</h4>
+            <pre><code>
+function checkDay() {
+    // Get the selected day value
+    const day = daySelect.value;
+
+    // Control Flow using switch statement
+    switch (day) {
+        case "1":
+            // First case: Monday
+            dayResult.textContent = "It's Monday! Start of the work week.";
+            break;
+        case "2":
+            // Second case: Tuesday
+            dayResult.textContent = "It's Tuesday! Keep pushing forward.";
+            break;
+        // ... other cases ...
+        default:
+            // Fallback case if no other cases match
+            dayResult.textContent = "Invalid day selected.";
+    }
+}
+            </code></pre>
+            <div class="explanation">
+                <p>This demo showcases the switch statement for control flow:</p>
+                <ul>
+                    <li><strong>Switch Statement:</strong> Provides an alternative to multiple if-else conditions</li>
+                    <li><strong>Case Blocks:</strong> Each case represents a specific condition</li>
+                    <li><strong>Break Statement:</strong> Prevents fall-through to next case</li>
+                    <li><strong>Default Case:</strong> Handles scenarios not covered by specific cases</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section id="code-examples">
+            <h2>Code Examples</h2>
+            <div class="example">
+                <h3>If Statement</h3>
+                <pre><code>
+let age = 18;
+if (age >= 18) {
+    console.log("You are an adult.");
+}
+                </code></pre>
+            </div>
+            <div class="example">
+                <h3>If-Else Statement</h3>
+                <pre><code>
+let age = 16;
+if (age >= 18) {
+    console.log("You are an adult.");
+} else {
+    console.log("You are a minor.");
+}
+                </code></pre>
+            </div>
+            <!-- More examples can be added here -->
+        </section>
+
+        <section id="video-tutorial">
+            <h2>Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+        
+        <section id="resources">
+    <h2>Resources for Learning Control Flow</h2>
+    
+    <div class="resource-categories">
+        <div class="resource-category">
+            <h3>📚 Documentation</h3>
+            <ul>
+                <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank">
+                        MDN Web Docs: Control Flow
+                    </a>
+                </li>
+                <li>
+                    <a href="https://javascript.info/ifelse" target="_blank">
+                        JavaScript.info: Conditional Statements
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>🎓 Online Courses</h3>
+            <ul>
+                <li>
+                    <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank">
+                        Codecademy: JavaScript Control Flow
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.udemy.com/topic/javascript" target="_blank">
+                        Udemy: JavaScript Fundamentals
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.coursera.org/courses?query=javascript%20control%20flow" target="_blank">
+                        Coursera: JavaScript Programming Courses
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>📖 Books</h3>
+            <ul>
+                <li>
+                    <a href="https://eloquentjavascript.net/" target="_blank">
+                        Eloquent JavaScript by Marijn Haverbeke
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742" target="_blank">
+                        JavaScript: The Good Parts by Douglas Crockford
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>🧩 Practice Platforms</h3>
+            <ul>
+                <li>
+                    <a href="https://www.codewars.com/" target="_blank">
+                        Codewars: JavaScript Coding Challenges
+                    </a>
+                </li>
+                <li>
+                    <a href="https://leetcode.com/" target="_blank">
+                        LeetCode: Coding Interview Practice
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.hackerrank.com/domains/javascript" target="_blank">
+                        HackerRank: JavaScript Practice
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resource-category">
+            <h3>🎥 Video Tutorials</h3>
+            <ul>
+                <li>
+                    <a href="https://www.youtube.com/playlist?list=PLillGF-RfqbbnEGy3ROIzHRkUMf54OO3B" target="_blank">
+                        Traversy Media: JavaScript Control Flow
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/c/WebDevSimplified" target="_blank">
+                        Web Dev Simplified: JavaScript Tutorials
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="resource-tips">
+        <h3>🚀 Learning Tips</h3>
+        <ul>
+            <li>Practice coding daily</li>
+            <li>Build small projects to apply control flow concepts</li>
+            <li>Read and understand code written by others</li>
+            <li>Don't be afraid to experiment with different approaches</li>
+            <li>Join coding communities and forums</li>
+        </ul>
+    </div>
+</section>
+    </div>
+
+    <script src="../../../js/courses/WMAD/beginner/control_flow.js"></script>
+</body>
+</html>

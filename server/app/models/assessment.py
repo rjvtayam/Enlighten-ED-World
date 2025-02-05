@@ -1,27 +1,5 @@
 from app.extensions import db
 from datetime import datetime
-from enum import Enum
-
-class CategoryType(str, Enum):
-    TECHNICAL = "technical"
-    COMMUNICATION = "communication"
-    SOFT = "soft"
-    CREATIVITY = "creativity"
-
-class SkillLevel(str, Enum):
-    BEGINNER = "beginner"
-    INTERMEDIATE = "intermediate"
-    ADVANCED = "advanced"
-    EXPERT = "expert"
-
-class ProgramType(str, Enum):
-    BSIT = "bsit"  # Bachelor of Science in Information Technology
-    BSCS = "bscs"  # Bachelor of Science in Computer Science
-    BSIS = "bsis"  # Bachelor of Science in Information Systems
-    WMAD = "wmad"  # Web & Mobile App Development
-    AMG = "amg"    # Animation & Motion Graphics
-    NETAD = "netad"  # Network Administration
-    SMP = "smp"    # Service Management Program
 
 class Assessment(db.Model):
     __tablename__ = 'assessments'
@@ -29,11 +7,9 @@ class Assessment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     program = db.Column(db.String(10))
-    major = db.Column(db.String(10))
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
     overall_score = db.Column(db.Float)
     overall_level = db.Column(db.String(20))
-    is_completed = db.Column(db.Boolean, default=False)
     
     categories = db.relationship('AssessmentCategory', backref='assessment', cascade='all, delete-orphan')
 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Beginner Course - Project Review</title>
+    <link rel="stylesheet" href="../../../../css/courses/WMAD/beginner/project_review.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Web Development Beginner Course</h1>
+            <h2>Project Review and Learning Assessment</h2>
+        </header>
+
+        <main>
+            <section id="course-overview">
+                <h3>Course Journey Overview</h3>
+                <div class="project-timeline">
+                    <div class="project-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Landing Page Project</h4>
+                            <p>Learned HTML structure, basic CSS styling, and page layout principles.</p>
+                            <ul>
+                                <li>Created responsive design</li>
+                                <li>Implemented basic page sections</li>
+                                <li>Practiced semantic HTML</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Interactive Form Project</h4>
+                            <p>Explored form validation, user input handling, and JavaScript interactions.</p>
+                            <ul>
+                                <li>Implemented client-side validation</li>
+                                <li>Created dynamic error messaging</li>
+                                <li>Practiced form event handling</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>To-Do List App Project</h4>
+                            <p>Advanced JavaScript skills with a full-featured web application.</p>
+                            <ul>
+                                <li>Implemented CRUD operations</li>
+                                <li>Used local storage for data persistence</li>
+                                <li>Created interactive user interfaces</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="learning-assessment">
+                <h3>Learning Assessment</h3>
+                <div class="assessment-form">
+                    <form id="reviewForm">
+                        <div class="form-group">
+                            <label for="understandingLevel">How would you rate your understanding of web development concepts?</label>
+                            <select id="understandingLevel" name="understandingLevel" required>
+                                <option value="">Select an option</option>
+                                <option value="beginner">Beginner (Just starting)</option>
+                                <option value="developing">Developing (Some understanding)</option>
+                                <option value="intermediate">Intermediate (Confident)</option>
+                                <option value="advanced">Advanced (Ready for next level)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Which project did you find most challenging?</label>
+                            <div class="radio-group">
+                                <input type="radio" id="landingPage" name="challengingProject" value="landingPage">
+                                <label for="landingPage">Landing Page</label>
+                                
+                                <input type="radio" id="interactiveForm" name="challengingProject" value="interactiveForm">
+                                <label for="interactiveForm">Interactive Form</label>
+                                
+                                <input type="radio" id="todoList" name="challengingProject" value="todoList">
+                                <label for="todoList">To-Do List App</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedback">What did you learn from these projects?</label>
+                            <textarea id="feedback" name="feedback" rows="4" placeholder="Share your learning experience..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nextSteps">What would you like to learn next?</label>
+                            <select id="nextSteps" name="nextSteps" multiple>
+                                <option value="advancedJS">Advanced JavaScript</option>
+                                <option value="frameworks">Web Frameworks (React, Vue)</option>
+                                <option value="backend">Backend Development</option>
+                                <option value="responsiveDesign">Advanced Responsive Design</option>
+                                <option value="webPerformance">Web Performance Optimization</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="submitReview">Submit Review</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="certificate-preview">
+                <h3>Course Completion Certificate</h3>
+                <div class="certificate-container">
+                    <div class="certificate">
+                        <h2>Web Development Fundamentals</h2>
+                        <p>This certifies that</p>
+                        <div class="name-placeholder">[Your Name]</div>
+                        <p>has successfully completed the Beginner Web Development Course</p>
+                        <div class="course-details">
+                            <p>Projects Completed:</p>
+                            <ul>
+                                <li>Landing Page Design</li>
+                                <li>Interactive Form Development</li>
+                                <li>To-Do List Web Application</li>
+                            </ul>
+                        </div>
+                        <div class="signature-area">
+                            <div class="signature">Instructor Signature</div>
+                            <div class="date">Date of Completion</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../../../js/courses/WMAD/beginner/project_review.js"></script>
+</body>
+</html>

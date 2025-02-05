@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #50c878;
+    --background-color: #f4f7f6;
+    --text-color: #2c3e50;
+    --card-background: #ffffff;
+    --accent-color: #ff6b6b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+}
+
+.topics-nav {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.topics-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.topics-nav li {
+    margin: 10px;
+}
+
+.topics-nav a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 25px;
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.topics-nav a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.topic {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.topic:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.topic h2 {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.key-features, .key-concepts {
+    background-color: #f0f4f8;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.key-features ul, .key-concepts ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.key-features li, .key-concepts li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+.key-features li:before, .key-concepts li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.why-matters {
+    background-color: #e8f4f8;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-color);
+}
+
+.code-example {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.code-example pre {
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+}
+
+footer {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .topics-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .topics-nav li {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Subtle Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.topic {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+/* Video Tutorial Cards */
+/* Advanced Video Tutorial Styling */
+.video-tutorials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.video-card {
+    position: relative;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 
+        0 10px 25px rgba(0,0,0,0.1), 
+        0 5px 15px rgba(0,0,0,0.05);
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateX(10deg) scale(0.95);
+    opacity: 0.9;
+}
+
+.video-card:hover {
+    transform: perspective(1000px) rotateX(0) scale(1);
+    box-shadow: 
+        0 15px 35px rgba(0,0,0,0.15), 
+        0 10px 20px rgba(0,0,0,0.1);
+    opacity: 1;
+}
+
+.video-card-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+}
+
+.video-card-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.video-card:hover .video-card-thumbnail img {
+    transform: scale(1.1);
+}
+
+.video-card-thumbnail::before {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(74, 144, 226, 0.9);
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    z-index: 10;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.video-card:hover .video-card-thumbnail::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.video-card-content {
+    padding: 20px;
+    background: linear-gradient(to right, #f1f3f5, #f8f9fa);
+}
+
+.video-card-content h3 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.video-card-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, #4a90e2, #50c878);
+    transition: width 0.4s ease;
+}
+
+.video-card:hover .video-card-content h3::after {
+    width: 100%;
+}
+
+.video-card-content p {
+    color: #495057;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.video-card-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(to right, #4a90e2, #50c878);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+.video-card-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(74, 144, 226, 0.4);
+    background: linear-gradient(to right, #50c878, #4a90e2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .video-tutorials {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Subtle Hover Glow Effect */
+.video-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(74, 144, 226, 0.1), 
+        transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.video-card:hover::after {
+    opacity: 1;
+}

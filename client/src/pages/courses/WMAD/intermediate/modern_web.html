@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate JavaScript: Modern Web Development</title>
+    <link rel="stylesheet" href="../../../../css/courses/WMAD/intermediate/modern_web.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Intermediate JavaScript: Modern Web Development</h1>
+            <p>Topics to Advance Your JavaScript Skills</p>
+        </header>
+
+        <nav class="topics-nav">
+            <ul>
+                <li><a href="#es6-features">ES6+ Features</a></li>
+                <li><a href="#async-programming">Async Programming</a></li>
+                <li><a href="#modules-bundling">Modules & Bundling</a></li>
+                <li><a href="#oop">Object-Oriented JavaScript</a></li>
+                <li><a href="#design-patterns">Design Patterns</a></li>
+                <li><a href="#unit-testing">Unit Testing</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- 1. ES6+ Features Section -->
+            <section id="es6-features" class="topic">
+                <h2>1️⃣ ES6+ Features</h2>
+                <div class="content">
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>ES6 (ECMAScript 2015) introduced modern JavaScript features that improve code readability, efficiency, and maintainability. These features include new syntax for variables, functions, and objects.</p>
+                    </div>
+                    <div class="key-features">
+                        <h3>Key Features:</h3>
+                        <ul>
+                            <li><code>let</code> & <code>const</code> for better scoping</li>
+                            <li>Arrow functions for concise function expressions</li>
+                            <li>Template literals for cleaner string formatting</li>
+                            <li>Destructuring objects and arrays</li>
+                            <li>Spread/rest operators for handling multiple elements</li>
+                            <li>Default function parameters</li>
+                        </ul>
+                    </div>
+                    <div class="why-matters">
+                        <h3>Why It Matters</h3>
+                        <p>These features make JavaScript easier to write and maintain while improving performance.</p>
+                    </div>
+                    <div class="code-example">
+                        <h3>Quick Example</h3>
+                        <pre><code>
+// ES6 Arrow Function
+const multiply = (a, b) => a * b;
+
+// Destructuring
+const { name, age } = person;
+
+// Spread Operator
+const newArray = [...oldArray, newElement];
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Async Programming Section -->
+            <section id="async-programming" class="topic">
+                <h2>2️⃣ Async Programming</h2>
+                <div class="content">
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>JavaScript is single-threaded, meaning it executes one operation at a time. Asynchronous programming allows certain tasks (like API calls) to run in the background without blocking execution.</p>
+                    </div>
+                    <div class="key-concepts">
+                        <h3>Key Concepts:</h3>
+                        <ul>
+                            <li>Callbacks: Functions that run after an operation is complete</li>
+                            <li>Promises: Objects representing the eventual completion of an async task</li>
+                            <li>Async/Await: A modern, readable way to handle asynchronous code</li>
+                        </ul>
+                    </div>
+                    <div class="why-matters">
+                        <h3>Why It Matters</h3>
+                        <p>Helps handle operations like fetching data from a server or reading files without slowing down the application.</p>
+                    </div>
+                    <div class="code-example">
+                        <h3>Quick Example</h3>
+                        <pre><code>
+// Promise Example
+fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+
+// Async/Await
+async function fetchData() {
+    try {
+        const response = await fetch('https://api.example.com/data');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Modules & Bundling Section -->
+            <section id="modules-bundling" class="topic">
+                <h2>3️⃣ Modules & Bundling</h2>
+                <div class="content">
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>In JavaScript, modular programming helps organize code into reusable files. ES6 modules allow you to split code into separate files and import/export them as needed.</p>
+                    </div>
+                    <div class="key-concepts">
+                        <h3>Key Concepts:</h3>
+                        <ul>
+                            <li>ES Modules (import/export) for better file management</li>
+                            <li>CommonJS (require/module.exports) used in Node.js</li>
+                            <li>Bundlers: Tools like Webpack and Vite optimize files for faster loading</li>
+                        </ul>
+                    </div>
+                    <div class="why-matters">
+                        <h3>Why It Matters</h3>
+                        <p>Improves code maintainability and makes web applications faster and more scalable.</p>
+                    </div>
+                    <div class="code-example">
+                        <h3>Quick Example</h3>
+                        <pre><code>
+// math.js
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+// main.js
+import { add, subtract } from './math.js';
+
+console.log(add(5, 3));      // 8
+console.log(subtract(10, 4)); // 6
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Object-Oriented JavaScript Section -->
+            <section id="oop" class="topic">
+                <h2>4️⃣ Object-Oriented JavaScript (OOP)</h2>
+                <div class="content">
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>JavaScript supports object-oriented programming (OOP), which helps in structuring code using objects and classes.</p>
+                    </div>
+                    <div class="key-concepts">
+                        <h3>Key Concepts:</h3>
+                        <ul>
+                            <li>Classes & Constructors: Define reusable blueprints for objects</li>
+                            <li>Prototypes & Inheritance: Share properties and methods between objects</li>
+                            <li>Encapsulation: Hide data inside objects for security</li>
+                            <li>Polymorphism: Use the same method in different ways</li>
+                        </ul>
+                    </div>
+                    <div class="why-matters">
+                        <h3>Why It Matters</h3>
+                        <p>OOP principles help in building complex applications that are scalable and easy to maintain.</p>
+                    </div>
+                    <div class="code-example">
+                        <h3>Quick Example</h3>
+                        <pre><code>
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() {
+        console.log(`${this.name} makes a sound`);
+    }
+}
+
+class Dog extends Animal {
+    speak() {
+        console.log(`${this.name} barks`);
+    }
+}
+
+const dog = new Dog('Rex');
+dog.speak(); // "Rex barks"
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Design Patterns Section -->
+            <section id="design-patterns" class="topic">
+                <h2>5️⃣ Design Patterns</h2>
+                <div class="content">
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>Design patterns are reusable solutions to common programming problems. They provide best practices for structuring code efficiently.</p>
+                    </div>
+                    <div class="key-concepts">
+                        <h3>Common Design Patterns:</h3>
+                        <ul>
+                            <li>Singleton: Ensures only one instance of an object exists</li>
+                            <li>Factory: Creates objects without specifying the exact class</li>
+                            <li>Observer: Allows objects to react to changes in other objects</li>
+                        </ul>
+                    </div>
+                    <div class="why-matters">
+                        <h3>Why It Matters</h3>
+                        <p>Using design patterns helps write cleaner, reusable, and scalable code in large applications.</p>
+                    </div>
+                    <div class="code-example">
+                        <h3>Quick Example (Singleton Pattern)</h3>
+                        <pre><code>
+class DatabaseConnection {
+    constructor() {
+        if (DatabaseConnection.instance) {
+            return DatabaseConnection.instance;
+        }
+        this.connection = 'Connected';
+        DatabaseConnection.instance = this;
+    }
+
+    static getInstance() {
+        if (!DatabaseConnection.instance) {
+            DatabaseConnection.instance = new DatabaseConnection();
+        }
+        return DatabaseConnection.instance;
+    }
+}
+
+const db1 = DatabaseConnection.getInstance();
+const db2 = DatabaseConnection.getInstance();
+console.log(db1 === db2); // true
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Unit Testing Section -->
+            <section id="unit-testing" class="topic">
+                <h2>6️⃣ Unit Testing</h2>
+                <div class="content">
+                    <div class="overview">
+                        <h3>Overview</h3>
+                        <p>Unit testing involves writing tests for small, isolated parts of code to ensure they work as expected. It helps catch bugs early and improves code reliability.</p>
+                    </div>
+                    <div class="key-concepts">
+                        <h3>Key Concepts:</h3>
+                        <ul>
+                            <li>Testing frameworks: Jest, Mocha, and Jasmine</li>
+                            <li>Assertions: Checking expected vs. actual results</li>
+                            <li>Mocking: Simulating dependencies for isolated testing</li>
+                        </ul>
+                    </div>
+                    <div class="why-matters">
+                        <h3>Why It Matters</h3>
+                        <p>Testing makes code more reliable, reduces bugs, and improves maintainability in large projects.</p>
+                    </div>
+                    <div class="code-example">
+                        <h3>Quick Example (Jest)</h3>
+                        <pre><code>
+// function to test
+function sum(a, b) {
+    return a + b;
+}
+
+// test case
+test('adds 1 + 2 to equal 3', () => {
+    expect(sum(1, 2)).toBe(3);
+});
+
+// mock function example
+const mockCallback = jest.fn(x => x + 42);
+[0, 1].map(mockCallback);
+
+expect(mockCallback.mock.calls.length).toBe(2);
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Video Tutorials Section -->
+<section id="video-tutorials" class="video-tutorials">
+    <div class="video-card">
+        <div class="video-card-thumbnail">
+            <img src="https://img.youtube.com/vi/NCwa_xi0Uuc/maxresdefault.jpg" alt="ES6 JavaScript Features">
+        </div>
+        <div class="video-card-content">
+            <h3>ES6+ Features</h3>
+            <p>Learn modern JavaScript features like arrow functions, destructuring, and more in this comprehensive tutorial.</p>
+            <a href="https://www.youtube.com/watch?v=NCwa_xi0Uuc" class="video-card-btn" target="_blank">Watch Now</a>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-card-thumbnail">
+            <img src="https://img.youtube.com/vi/PoRJizFvM7s/maxresdefault.jpg" alt="JavaScript Promises and Async/Await">
+        </div>
+        <div class="video-card-content">
+            <h3>Async Programming</h3>
+            <p>Master asynchronous programming using Promises, async/await, and handle complex JavaScript operations.</p>
+            <a href="https://www.youtube.com/watch?v=PoRJizFvM7s" class="video-card-btn" target="_blank">Watch Now</a>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-card-thumbnail">
+            <img src="https://img.youtube.com/vi/cRHQNNcYf6s/maxresdefault.jpg" alt="JavaScript Modules and Import/Export">
+        </div>
+        <div class="video-card-content">
+            <h3>Modules & Bundling</h3>
+            <p>Explore JavaScript modules, import/export statements, and learn how to organize your code efficiently.</p>
+            <a href="https://www.youtube.com/watch?v=cRHQNNcYf6s" class="video-card-btn" target="_blank">Watch Now</a>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-card-thumbnail">
+            <img src="https://img.youtube.com/vi/PFmuCDHHpwk/maxresdefault.jpg" alt="Object-Oriented Programming in JavaScript">
+        </div>
+        <div class="video-card-content">
+            <h3>Object-Oriented JavaScript</h3>
+            <p>Deep dive into OOP principles, classes, inheritance, and how to structure your JavaScript applications.</p>
+            <a href="https://www.youtube.com/watch?v=PFmuCDHHpwk" class="video-card-btn" target="_blank">Watch Now</a>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-card-thumbnail">
+            <img src="https://img.youtube.com/vi/tv-_1er1mWI/maxresdefault.jpg" alt="JavaScript Design Patterns">
+        </div>
+        <div class="video-card-content">
+            <h3>Design Patterns</h3>
+            <p>Learn essential design patterns to write more maintainable and scalable JavaScript code.</p>
+            <a href="https://www.youtube.com/watch?v=tv-_1er1mWI" class="video-card-btn" target="_blank">Watch Now</a>
+        </div>
+    </div>
+</section>
+        </main>
+    </div>
+
+    <script src="../../../../js/courses/WMAD/intermediate/modern_web.js"></script>
+</body>
+</html>

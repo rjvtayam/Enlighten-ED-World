@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Modules & Bundling</title>
+    <link rel="stylesheet" href="module.css">
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Modules & Bundling</h1>
+        
+        <section id="introduction">
+            <h2>1️⃣ Introduction to JavaScript Modules</h2>
+            <h3>What are Modules?</h3>
+            <ul>
+                <li>JavaScript modules allow you to break code into smaller, reusable pieces.</li>
+                <li>Each module is a separate file that contains functions, objects, or classes.</li>
+                <li>Modules help in code organization, reusability, and maintainability.</li>
+            </ul>
+        </section>
+
+        <section id="es6-modules">
+            <h2>2️⃣ ES6 Modules (import/export)</h2>
+            
+            <div class="subsection">
+                <h3>Named Exports & Imports</h3>
+                <p>Named exports allow exporting multiple items from a module.</p>
+                <pre><code>
+// math.js
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+// main.js
+import { add, subtract } from './math.js';
+console.log(add(5, 3)); // Output: 8
+                </code></pre>
+            </div>
+
+            <div class="subsection">
+                <h3>Default Exports & Imports</h3>
+                <p>A module can have a single default export.</p>
+                <pre><code>
+// message.js
+export default function greet(name) {
+  return `Hello, ${name}`;
+}
+
+// main.js
+import greet from './message.js';
+console.log(greet("Alice")); // Output: Hello, Alice
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="dynamic-imports">
+            <h2>3️⃣ Dynamic Imports (import())</h2>
+            <h3>What is Dynamic Import?</h3>
+            <ul>
+                <li>import() allows loading modules only when needed (lazy loading).</li>
+                <li>Useful for performance optimization in large applications.</li>
+            </ul>
+            <pre><code>
+document.getElementById('loadModule').addEventListener('click', async () => {
+  const module = await import('./math.js');
+  console.log(module.add(10, 5)); // Output: 15
+});
+            </code></pre>
+        </section>
+
+        <section id="commonjs-vs-es6">
+            <h2>4️⃣ CommonJS vs ES6 Modules</h2>
+            
+            <div class="subsection">
+                <h3>CommonJS (require/module.exports)</h3>
+                <p>Used in Node.js:</p>
+                <pre><code>
+// math.js
+module.exports = {
+  add: (a, b) => a + b,
+};
+
+// main.js
+const math = require('./math.js');
+console.log(math.add(2, 3)); // Output: 5
+                </code></pre>
+            </div>
+
+            <div class="subsection">
+                <h3>ES6 Modules (import/export)</h3>
+                <p>Used in browsers and modern tools.</p>
+            </div>
+        </section>
+
+        <section id="module-bundlers">
+            <h2>5️⃣ Module Bundlers</h2>
+            <h3>Why Use Bundlers?</h3>
+            <ul>
+                <li>Web applications contain multiple JavaScript files.</li>
+                <li>Bundlers combine multiple files into a single optimized file.</li>
+                <li>Reduces HTTP requests and improves performance.</li>
+            </ul>
+
+            <h3>Popular Bundlers</h3>
+            <ul>
+                <li>Webpack – Most widely used, supports plugins and loaders</li>
+                <li>Parcel – Zero-configuration bundler with fast performance</li>
+                <li>Vite – Modern alternative, optimized for speed</li>
+                <li>Rollup – Ideal for library development</li>
+            </ul>
+        </section>
+
+        <section id="webpack-setup">
+            <h2>6️⃣ Webpack: Setting Up a JavaScript Bundle</h2>
+            
+            <div class="subsection">
+                <h3>Installing Webpack</h3>
+                <pre><code>
+npm init -y
+npm install webpack webpack-cli --save-dev
+                </code></pre>
+            </div>
+
+            <div class="subsection">
+                <h3>Basic Webpack Configuration (webpack.config.js)</h3>
+                <pre><code>
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  mode: 'development',
+};
+                </code></pre>
+            </div>
+
+            <div class="subsection">
+                <h3>Running Webpack</h3>
+                <pre><code>
+npx webpack
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="tree-shaking">
+            <h2>7️⃣ Tree Shaking (Removing Unused Code)</h2>
+            <h3>What is Tree Shaking?</h3>
+            <ul>
+                <li>Eliminates unused JavaScript code from the final bundle.</li>
+                <li>Works with ES6 modules in Webpack and Rollup.</li>
+            </ul>
+            <pre><code>
+// math.js
+export const add = (a, b) => a + b;
+export const unusedFunction = () => console.log("This is never used");
+
+// main.js
+import { add } from './math.js'; // 'unusedFunction' will be removed
+            </code></pre>
+        </section>
+
+        <section id="code-splitting">
+            <h2>8️⃣ Code Splitting for Performance Optimization</h2>
+            <h3>What is Code Splitting?</h3>
+            <ul>
+                <li>Breaks the JavaScript bundle into smaller chunks.</li>
+                <li>Improves loading speed.</li>
+            </ul>
+            <pre><code>
+import('./math.js').then((module) => {
+  console.log(module.add(5, 10)); // Only loads this when needed
+});
+            </code></pre>
+        </section>
+
+        <section id="hot-module-replacement">
+            <h2>9️⃣ Hot Module Replacement (HMR)</h2>
+            <h3>What is HMR?</h3>
+            <ul>
+                <li>Allows updating modules without refreshing the entire page.</li>
+                <li>Improves development speed.</li>
+            </ul>
+            <pre><code>
+if (module.hot) {
+  module.hot.accept('./math.js', function () {
+    console.log('Math module updated');
+  });
+}
+            </code></pre>
+        </section>
+
+        <section id="esbuild">
+            <h2>🔟 ESBuild – A Faster Alternative to Webpack</h2>
+            <h3>Why ESBuild?</h3>
+            <ul>
+                <li>Super-fast JavaScript bundler and minifier.</li>
+                <li>Simple configuration.</li>
+            </ul>
+            <pre><code>
+npx esbuild src/index.js --bundle --outfile=dist/bundle.js
+            </code></pre>
+        </section>
+
+        <section id="why-modules-matter">
+            <h2>Why Modules & Bundling Matter</h2>
+            <ul>
+                <li><strong>Code Organization:</strong> Helps keep large projects structured.</li>
+                <li><strong>Performance Optimization:</strong> Reduces file size and load time.</li>
+                <li><strong>Scalability:</strong> Makes it easier to add new features without breaking existing code.</li>
+            </ul>
+        </section>
+        
+         <section id="interactive-activities">
+            <h2>🎯 Interactive Activities</h2>
+
+            <div class="activity" id="es6-modules-activity">
+                <h3>1️⃣ ES6 Modules Exercise</h3>
+                <div class="activity-description">
+                    <p>Practice creating and importing ES6 modules by performing math operations.</p>
+                </div>
+                <div class="activity-controls">
+                    <input type="number" id="num1" placeholder="First Number">
+                    <input type="number" id="num2" placeholder="Second Number">
+                    <div class="button-group">
+                        <button onclick="performMathOperation('add')">Add</button>
+                        <button onclick="performMathOperation('subtract')">Subtract</button>
+                    </div>
+                </div>
+                <div id="math-result" class="result-display"></div>
+                <div class="code-preview">
+                    <h4>Code Preview:</h4>
+                    <div id="math-module-preview" class="preview-content"></div>
+                </div>
+            </div>
+
+            <div class="activity" id="dynamic-import-activity">
+                <h3>2️⃣ Dynamic Import Exercise</h3>
+                <div class="activity-description">
+                    <p>Explore dynamic module loading by clicking the button below.</p>
+                </div>
+                <div class="activity-controls">
+                    <button id="load-dynamic-module">Load Dynamic Module</button>
+                </div>
+                <div id="dynamic-module-result" class="result-display"></div>
+                <div class="code-preview">
+                    <h4>Code Preview:</h4>
+                    <div id="dynamic-module-preview" class="preview-content"></div>
+                </div>
+            </div>
+
+            <div class="activity" id="webpack-activity">
+                <h3>3️⃣ Webpack Bundling Simulation</h3>
+                <div class="activity-description">
+                    <p>Simulate Webpack bundling by combining multiple modules.</p>
+                </div>
+                <div class="activity-controls">
+                    <button onclick="simulateWebpackBundling()">Bundle Modules</button>
+                </div>
+                <div id="webpack-result" class="result-display"></div>
+                <div class="code-preview">
+                    <h4>Code Preview:</h4>
+                    <div id="webpack-module-preview" class="preview-content"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Add this section just before the closing </div> of the container -->
+<section id="video-tutorials">
+    <h2>📺 Video Tutorials</h2>
+    <p>Here are video resources that align with the topics above.</p>
+
+    <div class="video-tutorial-grid">
+        <div class="video-tutorial-card">
+            <div class="video-tutorial-icon">1️⃣</div>
+            <div class="video-tutorial-content">
+                <h3>ES6 Modules (Import & Export)</h3>
+                <h4>JavaScript Modules - Import & Export</h4>
+                <p>Learn how to split your JavaScript code into modules and use import and export statements.</p>
+                <button class="watch-video-btn" onclick="openVideoTutorial('es6-modules')">Watch Tutorial</button>
+            </div>
+        </div>
+
+        <div class="video-tutorial-card">
+            <div class="video-tutorial-icon">2️⃣</div>
+            <div class="video-tutorial-content">
+                <h3>Dynamic Imports (import())</h3>
+                <h4>Dynamic Imports in JavaScript</h4>
+                <p>Understand how to use import() for lazy loading modules in JavaScript.</p>
+                <button class="watch-video-btn" onclick="openVideoTutorial('dynamic-imports')">Watch Tutorial</button>
+            </div>
+        </div>
+
+        <div class="video-tutorial-card">
+            <div class="video-tutorial-icon">3️⃣</div>
+            <div class="video-tutorial-content">
+                <h3>Webpack for Beginners</h3>
+                <h4>Webpack 5 Crash Course</h4>
+                <p>Learn how Webpack works and how to set up a simple project with a bundler.</p>
+                <button class="watch-video-btn" onclick="openVideoTutorial('webpack-basics')">Watch Tutorial</button>
+            </div>
+        </div>
+
+        <div class="video-tutorial-card">
+            <div class="video-tutorial-icon">4️⃣</div>
+            <div class="video-tutorial-content">
+                <h3>Tree Shaking & Code Splitting</h3>
+                <h4>Tree Shaking & Code Splitting Explained</h4>
+                <p>Discover how Webpack removes unused code and optimizes bundles.</p>
+                <button class="watch-video-btn" onclick="openVideoTutorial('tree-shaking')">Watch Tutorial</button>
+            </div>
+        </div>
+
+        <div class="video-tutorial-card">
+            <div class="video-tutorial-icon">5️⃣</div>
+            <div class="video-tutorial-content">
+                <h3>Rollup vs Webpack</h3>
+                <h4>Webpack vs Rollup - Which One to Use?</h4>
+                <p>A comparison of module bundlers to help you choose the right one for your project.</p>
+                <button class="watch-video-btn" onclick="openVideoTutorial('bundler-comparison')">Watch Tutorial</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="video-container"></div>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <script type="module" src="module.js"></script>
+</body>
+</html>

@@ -1,47 +1,42 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('skillsAssessmentForm');
     const categories = document.querySelectorAll('.skill-category');
-    const progress = document.querySelector('.progress-bar');
+    const progress = document.querySelector('.progress');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
     const programSelect = document.getElementById('programSelect');
-    const majorGroup = document.getElementById('majorGroup');
-    const majorSelect = document.getElementById('major');
-    const assessmentFormSection = document.getElementById('assessmentFormSection');
-    const resultsSection = document.getElementById('resultsSection');
+    const selectedProgramInput = document.getElementById('selectedProgram');
+    const programSkills = document.querySelectorAll('.program-skill');
     
     let currentCategory = 0;
-    let skillsChart = null;
-
+    
     // Initialize the first category
     showCategory(0);
     
     // Handle program selection
     programSelect.addEventListener('change', function() {
-        const selectedProgram = this.value.toLowerCase();
+        const selectedProgram = this.value;
+        selectedProgramInput.value = selectedProgram;
         
-        // Show/hide major selection based on program
-        if (selectedProgram) {
-            majorGroup.style.display = 'block';
-            
-            // Hide all optgroups first
-            majorSelect.querySelectorAll('optgroup').forEach(group => {
-                group.style.display = 'none';
-            });
-            
-            // Show only the relevant optgroup
-            const relevantGroup = majorSelect.querySelector(`.${selectedProgram}-majors`);
-            if (relevantGroup) {
-                relevantGroup.style.display = 'block';
+        // Show/hide skills based on program
+        programSkills.forEach(skill => {
+            const programs = skill.dataset.programs.split(',');
+            if (programs.includes(selectedProgram)) {
+                skill.classList.remove('hidden');
+                // Enable required validation for visible skills
+                skill.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.required = true;
+                });
+            } else {
+                skill.classList.add('hidden');
+                // Disable required validation for hidden skills
+                skill.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.required = false;
+                    input.checked = false;
+                });
             }
-            
-            // Reset major selection
-            majorSelect.value = '';
-        } else {
-            majorGroup.style.display = 'none';
-            majorSelect.value = '';
-        }
+        });
     });
     
     function showCategory(index) {
@@ -49,9 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         categories[index].classList.add('active');
         
         // Update progress
-        const progressPercentage = ((index + 1) / categories.length) * 100;
-        progress.style.width = `${progressPercentage}%`;
-        progress.setAttribute('aria-valuenow', progressPercentage);
+        progress.style.width = `${((index + 1) / categories.length) * 100}%`;
         
         // Update buttons
         prevBtn.style.display = index === 0 ? 'none' : 'block';
@@ -60,21 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     nextBtn.addEventListener('click', function() {
-        // Validate program and major selection first
+        // Validate program selection first
         if (!programSelect.value) {
             alert('Please select your program before proceeding.');
-            programSelect.focus();
             return;
         }
         
-        if (majorGroup.style.display !== 'none' && !majorSelect.value) {
-            alert('Please select your major before proceeding.');
-            majorSelect.focus();
-            return;
-        }
-        
-        // Validate current category
-        const currentVisibleInputs = categories[currentCategory].querySelectorAll('input[type="radio"]');
+        // Validate current category (only visible skills)
+        const currentVisibleInputs = categories[currentCategory].querySelectorAll('.skill-item:not(.hidden) input[type="radio"]');
         const groups = {};
         currentVisibleInputs.forEach(input => {
             const name = input.getAttribute('name');
@@ -83,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         if (Object.values(groups).includes(false)) {
-            alert('Please rate all skills in this category before proceeding.');
+            alert('Please rate all visible skills in this category before proceeding.');
             return;
         }
         
@@ -101,205 +87,147 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Form submission
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        try {
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-            
-            // Validate program and major
-            if (!programSelect.value) {
-                throw new Error('Please select your program');
-            }
+        // Program validation
+        if (!selectedProgramInput.value) {
+            alert('Please select your program');
+            programSelect.focus();
+            return;
+        }
 
-            if (majorGroup.style.display !== 'none' && !majorSelect.value) {
-                throw new Error('Please select your major');
-            }
+        // Validate all visible inputs
+        const visibleInputs = form.querySelectorAll('.skill-item:not(.hidden) input[type="radio"]');
+        const groups = {};
+        visibleInputs.forEach(input => {
+            const name = input.getAttribute('name');
+            groups[name] = groups[name] || false;
+            if (input.checked) groups[name] = true;
+        });
+        
+        if (Object.values(groups).includes(false)) {
+            alert('Please rate all skills before submitting.');
+            return;
+        }
 
-            // Validate all inputs
-            const allInputs = form.querySelectorAll('input[type="radio"]');
-            const groups = {};
-            allInputs.forEach(input => {
-                const name = input.getAttribute('name');
-                groups[name] = groups[name] || false;
-                if (input.checked) groups[name] = true;
-            });
-            
-            if (Object.values(groups).includes(false)) {
-                throw new Error('Please rate all skills before submitting.');
-            }
+        const formData = new FormData(form);
+        
+        // Log form submission for debugging
+        console.log('Submitting assessment with program:', selectedProgramInput.value);
 
-            // Get CSRF token
-            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
-            if (!csrfToken) {
-                throw new Error('CSRF token not found');
-            }
+        submitAssessment(formData);
+    });
 
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': csrfToken
-                },
-                credentials: 'same-origin'
-            });
+    // Program selection handler
+    programSelect.addEventListener('change', function() {
+        selectedProgramInput.value = this.value;
+        console.log('Selected program:', this.value);
+        
+        // Update which skills are required based on program
+        updateRequiredSkills(this.value);
+    });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to submit assessment');
-            }
+    function updateRequiredSkills(program) {
+        const programSkills = {
+            'BSIT': ['technical_problem_solving', 'technical_architecture', 'technical_database'],
+            'BSCS': ['technical_problem_solving', 'technical_algorithm', 'technical_data_structures'],
+            'BSIS': ['technical_problem_solving', 'technical_architecture', 'technical_database']
+        };
 
-            const results = await response.json();
-            
-            if (!results.success) {
-                throw new Error(results.error || 'Failed to process assessment results');
-            }
-            
-            // Hide form and show results
-            assessmentFormSection.style.display = 'none';
-            resultsSection.style.display = 'block';
-            
-            // Update overall score and level
-            const overallScore = results.recommendations.score;
-            const overallLevel = results.recommendations.level;
-            
-            document.getElementById('overallScore').textContent = `${Math.round(overallScore)}%`;
-            document.getElementById('overallLevel').textContent = overallLevel;
-            document.getElementById('overallLevelText').textContent = overallLevel.toLowerCase();
-            
-            // Create the radar chart
-            const ctx = document.getElementById('skillsRadarChart').getContext('2d');
-            
-            if (skillsChart) {
-                skillsChart.destroy();
-            }
+        // First, remove required from all technical skills
+        document.querySelectorAll('input[name^="technical_"]').forEach(input => {
+            input.required = false;
+        });
 
-            const categoryLabels = {
-                technical: 'Technical Skills',
-                communication: 'Communication Skills',
-                soft: 'Soft Skills',
-                creativity: 'Creativity Skills'
-            };
-
-            skillsChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: Object.keys(results.category_scores).map(key => categoryLabels[key] || key),
-                    datasets: [{
-                        label: 'Your Skills',
-                        data: Object.values(results.category_scores),
-                        fill: true,
-                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
-                        borderColor: 'rgb(79, 70, 229)',
-                        pointBackgroundColor: 'rgb(79, 70, 229)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(79, 70, 229)'
-                    }]
-                },
-                options: {
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            min: 0,
-                            max: 100,
-                            ticks: {
-                                stepSize: 20
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-
-            // Display individual category scores
-            const categoryResults = document.getElementById('categoryResults');
-            categoryResults.innerHTML = ''; // Clear existing content
-            
-            const categoryGrid = document.createElement('div');
-            categoryGrid.className = 'category-grid';
-            categoryResults.appendChild(categoryGrid);
-            
-            Object.entries(results.category_scores).forEach(([category, score], index) => {
-                const categoryCard = document.createElement('div');
-                categoryCard.className = 'category-card';
-                categoryCard.style.animationDelay = `${index * 0.1}s`;
-                
-                const levelText = score < 40 ? 'Beginner' : 
-                                score < 70 ? 'Intermediate' : 
-                                'Advanced';
-                
-                categoryCard.innerHTML = `
-                    <h3>${categoryLabels[category]}</h3>
-                    <div class="score-info">
-                        <div class="score-value">${Math.round(score)}%</div>
-                        <div class="score-level">${levelText}</div>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" 
-                             style="width: ${score}%" 
-                             aria-valuenow="${score}" 
-                             aria-valuemin="0" 
-                             aria-valuemax="100">
-                        </div>
-                    </div>
-                `;
-                
-                categoryGrid.appendChild(categoryCard);
-            });
-
-            // Add click handler for recommendations button
-            const viewRecommendationsBtn = document.getElementById('viewRecommendationsBtn');
-            const recommendationsSection = document.getElementById('recommendationsSection');
-            const recommendedCourses = document.getElementById('recommendedCourses');
-            
-            viewRecommendationsBtn.addEventListener('click', function() {
-                recommendedCourses.innerHTML = ''; // Clear existing recommendations
-                
-                // Create course cards for each recommended course
-                results.recommendations.courses.forEach(course => {
-                    const card = document.createElement('div');
-                    card.className = 'course-card';
-                    
-                    const levelClass = `level-${course.level.toLowerCase()}`;
-                    
-                    card.innerHTML = `
-                        <a href="${course.url}" class="course-card-link">
-                            <div class="course-image">
-                                <img src="${course.image}" alt="${course.name}" class="course-card__image">
-                            </div>
-                            <div class="course-content">
-                                <h3 class="course-card__title">${course.name}</h3>
-                                <p class="course-card__description">${course.description}</p>
-                                <span class="course-card__level ${levelClass}">${course.level}</span>
-                            </div>
-                        </a>
-                    `;
-                    
-                    recommendedCourses.appendChild(card);
+        // Then set required for program-specific skills
+        if (programSkills[program]) {
+            programSkills[program].forEach(skillName => {
+                document.querySelectorAll(`input[name="${skillName}"]`).forEach(input => {
+                    input.required = true;
                 });
-                
-                // Show recommendations section
-                recommendationsSection.style.display = 'block';
-                viewRecommendationsBtn.style.display = 'none';
             });
+        }
+    }
 
-        } catch (error) {
-            console.error('Error:', error);
-            alert(error.message || 'There was a problem submitting your assessment. Please try again.');
-        } finally {
-            // Reset submit button
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Submit Assessment';
+    // Initialize navigation buttons
+    initNavigation();
+});
+
+function initNavigation() {
+    const categories = document.querySelectorAll('.skill-category');
+    const progress = document.querySelector('.progress');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    let currentCategory = 0;
+
+    function showCategory(index) {
+        categories.forEach(cat => cat.classList.remove('active'));
+        categories[index].classList.add('active');
+        
+        progress.style.width = `${((index + 1) / categories.length) * 100}%`;
+        
+        prevBtn.style.display = index === 0 ? 'none' : 'block';
+        nextBtn.style.display = index === categories.length - 1 ? 'none' : 'block';
+        submitBtn.style.display = index === categories.length - 1 ? 'block' : 'none';
+    }
+
+    // Navigation button handlers
+    nextBtn.addEventListener('click', () => {
+        if (validateCurrentCategory()) {
+            currentCategory++;
+            showCategory(currentCategory);
         }
     });
-});
+
+    prevBtn.addEventListener('click', () => {
+        currentCategory--;
+        showCategory(currentCategory);
+    });
+
+    function validateCurrentCategory() {
+        const currentInputs = categories[currentCategory].querySelectorAll('input[type="radio"]:required');
+        let isValid = true;
+        
+        currentInputs.forEach(input => {
+            const name = input.getAttribute('name');
+            const checked = document.querySelector(`input[name="${name}"]:checked`);
+            if (!checked) {
+                isValid = false;
+                alert(`Please rate your ${name.replace(/_/g, ' ')} skill.`);
+            }
+        });
+        
+        return isValid;
+    }
+
+    // Show initial category
+    showCategory(0);
+}
+
+function submitAssessment(formData) {
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('input[name="csrf_token"]').value,
+            'Accept': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Redirecting to:', data.redirect_url); // Debug log
+            window.location.href = data.redirect_url;
+        } else {
+            throw new Error(data.message || 'Submission failed');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error submitting assessment: ' + error.message);
+    });
+}

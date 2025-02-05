@@ -131,7 +131,7 @@ def create_app(config_name='default'):
     app.register_blueprint(faq)
     app.register_blueprint(testimonials)
 
-    app.register_blueprint(wmad)
+    app.register_blueprint(wmad, url_prefix='/wmad')
 
     
     # Context processors

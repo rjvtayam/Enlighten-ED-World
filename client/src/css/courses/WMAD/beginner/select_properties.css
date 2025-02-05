@@ -1,0 +1,139 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.course-container {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+pre {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.video-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.selector-detail {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #007bff;
+}
+
+.selector-detail h4 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.selector-detail pre {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+.selector-combinations {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.property-detail {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #28a745;
+}
+
+.property-detail h4 {
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.property-detail pre {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+.property-explanation {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.property-explanation ul {
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.practice-element {
+    text-align: center;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.controls label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.result-code {
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.result-code pre {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#copy-css {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#copy-css:hover {
+    background-color: #0056b3;
+}

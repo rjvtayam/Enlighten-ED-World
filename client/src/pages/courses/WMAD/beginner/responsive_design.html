@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Masterclass</title>
+    <link rel="stylesheet" href="../../../css/courses/WMAD/beginner/responsive_design.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Responsive Design Masterclass</h1>
+        
+        <section id="introduction">
+            <h2>1. What is Responsive Design?</h2>
+            <div class="content-box">
+                <h3>Definition</h3>
+                <p>Responsive design is a web development approach that creates web pages that look great on all devices - from mobile phones to desktop computers. It ensures that a website's layout, images, and functionality adapt seamlessly to different screen sizes and orientations.</p>
+                
+                <h3>Importance</h3>
+                <ul>
+                    <li>Improves user experience across all devices</li>
+                    <li>Increases accessibility</li>
+                    <li>Reduces the need for separate mobile and desktop versions</li>
+                    <li>Boosts SEO performance</li>
+                </ul>
+                
+                <div class="device-preview">
+                    <div class="device mobile"></div>
+                    <div class="device tablet"></div>
+                    <div class="device desktop"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="viewport">
+            <h2>2. Viewport and Meta Tag</h2>
+            <div class="content-box">
+                <h3>What is the Viewport?</h3>
+                <p>The viewport is the visible area of a webpage on a device's screen. Setting the correct viewport ensures your website scales properly across different devices.</p>
+                
+                <h3>Viewport Meta Tag</h3>
+                <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+                
+                <div class="explanation">
+                    <p><strong>width=device-width:</strong> Sets the width of the page to follow the screen width of the device</p>
+                    <p><strong>initial-scale=1:</strong> Sets the initial zoom level when the page is first loaded</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="flexible-layouts">
+            <h2>3. Flexible Layouts Using CSS Units</h2>
+            <div class="content-box">
+                <h3>Relative Units for Fluid Designs</h3>
+                <ul>
+                    <li><strong>em:</strong> Relative to the font-size of the parent element</li>
+                    <li><strong>rem:</strong> Relative to the root element's font-size</li>
+                    <li><strong>%:</strong> Percentage of the parent container's width or height</li>
+                    <li><strong>vw:</strong> 1% of viewport width</li>
+                    <li><strong>vh:</strong> 1% of viewport height</li>
+                </ul>
+                
+                <h4>Example</h4>
+                <pre><code>.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}</code></pre>
+                
+                <div id="unit-demo" class="interactive-demo">
+                    <div class="demo-box">Resize to see how units adapt</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="media-queries">
+            <h2>4. CSS Media Queries</h2>
+            <div class="content-box">
+                <h3>Adjusting Styles Based on Screen Size</h3>
+                <pre><code>@media (max-width: 768px) {
+    body {
+        background-color: lightgray;
+    }
+}</code></pre>
+                
+                <h4>Common Breakpoints</h4>
+                <table>
+                    <tr>
+                        <th>Device Type</th>
+                        <th>Max Width</th>
+                    </tr>
+                    <tr><td>Small Devices (Phones)</td><td>480px</td></tr>
+                    <tr><td>Tablets</td><td>768px</td></tr>
+                    <tr><td>Laptops</td><td>1024px</td></tr>
+                    <tr><td>Desktops</td><td>1025px+</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="flexbox">
+            <h2>5. Flexbox for Responsive Layouts</h2>
+            <div class="content-box">
+                <h3>Creating Flexible Layouts</h3>
+                <pre><code>.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}</code></pre>
+                
+                <div class="flex-container">
+                    <div class="flex-item">Flex Item 1</div>
+                    <div class="flex-item">Flex Item 2</div>
+                    <div class="flex-item">Flex Item 3</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="grid-layout">
+            <h2>6. Grid Layout for Responsive Design</h2>
+            <div class="content-box">
+                <h3>Creating Flexible Grid Layouts</h3>
+                <pre><code>.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}</code></pre>
+                
+                <div class="grid-container">
+                    <div class="grid-item">Grid Item 1</div>
+                    <div class="grid-item">Grid Item 2</div>
+                    <div class="grid-item">Grid Item 3</div>
+                    <div class="grid-item">Grid Item 4</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="responsive-images">
+            <h2>7. Responsive Images</h2>
+            <div class="content-box">
+                <h3>Making Images Adapt to Screen Size</h3>
+                <pre><code>img {
+    max-width: 100%;
+    height: auto;
+}</code></pre>
+                
+                <div class="image-demo">
+                    <img src="placeholder-image.jpg" alt="Responsive Image Demo">
+                </div>
+            </div>
+        </section>
+
+        <section id="mobile-first">
+            <h2>8. Mobile-First Design</h2>
+            <div class="content-box">
+                <h3>Designing for Smaller Screens First</h3>
+                <pre><code>body {
+    font-size: 16px;
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <section id="responsive-navigation">
+            <h2>9. Responsive Navigation Menus</h2>
+            <div class="content-box">
+                <h3>Adapting Navigation for Different Devices</h3>
+                <pre><code>.nav-menu {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .nav-menu {
+        display: flex;
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <section id="testing">
+            <h2>10. Testing Responsive Design</h2>
+            <div class="content-box">
+                <h3>Tools for Testing Responsiveness</h3>
+                <ul>
+                    <li>Chrome DevTools</li>
+                    <li>Firefox DevTools</li>
+                    <li>Google Mobile-Friendly Test</li>
+                    <li>Responsive Design Checker</li>
+                </ul>
+                
+                <div class="testing-demo">
+                    <button id="test-responsiveness">Test Responsiveness</button>
+                    <div id="test-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        
+<section id="responsive-design-quiz">
+    <h2>Responsive Design Quiz</h2>
+    <div class="quiz-container">
+        <div id="quiz">
+            <h3 id="question">Question goes here</h3>
+            <div id="choices">
+                <button class="choice-btn" data-index="0">Choice 1</button>
+                <button class="choice-btn" data-index="1">Choice 2</button>
+                <button class="choice-btn" data-index="2">Choice 3</button>
+                <button class="choice-btn" data-index="3">Choice 4</button>
+            </div>
+            <div id="feedback" class="feedback-area"></div>
+        </div>
+        
+        <div id="quiz-results" class="hidden">
+            <h3>Quiz Completed!</h3>
+            <p id="final-score">Your Score: 0/0</p>
+            <div id="detailed-results"></div>
+            <button id="restart-quiz">Restart Quiz</button>
+        </div>
+    </div>
+</section>
+
+        <section id="practice">
+            <h2>Interactive Practice</h2>
+            <div class="practice-container">
+                <h3>Responsive Design Challenge</h3>
+                <div id="practice-area">
+                    <div class="challenge-box">Resize and Adapt Me!</div>
+                </div>
+                <div id="practice-feedback"></div>
+            </div>
+        </section>
+        
+        <section id="video-tutorials">
+    <h2>Video Tutorials and Resources</h2>
+    <div class="content-box">
+        <h3>Responsive Design Video Tutorials</h3>
+        <div class="video-container">
+            <div class="video-card">
+                <h4>Responsive Design Basics</h4>
+                <div class="video-wrapper">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/srvUrASNj0I" 
+                        title="Responsive Design Basics" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p>Learn the fundamental principles of responsive web design</p>
+            </div>
+
+            <div class="video-card">
+                <h4>Advanced Responsive Techniques</h4>
+                <div class="video-wrapper">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/VQraviuwbzs" 
+                        title="Advanced Responsive Design" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p>Dive deeper into complex responsive design strategies</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-box">
+        <h3>Additional Resources</h3>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <h4>MDN Web Docs</h4>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout" target="_blank">
+                    Flexbox Guide
+                </a>
+                <p>Comprehensive guide to Flexbox layout</p>
+            </div>
+
+            <div class="resource-card">
+                <h4>CSS-Tricks</h4>
+                <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">
+                    Complete Flexbox Guide
+                </a>
+                <p>In-depth explanation of Flexbox properties</p>
+            </div>
+
+            <div class="resource-card">
+                <h4>Responsive Design Tools</h4>
+                <a href="https://responsivedesignchecker.com/" target="_blank">
+                    Responsive Design Checker
+                </a>
+                <p>Test your website's responsiveness</p>
+            </div>
+
+            <div class="resource-card">
+                <h4>Google Web Fundamentals</h4>
+                <a href="https://developers.google.com/web/fundamentals/design-and-ux/responsive" target="_blank">
+                    Responsive Design Guide
+                </a>
+                <p>Google's official responsive design guidelines</p>
+            </div>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <script src="../../../js/courses/WMAD/beginner/responsive_design.js"></script>
+</body>
+</html>

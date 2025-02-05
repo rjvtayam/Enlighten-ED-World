@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to JavaScript</title>
+    <link rel="stylesheet" href="intro_js.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Introduction to JavaScript</h1>
+        
+        <section id="what-is-js">
+            <h2>1. What is JavaScript?</h2>
+            <p>JavaScript is a powerful programming language that makes websites interactive and dynamic. It allows you to create responsive web pages that can update and change without reloading the entire page.</p>
+        </section>
+
+        <section id="setting-up">
+            <h2>2. Setting Up JavaScript</h2>
+            <p>You can add JavaScript to an HTML page in three ways:</p>
+            <ul>
+                <li>Inline: Using the <code>&lt;script&gt;</code> tag directly in HTML</li>
+                <li>Internal: Adding a <code>&lt;script&gt;</code> tag in the HTML file</li>
+                <li>External: Linking a separate .js file</li>
+            </ul>
+        </section>
+
+        <section id="basic-syntax">
+            <h2>3. Basic JavaScript Syntax</h2>
+            <p>Learn how to declare variables and use different data types:</p>
+            <pre><code>
+// Variable declarations
+let name = "John";        // String
+const age = 25;           // Number
+let isStudent = true;     // Boolean
+            </code></pre>
+        </section>
+
+        <section id="operators">
+            <h2>4. Operators in JavaScript</h2>
+            <p>JavaScript supports various operators:</p>
+            <pre><code>
+// Arithmetic Operators
+let sum = 5 + 3;          // Addition
+let difference = 10 - 4;  // Subtraction
+
+// Comparison Operators
+let isEqual = (5 === 5);  // Strict equality
+let isGreater = (10 > 5); // Greater than
+            </code></pre>
+        </section>
+
+        <section id="output">
+            <h2>5. Simple Output with JavaScript</h2>
+            <p>Display messages using different methods:</p>
+            <pre><code>
+// Browser alert
+alert("Hello, World!");
+
+// Console output
+console.log("Debugging message");
+            </code></pre>
+        </section>
+
+        <section id="functions">
+            <h2>6. Basic JavaScript Functions</h2>
+            <p>Functions help you organize and reuse code:</p>
+            <pre><code>
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+
+console.log(greet("Alice")); // Outputs: Hello, Alice!
+            </code></pre>
+        </section>
+
+        <section id="conditionals">
+            <h2>7. Conditional Statements</h2>
+            <p>Make decisions in your code:</p>
+            <pre><code>
+let number = 10;
+if (number > 0) {
+    console.log("Number is positive");
+} else if (number < 0) {
+    console.log("Number is negative");
+} else {
+    console.log("Number is zero");
+}
+            </code></pre>
+        </section>
+
+        <section id="loops">
+            <h2>8. Loops in JavaScript</h2>
+            <p>Repeat actions multiple times:</p>
+            <pre><code>
+// For loop
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
+
+// While loop
+let count = 0;
+while (count < 3) {
+    console.log(count);
+    count++;
+}
+            </code></pre>
+        </section>
+
+        <section id="arrays">
+            <h2>9. JavaScript Arrays</h2>
+            <p>Store and manipulate collections of data:</p>
+            <pre><code>
+let fruits = ["Apple", "Banana", "Orange"];
+console.log(fruits[0]);    // Outputs: Apple
+
+fruits.push("Mango");      // Add an element
+fruits.pop();              // Remove the last element
+            </code></pre>
+        </section>
+
+        <section id="events">
+            <h2>10. JavaScript Events</h2>
+            <p>Interact with web page elements:</p>
+            <button id="demoButton">Click me!</button>
+        </section>
+    </div>
+    
+    <section id="interactive-practice">
+            <h2>Interactive JavaScript Practice</h2>
+            
+            <div class="practice-exercise">
+                <h3>Exercise 1: Age Checker</h3>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4>Exercise Goal</h4>
+                        <p>Create a program that checks if a user is old enough to vote based on their age.</p>
+                        
+                        <h4>Learning Objectives</h4>
+                        <ul>
+                            <li>Use conditional statements</li>
+                            <li>Convert input to a number</li>
+                            <li>Manipulate DOM elements</li>
+                        </ul>
+                        
+                        <h4>Code Explanation</h4>
+                        <pre><code>
+// Function to check voting eligibility
+function checkVotingEligibility() {
+    // Get the age input element
+    const ageInput = document.getElementById('ageInput');
+    
+    // Convert input to a number
+    const age = parseInt(ageInput.value);
+    
+    // Use conditional statement to check age
+    if (isNaN(age)) {
+        // Handle invalid input
+        ageResult.textContent = "Please enter a valid age.";
+    } else if (age >= 18) {
+        // Check if age is 18 or above
+        ageResult.textContent = "You can vote!";
+    } else {
+        // Age is below 18
+        ageResult.textContent = "You cannot vote yet.";
+    }
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="exercise-practice">
+                        <h4>Practice Exercise</h4>
+                        <input type="number" id="ageInput" placeholder="Enter your age">
+                        <button id="checkAgeBtn">Check Age</button>
+                        <p id="ageResult"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-exercise">
+                <h3>Exercise 2: Temperature Converter</h3>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4>Exercise Goal</h4>
+                        <p>Create a temperature converter from Celsius to Fahrenheit.</p>
+                        
+                        <h4>Learning Objectives</h4>
+                        <ul>
+                            <li>Perform mathematical calculations</li>
+                            <li>Use type conversion</li>
+                            <li>Format numerical output</li>
+                        </ul>
+                        
+                        <h4>Code Explanation</h4>
+                        <pre><code>
+// Function to convert temperature
+function convertTemperature() {
+    // Get the Celsius input
+    const celsiusInput = document.getElementById('celsiusInput');
+    
+    // Convert input to a number
+    const celsius = parseFloat(celsiusInput.value);
+    
+    // Temperature conversion formula
+    const fahrenheit = (celsius * 9/5) + 32;
+    
+    // Display the result with fixed decimal places
+    tempResult.textContent = 
+        `${celsius}°C is equal to ${fahrenheit.toFixed(2)}°F`;
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="exercise-practice">
+                        <h4>Practice Exercise</h4>
+                        <input type="number" id="celsiusInput" placeholder="Enter temperature in Celsius">
+                        <button id="convertTempBtn">Convert</button>
+                        <p id="tempResult"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-exercise">
+                <h3>Exercise 3: To-Do List</h3>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4>Exercise Goal</h4>
+                        <p>Create a simple To-Do List application with the ability to add and delete tasks.</p>
+                        
+                        <h4>Learning Objectives</h4>
+                        <ul>
+                            <li>Create and manipulate DOM elements</li>
+                            <li>Handle user events</li>
+                            <li>Implement basic list management</li>
+                        </ul>
+                        
+                        <h4>Code Explanation</h4>
+                        <pre><code>
+// Function to add a new task to the list
+function addTask() {
+    // Get input and list elements
+    const todoInput = document.getElementById('todoInput');
+    const todoList = document.getElementById('todoList');
+    
+    // Check if input is not empty
+    if (todoInput.value.trim() !== "") {
+        // Create a new list item
+        const li = document.createElement('li');
+        li.textContent = todoInput.value;
+        
+        // Create a delete button for the task
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', function() {
+            // Remove the task when delete is clicked
+            todoList.removeChild(li);
+        });
+        
+        // Add delete button to the list item
+        li.appendChild(deleteBtn);
+        
+        // Add list item to the todo list
+        todoList.appendChild(li);
+        
+        // Clear the input field
+        todoInput.value = "";
+    }
+}
+                        </code></pre>
+                    </div>
+                    
+                    <div class="exercise-practice">
+                        <h4>Practice Exercise</h4>
+                        <input type="text" id="todoInput" placeholder="Enter a task">
+                        <button id="addTodoBtn">Add Task</button>
+                        <ul id="todoList"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-challenges">
+                <h3>Additional Coding Challenges</h3>
+                <div class="challenge-list">
+                    <div class="challenge">
+                        <h4>Challenge 1: Expand Age Checker</h4>
+                        <p>Modify the age checker to:</p>
+                        <ul>
+                            <li>Add more age-based permissions (driving, drinking, etc.)</li>
+                            <li>Use different color codes for different age groups</li>
+                        </ul>
+                    </div>
+                    <div class="challenge">
+                        <h4>Challenge 2: Temperature Converter</h4>
+                        <p>Extend the temperature converter to:</p>
+                        <ul>
+                            <li>Convert between Celsius, Fahrenheit, and Kelvin</li>
+                            <li>Add input validation</li>
+                        </ul>
+                    </div>
+                    <div class="challenge">
+                        <h4>Challenge 3: To-Do List Improvements</h4>
+                        <p>Enhance the To-Do List by adding:</p>
+                        <ul>
+                            <li>Ability to mark tasks as complete</li>
+                            <li>Local storage to save tasks</li>
+                            <li>Task priority levels</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Video Resources Section -->
+        <section id="video-resources">
+            <h2>JavaScript Video Tutorials</h2>
+            <div class="video-container">
+                <div class="video-item">
+                    <h3>JavaScript Basics for Beginners</h3>
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/W6NZfCO5SIk" 
+                        title="JavaScript Basics Tutorial" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-item">
+                    <h3>JavaScript Programming Tutorial</h3>
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/PkZNo7MFNFg" 
+                        title="JavaScript Programming Full Course" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Resources Section -->
+        <section id="learning-resources">
+            <h2>Additional JavaScript Learning Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>MDN Web Docs</h3>
+                    <p>Comprehensive JavaScript documentation</p>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="resource-link">Visit MDN</a>
+                </div>
+                <div class="resource-card">
+                    <h3>freeCodeCamp</h3>
+                    <p>Free interactive JavaScript courses</p>
+                    <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" class="resource-link">Start Learning</a>
+                </div>
+                <div class="resource-card">
+                    <h3>Codecademy</h3>
+                    <p>Interactive JavaScript tutorials</p>
+                    <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank" class="resource-link">Explore Course</a>
+                </div>
+                <div class="resource-card">
+                    <h3>JavaScript.info</h3>
+                    <p>Modern JavaScript tutorial</p>
+                    <a href="https://javascript.info/" target="_blank" class="resource-link">Read Tutorial</a>
+                </div>
+            </div>
+        </section>
+    <script src="intro_js.js"></script>
+</body>
+</html>

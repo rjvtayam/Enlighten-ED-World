@@ -1,0 +1,439 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #2ecc71;
+    --text-color: #333;
+    --background-color: #ecf0f1;
+    --white: #ffffff;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Course Header */
+.course-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.course-header h1 {
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+.course-section {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.theory-block, 
+.explanation-block {
+    flex: 1;
+}
+
+.learning-objectives {
+    list-style-type: none;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.learning-objectives li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.learning-objectives li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Flashcard Styles */
+.flashcard-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 400px;
+}
+
+.flashcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform var(--transition-speed);
+    transform-style: preserve-3d;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform var(--transition-speed);
+    transform-style: preserve-3d;
+}
+
+.flashcard-front, 
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.flashcard-front {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    z-index: 2;
+}
+
+.flashcard-back {
+    background-color: var(--accent-color);
+    color: var(--white);
+    transform: rotateY(180deg);
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+/* Visual Box Model */
+.visual-box-model {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.margin, .border, .padding, .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+}
+
+.margin { background-color: #ff6b6b; padding: 20px; }
+.border { background-color: #4ecdc4; border: 10px solid #45b7d1; }
+.padding { background-color: #45b7d1; padding: 20px; }
+.content { background-color: white; color: var(--text-color); padding: 20px; }
+
+/* Playground Styles */
+.playground-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slider-group {
+    width: 100%;
+    max-width: 500px;
+}
+
+.slider-item {
+    margin-bottom: 15px;
+}
+
+#interactive-box {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    transition: all var(--transition-speed);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+}
+/* Add to existing CSS */
+.lesson-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.theory-block {
+    background-color: #f0f4f7;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.component-breakdown,
+.sizing-techniques,
+.layout-methods,
+.responsive-techniques {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.component-item,
+.technique-item,
+.method-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.component-item:hover,
+.technique-item:hover,
+.method-item:hover {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+pre {
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Quiz Styles */
+#interactive-quiz {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#quiz-progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    background-color: #e0e0e0;
+    height: 10px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #3498db;
+    border-radius: 5px;
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+.quiz-option {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quiz-option:hover {
+    background-color: #e0e0e0;
+}
+
+.quiz-option.correct {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.quiz-option.incorrect {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.question-explanation {
+    background-color: #ecf0f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Code Challenge Styles */
+.code-editor {
+    margin-bottom: 15px;
+}
+
+#code-input {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#submit-code {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#code-feedback {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.quiz-retry-container,
+.quiz-review-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+.retry-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.retry-options button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.retry-options button:hover {
+    background-color: #2980b9;
+}
+
+.review-question {
+    background-color: #ecf0f1;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.challenge-hints {
+    margin-top: 15px;
+    background-color: #f9f9fa;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.solution-btn {
+    margin-left: 10px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.solution-btn:hover {
+    background-color: #27ae60;
+}
+
+#code-feedback pre {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#code-feedback code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.challenge-retry-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f6;
+    border-radius: 10px;
+}
+
+.retry-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.retry-options button {
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.retry-options button:hover {
+    background-color: #2980b9;
+}
+
+.show-solution-btn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

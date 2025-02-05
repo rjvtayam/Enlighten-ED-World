@@ -1,0 +1,226 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.definition-box {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.method-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.code-example {
+    background-color: #f1f3f5;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+pre {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 10px 0;
+}
+
+code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.demo-box {
+    width: 300px;
+    height: 150px;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.video-tutorial {
+    text-align: center;
+}
+
+.interactive-challenge {
+    background-color: #f0f4f8;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.challenge-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-board {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.score-panel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.target-element {
+    width: 100%;
+    height: 200px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    transition: all 0.3s ease;
+}
+
+.challenge-instructions {
+    text-align: center;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+.challenge-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-group input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #3498db;
+    border-radius: 5px 0 0 5px;
+}
+
+.input-group button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-group button:hover {
+    background-color: #2980b9;
+}
+
+.feedback-message {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.challenge-progression {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.challenge-levels {
+    display: flex;
+    gap: 15px;
+}
+
+.level-indicator {
+    width: 40px;
+    height: 40px;
+    background-color: #bdc3c7;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.level-indicator.active {
+    background-color: #3498db;
+    transform: scale(1.2);
+}
+
+.feedback-message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.feedback-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}

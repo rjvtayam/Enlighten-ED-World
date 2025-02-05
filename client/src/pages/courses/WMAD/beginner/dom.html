@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Comprehensive Guide</title>
+    <link rel="stylesheet" href="dom.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 DOM Manipulation Mastery</h1>
+        
+        <section class="theory">
+            <h2>What is the DOM?</h2>
+            <div class="definition-box">
+                <h3>Definition</h3>
+                <p>The Document Object Model (DOM) represents the structure of an HTML document as a tree of objects.</p>
+                
+                <h3>Purpose</h3>
+                <p>The DOM allows JavaScript to interact with HTML elements, enabling dynamic modifications such as:</p>
+                <ul>
+                    <li>Reading content</li>
+                    <li>Changing styles</li>
+                    <li>Adding/removing elements</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="dom-methods">
+            <h2>DOM Manipulation Methods</h2>
+            
+            <div class="method-section">
+                <h3>1. Selecting Elements</h3>
+                <div class="code-example">
+                    <h4>document.getElementById()</h4>
+                    <pre><code>let element = document.getElementById("myElement");
+console.log(element);  // Logs the element with id="myElement"</code></pre>
+                    
+                    <h4>document.querySelector()</h4>
+                    <pre><code>let element = document.querySelector(".myClass");
+console.log(element);  // Logs the first element with class="myClass"</code></pre>
+                    
+                    <h4>document.querySelectorAll()</h4>
+                    <pre><code>let elements = document.querySelectorAll("p");
+console.log(elements);  // Logs all <p> elements on the page</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>2. Changing Content</h3>
+                <div class="code-example">
+                    <h4>innerHTML</h4>
+                    <pre><code>let element = document.getElementById("myElement");
+element.innerHTML = "Hello, World!";  // Changes content to "Hello, World!"</code></pre>
+                    
+                    <h4>textContent</h4>
+                    <pre><code>let element = document.getElementById("myElement");
+element.textContent = "This is some text.";  // Changes text to "This is some text."</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>3. Changing Styles</h3>
+                <div class="code-example">
+                    <pre><code>let element = document.getElementById("myElement");
+element.style.color = "blue";  // Changes text color to blue
+element.style.backgroundColor = "yellow";  // Changes background color to yellow</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>4. Creating New Elements</h3>
+                <div class="code-example">
+                    <pre><code>let newElement = document.createElement("div");
+newElement.textContent = "This is a new div!";
+document.body.appendChild(newElement);  // Adds the new div to the page</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>5. Removing Elements</h3>
+                <div class="code-example">
+                    <pre><code>let element = document.getElementById("myElement");
+element.remove();  // Removes the element with id="myElement"</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>6. Adding and Removing Classes</h3>
+                <div class="code-example">
+                    <h4>classList.add()</h4>
+                    <pre><code>let element = document.getElementById("myElement");
+element.classList.add("newClass");  // Adds class "newClass" to the element</code></pre>
+                    
+                    <h4>classList.remove()</h4>
+                    <pre><code>let element = document.getElementById("myElement");
+element.classList.remove("oldClass");  // Removes class "oldClass"</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>7. Event Handling</h3>
+                <div class="code-example">
+                    <pre><code>let button = document.getElementById("myButton");
+button.addEventListener("click", function() {
+  alert("Button clicked!");
+});</code></pre>
+                </div>
+            </div>
+
+            <div class="method-section">
+                <h3>8. Traversing the DOM</h3>
+                <div class="code-example">
+                    <pre><code>let child = document.getElementById("myChild");
+let parent = child.parentElement;  // Gets the parent of the element with id="myChild"
+let children = parent.children;  // Gets all children of the parent element</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-challenge">
+    <h2>🎮 DOM Manipulation Coding Quest</h2>
+    
+    <div class="challenge-container">
+        <div class="challenge-description">
+            <h3>🏆 Your Mission: DOM Master Challenge</h3>
+            <p>Complete the tasks to become a DOM Manipulation Champion!</p>
+        </div>
+
+        <div class="game-board">
+            <div class="score-panel">
+                <div class="score">
+                    <span>Score: </span>
+                    <span id="scoreDisplay">0</span>
+                </div>
+                <div class="level">
+                    <span>Level: </span>
+                    <span id="levelDisplay">1</span>
+                </div>
+            </div>
+
+            <div class="challenge-area">
+                <div id="targetElement" class="target-element">
+                    Complete the Challenge!
+                </div>
+                
+                <div class="challenge-instructions" id="challengeInstructions">
+                    Level 1: Change the text of the target element
+                </div>
+            </div>
+
+            <div class="challenge-controls">
+                <div class="input-group">
+                    <input type="text" id="challengeInput" placeholder="Enter your solution">
+                    <button id="submitChallengeBtn">Submit</button>
+                </div>
+            </div>
+
+            <div class="feedback-area">
+                <div id="feedbackMessage" class="feedback-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="challenge-progression">
+        <div class="challenge-levels">
+            <div class="level-indicator active" data-level="1">1</div>
+            <div class="level-indicator" data-level="2">2</div>
+            <div class="level-indicator" data-level="3">3</div>
+            <div class="level-indicator" data-level="4">4</div>
+            <div class="level-indicator" data-level="5">5</div>
+        </div>
+    </div>
+</section>
+
+        <section class="video-tutorial">
+            <h2>📹 Learn More</h2>
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                title="DOM Manipulation Tutorial" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </section>
+    </div>
+
+    <script src="dom.js"></script>
+</body>
+</html>

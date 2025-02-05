@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to HTML</title>
+    <link rel="stylesheet" href="intro_html.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="html-header">
+            <h1>Introduction to HTML</h1>
+            <p>Your Gateway to Web Development</p>
+        </header>
+
+        <section class="html-overview">
+            <div class="overview-content">
+                <h2>What is HTML?</h2>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Definition</h3>
+                        <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page and its content.</p>
+                    </div>
+                    <div class="content-card">
+                        <i class="fas fa-globe"></i>
+                        <h3>Purpose</h3>
+                        <p>HTML provides the basic structure of sites, which is then enhanced and modified by other technologies like CSS and JavaScript.</p>
+                    </div>
+                    <div class="content-card">
+                        <i class="fas fa-history"></i>
+                        <h3>History</h3>
+                        <p>Created by Tim Berners-Lee in 1989, HTML has evolved through multiple versions, with HTML5 being the current standard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="html-fundamentals">
+            <h2>HTML Fundamentals</h2>
+            <div class="fundamentals-grid">
+                <div class="fundamental-card">
+                    <h3>Basic HTML Structure</h3>
+                    <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Page Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        Page Content
+    &lt;/body&gt;
+&lt;/html&gt;
+                    </code></pre>
+                </div>
+
+                <div class="fundamental-card">
+                    <h3>Core HTML Elements</h3>
+                    <ul class="element-list">
+                        <li>&lt;h1&gt; to &lt;h6&gt;: Headings</li>
+                        <li>&lt;p&gt;: Paragraphs</li>
+                        <li>&lt;a&gt;: Hyperlinks</li>
+                        <li>&lt;img&gt;: Images</li>
+                        <li>&lt;div&gt;: Divisions</li>
+                        <li>&lt;span&gt;: Inline container</li>
+                    </ul>
+                </div>
+
+                <div class="fundamental-card">
+                    <h3>HTML Attributes</h3>
+                    <pre><code>
+&lt;tag attribute="value"&gt;
+    Content
+&lt;/tag&gt;
+
+Examples:
+&lt;a href="https://example.com"&gt;Link&lt;/a&gt;
+&lt;img src="image.jpg" alt="Description"&gt;
+                    </code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-learning">
+            <h2>Interactive HTML Learning</h2>
+            <div class="code-playground">
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <span>HTML Playground</span>
+                        <div class="editor-actions">
+                            <button id="renderBtn">Render</button>
+                            <button id="clearBtn">Clear</button>
+                        </div>
+                    </div>
+                    <textarea id="htmlEditor" placeholder="Start typing your HTML code here..."></textarea>
+                </div>
+                <div class="preview-area">
+                    <div class="preview-header">Live Preview</div>
+                    <iframe id="previewFrame"></iframe>
+                </div>
+            </div>
+        </section>
+        
+        <section class="advanced-quiz">
+            <h2>HTML Mastery Challenge</h2>
+            <div id="htmlQuiz" class="quiz-container">
+                <!-- Quiz questions dynamically loaded -->
+            </div>
+            <div class="quiz-results">
+                <h3>Your Performance</h3>
+                <div class="score-display">
+                    <span id="correctCount">0</span> / 
+                    <span id="totalQuestions">0</span> Correct
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-resources">
+            <h2>HTML Learning Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Online Tutorials</h3>
+                    <ul>
+                        <li><a href="https://www.w3schools.com/html/" target="_blank">W3Schools HTML Tutorial</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">MDN Web Docs</a></li>
+                        <li><a href="https://www.freecodecamp.org/learn/responsive-web-design/" target="_blank">FreeCodeCamp</a></li>
+                    </ul>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Courses</h3>
+                    <ul>
+                        <li><a href="https://www.udemy.com/topic/html/" target="_blank">Udemy HTML Courses</a></li>
+                        <li><a href="https://www.youtube.com/playlist?list=HTML_PLAYLIST" target="_blank">YouTube HTML Playlist</a></li>
+                        <li><a href="https://www.coursera.org/courses?query=html" target="_blank">Coursera HTML Courses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="intro_html.js"></script>
+</body>
+</html>
