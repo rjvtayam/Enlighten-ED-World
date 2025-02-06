@@ -627,7 +627,20 @@ body{
     margin-top: 20px;
 }
 
+.charts-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.chart-item {
+    flex: 0 0 48%; /* Slightly less than 50% to allow for some spacing */
+}
+
 .skill-charts-container .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     margin-bottom: 20px;
 }
@@ -637,6 +650,26 @@ body{
     border-bottom: 1px solid #e9ecef;
 }
 
+.skill-charts-container .card-body {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .skill-charts-container canvas {
     max-height: 300px;
+    width: 100% !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .charts-row {
+        flex-direction: column;
+    }
+    
+    .chart-item {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+    }
 }
