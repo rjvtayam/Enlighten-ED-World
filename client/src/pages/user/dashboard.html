@@ -115,6 +115,33 @@
                 </li>
             </ul>
             <!-- End of Insights -->
+            
+            <!-- Charts  -->
+            <div class="skill-charts-container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Overall Skill Assessment</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="overallSkillRadarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Lessons Progress</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="lessonsRadarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Charts -->
 
             <div class="bottom-data">
                 <div class="orders">
@@ -203,6 +230,59 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/user/dashboard.js') }}"></script>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Overall Skill Assessment Radar Chart
+        const overallSkillCtx = document.getElementById('overallSkillRadarChart').getContext('2d');
+        new Chart(overallSkillCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Technical', 'Communication', 'Problem Solving', 'Creativity', 'Leadership'],
+                datasets: [{
+                    label: 'Skill Levels',
+                    data: [75, 65, 80, 60, 70],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scale: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Lessons Progress Radar Chart
+        const lessonsCtx = document.getElementById('lessonsRadarChart').getContext('2d');
+        new Chart(lessonsCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Web Dev', 'Mobile Dev', 'Data Science', 'AI/ML', 'Cybersecurity'],
+                datasets: [{
+                    label: 'Lessons Completed',
+                    data: [85, 60, 45, 30, 55],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scale: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>
