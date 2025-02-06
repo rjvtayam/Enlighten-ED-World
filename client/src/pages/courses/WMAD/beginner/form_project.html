@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Form Mini Project</title>
-    <link rel="stylesheet" href="../../../../css/courses/WMAD/beginner/form_project.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/courses/WMAD/beginner/form_project.html') }}">
 </head>
 <body>
     <div class="container">
@@ -83,6 +83,6 @@
         </main>
     </div>
 
-    <script src="../../../../js/courses/WMAD/beginner/form_project.js"></script>
+    <script src="{{ url_for('static', filename='js/courses/WMAD/beginner/form_project.js') }}"></script>
 </body>
 </html>
