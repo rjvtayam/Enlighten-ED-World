@@ -54,3 +54,28 @@ toggler.addEventListener('change', function () {
         document.body.classList.remove('dark');
     }
 });
+
+// OJT Recommendation Modal Functionality
+const ojtRecommendationBtn = document.querySelector('.report');
+const ojtRecommendationModal = document.getElementById('ojtRecommendationModal');
+const closeModalButtons = document.querySelectorAll('.close-modal');
+
+// Open modal when OJT Recommendation button is clicked
+ojtRecommendationBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    ojtRecommendationModal.style.display = 'block';
+});
+
+// Close modal when close buttons are clicked
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        ojtRecommendationModal.style.display = 'none';
+    });
+});
+
+// Close modal when clicking outside of it
+window.addEventListener('click', function(e) {
+    if (e.target === ojtRecommendationModal) {
+        ojtRecommendationModal.style.display = 'none';
+    }
+});

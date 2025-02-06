@@ -229,6 +229,72 @@
 
     </div>
 
+    <!-- OJT Recommendation Modal -->
+    <div id="ojtRecommendationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>OJT Recommendation</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="recommendation-cards">
+                    <div class="recommendation-card">
+                        <div class="card-icon">
+                            <i class='bx bx-code-alt'></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Software Development</h3>
+                            <p>Tailored for aspiring developers with strong programming skills.</p>
+                            <div class="card-tags">
+                                <span class="tag">Web Dev</span>
+                                <span class="tag">Full Stack</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recommendation-card">
+                        <div class="card-icon">
+                            <i class='bx bx-support'></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>IT Support</h3>
+                            <p>Perfect for those with technical troubleshooting expertise.</p>
+                            <div class="card-tags">
+                                <span class="tag">Network</span>
+                                <span class="tag">Helpdesk</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recommendation-card">
+                        <div class="card-icon">
+                            <i class='bx bx-palette'></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>UI/UX Design</h3>
+                            <p>Ideal for creative minds passionate about user experience.</p>
+                            <div class="card-tags">
+                                <span class="tag">Design</span>
+                                <span class="tag">Interaction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendation-details">
+                    <h3>How We Recommend</h3>
+                    <ul>
+                        <li>🎓 Skill Assessment Results</li>
+                        <li>📊 Learning Path Analysis</li>
+                        <li>🏆 Course Performance</li>
+                        <li>💡 Personal Interests</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Close</button>
+                <button class="btn btn-primary">Explore More</button>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/user/dashboard.js') }}"></script>
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object-Oriented JavaScript (OOP)</title>
+    <link rel="stylesheet" href="oop.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Object-Oriented JavaScript (OOP)</h1>
+        
+        <section id="this-keyword">
+            <h2>1️⃣ The this Keyword in JavaScript</h2>
+            <div class="explanation">
+                <h3>What is this?</h3>
+                <p><code>this</code> refers to the object that is executing the current function. Its value depends on how and where the function is called.</p>
+                
+                <h4>Example: Global vs. Object Context</h4>
+                <pre><code>console.log(this); // In browsers, this refers to the `window` object
+
+const person = {
+  name: "Alice",
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+person.greet(); // "Hello, my name is Alice"</code></pre>
+                
+                <h4>Common Issues with this</h4>
+                <ul>
+                    <li><code>this</code> inside an event listener may refer to the event target instead of the object.</li>
+                    <li>In arrow functions, <code>this</code> is lexically bound (inherited from the surrounding scope).</li>
+                </ul>
+            </div>
+            <div class="demo-box">
+                <p>Explore different contexts of 'this'</p>
+                <button id="globalThisBtn">Global Context</button>
+                <button id="objectThisBtn">Object Context</button>
+                <pre id="thisOutput"></pre>
+            </div>
+        </section>
+
+        <section id="constructor-functions">
+            <h2>2️⃣ Constructor Functions</h2>
+            <div class="explanation">
+                <h3>What are Constructor Functions?</h3>
+                <p>Special functions used to create multiple object instances.</p>
+                
+                <h4>Example:</h4>
+                <pre><code>function Car(brand, year) {
+  this.brand = brand;
+  this.year = year;
+  this.getAge = function () {
+    return new Date().getFullYear() - this.year;
+  };
+}
+
+const car1 = new Car("Toyota", 2015);
+console.log(car1.getAge()); // Outputs car's age</code></pre>
+            </div>
+            <div class="demo-box">
+                <input type="text" id="carBrand" placeholder="Car Brand">
+                <input type="number" id="carYear" placeholder="Manufacturing Year">
+                <button id="createCarBtn">Create Car Instance</button>
+                <pre id="constructorOutput"></pre>
+            </div>
+        </section>
+
+        <section id="prototypes">
+            <h2>3️⃣ Prototypes and Prototype Inheritance</h2>
+            <div class="explanation">
+                <h3>What is a Prototype?</h3>
+                <p>JavaScript uses prototype-based inheritance, meaning objects inherit properties/methods from other objects.</p>
+                
+                <h4>Adding Methods to a Prototype:</h4>
+                <pre><code>function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.speak = function () {
+  console.log(`${this.name} makes a noise.`);
+};
+
+const dog = new Animal("Dog");
+dog.speak(); // "Dog makes a noise."</code></pre>
+                
+                <h4>Why Use Prototypes?</h4>
+                <p>Saves memory by sharing methods among multiple objects instead of defining them in each instance.</p>
+            </div>
+            <div class="demo-box">
+                <button id="prototypeMethodBtn">Add Prototype Method</button>
+                <pre id="prototypeOutput"></pre>
+            </div>
+        </section>
+
+        <section id="es6-classes">
+            <h2>4️⃣ ES6 Classes and Inheritance</h2>
+            <div class="explanation">
+                <h3>Why Use Classes?</h3>
+                <ul>
+                    <li>Cleaner syntax for object creation compared to constructor functions.</li>
+                    <li>Encapsulation (grouping related properties and methods together).</li>
+                </ul>
+                
+                <h4>Class Example:</h4>
+                <pre><code>class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+}
+
+const person1 = new Person("John", 25);
+person1.greet(); // "Hello, my name is John."</code></pre>
+            </div>
+            <div class="demo-box">
+                <input type="text" id="personName" placeholder="Name">
+                <input type="number" id="personAge" placeholder="Age">
+                <button id="createPersonBtn">Create Person</button>
+                <pre id="classOutput"></pre>
+            </div>
+        </section>
+
+        <section id="class-inheritance">
+            <h2>5️⃣ Inheritance in Classes</h2>
+            <div class="explanation">
+                <h3>What is Inheritance?</h3>
+                <p>A mechanism to extend one class to another, allowing code reuse.</p>
+                
+                <h4>Example of Class Inheritance:</h4>
+                <pre><code>class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const dog = new Dog("Buddy");
+dog.speak(); // "Buddy barks."</code></pre>
+            </div>
+            <div class="demo-box">
+                <button id="dogBtn">Create Dog</button>
+                <button id="catBtn">Create Cat</button>
+                <pre id="inheritanceOutput"></pre>
+            </div>
+        </section>
+
+        <section id="getters-setters">
+            <h2>6️⃣ Getters and Setters in Classes</h2>
+            <div class="explanation">
+                <h3>Why Use Getters & Setters?</h3>
+                <p>Encapsulate logic for retrieving and modifying object properties.</p>
+                
+                <h4>Example:</h4>
+                <pre><code>class User {
+  constructor(name) {
+    this._name = name;
+  }
+
+  get name() {
+    return this._name.toUpperCase();
+  }
+
+  set name(newName) {
+    this._name = newName;
+  }
+}
+
+const user = new User("alice");
+console.log(user.name); // "ALICE"
+user.name = "bob";
+console.log(user.name); // "BOB"</code></pre>
+            </div>
+            <div class="demo-box">
+                <input type="text" id="userName" placeholder="User Name">
+                <button id="setUserBtn">Set User Name</button>
+                <button id="getUserBtn">Get User Name</button>
+                <pre id="getterSetterOutput"></pre>
+            </div>
+        </section>
+
+        <section id="static-methods">
+            <h2>7️⃣ Static Methods and Properties</h2>
+            <div class="explanation">
+                <h3>What are Static Methods?</h3>
+                <p>Static methods belong to the class itself, not instances.</p>
+                
+                <h4>Example:</h4>
+                <pre><code>class MathUtils {
+  static add(a, b) {
+    return a + b;
+  }
+}
+
+console.log(MathUtils.add(5, 3)); // 8</code></pre>
+            </div>
+            <div class="demo-box">
+                <input type="number" id="num1" placeholder="Number 1">
+                <input type="number" id="num2" placeholder="Number 2">
+                <button id="staticMethodBtn">Add Numbers</button>
+                <pre id="staticOutput"></pre>
+            </div>
+        </section>
+
+        <section id="super-keyword">
+            <h2>8️⃣ The super Keyword in Class Inheritance</h2>
+            <div class="explanation">
+                <h3>What is super?</h3>
+                <p>It refers to the parent class and allows calling its constructor or methods.</p>
+                
+                <h4>Example:</h4>
+                <pre><code>class Vehicle {
+  constructor(brand) {
+    this.brand = brand;
+  }
+
+  start() {
+    console.log(`${this.brand} is starting...`);
+  }
+}
+
+class Car extends Vehicle {
+  constructor(brand, model) {
+    super(brand);
+    this.model = model;
+  }
+
+  start() {
+    super.start();
+    console.log(`${this.model} is now running.`);
+  }
+}
+
+const myCar = new Car("Toyota", "Camry");
+myCar.start();</code></pre>
+            </div>
+            <div class="demo-box">
+                <button id="vehicleStartBtn">Start Vehicle</button>
+                <pre id="superOutput"></pre>
+            </div>
+        </section>
+
+        <section id="composition">
+            <h2>9️⃣ Object Composition (Alternative to Inheritance)</h2>
+            <div class="explanation">
+                <h3>Why Use Composition?</h3>
+                <p>Avoids deep inheritance trees, which can be hard to manage.</p>
+                
+                <h4>Example:</h4>
+                <pre><code>const canFly = {
+  fly() {
+    console.log(`${this.name} is flying!`);
+  },
+};
+
+const canSwim = {
+  swim() {
+    console.log(`${this.name} is swimming!`);
+  },
+};
+
+class Bird {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+Object.assign(Bird.prototype, canFly);
+
+const eagle = new Bird("Eagle");
+eagle.fly(); // "Eagle is flying!"</code></pre>
+            </div>
+            <div class="demo-box">
+                <button id="flyBtn">Create Flying Bird</button>
+                <button id="swimBtn">Create Swimming Bird</button>
+                <pre id="compositionOutput"></pre>
+            </div>
+        </section>
+
+        <section id="private-fields">
+            <h2>🔟 Private Fields in JavaScript Classes (ES2020+)</h2>
+            <div class="explanation">
+                <h3>What are Private Fields?</h3>
+                <p>Variables that cannot be accessed outside the class.</p>
+                
+                <h4>Example:</h4>
+                <pre><code>class BankAccount {
+  #balance = 0; // Private property
+
+  deposit(amount) {
+    this.#balance += amount;
+    console.log(`Balance: $${this.#balance}`);
+  }
+}
+
+const account = new BankAccount();
+account.deposit(100); // "Balance: $100"
+// console.log(account.#balance); // Error: Private field</code></pre>
+            </div>
+            <div class="demo-box">
+                <input type="number" id="depositAmount" placeholder="Deposit Amount">
+                <button id="depositBtn">Deposit</button>
+                <pre id="privateFieldOutput"></pre>
+            </div>
+        </section>
+
+        <section id="why-oop">
+            <h2>Why Object-Oriented JavaScript Matters</h2>
+            <div class="explanation">
+                <ul>
+                    <li><strong>Code Reusability:</strong> Helps avoid code duplication.</li>
+                    <li><strong>Encapsulation:</strong> Protects data inside objects.</li>
+                    <li><strong>Scalability:</strong> Makes large applications easier to manage.</li>
+                </ul>
+            </div>
+        </section>
+        <!-- Add this section after the previous sections -->
+<section id="video-tutorial">
+    <h2>📺 Video Tutorial: Object-Oriented JavaScript Explained</h2>
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/PFmuCDHHpwk" 
+                title="Object-Oriented JavaScript Tutorial" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+            ></iframe>
+        </div>
+        <div class="video-description">
+            <h3>Learn OOP in JavaScript</h3>
+            <p>This comprehensive video tutorial breaks down Object-Oriented Programming concepts in JavaScript, providing clear explanations and practical examples.</p>
+            <div class="video-meta">
+                <span class="video-channel">Channel: JavaScript Mastery</span>
+                <a href="https://www.youtube.com/watch?v=PFmuCDHHpwk" target="_blank" class="watch-full-btn">Watch on YouTube</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="interactive-quiz">
+    <h2>🧠 Interactive OOP Quiz</h2>
+    <div class="quiz-container">
+        <div id="quiz-progress">
+            <div class="progress-bar"></div>
+            <span id="current-question">Question 0/10</span>
+        </div>
+        <div id="quiz-content">
+            <h3 id="quiz-question">Welcome to the OOP JavaScript Quiz!</h3>
+            <div id="quiz-options">
+                <button class="quiz-option" data-option="a">Start Quiz</button>
+            </div>
+            <div id="quiz-feedback">
+                <p id="feedback-text"></p>
+            </div>
+        </div>
+        <div id="quiz-score">
+            <h3>Your Score: <span id="score-value">0</span>/10</h3>
+        </div>
+    </div>
+</section>
+
+<section id="code-playground">
+    <h2>🚀 JavaScript OOP Playground</h2>
+    <div class="playground-container">
+        <div class="code-editor">
+            <div class="editor-header">
+                <select id="playground-template">
+                    <option value="class">Class Example</option>
+                    <option value="constructor">Constructor Function</option>
+                    <option value="inheritance">Inheritance</option>
+                    <option value="composition">Composition</option>
+                </select>
+                <button id="run-code">Run Code</button>
+            </div>
+            <textarea id="code-input" spellcheck="false"></textarea>
+        </div>
+        <div class="code-output">
+            <h3>Output</h3>
+            <pre id="code-console"></pre>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <script src="oop.js"></script>
+</body>
+</html>
